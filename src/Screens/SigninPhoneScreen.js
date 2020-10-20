@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, SafeAreaView, Platform, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 
 export default class SigninEmailScreen extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class SigninEmailScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{marginTop:60, width:"90%", alignItems:"center", paddingBottom:48, borderBottomWidth:0.3, borderColor:'white'}}>
+        <View style={styles.header}>
             <TouchableOpacity style={styles.BackBtn} onPress={()=>this.props.navigation.goBack()}>
                 <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
           </TouchableOpacity>
@@ -28,7 +28,7 @@ export default class SigninEmailScreen extends Component {
             <Image source={require('../Assets/Images/StandardrateImage.png')} resizeMode='stretch' style={styles.StandardrateImage}/>
         </View>
         <TouchableOpacity style={styles.emailBtn} onPress={()=>this.props.navigation.navigate("SigninEmailScreen")}>
-          <Text style={styles.EmailTxt}>Log in</Text>
+          <Text style={styles.EmailTxt}>Next</Text>
         </TouchableOpacity>
       </View>
     );
@@ -40,6 +40,14 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor:'black',
       alignItems:'center'
+  },
+  header:{
+    marginTop: Platform.OS === 'ios' ? 60: 20, 
+    width:"90%", 
+    alignItems:"center", 
+    paddingBottom:48, 
+    borderBottomWidth:0.3, 
+    borderColor:'white'
   },
   LoginTxtImage:{
     marginTop:45,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform , SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 
 export default class SigninEmailScreen extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class SigninEmailScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{marginTop:60, width:"90%", alignItems:"center", paddingBottom:48, borderBottomWidth:0.3, borderColor:'white'}}>
+        <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={()=>this.props.navigation.goBack()}>
             <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
           </TouchableOpacity>
@@ -38,6 +38,14 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor:'black',
       alignItems:'center'
+  },
+  header:{
+    marginTop: Platform.OS === 'ios' ? 60: 20, 
+    width:"90%", 
+    alignItems:"center", 
+    paddingBottom:48, 
+    borderBottomWidth:0.3, 
+    borderColor:'white'
   },
   LoginTxtImage:{
     marginTop:45,
