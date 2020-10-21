@@ -7,6 +7,11 @@ import CreateScreen from './Screens/CreateScreen';
 import SigninScreen from './Screens/SigninScreen';
 import SigninEmailScreen from './Screens/SigninEmailScreen';
 import SigninPhoneScreen from './Screens/SigninPhoneScreen';
+import CreateEmailScreen from './Screens/CreateEmailScreen';
+import CreatePhoneScreen from './Screens/CreatePhoneScreen';
+import CreatePasswordScreen from './Screens/CreatePasswordScreen';
+import CreateFirstnameScreen from './Screens/CreateFirstnameScreen';
+import CreatePreferenceScreen from './Screens/CreatePreferenceScreen';
 
 
 const RootNavigation = createStackNavigator(
@@ -43,6 +48,36 @@ const RootNavigation = createStackNavigator(
         },
         SigninPhoneScreen:{
             screen: SigninPhoneScreen,
+            navigationOptions:{
+                headerShown:false
+            }
+        },
+        CreateEmailScreen:{
+            screen: CreateEmailScreen,
+            navigationOptions:{
+                headerShown:false
+            }
+        },
+        CreatePhoneScreen:{
+            screen: CreatePhoneScreen,
+            navigationOptions:{
+                headerShown:false
+            }
+        },
+        CreatePasswordScreen:{
+            screen: CreatePasswordScreen,
+            navigationOptions:{
+                headerShown:false
+            }
+        },
+        CreateFirstnameScreen:{
+            screen: CreateFirstnameScreen,
+            navigationOptions:{
+                headerShown:false
+            }
+        },
+        CreatePreferenceScreen:{
+            screen: CreatePreferenceScreen,
             navigationOptions:{
                 headerShown:false
             }

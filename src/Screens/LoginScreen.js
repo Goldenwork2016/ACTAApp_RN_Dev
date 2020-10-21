@@ -14,13 +14,16 @@ export default class LoginScreen extends Component {
                 <ImageBackground source={require('../Assets/Images/loginBackground.png')} resizeMode='stretch' style={styles.ImageBackground}>
                     <Image source={require('../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage}/>
                     <View style={styles.mainContainer}>
-                        <Image source={require('../Assets/Images/PursueImage.png')} resizeMode='stretch' style={styles.PursueImage}/>
-                        <Image source={require('../Assets/Images/DesignedImage.png')} resizeMode='stretch' style={styles.DesignedImage}/>
+                        {/* <Image source={require('../Assets/Images/PursueImage.png')} resizeMode='stretch' style={styles.PursueImage}/>
+                        <Image source={require('../Assets/Images/DesignedImage.png')} resizeMode='stretch' style={styles.DesignedImage}/> */}
+                        <Text style={{fontFamily:'TrumpSoftPro-BoldItalic', color:'white', fontSize:62, textAlign:"center", marginBottom:-18, lineHeight:70}}>PURSUE</Text>
+                        <Text style={{fontFamily:'TrumpSoftPro-BoldItalic', color:'white', fontSize:62, textAlign:"center", marginBottom:15, lineHeight:70}}>YOUR BEST.</Text>
+                        <Text style={{fontFamily:'FuturaPT-book', color:'#82828f', fontSize:20, textAlign:"center", marginBottom:35}}>Designed by Athletes, for Athletes.</Text>
                         <TouchableOpacity style={styles.createBtn} onPress={()=>this.props.navigation.navigate("CreateScreen")}>
-                            <Text>Create Account</Text>
+                            <Text style={styles.CreateTxt}>Create Account</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>this.props.navigation.navigate("SigninScreen")}>
-                            <Image source={require('../Assets/Images/LoginImage.png')} resizeMode='stretch' style={styles.LoginImage}/>
+                            <Text style={styles.LoginTxt}>Log in</Text>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -75,5 +78,16 @@ const styles = StyleSheet.create({
         position:'absolute',
         bottom:70,
         alignSelf:'center'
-    }
+    },
+    CreateTxt:{
+        fontFamily:'FuturaPT-Medium',
+        color:'black',
+        fontSize:22
+    },
+    LoginTxt:{
+        fontFamily:'FuturaPT-Medium',
+        color:'white',
+        fontSize:22,
+        textAlign:"center"
+    },
 })

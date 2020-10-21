@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, image, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, ImageBackground, Image } from 'react-native';
 
 export default class SplashScreen extends Component {
   constructor(props) {
@@ -17,7 +17,9 @@ componentDidMount() {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{width:30, height:27}} />
+        <ImageBackground source={require('../Assets/Images/CircleImage.png')} resizeMode='stretch' style={{width:88, height:88, justifyContent:"center", alignItems:'center'}} >
+          <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{width:30, height:27}} />
+        </ImageBackground>
       </View>
     );
   }

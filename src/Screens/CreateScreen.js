@@ -14,15 +14,17 @@ export default class SigninScreen extends Component {
                 <ImageBackground source={require('../Assets/Images/CreateBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
                     <Image source={require('../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage}/>
                     <View style={styles.mainContainer}>
-                        <Image source={require('../Assets/Images/CREATEwithImage.png')} resizeMode='stretch' style={styles.CREATEwithImage}/>
-                        <TouchableOpacity style={styles.emailBtn}>
+                        <Text style={styles.headerTxt}>CREATE WITH.</Text>
+                        <TouchableOpacity style={styles.emailBtn} onPress={()=>this.props.navigation.navigate("CreateEmailScreen")}>
                             <Text style={styles.EmailTxt}>Email</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.phoneBtn}>
+                        <TouchableOpacity style={styles.phoneBtn} onPress={()=>this.props.navigation.navigate("CreatePhoneScreen")}>
                             <Text style={styles.PhoneTxt}>Phone</Text>
                         </TouchableOpacity>
-                        <Image source={require('../Assets/Images/AlreadyhaveImage.png')} resizeMode='stretch' style={styles.DesignedImage}/>
-                        <Image source={require('../Assets/Images/LoginImage.png')} resizeMode='stretch' style={styles.LoginImage}/>
+                        <Text style={styles.nomemberTxt}>Already have an account?</Text>
+                        <TouchableOpacity onPress={()=>this.props.navigation.navigate("SigninScreen")}>
+                            <Text style={styles.LoginTxt}>Login</Text>
+                        </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </View>
@@ -52,13 +54,13 @@ const styles = StyleSheet.create({
         marginBottom:30
     },
     DesignedImage:{
-        width:210,
-        height:20,
+        width:185,
+        height:23,
         alignSelf:"center",
         marginBottom:30
     },
     LoginImage:{
-        width:50,
+        width:150,
         height:19,
         alignSelf:"center"
     },
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
         marginBottom:10
     },
     phoneBtn:{
-        width:330, 
+        width:325, 
         height:52, 
         backgroundColor:'transparent', 
         justifyContent:"center", 
@@ -90,10 +92,33 @@ const styles = StyleSheet.create({
         alignSelf:'center'
     },
     EmailTxt:{
-        fontSize:20
+        fontSize:20,
+        fontFamily:'FuturaPT-Demi',
     },
     PhoneTxt:{
         fontSize:20,
-        color:'white'
+        color:'white',
+        fontFamily:'FuturaPT-Demi',
+    },
+    LoginTxt:{
+        fontFamily:'FuturaPT-Demi',
+        color:'white',
+        fontSize:22,
+        textAlign:"center"
+    },
+    nomemberTxt:{
+        fontFamily:'FuturaPT-Book', 
+        color:'#82828f', 
+        fontSize:20, 
+        textAlign:"center", 
+        marginBottom:20
+    },
+    headerTxt:{
+        fontFamily:'TrumpSoftPro-BoldItalic', 
+        color:'white', 
+        fontSize:62, 
+        textAlign:"center", 
+        marginBottom:20, 
+        lineHeight:70
     }
 })

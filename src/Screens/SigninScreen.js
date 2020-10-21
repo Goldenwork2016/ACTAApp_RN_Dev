@@ -14,15 +14,17 @@ export default class SigninScreen extends Component {
                 <ImageBackground source={require('../Assets/Images/SigninBackground.png')} resizeMode='stretch' style={styles.ImageBackground}>
                     <Image source={require('../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage}/>
                     <View style={styles.mainContainer}>
-                        <Image source={require('../Assets/Images/LoginWITHImage.png')} resizeMode='stretch' style={styles.CREATEwithImage}/>
+                        <Text style={styles.headerTxt}>LOG IN WITH.</Text>
                         <TouchableOpacity style={styles.emailBtn} onPress={()=>this.props.navigation.navigate("SigninEmailScreen")}>
                             <Text style={styles.EmailTxt}>Email</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.phoneBtn} onPress={()=>this.props.navigation.navigate("SigninPhoneScreen")}>
                             <Text style={styles.PhoneTxt}>Phone</Text>
                         </TouchableOpacity>
-                        <Image source={require('../Assets/Images/NomembershipImage.png')} resizeMode='stretch' style={styles.DesignedImage}/>
-                        <Image source={require('../Assets/Images/CreateAccountImage.png')} resizeMode='stretch' style={styles.LoginImage}/>
+                        <Text style={styles.nomemberTxt}>No membership yet?</Text>
+                        <TouchableOpacity onPress={()=>this.props.navigation.navigate("SigninScreen")}>
+                            <Text style={styles.LoginTxt}>Create Account</Text>
+                        </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </View>
@@ -90,10 +92,33 @@ const styles = StyleSheet.create({
         alignSelf:'center'
     },
     EmailTxt:{
-        fontSize:20
+        fontSize:20,
+        fontFamily:'FuturaPT-Demi',
     },
     PhoneTxt:{
         fontSize:20,
-        color:'white'
+        color:'white',
+        fontFamily:'FuturaPT-Demi',
+    },
+    LoginTxt:{
+        fontFamily:'FuturaPT-Demi',
+        color:'white',
+        fontSize:22,
+        textAlign:"center"
+    },
+    nomemberTxt:{
+        fontFamily:'FuturaPT-Book', 
+        color:'#82828f', 
+        fontSize:20, 
+        textAlign:"center", 
+        marginBottom:20
+    },
+    headerTxt:{
+        fontFamily:'TrumpSoftPro-BoldItalic', 
+        color:'white', 
+        fontSize:62, 
+        textAlign:"center", 
+        marginBottom:20, 
+        lineHeight:70
     }
 })

@@ -1,0 +1,6 @@
+module Pods_ACTA {
+  umbrella header "Pods-ACTA-umbrella.h"
+
+  export *
+  module * { export * }
+}
