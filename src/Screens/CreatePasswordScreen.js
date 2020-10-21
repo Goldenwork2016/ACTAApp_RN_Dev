@@ -19,7 +19,7 @@ export default class CreatePasswordScreen extends Component {
                 </View>
                 <Text style={styles.TitleTxt}>CREATE.</Text>
                 <Text style={styles.desTxt}>What is your password?</Text>
-                <TextInput placeholder="Password" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
+                <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
                 <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("CreateFirstnameScreen")}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>

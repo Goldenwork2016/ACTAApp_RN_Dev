@@ -24,7 +24,7 @@ export default class SigninEmailScreen extends Component {
           <Text style={styles.countryNumber}>+31</Text>
           <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
         </View>
-        <TextInput placeholder="Password" placeholderTextColor="#53535f" style={styles.PasswordInputTxt} />
+        <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={styles.PasswordInputTxt} />
         <View style={{ width: 330 }}>
           <Text style={styles.standardTxt}>Standard rates apply</Text>
         </View>

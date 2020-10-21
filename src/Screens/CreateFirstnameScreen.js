@@ -18,8 +18,8 @@ export default class CreateFristnameScreen extends Component {
                     <Text style={styles.headerTxt}>CREATE</Text>
                 </View>
                 <Text style={styles.TitleTxt}>CREATE.</Text>
-                <Text style={styles.desTxt}>Tell us your first name please</Text>
-                <TextInput placeholder="Your first name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
+                <Text style={styles.desTxt}>Tell us your name please</Text>
+                <TextInput placeholder="Your name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
                 <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("CreatePreferenceScreen")}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>

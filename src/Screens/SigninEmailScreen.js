@@ -20,7 +20,7 @@ export default class SigninEmailScreen extends Component {
         <Text style={styles.TitleTxt}>LOG IN.</Text>
         <Text style={styles.desTxt}>Log in with your email and password</Text>
         <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
-        <TextInput placeholder="Password" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
+        <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
         <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("SigninEmailScreen")}>
           <Text style={styles.EmailTxt}>Log in</Text>
         </TouchableOpacity>

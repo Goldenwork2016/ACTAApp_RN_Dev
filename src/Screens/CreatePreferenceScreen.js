@@ -54,7 +54,7 @@ export default class CreateFristnameScreen extends Component {
                             </View>
                         </View>
                         <View style={styles.radioArea}>
-                            <Text style={styles.desTxt1}>What's your fitness goal?</Text>
+                            <Text style={styles.desTxt1}>Where do you prefer to workout?</Text>
                             <View style={styles.radioItem}>
                                 <TouchableOpacity onPress={() => { this.setState({ radioStatus2: 1 }) }}>
                                     <Image source={this.state.radioStatus2 == 1 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
