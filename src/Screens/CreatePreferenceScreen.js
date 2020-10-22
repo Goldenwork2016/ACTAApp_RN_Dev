@@ -6,7 +6,7 @@ export default class CreateFristnameScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Checked: 'true',
+            Checked: true,
             radioStatus1: 3,
             radioStatus2: 1,
             radioUncheckImage: require('../Assets/Images/radioUncheckImage.png'),
@@ -96,7 +96,7 @@ export default class CreateFristnameScreen extends Component {
                                 circleActiveColor={'#FFF'}
                                 circleInActiveColor={'#FFF'} />
                         </View>
-                        <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("CreatePreferenceScreen")}>
+                        <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("Tabbar")}>
                             <Text style={styles.EmailTxt}>Create my account</Text>
                         </TouchableOpacity>
                     </View>
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     container: {
         height: '100%',
         backgroundColor: 'black',
-        alignItems: 'center'
     },
     header: {
         marginTop: Platform.OS === 'ios' ? 60 : 20,

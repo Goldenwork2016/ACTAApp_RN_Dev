@@ -12,6 +12,7 @@ import CreatePhoneScreen from './Screens/CreatePhoneScreen';
 import CreatePasswordScreen from './Screens/CreatePasswordScreen';
 import CreateFirstnameScreen from './Screens/CreateFirstnameScreen';
 import CreatePreferenceScreen from './Screens/CreatePreferenceScreen';
+import TabBarScreen from './TabBarNavigation'
 
 
 const RootNavigation = createStackNavigator(
@@ -78,6 +79,12 @@ const RootNavigation = createStackNavigator(
         },
         CreatePreferenceScreen:{
             screen: CreatePreferenceScreen,
+            navigationOptions:{
+                headerShown:false
+            }
+        },
+        Tabbar:{
+            screen: TabBarScreen,
             navigationOptions:{
                 headerShown:false
             }

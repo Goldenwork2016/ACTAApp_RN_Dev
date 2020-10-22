@@ -22,7 +22,7 @@ export default class SigninScreen extends Component {
                             <Text style={styles.PhoneTxt}>Phone</Text>
                         </TouchableOpacity>
                         <Text style={styles.nomemberTxt}>No membership yet?</Text>
-                        <TouchableOpacity onPress={()=>this.props.navigation.navigate("SigninScreen")}>
+                        <TouchableOpacity onPress={()=>this.props.navigation.navigate("CreateScreen")}>
                             <Text style={styles.LoginTxt}>Create Account</Text>
                         </TouchableOpacity>
                     </View>
