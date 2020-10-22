@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   createBtn2: {
-    width: "100%",
+    width: 80,
     height: 53,
     backgroundColor: 'white',
     justifyContent: "center",

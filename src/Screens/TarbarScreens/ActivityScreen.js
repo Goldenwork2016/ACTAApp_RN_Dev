@@ -84,7 +84,17 @@ export default class ActivityScreen extends Component {
             <View style={styles.ListArea}>
               <View style={styles.listHeader}>
                 <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage} />
-
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={styles.proTxt}>Kelly Winters</Text>
+                  <Text style={styles.timeTxt}>Today at 10:40</Text>
+                </View>
+              </View>
+              <View style={styles.listContents}>
+                <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
+                <View style={{ flexDirection: 'row', alignItems:'center', marginLeft:10 }}>
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Text style={styles.timeTxt1}>24x keeppounding</Text>
+                </View>
               </View>
             </View>
             {/* <FlatList
@@ -132,8 +142,13 @@ const styles = StyleSheet.create({
   },
   HeaderImage: {
     marginLeft: 10,
-    width: 25,
-    height: 21
+    width: 45,
+    height: 45
+  },
+  personImage: {
+    marginLeft: 10,
+    width: 30,
+    height: 30,
   },
   notiImage: {
     width: 22,
@@ -321,6 +336,38 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     height: 85,
     backgroundColor: '#111012',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: "center"
+  },
+  listContents: {
+    marginTop:2,
+    width: '100%',
+    borderRadius: 3,
+    height: 105,
+    backgroundColor: '#111012',
+    justifyContent: "center"
+  },
+  proTxt: {
+    color: 'white',
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 18,
+  },
+  timeTxt: {
+    color: '#575763',
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 15
+  },
+  timeTxt1: {
+    color: '#575763',
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 15,
+    marginLeft:10
+  },
+  contentHeader:{
+    fontFamily:'FuturaPT-Book',
+    fontSize:20,
+    color:'#fff',
+    marginLeft:20,
+    marginBottom:10
   }
 })
