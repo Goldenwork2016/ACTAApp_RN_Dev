@@ -28,7 +28,7 @@ export default class SigninEmailScreen extends Component {
         <View style={{ width: 330 }}>
           <Text style={styles.standardTxt}>Standard rates apply</Text>
         </View>
-        <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("SigninEmailScreen")}>
+        <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("Tabbar")}>
           <Text style={styles.EmailTxt}>Next</Text>
         </TouchableOpacity>
         <TouchableOpacity>

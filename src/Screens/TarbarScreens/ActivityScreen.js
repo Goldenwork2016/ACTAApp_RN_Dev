@@ -66,7 +66,7 @@ export default class ActivityScreen extends Component {
                   <Text style={styles.notiNum}>3</Text>
                 </TouchableOpacity>
               </View>
-              <View style={{ flexDirection: 'row', width: '95%', alignSelf: 'center' }}>
+              <View style={styles.ListBnt}>
                 <View style={{ width: '50%' }}>
                   <TouchableOpacity style={styles.createBtn}>
                     <Text style={styles.CreateTxt}>Following</Text>
@@ -83,7 +83,7 @@ export default class ActivityScreen extends Component {
           <View style={styles.mainContent}>
             <View style={styles.ListArea}>
               <View style={styles.listHeader}>
-                <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
                 <View style={{ marginLeft: 15 }}>
                   <Text style={styles.proTxt}>Kelly Winters</Text>
                   <Text style={styles.timeTxt}>Today at 10:40</Text>
@@ -91,9 +91,117 @@ export default class ActivityScreen extends Component {
               </View>
               <View style={styles.listContents}>
                 <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
-                <View style={{ flexDirection: 'row', alignItems:'center', marginLeft:10 }}>
+                <View style={styles.contentBottom}>
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
                   <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
                   <Text style={styles.timeTxt1}>24x keeppounding</Text>
+                </View>
+              </View>
+              <View style={styles.BtbArea}>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
+                </View>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+            <View style={styles.ListArea}>
+              <View style={styles.listHeader}>
+                <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={styles.proTxt}>Kelly Winters</Text>
+                  <Text style={styles.timeTxt}>Today at 10:40</Text>
+                </View>
+              </View>
+              <View style={styles.listContents}>
+                <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
+                <View style={styles.contentBottom}>
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Text style={styles.timeTxt1}>24x keeppounding</Text>
+                </View>
+              </View>
+              <View style={styles.BtbArea}>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
+                </View>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+            <View style={styles.ListArea}>
+              <View style={styles.listHeader}>
+                <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={styles.proTxt}>Kelly Winters</Text>
+                  <Text style={styles.timeTxt}>Today at 10:40</Text>
+                </View>
+              </View>
+              <View style={styles.listContents}>
+                <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
+                <View style={styles.contentBottom}>
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Text style={styles.timeTxt1}>24x keeppounding</Text>
+                </View>
+              </View>
+              <View style={styles.BtbArea}>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
+                </View>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+            <View style={styles.ListArea}>
+              <View style={styles.listHeader}>
+                <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={styles.proTxt}>Kelly Winters</Text>
+                  <Text style={styles.timeTxt}>Today at 10:40</Text>
+                </View>
+              </View>
+              <View style={styles.listContents}>
+                <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
+                <View style={styles.contentBottom}>
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.personImage} />
+                  <Text style={styles.timeTxt1}>24x keeppounding</Text>
+                </View>
+              </View>
+              <View style={styles.BtbArea}>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
+                </View>
+                <View style={{ width: '49.7%' }}>
+                  <TouchableOpacity style={{...styles.createBtn1, backgroundColor:'#18171a'}}>
+                    <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -116,7 +224,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    paddingBottom:20
   },
   ImageBackground: {
     width: '100%',
@@ -142,12 +251,22 @@ const styles = StyleSheet.create({
   },
   HeaderImage: {
     marginLeft: 10,
+    width: 25,
+    height: 25
+  },
+  HeaderImage1: {
+    marginLeft: 10,
     width: 45,
     height: 45
   },
   personImage: {
+    marginLeft: 3,
+    width: 27,
+    height: 27,
+  },
+  BtnImage: {
     marginLeft: 10,
-    width: 30,
+    width: 35,
     height: 30,
   },
   notiImage: {
@@ -171,39 +290,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: "-8%"
   },
-  AlphaImage: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  PursueImage: {
-    width: 200,
-    height: 100,
-    alignSelf: "center",
-    marginBottom: 35
-  },
   UnderIcon: {
     width: 10,
     height: 7,
     alignSelf: "center",
     marginLeft: 15
   },
-  LoginImage: {
-    width: 46,
-    height: 19,
-    alignSelf: "center"
-  },
   createBtn: {
-    width: "100%",
-    height: 51,
-    backgroundColor: 'white',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
-  },
-  createBtn2: {
-    width: "100%",
+    width: "98%",
     height: 51,
     backgroundColor: 'white',
     justifyContent: "center",
@@ -214,16 +308,11 @@ const styles = StyleSheet.create({
   createBtn1: {
     width: "100%",
     height: 53,
-    backgroundColor: '#18171a',
+    backgroundColor: '#111012',
     justifyContent: "center",
     alignItems: "center",
     alignSelf: 'center',
     borderRadius: 3,
-  },
-  mainContainer: {
-    position: 'absolute',
-    bottom: 0,
-    alignSelf: 'center'
   },
   CreateTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -236,19 +325,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     textAlign: "center",
-  },
-  LoginTxt: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 22,
-    textAlign: "center"
-  },
-  TileTxt: {
-    fontFamily: 'TrumpSoftPro-BoldItalic',
-    color: 'white', fontSize: 62,
-    textAlign: "center",
-    marginBottom: 5,
-    lineHeight: 70
   },
   dropDown: {
     marginLeft: '10%'
@@ -264,13 +340,6 @@ const styles = StyleSheet.create({
     top: -3,
     right: -3,
   },
-  minText: {
-    fontFamily: 'FuturaPT-Book',
-    color: '#82828f',
-    fontSize: 18,
-    textAlign: "center",
-    marginBottom: 20
-  },
   nextTxt: {
     fontFamily: 'FuturaPT-Book',
     textAlign: "center",
@@ -279,7 +348,6 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   mainContent: {
-    marginTop: 12,
     alignItems: 'center'
   },
   ConHeaderTxt: {
@@ -329,7 +397,8 @@ const styles = StyleSheet.create({
   },
   ListArea: {
     width: '95%',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop:12
   },
   listHeader: {
     width: '100%',
@@ -340,11 +409,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   listContents: {
-    marginTop:2,
+    marginTop: 2,
     width: '100%',
     borderRadius: 3,
     height: 105,
-    backgroundColor: '#111012',
+    backgroundColor: '#18171a',
     justifyContent: "center"
   },
   proTxt: {
@@ -361,13 +430,31 @@ const styles = StyleSheet.create({
     color: '#575763',
     fontFamily: 'FuturaPT-Book',
     fontSize: 15,
-    marginLeft:10
+    marginLeft: 10
   },
-  contentHeader:{
-    fontFamily:'FuturaPT-Book',
-    fontSize:20,
-    color:'#fff',
-    marginLeft:20,
-    marginBottom:10
+  contentHeader: {
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 20,
+    color: '#fff',
+    marginLeft: 20,
+    marginBottom: 10
+  },
+  contentBottom: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 10
+  },
+  ListBnt: {
+    flexDirection: 'row',
+    width: '95%',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+  },
+  BtbArea: {
+    flexDirection: 'row',
+    width: '100%',
+    marginTop: 3,
+    alignSelf: 'center',
+    justifyContent: 'space-between',
   }
 })
