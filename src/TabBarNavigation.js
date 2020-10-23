@@ -9,6 +9,8 @@ import HomeScreen from './Screens/TarbarScreens/HomeScreen'
 import ExecicesScreen from './Screens/TarbarScreens/ExecicesScreen'
 import ActivityScreen from './Screens/TarbarScreens/ActivityScreen'
 import AccountScreen from './Screens/TarbarScreens/AccountScreen'
+import HomeDropScreen from './Screens/TarbarScreens/HomeDropScreen'
+import workoutsScreen from './Screens/TarbarScreens/workoutsScreen'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -19,7 +21,13 @@ const Home = createStackNavigator(
             navigationOptions: {
                 headerShown: false,
             }
-        }
+        },
+        HomeDropScreen: {
+            screen: HomeDropScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'HomeScreen',
@@ -31,12 +39,12 @@ Home.navigationOptions = ({ navigation }) => {
     let tabBarVisible;
     if (navigation.state.routes.length > 1) {
         navigation.state.routes.map(route => {
-            if (route.routeName === "HomeScreen") {
-                tabBarVisible = true;
+            if (route.routeName == "HomeDropScreen") {
+                tabBarVisible = false;
             }
-            // else {
-            //   tabBarVisible = true;
-            // }
+            else {
+              tabBarVisible = true;
+            }
         });
     }
     return {
@@ -51,31 +59,35 @@ const Exercices = createStackNavigator(
             navigationOptions: {
                 headerShown: false,
             }
-        }
+        },
+        workoutsScreen: {
+            screen: workoutsScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'ExecicesScreen',
     }
 );
 
-Exercices.navigationOptions = ({ navigation }) => {
-    let tabBarVisible;
-    if (navigation.state.routes.length > 1) {
-        navigation.state.routes.map(route => {
-            if (route.routeName === "ExecicesScreen") {
-                tabBarVisible = true;
-            }
-            // else {
-            //   tabBarVisible = true;
-            // }
-        });
-    }
-    return {
-        tabBarVisible
-    };
-};
-
-
+// Exercices.navigationOptions = ({ navigation }) => {
+//     let tabBarVisible;
+//     if (navigation.state.routes.length > 1) {
+//         navigation.state.routes.map(route => {
+//             if (route.routeName === "workoutsScreen") {
+//                 tabBarVisible = false;
+//             }
+//             else {
+//               tabBarVisible = true;
+//             }
+//         });
+//     }
+//     return {
+//         tabBarVisible
+//     };
+// };
 const Activity = createStackNavigator(
     {
         ActivityScreen: {

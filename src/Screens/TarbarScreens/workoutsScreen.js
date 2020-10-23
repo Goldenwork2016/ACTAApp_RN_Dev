@@ -5,38 +5,40 @@ export default class ExercicesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentList: [
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        },
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        }
-      ],
       contentList1: [
         {
-          Title: 'SUMMER READY',
-          ImageUrl: require("../../Assets/Images/program1.png")
+          Title: 'Fast & Furious',
+          Description:'10 Exercices. 30 min',
+          ImageUrl: require("../../Assets/Images/FastFuriousImage.png")
         },
         {
-          Title: 'KELLY WINTERS',
-          ImageUrl: require("../../Assets/Images/program2.png")
+          Title: 'Buddy Workout',
+          Description:'10 Exercices. 30 min',
+          ImageUrl: require("../../Assets/Images/BuddyWorkoutImage.png")
         },
         {
-          Title: 'COUPLE WORKOUT',
-          ImageUrl: require("../../Assets/Images/program3.png")
-        }
+          Title: 'Leg Workout',
+          Description:'10 Exercices. 30 min',
+          ImageUrl: require("../../Assets/Images/LegWorkoutImage.png")
+        },
+        {
+          Title: 'Stretch a Leg',
+          Description:'10 Exercices. 30 min',
+          ImageUrl: require("../../Assets/Images/StretchLegImage.png")
+        },
+        {
+          Title: 'Work it',
+          Description:'10 Exercices. 30 min',
+          ImageUrl: require("../../Assets/Images/WorkitImage.png")
+        },
+        {
+          Title: 'Jumping Ropes',
+          Description:'10 Exercices. 30 min',
+          ImageUrl: require("../../Assets/Images/JumpingImage.png")
+        },
       ],
 
     };
-  }
-
-  _rendermakelist({ item, index }) {
-    return (
-      <View style={{ marginTop: 5 }}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
-      </View>
-    )
   }
 
   _rendermakelist1({ item, index }) {
@@ -44,6 +46,7 @@ export default class ExercicesScreen extends Component {
       <View style={styles.ListContent1}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
         <Text style={styles.ListTitle}>{item.Title}</Text>
+        <Text style={styles.Description}>{item.Description}</Text>
       </View>
     )
   }
@@ -52,8 +55,8 @@ export default class ExercicesScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
-          <View style={{ width: '100%', height: 520 }}>
-            <ImageBackground source={require('../../Assets/Images/ExerciseBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
+          <View style={{ width: '100%', height: 600 }}>
+            <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} resizeMode='stretch' style={styles.ImageBackground}>
               <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
               <View style={styles.header}>
                 <View style={styles.BackBtn}>
@@ -71,31 +74,31 @@ export default class ExercicesScreen extends Component {
               </View>
               <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
                 <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn}>
-                    <Text style={styles.CreateTxt}>Programs</Text>
+                  <TouchableOpacity style={styles.createBtn1}>
+                    <Text style={styles.CreateTxt1}>Programs</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn1} onPress={()=>this.props.navigation.navigate("workoutsScreen")}>
-                    <Text style={styles.CreateTxt1}>Workouts</Text>
+                  <TouchableOpacity style={styles.createBtn}>
+                    <Text style={styles.CreateTxt}>Workouts</Text>
                   </TouchableOpacity>
                 </View>
               </View>
               <View style={styles.mainContainer}>
-                <Text style={styles.nextTxt}>Highlighted for you</Text>
-                <Text style={styles.TileTxt}>COUPLE {'\n'}WORKOUTS.</Text>
-                <Text style={styles.minText}>10 Workouts you can do together.</Text>
+                <Text style={styles.nextTxt}>Continue Workout</Text>
+                <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
+                <Text style={styles.minText}>Loose Fat fast and furious</Text>
                 <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
-                  <Text style={styles.CreateTxt}>Start</Text>
+                  <Text style={styles.CreateTxt}>Continus  Workout</Text>
                 </TouchableOpacity>
               </View>
             </ImageBackground>
           </View>
           <View style={styles.mainContent}>
             <View style={styles.AllArea}>
-              <Text style={styles.ConHeaderTxt}>Programs</Text>
+              <Text style={styles.ConHeaderTxt}>Workouts</Text>
               <View style={styles.AllArea}>
-                <Text style={styles.ConHeaderTxt1}>ALL</Text>
+                <Text style={styles.ConHeaderTxt1}>LOOSE FAT</Text>
                 <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
               </View>
             </View>
@@ -209,7 +212,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   createBtn2: {
-    width: 80,
+    width: 200,
     height: 53,
     backgroundColor: 'white',
     justifyContent: "center",
@@ -302,21 +305,33 @@ const styles = StyleSheet.create({
   },
   ContentImage1: {
     width: "97.5%",
-    height: 160,
+    height: 390,
     marginRight: 20,
-    position: 'absolute'
+    position: 'absolute',
+    borderRadius:3
   },
   ListTitle: {
     fontSize: 35,
     color: 'white',
-    fontFamily: 'TrumpSoftPro-BoldItalic',
+    fontFamily: 'FuturaPT-Medium',
     width: '100%',
-    textAlign: "center"
+    position:'absolute',
+    bottom:48,
+    left:30
+  },
+  Description: {
+    fontSize: 22,
+    color: '#82828f',
+    fontFamily: 'FuturaPT-Book',
+    width: '100%',
+    position:'absolute',
+    bottom:18,
+    left:30
   },
   ListContent1: {
     marginTop: 5,
     width: "97.5%",
-    height: 160,
+    height: 390,
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center'

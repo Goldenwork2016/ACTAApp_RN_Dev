@@ -1,29 +1,21 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 
-export default class ExercicesScreen extends Component {
+export default class HomeDropScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentList: [
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        },
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        }
-      ],
       contentList1: [
         {
-          Title: 'SUMMER READY',
+          Title: 'BUILD MUSCLE',
           ImageUrl: require("../../Assets/Images/program1.png")
         },
         {
-          Title: 'KELLY WINTERS',
+          Title: 'LOOSE FAT',
           ImageUrl: require("../../Assets/Images/program2.png")
         },
         {
-          Title: 'COUPLE WORKOUT',
+          Title: 'BOTH',
           ImageUrl: require("../../Assets/Images/program3.png")
         }
       ],
@@ -52,62 +44,35 @@ export default class ExercicesScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
-          <View style={{ width: '100%', height: 520 }}>
-            <ImageBackground source={require('../../Assets/Images/ExerciseBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
-              <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
-              <View style={styles.header}>
-                <View style={styles.BackBtn}>
-                  <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+            <View style={{ width: '100%', height: 350, alignItems:'center' }}>
+                <View style={styles.header}>
+                    <View style={styles.BackBtn}>
+                        <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    </View>
+                    <TouchableOpacity style={styles.dropDown} onPress={()=>this.props.navigation.navigate("HomeScreen")}>
+                        <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
+                        <Image source={require('../../Assets/Images/upImage.png')} resizeMode='stretch' style={styles.UnderIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.AlarmkBtn} onPress={()=>this.props.navigation.navigate("HomeScreen")}>
+                        <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.notiImage} />
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.dropDown}>
-                  <Text style={styles.headerTxt}>EXERCISES</Text>
+                <View style={styles.mainContainer}>
+                    <Text style={styles.TileTxt}>YOUR</Text>
+                    <Text style={styles.TileTxt}>FITNESS</Text>
+                    <Text style={styles.TileTxt}>GOAL.</Text>
                 </View>
-                <TouchableOpacity style={styles.AlarmkBtn}>
-                  <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                  <View style={styles.notiNumArea}>
-                    <Text style={styles.notiNum}>3</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
-                <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn}>
-                    <Text style={styles.CreateTxt}>Programs</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn1} onPress={()=>this.props.navigation.navigate("workoutsScreen")}>
-                    <Text style={styles.CreateTxt1}>Workouts</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.mainContainer}>
-                <Text style={styles.nextTxt}>Highlighted for you</Text>
-                <Text style={styles.TileTxt}>COUPLE {'\n'}WORKOUTS.</Text>
-                <Text style={styles.minText}>10 Workouts you can do together.</Text>
-                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
-                  <Text style={styles.CreateTxt}>Start</Text>
-                </TouchableOpacity>
-              </View>
-            </ImageBackground>
-          </View>
-          <View style={styles.mainContent}>
-            <View style={styles.AllArea}>
-              <Text style={styles.ConHeaderTxt}>Programs</Text>
-              <View style={styles.AllArea}>
-                <Text style={styles.ConHeaderTxt1}>ALL</Text>
-                <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
-              </View>
             </View>
-            <FlatList
-              vertical
-              showsVerticalScrollIndicator={true}
-              numColumns={1}
-              data={this.state.contentList1}
-              renderItem={this._rendermakelist1}
-              keyExtractor={item => `${item.id}`}
-            />
-          </View>
+            <View style={styles.mainContent}>
+                <FlatList
+                vertical
+                showsVerticalScrollIndicator={true}
+                numColumns={1}
+                data={this.state.contentList1}
+                renderItem={this._rendermakelist1}
+                keyExtractor={item => `${item.id}`}
+                />
+            </View>
         </ScrollView>
       </View>
     );
@@ -124,17 +89,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%'
   },
-  UnderIcon: {
-    width: 10,
-    height: 7,
-    alignSelf: "center",
-    marginRight: 20
-  },
   header: {
     marginTop: Platform.OS === 'ios' ? 60 : 20,
     width: "90%",
     alignItems: "center",
     paddingBottom: 41,
+    borderBottomWidth:0.2,
+    borderBottomColor:'#82828f',
+    
   },
   headerTxt: {
     color: 'white',
@@ -160,13 +122,13 @@ const styles = StyleSheet.create({
     width: 26,
     height: 20,
     position: 'absolute',
-    left: 10
+    left: 0
   },
   AlarmkBtn: {
     width: 26,
     height: 20,
     position: 'absolute',
-    right: "-8%"
+    right: 0
   },
   AlphaImage: {
     width: '100%',
@@ -191,24 +153,6 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   createBtn: {
-    width: "100%",
-    height: 53,
-    backgroundColor: 'white',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
-  },
-  createBtn1: {
-    width: "100%",
-    height: 53,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
-  },
-  createBtn2: {
     width: 80,
     height: 53,
     backgroundColor: 'white',
@@ -225,14 +169,7 @@ const styles = StyleSheet.create({
   CreateTxt: {
     fontFamily: 'FuturaPT-Medium',
     color: 'black',
-    fontSize: 22,
-    textAlign: "center",
-  },
-  CreateTxt1: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 22,
-    textAlign: "center",
+    fontSize: 22
   },
   LoginTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -242,13 +179,15 @@ const styles = StyleSheet.create({
   },
   TileTxt: {
     fontFamily: 'TrumpSoftPro-BoldItalic',
-    color: 'white', fontSize: 62,
+    color: 'white', 
+    fontSize: 65,
     textAlign: "center",
-    marginBottom: 5,
+    marginTop: -15,
     lineHeight: 70
   },
   dropDown: {
-    marginLeft: '10%'
+    flexDirection: 'row',
+    marginLeft:'10%'
   },
   notiNum: {
     textAlign: "center",
@@ -279,8 +218,7 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   mainContent: {
-    marginTop: 45,
-    marginLeft: '3%'
+    marginTop: 25,
   },
   ConHeaderTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -292,6 +230,7 @@ const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Medium',
     color: 'white',
     fontSize: 14,
+    marginRight: 10,
     letterSpacing: 2,
     textAlign: "center"
   },
@@ -301,7 +240,7 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   ContentImage1: {
-    width: "97.5%",
+    width: "95%",
     height: 160,
     marginRight: 20,
     position: 'absolute'
@@ -311,11 +250,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'TrumpSoftPro-BoldItalic',
     width: '100%',
-    textAlign: "center"
+    textAlign: "center",
+    marginTop:15
   },
   ListContent1: {
     marginTop: 5,
-    width: "97.5%",
+    width: "100%",
     height: 160,
     marginBottom: 10,
     justifyContent: 'center',
@@ -324,7 +264,6 @@ const styles = StyleSheet.create({
   AllArea: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: "center",
-    marginRight:5
+    alignItems: "center"
   }
 })

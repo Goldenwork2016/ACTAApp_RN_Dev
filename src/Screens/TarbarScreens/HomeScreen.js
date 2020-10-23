@@ -59,7 +59,7 @@ export default class HomeScreen extends Component {
                 <View style={styles.BackBtn}>
                   <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
                 </View>
-                <TouchableOpacity style={styles.dropDown}>
+                <TouchableOpacity style={styles.dropDown} onPress={() => this.props.navigation.navigate("HomeDropScreen")}>
                   <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
                   <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
                 </TouchableOpacity>
@@ -72,7 +72,7 @@ export default class HomeScreen extends Component {
               </View>
               <View style={styles.mainContainer}>
                 <Text style={styles.nextTxt}>Next up</Text>
-                <Text style={styles.TileTxt}>FAST & fURIOUS.</Text>
+                <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
                 <Text style={styles.minText}>30 min. as fast as you can.</Text>
                 <TouchableOpacity style={styles.createBtn} onPress={() => this.props.navigation.navigate("CreateScreen")}>
                   <Text style={styles.CreateTxt}>Start</Text>
