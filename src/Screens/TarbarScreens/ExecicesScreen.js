@@ -64,7 +64,9 @@ export default class ExercicesScreen extends Component {
                 </View>
                 <TouchableOpacity style={styles.AlarmkBtn}>
                   <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                  <Text style={styles.notiNum}>3</Text>
+                  <View style={styles.notiNumArea}>
+                    <Text style={styles.notiNum}>3</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 7,
     alignSelf: "center",
-    marginRight: 10
+    marginRight: 20
   },
   header: {
     marginTop: Platform.OS === 'ios' ? 60 : 20,
@@ -197,19 +199,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 3,
   },
-  createBtn2: {
-    width: 80,
+  createBtn1: {
+    width: "100%",
     height: 53,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: "center",
     alignItems: "center",
     alignSelf: 'center',
     borderRadius: 3,
   },
-  createBtn1: {
-    width: "100%",
+  createBtn2: {
+    width: 80,
     height: 53,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
     alignSelf: 'center',
@@ -249,9 +251,12 @@ const styles = StyleSheet.create({
     marginLeft: '10%'
   },
   notiNum: {
-    backgroundColor: 'white',
     textAlign: "center",
     fontSize: 12,
+    color:'black'
+  },
+  notiNumArea: {
+    backgroundColor: 'white',
     width: 15,
     height: 15,
     borderRadius: 7.5,

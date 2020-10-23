@@ -65,7 +65,9 @@ export default class HomeScreen extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.AlarmkBtn}>
                   <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                  <Text style={styles.notiNum}>3</Text>
+                  <View style={styles.notiNumArea}>
+                    <Text style={styles.notiNum}>3</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={styles.mainContainer}>
@@ -219,9 +221,12 @@ const styles = StyleSheet.create({
     marginLeft:'10%'
   },
   notiNum: {
-    backgroundColor: 'white',
     textAlign: "center",
     fontSize: 12,
+    color:'black'
+  },
+  notiNumArea: {
+    backgroundColor: 'white',
     width: 15,
     height: 15,
     borderRadius: 7.5,
