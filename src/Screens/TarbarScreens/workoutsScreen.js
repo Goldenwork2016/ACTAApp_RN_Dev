@@ -43,11 +43,11 @@ export default class ExercicesScreen extends Component {
 
   _rendermakelist1({ item }) {
     return (
-      <View style={styles.ListContent1}>
+      <TouchableOpacity style={styles.ListContent1} onPress={()=>this.props.toggle()}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
         <Text style={styles.ListTitle}>{item.Title}</Text>
         <Text style={styles.Description}>{item.Description}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -106,7 +106,15 @@ export default class ExercicesScreen extends Component {
               showsVerticalScrollIndicator={true}
               numColumns={1}
               data={this.state.contentList1}
-              renderItem={this._rendermakelist1}
+              renderItem={({item}) => (
+                
+                  <TouchableOpacity style={styles.ListContent1} onPress={()=>this.props.gotoDetailScreen()}>
+                    <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
+                    <Text style={styles.ListTitle}>{item.Title}</Text>
+                    <Text style={styles.Description}>{item.Description}</Text>
+                  </TouchableOpacity>
+                
+              )}
               keyExtractor={item => `${item.id}`}
             />
           </View>

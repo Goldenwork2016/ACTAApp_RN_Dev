@@ -20,54 +20,61 @@ export default class ProgramDetailStartScreen extends Component {
                                 <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
                             </TouchableOpacity>
                             <View style={styles.dropDown}>
-                                <Text style={styles.headerTxt}>PROGRAM</Text>
+                                <Text style={styles.headerTxt}>WORKOUT</Text>
                             </View>
                         </View>
                         <View style={styles.mainContainer}>
-                            <Text style={styles.TileTxt}>SUMMER</Text>
-                            <Text style={styles.TileTxt}>READY.</Text>
-                            <View style={styles.headerContent}>
-                                <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                    <Text style={styles.itemTxt}>Week</Text>
-                                    <Text style={styles.numTxt}>4</Text>
-                                </View>
-                                <ProgressCircle
-                                    percent={25}
-                                    radius={65}
-                                    borderWidth={3}
-                                    color="white"
-                                    shadowColor="#111012"
-                                    bgColor="#000"
-                                    outerCircleStyle={{}}
-                                >
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ fontSize: 50, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>25</Text>
-                                        <Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
+                            <ImageBackground source={require('../../Assets/Images/FastFuriousImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
+                                <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
+                                <Text style={styles.TileTxt}>FAST & FURIOUS</Text>
+                                <View style={styles.headerContent}>
+                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+                                        <Text style={styles.numTxt}>30</Text>
+                                        <Text style={styles.itemTxt}>Minutes</Text>
                                     </View>
-                                </ProgressCircle>
-                                <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                    <Text style={styles.itemTxt}>Day</Text>
-                                    <Text style={styles.numTxt}>2</Text>
+                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+                                        <Text style={styles.numTxt}>Legs</Text>
+                                        <Text style={styles.itemTxt}>Type</Text>
+                                    </View>
+                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+                                        <Text style={styles.numTxt}>Time/Rep.</Text>
+                                        <Text style={styles.itemTxt}>Based</Text>
+                                    </View>
                                 </View>
-                            </View>
-                            <View>
+                                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
+                                    <Text style={styles.CreateTxt}>Start Workout</Text>
+                                </TouchableOpacity>
+                            </ImageBackground>
+                            <Text style={{alignSelf:'center',color:'white', fontSize:25, fontFamily:'FuturaPT-Medium', marginVertical:30}} >
+                                Exercises
+                            </Text>
+                            <View style={{width:"90%", alignSelf:'center'}}>
                                 <View style={styles.NextArea}>
-                                    <Text style={styles.NextTxt}>Next Workout</Text>
+                                    <Text style={styles.NextTxt}>Warming Up</Text>
                                 </View>
                                 <View style={styles.ItemArea}>
-                                    <Image source={require('../../Assets/Images/FastFuriousImage.png')} resizeMode='stretch' style={styles.fastImage} />
+                                    <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View>
-                                        <Text style={styles.FastTxt}>Fast & Furious</Text>
+                                        <Text style={styles.FastTxt}>Incline Walk</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>30</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>5</Text>
                                         <Text style={styles.minTxt}>min</Text>
                                     </View>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
-                                <Text style={styles.CreateTxt}>Start Workout</Text>
-                            </TouchableOpacity>
+                            <View style={{width:"90%", alignSelf:'center'}}>
+                                <View style={styles.ItemArea1}>
+                                    <Text style={styles.FastTxt}>Rest</Text>
+                                    <View>
+                                        <Text style={styles.FastTxt}>Incline Walk</Text>
+                                    </View>
+                                    <View style={styles.leftMin}>
+                                        <View style={{width:'50%', borderBottomWidth:0.3}}></View>
+                                        <Text style={styles.minTxt}>min</Text>
+                                    </View>
+                                </View>
+                            </View>
                             <Text style={styles.minText}>Your Statistics</Text>
                             <View style={{ ...styles.headerContent, marginTop: 0 }}>
                                 <View style={styles.ContentList2}>
@@ -94,7 +101,7 @@ export default class ProgramDetailStartScreen extends Component {
                                 <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
                             </View>
                         </View>
-                        <TouchableOpacity style={{margin:30}}>
+                        <TouchableOpacity style={{ margin: 30 }}>
                             <Text style={styles.ConHeaderTxt1}>End workout</Text>
                         </TouchableOpacity>
                     </View>
@@ -112,7 +119,6 @@ const styles = StyleSheet.create({
     },
     ImageBackground: {
         width: '100%',
-        height: '100%'
     },
     UnderIcon: {
         width: 10,
@@ -139,8 +145,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '95%',
         alignSelf: 'center',
-        marginTop: 30,
-        marginBottom: 30,
+        marginTop: 50,
+        marginBottom: 15,
         alignItems: 'center'
     },
     ContentList2: {
@@ -158,7 +164,7 @@ const styles = StyleSheet.create({
     },
     numTxt: {
         color: 'white',
-        fontSize: 28,
+        fontSize: 20,
         fontFamily: 'FuturaPT-Medium',
         textAlign: 'center',
         marginVertical: 3
@@ -187,18 +193,18 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     createBtn2: {
-        width: "100%",
+        width: "90%",
         height: 50,
         backgroundColor: 'white',
         justifyContent: "center",
         alignItems: "center",
         alignSelf: 'center',
         borderRadius: 3,
+        marginBottom: 45
     },
     mainContainer: {
-        marginTop: 58,
         alignSelf: 'center',
-        width: '90%'
+        width: '100%'
     },
     CreateTxt: {
         fontFamily: 'FuturaPT-Medium',
@@ -215,9 +221,9 @@ const styles = StyleSheet.create({
     TileTxt: {
         fontFamily: 'TrumpSoftPro-BoldItalic',
         color: 'white',
-        fontSize: 60,
+        fontSize: 55,
         textAlign: "center",
-        marginTop: -20,
+        marginTop: 115,
         lineHeight: 70
     },
     dropDown: {
@@ -290,6 +296,15 @@ const styles = StyleSheet.create({
         marginTop: 1,
         marginBottom: 20
     },
+    ItemArea1: {
+        height: 100,
+        width: '100%',
+        padding: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 1,
+        marginBottom: 20
+    },
     minTxt: {
         color: '#82828f',
         fontSize: 15,
@@ -315,14 +330,14 @@ const styles = StyleSheet.create({
         fontFamily: 'FuturaPT-Book',
         marginLeft: 20
     },
-    bottomList:{ 
+    bottomList: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: "center",
-        paddingVertical:15, 
-        marginHorizontal: '5%', 
-        borderTopWidth:0.2, 
-        borderBottomWidth:0.2, 
-        borderColor:'#82828f' 
+        paddingVertical: 15,
+        marginHorizontal: '5%',
+        borderTopWidth: 0.2,
+        borderBottomWidth: 0.2,
+        borderColor: '#82828f'
     }
 })

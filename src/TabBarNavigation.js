@@ -13,6 +13,7 @@ import HomeDropScreen from './Screens/TarbarScreens/HomeDropScreen'
 import workoutsScreen from './Screens/TarbarScreens/workoutsScreen'
 import ProgramDetailScreen from './Screens/TarbarScreens/ProgramDetailScreen'
 import ProgramDetailStartScreen from './Screens/TarbarScreens/ProgramDetailStartScreen'
+import ProgramWorkoutDetailScreen from './Screens/TarbarScreens/ProgramWorkoutDetailScreen'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -76,6 +77,12 @@ const Exercices = createStackNavigator(
         },
         ProgramDetailStartScreen: {
             screen: ProgramDetailStartScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        ProgramWorkoutDetailScreen: {
+            screen: ProgramWorkoutDetailScreen,
             navigationOptions: {
                 headerShown: false,
             }
