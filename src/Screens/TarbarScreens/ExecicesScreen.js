@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import WorkoutsScreen from './workoutsScreen'
 
 export default class ExercicesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentList: [
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        },
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        }
-      ],
       contentList1: [
         {
           Title: 'SUMMER READY',
@@ -27,89 +20,87 @@ export default class ExercicesScreen extends Component {
           ImageUrl: require("../../Assets/Images/program3.png")
         }
       ],
-
+      toggleFlag:true
     };
   }
 
-  _rendermakelist({ item, index }) {
-    return (
-      <View style={{ marginTop: 5 }}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
-      </View>
-    )
+  toggle = async() =>{
+    await this.setState({toggleFlag:true});
   }
-
-  _rendermakelist1({ item, index }) {
-    return (
-      <View style={styles.ListContent1}>
+  
+  rendermakelist1=({ item}) =>(
+      <TouchableOpacity style={styles.ListContent1} onPress={()=>{this.props.navigation.navigate("ProgramDetailScreen")}}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
         <Text style={styles.ListTitle}>{item.Title}</Text>
-      </View>
-    )
-  }
+      </TouchableOpacity>
+  )
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={{ flex: 1, width: '100%' }}>
-          <View style={{ width: '100%', height: 520 }}>
-            <ImageBackground source={require('../../Assets/Images/ExerciseBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
-              <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
-              <View style={styles.header}>
-                <View style={styles.BackBtn}>
-                  <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
-                </View>
-                <View style={styles.dropDown}>
-                  <Text style={styles.headerTxt}>EXERCISES</Text>
-                </View>
-                <TouchableOpacity style={styles.AlarmkBtn}>
-                  <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                  <View style={styles.notiNumArea}>
-                    <Text style={styles.notiNum}>3</Text>
+      {
+        this.state.toggleFlag?
+          <ScrollView style={{ flex: 1, width: '100%' }}>
+            <View style={{ width: '100%', height: 520 }}>
+              <ImageBackground source={require('../../Assets/Images/ExerciseBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
+                <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
+                <View style={styles.header}>
+                  <View style={styles.BackBtn}>
+                    <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
                   </View>
-                </TouchableOpacity>
-              </View>
-              <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
-                <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn}>
-                    <Text style={styles.CreateTxt}>Programs</Text>
+                  <View style={styles.dropDown}>
+                    <Text style={styles.headerTxt}>EXERCISES</Text>
+                  </View>
+                  <TouchableOpacity style={styles.AlarmkBtn}>
+                    <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
+                    <View style={styles.notiNumArea}>
+                      <Text style={styles.notiNum}>3</Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
-                <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn1} onPress={()=>this.props.navigation.navigate("workoutsScreen")}>
-                    <Text style={styles.CreateTxt1}>Workouts</Text>
+                <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
+                  <View style={{ width: '50%' }}>
+                    <TouchableOpacity style={styles.createBtn} onPress={()=>{this.setState({toggleFlag:true})}}>
+                      <Text style={styles.CreateTxt}>Programs</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ width: '50%' }}>
+                    <TouchableOpacity style={styles.createBtn1} onPress={()=>{this.setState({toggleFlag:false})}}>
+                      <Text style={styles.CreateTxt1}>Workouts</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={styles.mainContainer}>
+                  <Text style={styles.nextTxt}>Highlighted for you</Text>
+                  <Text style={styles.TileTxt}>COUPLE {'\n'}WORKOUTS.</Text>
+                  <Text style={styles.minText}>10 Workouts you can do together.</Text>
+                  <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
+                    <Text style={styles.CreateTxt}>Start</Text>
                   </TouchableOpacity>
                 </View>
-              </View>
-              <View style={styles.mainContainer}>
-                <Text style={styles.nextTxt}>Highlighted for you</Text>
-                <Text style={styles.TileTxt}>COUPLE {'\n'}WORKOUTS.</Text>
-                <Text style={styles.minText}>10 Workouts you can do together.</Text>
-                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
-                  <Text style={styles.CreateTxt}>Start</Text>
-                </TouchableOpacity>
-              </View>
-            </ImageBackground>
-          </View>
-          <View style={styles.mainContent}>
-            <View style={styles.AllArea}>
-              <Text style={styles.ConHeaderTxt}>Programs</Text>
-              <View style={styles.AllArea}>
-                <Text style={styles.ConHeaderTxt1}>ALL</Text>
-                <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
-              </View>
+              </ImageBackground>
             </View>
-            <FlatList
-              vertical
-              showsVerticalScrollIndicator={true}
-              numColumns={1}
-              data={this.state.contentList1}
-              renderItem={this._rendermakelist1}
-              keyExtractor={item => `${item.id}`}
-            />
-          </View>
-        </ScrollView>
-      </View>
+            <View style={styles.mainContent}>
+              <View style={styles.AllArea}>
+                <Text style={styles.ConHeaderTxt}>Programs</Text>
+                <View style={styles.AllArea}>
+                  <Text style={styles.ConHeaderTxt1}>ALL</Text>
+                  <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
+                </View>
+              </View>
+              <FlatList
+                vertical
+                showsVerticalScrollIndicator={true}
+                numColumns={1}
+                data={this.state.contentList1}
+                renderItem={this.rendermakelist1}
+                keyExtractor={item => `${item.id}`}
+              />
+            </View>
+          </ScrollView>:
+        <WorkoutsScreen toggle={this.toggle} />
+      }
+  </View>
     );
   }
 }
@@ -118,7 +109,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    width:'100%'
   },
   ImageBackground: {
     width: '100%',

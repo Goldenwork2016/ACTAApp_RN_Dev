@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Animated, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import HomeScreen from './HomeScreen'
 
 export default class HomeDropScreen extends Component {
   constructor(props) {
@@ -19,11 +20,11 @@ export default class HomeDropScreen extends Component {
           ImageUrl: require("../../Assets/Images/program3.png")
         }
       ],
-
+      SlideInLeft: new Animated.Value(1),
     };
   }
 
-  _rendermakelist({ item, index }) {
+  _rendermakelist({ item }) {
     return (
       <View style={{ marginTop: 5 }}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
@@ -31,7 +32,26 @@ export default class HomeDropScreen extends Component {
     )
   }
 
-  _rendermakelist1({ item, index }) {
+  AnimationsStart = () => {
+    return Animated.parallel([
+      Animated.timing(this.state.SlideInLeft, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true
+      })
+    ]).start();
+  };
+  AnimationsEnd = () => {
+    return Animated.parallel([
+      Animated.timing(this.state.SlideInLeft, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true
+      })
+    ]).start();
+  };
+
+  _rendermakelist1({ item }) {
     return (
       <View style={styles.ListContent1}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
@@ -41,39 +61,61 @@ export default class HomeDropScreen extends Component {
   }
 
   render() {
+    let { SlideInLeft } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
-            <View style={{ width: '100%', height: 350, alignItems:'center' }}>
-                <View style={styles.header}>
-                    <View style={styles.BackBtn}>
-                        <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
-                    </View>
-                    <TouchableOpacity style={styles.dropDown} onPress={()=>this.props.navigation.navigate("HomeScreen")}>
-                        <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
-                        <Image source={require('../../Assets/Images/upImage.png')} resizeMode='stretch' style={styles.UnderIcon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.AlarmkBtn} onPress={()=>this.props.navigation.navigate("HomeScreen")}>
-                        <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.notiImage} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.mainContainer}>
-                    <Text style={styles.TileTxt}>YOUR</Text>
-                    <Text style={styles.TileTxt}>FITNESS</Text>
-                    <Text style={styles.TileTxt}>GOAL.</Text>
-                </View>
+          <View style={{ width: '100%', height: 350, alignItems: 'center' }}>
+            <View style={styles.header}>
+              <View style={styles.BackBtn}>
+                <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+              </View>
+              <TouchableOpacity style={styles.dropDown} onPress={() => this.AnimationsEnd()}>
+                <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
+                <Image source={require('../../Assets/Images/upImage.png')} resizeMode='stretch' style={styles.UnderIcon} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.AlarmkBtn} onPress={() => this.props.navigation.navigate("HomeScreen")}>
+                <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.notiImage} />
+              </TouchableOpacity>
             </View>
-            <View style={styles.mainContent}>
-                <FlatList
-                vertical
-                showsVerticalScrollIndicator={true}
-                numColumns={1}
-                data={this.state.contentList1}
-                renderItem={this._rendermakelist1}
-                keyExtractor={item => `${item.id}`}
-                />
+            <View style={styles.mainContainer}>
+              <Text style={styles.TileTxt}>YOUR</Text>
+              <Text style={styles.TileTxt}>FITNESS</Text>
+              <Text style={styles.TileTxt}>GOAL.</Text>
             </View>
+          </View>
+          <View style={styles.mainContent}>
+            <FlatList
+              vertical
+              showsVerticalScrollIndicator={true}
+              numColumns={1}
+              data={this.state.contentList1}
+              renderItem={this._rendermakelist1}
+              keyExtractor={item => `${item.id}`}
+            />
+          </View>
         </ScrollView>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: SlideInLeft.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [1000, 0]
+                })
+              }
+            ],
+            flex: 1,
+            width: "100%",
+            height:'100%',
+            borderRadius: 12,
+            backgroundColor: "#347a2a",
+            justifyContent: "center",
+            position:'absolute'
+          }}
+        >
+          <HomeScreen AnimationsStart={this.AnimationsStart}/>
+        </Animated.View>
       </View>
     );
   }
@@ -94,9 +136,9 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     paddingBottom: 41,
-    borderBottomWidth:0.2,
-    borderBottomColor:'#82828f',
-    
+    borderBottomWidth: 0.2,
+    borderBottomColor: '#82828f',
+
   },
   headerTxt: {
     color: 'white',
@@ -164,7 +206,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     position: 'absolute',
     bottom: 0,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    width:'100%'
   },
   CreateTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -179,7 +222,7 @@ const styles = StyleSheet.create({
   },
   TileTxt: {
     fontFamily: 'TrumpSoftPro-BoldItalic',
-    color: 'white', 
+    color: 'white',
     fontSize: 65,
     textAlign: "center",
     marginTop: -15,
@@ -187,12 +230,12 @@ const styles = StyleSheet.create({
   },
   dropDown: {
     flexDirection: 'row',
-    marginLeft:'10%'
+    marginLeft: '10%'
   },
   notiNum: {
     textAlign: "center",
     fontSize: 12,
-    color:'black'
+    color: 'black'
   },
   notiNumArea: {
     backgroundColor: 'white',
@@ -251,7 +294,7 @@ const styles = StyleSheet.create({
     fontFamily: 'TrumpSoftPro-BoldItalic',
     width: '100%',
     textAlign: "center",
-    marginTop:15
+    marginTop: 15
   },
   ListContent1: {
     marginTop: 5,

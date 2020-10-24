@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import HomeDropScreen from './HomeDropScreen'
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class HomeScreen extends Component {
           ImageUrl: require("../../Assets/Images/program3.png")
         }
       ],
-
+      modalVisible: false,
     };
   }
 
@@ -59,7 +60,7 @@ export default class HomeScreen extends Component {
                 <View style={styles.BackBtn}>
                   <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
                 </View>
-                <TouchableOpacity style={styles.dropDown} onPress={() => this.props.navigation.navigate("HomeDropScreen")}>
+                <TouchableOpacity style={styles.dropDown} onPress={() => this.props.AnimationsStart()}>
                   <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
                   <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
                 </TouchableOpacity>

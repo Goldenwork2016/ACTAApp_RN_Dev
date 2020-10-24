@@ -373,5 +373,5 @@ export const styles = StyleSheet.create({
         height:250,
         alignSelf:'center',
         marginTop:10
-    }
+    },
   })

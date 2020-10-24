@@ -41,7 +41,7 @@ export default class ExercicesScreen extends Component {
     };
   }
 
-  _rendermakelist1({ item }) {
+  _rendermakelist1({ item, index }) {
     return (
       <View style={styles.ListContent1}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
@@ -53,53 +53,52 @@ export default class ExercicesScreen extends Component {
 
   render() {
     return (
+      <View style={styles.container}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
-          <View style={{ width: '100%', height: 600 }}>
-            <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} resizeMode='stretch' style={styles.ImageBackground}>
-              <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
-              <View style={styles.header}>
-                <View style={styles.BackBtn}>
-                  <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
-                </View>
+          <View style={{ width: '100%', height: 610 }}>
+            <ImageBackground source={require('../../Assets/Images/ProgramBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
+                <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
+                <View style={styles.header}>
+                    <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
+                        <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                    </TouchableOpacity>
                 <View style={styles.dropDown}>
-                  <Text style={styles.headerTxt}>EXERCISES</Text>
-                </View>
-                <TouchableOpacity style={styles.AlarmkBtn}>
-                  <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                  <View style={styles.notiNumArea}>
-                    <Text style={styles.notiNum}>3</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
-                <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn1} onPress={()=>{this.props.toggle()}}>
-                    <Text style={styles.CreateTxt1}>Programs</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={{ width: '50%' }}>
-                  <TouchableOpacity style={styles.createBtn} >
-                    <Text style={styles.CreateTxt}>Workouts</Text>
-                  </TouchableOpacity>
+                  <Text style={styles.headerTxt}>PROGRAM</Text>
                 </View>
               </View>
               <View style={styles.mainContainer}>
-                <Text style={styles.nextTxt}>Continue Workout</Text>
-                <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
-                <Text style={styles.minText}>Loose Fat fast and furious</Text>
-                <TouchableOpacity style={styles.createBtn2}>
-                  <Text style={styles.CreateTxt}>Continus  Workout</Text>
+                <Image source={require('../../Assets/Images/black.png')} resizeMode='stretch' style={styles.blackImage} />
+                <Text style={styles.TileTxt}>SUMMER</Text>
+                <Text style={styles.TileTxt}>READY.</Text>
+                <Text style={styles.minText}>Start working on your beach body</Text>
+                <View style={styles.headerContent}>
+                <View style={styles.ContentList2}>
+                    <Text style={styles.numTxt}>8</Text>
+                    <Text style={styles.itemTxt}>Week</Text>
+                    </View>
+                    <View style={styles.ContentList2}>
+                    <Text style={styles.numTxt}>5</Text>
+                    <Text style={styles.itemTxt}>Per Week</Text>
+                    </View>
+                    <View style={{...styles.ContentList2, borderRightWidth:0}}>
+                    <Text style={styles.numTxt}>30</Text>
+                    <Text style={styles.itemTxt}>Minutes</Text>
+                    </View>
+                </View>
+                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
+                  <Text style={styles.CreateTxt}>Continus  Program</Text>
                 </TouchableOpacity>
               </View>
             </ImageBackground>
           </View>
           <View style={styles.mainContent}>
+            <View style={{width:'100%', alignSelf:"center", marginBottom:30}}>
+                <Text style={styles.DescriptionTxt}>
+                    Mauris posuere magna ut ex dictum vehicula. Nulla neque ipsum, molestie ac magna non, viverra maximus nulla. Etiam vulputate euismod sapien, sed vehicula lorem blandit vel. 
+                </Text>
+            </View>
             <View style={styles.AllArea}>
               <Text style={styles.ConHeaderTxt}>Workouts</Text>
-              <View style={styles.AllArea}>
-                <Text style={styles.ConHeaderTxt1}>LOOSE FAT</Text>
-                <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
-              </View>
             </View>
             <FlatList
               vertical
@@ -111,6 +110,7 @@ export default class ExercicesScreen extends Component {
             />
           </View>
         </ScrollView>
+      </View>
     );
   }
 }
@@ -143,6 +143,31 @@ const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Demi',
     letterSpacing: 1.5
   },
+  headerContent:{
+    flexDirection:'row',
+    width:'95%',
+    alignSelf:'center',
+    marginTop:30,
+    marginBottom:30
+  },
+  ContentList2:{
+    width:'33%',
+    alignItems:"center",
+    borderRightWidth:0.2,
+    borderColor:'#82828f'
+  },
+  itemTxt:{
+    fontFamily:'FuturaPT-Book',
+    color:'#82828f',
+    fontSize:17,
+    textAlign:'center',
+  },
+  numTxt:{
+    color:'white',
+    fontSize:23,
+    fontFamily:'FuturaPT-Medium',
+    textAlign:'center'
+  },
   HeaderImage: {
     marginLeft: 10,
     width: 25,
@@ -161,7 +186,7 @@ const styles = StyleSheet.create({
     width: 26,
     height: 20,
     position: 'absolute',
-    left: 10
+    left: 20
   },
   AlarmkBtn: {
     width: 26,
@@ -210,8 +235,8 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   createBtn2: {
-    width: 200,
-    height: 53,
+    width: "100%",
+    height: 50,
     backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
@@ -221,12 +246,13 @@ const styles = StyleSheet.create({
   mainContainer: {
     position: 'absolute',
     bottom: 0,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    width:'90%'
   },
   CreateTxt: {
     fontFamily: 'FuturaPT-Medium',
     color: 'black',
-    fontSize: 22,
+    fontSize: 20,
     textAlign: "center",
   },
   CreateTxt1: {
@@ -243,9 +269,10 @@ const styles = StyleSheet.create({
   },
   TileTxt: {
     fontFamily: 'TrumpSoftPro-BoldItalic',
-    color: 'white', fontSize: 62,
+    color: 'white', 
+    fontSize: 57,
     textAlign: "center",
-    marginBottom: 5,
+    marginTop: -20,
     lineHeight: 70
   },
   dropDown: {
@@ -270,7 +297,8 @@ const styles = StyleSheet.create({
     color: '#82828f',
     fontSize: 18,
     textAlign: "center",
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop:5
   },
   nextTxt: {
     fontFamily: 'FuturaPT-Book',
@@ -281,7 +309,8 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     marginTop: 45,
-    marginLeft: '3%'
+    width:'95%',
+    alignSelf:'center'
   },
   ConHeaderTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -328,7 +357,7 @@ const styles = StyleSheet.create({
   },
   ListContent1: {
     marginTop: 5,
-    width: "97.5%",
+    width: "100%",
     height: 390,
     marginBottom: 10,
     justifyContent: 'center',
@@ -339,5 +368,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center",
     marginRight:5
+  },
+  blackImage:{
+      alignSelf:'center',
+      width:75,
+      height:75,
+      marginBottom:50
+  },
+  DescriptionTxt:{
+      fontFamily:'FuturaPT-Book',
+      color:'#82828f',
+      fontSize:18,
+      lineHeight:30
   }
 })
