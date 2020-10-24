@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 
-export default class ExercicesScreen extends Component {
+export default class ProgramDetailScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,7 +85,7 @@ export default class ExercicesScreen extends Component {
                     <Text style={styles.itemTxt}>Minutes</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
+                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
                   <Text style={styles.CreateTxt}>Continus  Program</Text>
                 </TouchableOpacity>
               </View>
@@ -168,71 +168,16 @@ const styles = StyleSheet.create({
     fontFamily:'FuturaPT-Medium',
     textAlign:'center'
   },
-  HeaderImage: {
-    marginLeft: 10,
-    width: 25,
-    height: 21
-  },
-  notiImage: {
-    width: 22,
-    height: 23
-  },
-  RightIcon: {
-    width: 6,
-    height: 10,
-    marginRight: 10
-  },
   BackBtn: {
     width: 26,
     height: 20,
     position: 'absolute',
     left: 20
   },
-  AlarmkBtn: {
-    width: 26,
-    height: 20,
-    position: 'absolute',
-    right: "-8%"
-  },
   AlphaImage: {
     width: '100%',
     height: '100%',
     position: 'absolute',
-  },
-  PursueImage: {
-    width: 200,
-    height: 100,
-    alignSelf: "center",
-    marginBottom: 35
-  },
-  UnderIcon: {
-    width: 10,
-    height: 7,
-    alignSelf: "center",
-    marginLeft: 15
-  },
-  LoginImage: {
-    width: 46,
-    height: 19,
-    alignSelf: "center"
-  },
-  createBtn: {
-    width: "100%",
-    height: 53,
-    backgroundColor: 'white',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
-  },
-  createBtn1: {
-    width: "100%",
-    height: 53,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
   },
   createBtn2: {
     width: "100%",
@@ -261,12 +206,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
   },
-  LoginTxt: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 22,
-    textAlign: "center"
-  },
   TileTxt: {
     fontFamily: 'TrumpSoftPro-BoldItalic',
     color: 'white', 
@@ -278,20 +217,6 @@ const styles = StyleSheet.create({
   dropDown: {
     marginLeft: '10%'
   },
-  notiNum: {
-    textAlign: "center",
-    fontSize: 12,
-    color:'black'
-  },
-  notiNumArea: {
-    backgroundColor: 'white',
-    width: 15,
-    height: 15,
-    borderRadius: 7.5,
-    position: "absolute",
-    top: -3,
-    right: -3,
-  },
   minText: {
     fontFamily: 'FuturaPT-Book',
     color: '#82828f',
@@ -299,13 +224,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
     marginTop:5
-  },
-  nextTxt: {
-    fontFamily: 'FuturaPT-Book',
-    textAlign: "center",
-    color: 'white',
-    fontSize: 18,
-    marginBottom: 15
   },
   mainContent: {
     marginTop: 45,
@@ -317,13 +235,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 23,
     marginBottom: 15
-  },
-  ConHeaderTxt1: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 14,
-    letterSpacing: 2,
-    textAlign: "center"
   },
   ContentImage: {
     width: 224,

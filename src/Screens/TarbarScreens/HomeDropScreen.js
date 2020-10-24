@@ -74,7 +74,7 @@ export default class HomeDropScreen extends Component {
                 <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
                 <Image source={require('../../Assets/Images/upImage.png')} resizeMode='stretch' style={styles.UnderIcon} />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.AlarmkBtn} onPress={() => this.props.navigation.navigate("HomeScreen")}>
+              <TouchableOpacity style={styles.AlarmkBtn} onPress={() => this.AnimationsEnd()}>
                 <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.notiImage} />
               </TouchableOpacity>
             </View>

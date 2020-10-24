@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import HomeDropScreen from './HomeDropScreen'
 
 export default class HomeScreen extends Component {
   constructor(props) {
