@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import ProgressCircle from 'react-native-progress-circle'
 
-export default class ProgramDetailStartScreen extends Component {
+export default class ActiveExersiceScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,46 +12,27 @@ export default class ProgramDetailStartScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <View style={styles.header}>
+                    <View style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
+                        <Text style={styles.headerRightTxt}>EXERCISE 2<Text style={{ color: '#82828f' }}>-8</Text></Text>
+                    </View>
+                    <View style={styles.dropDown}>
+                        <Text style={styles.headerTxt}>00:14</Text>
+                    </View>
+                    <TouchableOpacity style={styles.CloseBtn} onPress={() => this.props.navigation.goBack()}>
+                        <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.closeImage} />
+                    </TouchableOpacity>
+                    <View style={{ borderBottomWidth: 2, borderColor: 'white', width: '40%', position: "absolute", bottom: -1, left:0 }}></View>
+                </View>
                 <ScrollView style={{ width: '100%' }}>
                     <View style={{ width: '100%' }}>
-                        <View style={styles.header}>
-                            <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                                <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
-                            </TouchableOpacity>
-                            <View style={styles.dropDown}>
-                                <Text style={styles.headerTxt}>WORKOUT</Text>
-                            </View>
-                        </View>
                         <View style={styles.mainContainer}>
-                            <ImageBackground source={require('../../Assets/Images/FastFuriousImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
-                                <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
-                                <Text style={styles.TileTxt}>FAST & FURIOUS</Text>
-                                <View style={styles.headerContent}>
-                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                        <Text style={styles.numTxt}>30</Text>
-                                        <Text style={styles.itemTxt}>Minutes</Text>
-                                    </View>
-                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                        <Text style={styles.numTxt}>Legs</Text>
-                                        <Text style={styles.itemTxt}>Type</Text>
-                                    </View>
-                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                        <Text style={styles.numTxt}>Time/Rep.</Text>
-                                        <Text style={styles.itemTxt}>Based</Text>
-                                    </View>
-                                </View>
-                                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ReadyScreen")}>
-                                    <Text style={styles.CreateTxt}>Start Workout</Text>
-                                </TouchableOpacity>
-                            </ImageBackground>
-                            <Text style={{alignSelf:'center',color:'white', fontSize:25, fontFamily:'FuturaPT-Medium', marginVertical:30}} >
-                                Exercises
-                            </Text>
-                            <View style={{width:"90%", alignSelf:'center'}}>
-                                <View style={styles.NextArea}>
+                            <Text style={styles.TileTxt}>FAST & FURIOUS</Text>
+                            <View style={{ width: "90%", alignSelf: 'center', marginTop: 35 }}>
+                                <View style={styles.NextArea1}>
                                     <Text style={styles.NextTxt}>Warming Up</Text>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={styles.ItemArea2}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View>
                                         <Text style={styles.FastTxt}>Incline Walk</Text>
@@ -63,22 +43,20 @@ export default class ProgramDetailStartScreen extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{width:"90%", alignSelf:'center'}}>
+                            <View style={{ width: "90%", alignSelf: 'center' }}>
                                 <View style={styles.ItemArea1}>
-                                    <Text style={styles.FastTxt1}>Rest</Text>
-                                    <View style={{borderColor:'#18171A', borderBottomWidth:2, width:"50%"}}>
-                                    </View>
+                                    <Text style={{ ...styles.FastTxt1, color: '#575763' }}>Rest</Text>
                                     <View style={styles.leftMin1}>
-                                    <Text style={{ ...styles.numTxt, fontSize: 25 }}>60</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25, color: '#575763' }}>60</Text>
                                         <Text style={styles.minTxt}>sec.</Text>
                                     </View>
                                 </View>
                             </View>
-                            <View style={{width:"90%", alignSelf:'center', marginTop:-20}}>
+                            <View style={{ width: "90%", alignSelf: 'center', marginTop: -20 }}>
                                 <View style={styles.NextArea}>
                                     <Text style={styles.NextTxt}>Glute Activation</Text>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <TouchableOpacity style={styles.ItemArea} onPress={() => this.props.gotoNextScreen()}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
                                         <Text style={styles.FastTxt}>Left Banded Glude</Text>
@@ -88,8 +66,8 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={{ ...styles.numTxt, fontSize: 25 }}>12</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
-                                </View>
-                                <View style={styles.ItemArea}>
+                                </TouchableOpacity>
+                                <View style={{ ...styles.ItemArea, backgroundColor: "#111012" }}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
                                         <Text style={styles.FastTxt}>Banded Glude</Text>
@@ -100,7 +78,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{ ...styles.ItemArea, backgroundColor: "#111012" }}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
                                         <Text style={styles.FastTxt}>Left Banded Glude</Text>
@@ -111,10 +89,10 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{ ...styles.ItemArea, backgroundColor: "#111012" }}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Rnussaion</Text>
+                                        <Text style={styles.FastTxt}>Russaion</Text>
                                     </View>
                                     <View style={styles.leftMin}>
                                         <Text style={{ ...styles.numTxt, fontSize: 25 }}>5</Text>
@@ -122,22 +100,22 @@ export default class ProgramDetailStartScreen extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{width:"90%", alignSelf:'center'}}>
+                            <View style={{ width: "90%", alignSelf: 'center' }}>
                                 <View style={styles.ItemArea1}>
                                     <Text style={styles.FastTxt1}>Rest</Text>
-                                    <View style={{borderColor:'#18171A', borderBottomWidth:2, width:"50%"}}>
+                                    <View style={{ borderColor: '#18171A', borderBottomWidth: 2, width: "50%" }}>
                                     </View>
                                     <View style={styles.leftMin1}>
-                                    <Text style={{ ...styles.numTxt, fontSize: 25 }}>60</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>60</Text>
                                         <Text style={styles.minTxt}>sec.</Text>
                                     </View>
                                 </View>
                             </View>
-                            <View style={{width:"90%", alignSelf:'center', marginTop:-20}}>
+                            <View style={{ width: "90%", alignSelf: 'center', marginTop: -20 }}>
                                 <View style={styles.NextArea}>
                                     <Text style={styles.NextTxt}>Glute Activation</Text>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{ ...styles.ItemArea, backgroundColor: "#111012" }}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
                                         <Text style={styles.FastTxt}>Left Banded Glude</Text>
@@ -148,7 +126,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{ ...styles.ItemArea, backgroundColor: "#111012" }}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
                                         <Text style={styles.FastTxt}>Banded Glude</Text>
@@ -159,7 +137,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{ ...styles.ItemArea, backgroundColor: "#111012" }}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
                                         <Text style={styles.FastTxt}>Left Banded Glude</Text>
@@ -170,7 +148,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{ ...styles.ItemArea, backgroundColor: "#111012" }}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
                                         <Text style={styles.FastTxt}>Rnussaion</Text>
@@ -192,6 +170,7 @@ export default class ProgramDetailStartScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: '100%',
         alignItems: "center",
         backgroundColor: 'black'
     },
@@ -208,14 +187,14 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 60 : 20,
         width: "90%",
         alignItems: "center",
-        paddingBottom: 41,
-        borderBottomWidth: 0.2,
+        paddingBottom: 30,
+        borderBottomWidth: 2,
         borderColor: '#82828f',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     headerTxt: {
         color: 'white',
-        fontSize: 14,
+        fontSize: 22,
         fontFamily: 'FuturaPT-Demi',
         letterSpacing: 1.5
     },
@@ -240,6 +219,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 3
     },
+    closeImage: {
+        width: 25,
+        height: 25
+    },
     numTxt: {
         color: 'white',
         fontSize: 20,
@@ -248,10 +231,16 @@ const styles = StyleSheet.create({
         marginVertical: 3
     },
     BackBtn: {
-        width: 26,
         height: 20,
         position: 'absolute',
-        left: 10
+        left: 0,
+        marginTop: 5
+    },
+    CloseBtn: {
+        width: 20,
+        height: 20,
+        position: 'absolute',
+        right: 10
     },
     AlphaImage: {
         width: '100%',
@@ -301,7 +290,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 55,
         textAlign: "center",
-        marginTop: 115,
+        marginTop: 50,
         lineHeight: 70
     },
     dropDown: {
@@ -360,6 +349,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#111012",
         justifyContent: 'center',
     },
+    NextArea1: {
+        height: 55,
+        width: '100%',
+        backgroundColor: "#070708",
+        justifyContent: 'center',
+    },
     fastImage: {
         width: 65,
         height: 65
@@ -373,11 +368,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 1,
     },
+    ItemArea2: {
+        height: 110,
+        width: '100%',
+        padding: 20,
+        backgroundColor: '#0a0a0b',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 1,
+    },
     ItemArea1: {
         height: 100,
         width: '100%',
         padding: 20,
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 1,
@@ -430,5 +434,10 @@ const styles = StyleSheet.create({
         borderTopWidth: 0.2,
         borderBottomWidth: 0.2,
         borderColor: '#82828f'
+    },
+    headerRightTxt: {
+        color: 'white',
+        fontFamily: 'FuturaPT-Demi',
+        letterSpacing: 2
     }
 })

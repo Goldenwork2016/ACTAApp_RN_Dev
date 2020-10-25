@@ -14,6 +14,10 @@ import workoutsScreen from './Screens/TarbarScreens/workoutsScreen'
 import ProgramDetailScreen from './Screens/TarbarScreens/ProgramDetailScreen'
 import ProgramDetailStartScreen from './Screens/TarbarScreens/ProgramDetailStartScreen'
 import ProgramWorkoutDetailScreen from './Screens/TarbarScreens/ProgramWorkoutDetailScreen'
+import ReadyScreen from './Screens/TarbarScreens/ReadyScreen'
+import ActiveExersiceScreen from './Screens/TarbarScreens/ActiveExersiceScreen'
+import ProgramWorkoutRestScreen from './Screens/TarbarScreens/ProgramWorkoutRestScreen'
+import ProgramWorkoutInfoScreen from './Screens/TarbarScreens/ProgramWorkoutInfoScreen'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -87,28 +91,52 @@ const Exercices = createStackNavigator(
                 headerShown: false,
             }
         },
+        ReadyScreen: {
+            screen: ReadyScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        ActiveExersiceScreen: {
+            screen: ActiveExersiceScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        ProgramWorkoutRestScreen: {
+            screen: ProgramWorkoutRestScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        ProgramWorkoutInfoScreen: {
+            screen: ProgramWorkoutInfoScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'ExecicesScreen',
     }
 );
 
-// Exercices.navigationOptions = ({ navigation }) => {
-//     let tabBarVisible;
-//     if (navigation.state.routes.length > 1) {
-//         navigation.state.routes.map(route => {
-//             if (route.routeName === "workoutsScreen") {
-//                 tabBarVisible = false;
-//             }
-//             else {
-//               tabBarVisible = true;
-//             }
-//         });
-//     }
-//     return {
-//         tabBarVisible
-//     };
-// };
+Exercices.navigationOptions = ({ navigation }) => {
+    let tabBarVisible;
+    if (navigation.state.routes.length > 1) {
+        navigation.state.routes.map(route => {
+            if (route.routeName === "ReadyScreen" || route.routeName === "ProgramWorkoutInfoScreen") {
+                tabBarVisible = false;
+            }
+            else {
+              tabBarVisible = true;
+            }
+        });
+    }
+    return {
+        tabBarVisible
+    };
+};
 const Activity = createStackNavigator(
     {
         ActivityScreen: {
