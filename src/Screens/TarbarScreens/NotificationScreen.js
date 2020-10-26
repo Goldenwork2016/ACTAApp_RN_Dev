@@ -69,13 +69,13 @@ export default class ActivityScreen extends Component {
                                 <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
                                 <View style={{ marginLeft: 15 }}>
                                     <Text style={styles.proTxt}>Kelly Winters</Text>
-                                    <Text style={styles.timeTxt}>Today at 10:40</Text>
+                                    <Text style={styles.timeTxt}>Sacramento</Text>
                                 </View>
                             </View>
                             <View style={styles.BtbArea}>
                                 <View style={{ width: '49.7%' }}>
                                     <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                                        <Text style={styles.AcceptTxt}>ACCEPT</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ width: '49.7%' }}>
@@ -90,7 +90,7 @@ export default class ActivityScreen extends Component {
                                 <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.HeaderImage1} />
                                 <View style={{ marginLeft: 15 }}>
                                     <Text style={styles.proTxt}>Kelly Winters</Text>
-                                    <Text style={styles.timeTxt}>Today at 10:40</Text>
+                                    <Text style={styles.timeTxt}>New York</Text>
                                 </View>
                             </View>
                             <View style={styles.BtbArea}>

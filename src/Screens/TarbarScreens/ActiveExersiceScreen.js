@@ -19,7 +19,7 @@ export default class ActiveExersiceScreen extends Component {
                     <View style={styles.dropDown}>
                         <Text style={styles.headerTxt}>00:14</Text>
                     </View>
-                    <TouchableOpacity style={styles.CloseBtn} onPress={() => this.props.navigation.goBack()}>
+                    <TouchableOpacity style={styles.CloseBtn} onPress={() => this.props.back()}>
                         <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.closeImage} />
                     </TouchableOpacity>
                     <View style={{ borderBottomWidth: 2, borderColor: 'white', width: '40%', position: "absolute", bottom: -1, left:0 }}></View>

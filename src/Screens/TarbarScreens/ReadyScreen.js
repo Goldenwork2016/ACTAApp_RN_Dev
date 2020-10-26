@@ -8,7 +8,8 @@ export default class ReadyScreen extends Component {
         super(props);
         this.state = {
             processNumber: '',
-            Timer: ''
+            Timer: '',
+            flag:false
         };
     }
 
@@ -17,6 +18,9 @@ export default class ReadyScreen extends Component {
             await this.setState({ processNumber: ++this.state.processNumber })
             if (this.state.processNumber == 4) {
                 clearInterval(this.state.Timer);
+                await this.setState({flag:true})
+            }else{
+                await this.setState({flag:false})
             }
         }, 1000);
     }
@@ -25,12 +29,16 @@ export default class ReadyScreen extends Component {
         this.props.navigation.navigate("ProgramWorkoutInfoScreen")
     }
 
+    back = () => {
+        this.props.navigation.navigate("ProgramWorkoutDetailScreen")
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 {
-                    this.state.processNumber == 4 ?
-                        <ActiveExersiceScreen gotoNextScreen = {this.gotoNextScreen} /> :
+                    this.state.flag == true ?
+                        <ActiveExersiceScreen gotoNextScreen = {this.gotoNextScreen} back={this.back} /> :
                         <View style={styles.headerContent}>
                             <ProgressCircle
                                 percent={this.state.processNumber * 25}

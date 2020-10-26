@@ -39,6 +39,11 @@ export const styles = StyleSheet.create({
       width: 25,
       height: 25
     },
+    AcceptTxt:{
+      color:'white',
+      fontSize:15,
+      fontFamily:"FuturaPT-Medium"
+    },
     PersonProfileImage: {
       width: 110,
       height: 110,

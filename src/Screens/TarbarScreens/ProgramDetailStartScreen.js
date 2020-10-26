@@ -16,7 +16,7 @@ export default class ProgramDetailStartScreen extends Component {
                 <ScrollView style={{ width: '100%' }}>
                     <View style={{ width: '100%' }}>
                         <View style={styles.header}>
-                            <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
+                            <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.navigate("ProgramDetailScreen")}>
                                 <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
                             </TouchableOpacity>
                             <View style={styles.dropDown}>

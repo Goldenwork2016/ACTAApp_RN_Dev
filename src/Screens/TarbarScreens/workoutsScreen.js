@@ -87,7 +87,7 @@ export default class ExercicesScreen extends Component {
                 <Text style={styles.nextTxt}>Continue Workout</Text>
                 <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
                 <Text style={styles.minText}>Loose Fat fast and furious</Text>
-                <TouchableOpacity style={styles.createBtn2}>
+                <TouchableOpacity style={styles.createBtn2}  onPress={()=>this.props.gotoDetailScreen()}>
                   <Text style={styles.CreateTxt}>Continus  Workout</Text>
                 </TouchableOpacity>
               </View>

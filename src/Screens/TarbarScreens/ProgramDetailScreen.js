@@ -8,32 +8,32 @@ export default class ProgramDetailScreen extends Component {
       contentList1: [
         {
           Title: 'Fast & Furious',
-          Description:'10 Exercices. 30 min',
+          Description: '10 Exercices. 30 min',
           ImageUrl: require("../../Assets/Images/FastFuriousImage.png")
         },
         {
           Title: 'Buddy Workout',
-          Description:'10 Exercices. 30 min',
+          Description: '10 Exercices. 30 min',
           ImageUrl: require("../../Assets/Images/BuddyWorkoutImage.png")
         },
         {
           Title: 'Leg Workout',
-          Description:'10 Exercices. 30 min',
+          Description: '10 Exercices. 30 min',
           ImageUrl: require("../../Assets/Images/LegWorkoutImage.png")
         },
         {
           Title: 'Stretch a Leg',
-          Description:'10 Exercices. 30 min',
+          Description: '10 Exercices. 30 min',
           ImageUrl: require("../../Assets/Images/StretchLegImage.png")
         },
         {
           Title: 'Work it',
-          Description:'10 Exercices. 30 min',
+          Description: '10 Exercices. 30 min',
           ImageUrl: require("../../Assets/Images/WorkitImage.png")
         },
         {
           Title: 'Jumping Ropes',
-          Description:'10 Exercices. 30 min',
+          Description: '10 Exercices. 30 min',
           ImageUrl: require("../../Assets/Images/JumpingImage.png")
         },
       ],
@@ -43,11 +43,11 @@ export default class ProgramDetailScreen extends Component {
 
   _rendermakelist1({ item, index }) {
     return (
-      <View style={styles.ListContent1}>
+      <TouchableOpacity style={styles.ListContent1} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
         <Text style={styles.ListTitle}>{item.Title}</Text>
         <Text style={styles.Description}>{item.Description}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -57,11 +57,11 @@ export default class ProgramDetailScreen extends Component {
         <ScrollView style={{ flex: 1, width: '100%' }}>
           <View style={{ width: '100%', height: 610 }}>
             <ImageBackground source={require('../../Assets/Images/ProgramBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
-                <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
-                <View style={styles.header}>
-                    <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
-                    </TouchableOpacity>
+              <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
+              <View style={styles.header}>
+                <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
+                  <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                </TouchableOpacity>
                 <View style={styles.dropDown}>
                   <Text style={styles.headerTxt}>PROGRAM</Text>
                 </View>
@@ -72,18 +72,18 @@ export default class ProgramDetailScreen extends Component {
                 <Text style={styles.TileTxt}>READY.</Text>
                 <Text style={styles.minText}>Start working on your beach body</Text>
                 <View style={styles.headerContent}>
-                <View style={styles.ContentList2}>
+                  <View style={styles.ContentList2}>
                     <Text style={styles.numTxt}>8</Text>
                     <Text style={styles.itemTxt}>Week</Text>
-                    </View>
-                    <View style={styles.ContentList2}>
+                  </View>
+                  <View style={styles.ContentList2}>
                     <Text style={styles.numTxt}>5</Text>
                     <Text style={styles.itemTxt}>Per Week</Text>
-                    </View>
-                    <View style={{...styles.ContentList2, borderRightWidth:0}}>
+                  </View>
+                  <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
                     <Text style={styles.numTxt}>30</Text>
                     <Text style={styles.itemTxt}>Minutes</Text>
-                    </View>
+                  </View>
                 </View>
                 <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
                   <Text style={styles.CreateTxt}>Continus  Program</Text>
@@ -92,9 +92,9 @@ export default class ProgramDetailScreen extends Component {
             </ImageBackground>
           </View>
           <View style={styles.mainContent}>
-            <View style={{width:'100%', alignSelf:"center", marginBottom:30}}>
-                <Text style={styles.DescriptionTxt}>
-                    Mauris posuere magna ut ex dictum vehicula. Nulla neque ipsum, molestie ac magna non, viverra maximus nulla. Etiam vulputate euismod sapien, sed vehicula lorem blandit vel. 
+            <View style={{ width: '100%', alignSelf: "center", marginBottom: 30 }}>
+              <Text style={styles.DescriptionTxt}>
+                Mauris posuere magna ut ex dictum vehicula. Nulla neque ipsum, molestie ac magna non, viverra maximus nulla. Etiam vulputate euismod sapien, sed vehicula lorem blandit vel.
                 </Text>
             </View>
             <View style={styles.AllArea}>
@@ -105,7 +105,13 @@ export default class ProgramDetailScreen extends Component {
               showsVerticalScrollIndicator={true}
               numColumns={1}
               data={this.state.contentList1}
-              renderItem={this._rendermakelist1}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.ListContent1} onPress={() => this.props.navigation.navigate("ProgramWorkoutDetailScreen")}>
+                  <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
+                  <Text style={styles.ListTitle}>{item.Title}</Text>
+                  <Text style={styles.Description}>{item.Description}</Text>
+                </TouchableOpacity>
+              )}
               keyExtractor={item => `${item.id}`}
             />
           </View>
@@ -143,30 +149,30 @@ const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Demi',
     letterSpacing: 1.5
   },
-  headerContent:{
-    flexDirection:'row',
-    width:'95%',
-    alignSelf:'center',
-    marginTop:30,
-    marginBottom:30
+  headerContent: {
+    flexDirection: 'row',
+    width: '95%',
+    alignSelf: 'center',
+    marginTop: 30,
+    marginBottom: 30
   },
-  ContentList2:{
-    width:'33%',
-    alignItems:"center",
-    borderRightWidth:0.2,
-    borderColor:'#82828f'
+  ContentList2: {
+    width: '33%',
+    alignItems: "center",
+    borderRightWidth: 0.2,
+    borderColor: '#82828f'
   },
-  itemTxt:{
-    fontFamily:'FuturaPT-Book',
-    color:'#82828f',
-    fontSize:17,
-    textAlign:'center',
+  itemTxt: {
+    fontFamily: 'FuturaPT-Book',
+    color: '#82828f',
+    fontSize: 17,
+    textAlign: 'center',
   },
-  numTxt:{
-    color:'white',
-    fontSize:23,
-    fontFamily:'FuturaPT-Medium',
-    textAlign:'center'
+  numTxt: {
+    color: 'white',
+    fontSize: 23,
+    fontFamily: 'FuturaPT-Medium',
+    textAlign: 'center'
   },
   BackBtn: {
     width: 26,
@@ -192,7 +198,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     alignSelf: 'center',
-    width:'90%'
+    width: '90%'
   },
   CreateTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -208,7 +214,7 @@ const styles = StyleSheet.create({
   },
   TileTxt: {
     fontFamily: 'TrumpSoftPro-BoldItalic',
-    color: 'white', 
+    color: 'white',
     fontSize: 57,
     textAlign: "center",
     marginTop: -20,
@@ -223,12 +229,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     marginBottom: 20,
-    marginTop:5
+    marginTop: 5
   },
   mainContent: {
     marginTop: 45,
-    width:'95%',
-    alignSelf:'center'
+    width: '95%',
+    alignSelf: 'center'
   },
   ConHeaderTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -246,25 +252,25 @@ const styles = StyleSheet.create({
     height: 390,
     marginRight: 20,
     position: 'absolute',
-    borderRadius:3
+    borderRadius: 3
   },
   ListTitle: {
     fontSize: 35,
     color: 'white',
     fontFamily: 'FuturaPT-Medium',
     width: '100%',
-    position:'absolute',
-    bottom:48,
-    left:30
+    position: 'absolute',
+    bottom: 48,
+    left: 30
   },
   Description: {
     fontSize: 22,
     color: '#82828f',
     fontFamily: 'FuturaPT-Book',
     width: '100%',
-    position:'absolute',
-    bottom:18,
-    left:30
+    position: 'absolute',
+    bottom: 18,
+    left: 30
   },
   ListContent1: {
     marginTop: 5,
@@ -278,18 +284,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center",
-    marginRight:5
+    marginRight: 5
   },
-  blackImage:{
-      alignSelf:'center',
-      width:75,
-      height:75,
-      marginBottom:50
+  blackImage: {
+    alignSelf: 'center',
+    width: 75,
+    height: 75,
+    marginBottom: 50
   },
-  DescriptionTxt:{
-      fontFamily:'FuturaPT-Book',
-      color:'#82828f',
-      fontSize:18,
-      lineHeight:30
+  DescriptionTxt: {
+    fontFamily: 'FuturaPT-Book',
+    color: '#82828f',
+    fontSize: 18,
+    lineHeight: 30
   }
 })

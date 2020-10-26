@@ -47,7 +47,7 @@ export default class WorkoutOverViewScreen extends Component {
                                             <Text style={styles.TileTxt}>COMPLETE</Text>
                                         </View>
                                         <View style={styles.headerContent}>
-                                            <View style={{ width: '50%' }}>
+                                            <View style={{ width: '50%', marginLeft:10 }}>
                                                 <Text style={styles.achiveTxt}>Workout</Text>
                                                 <Text style={styles.minTxt1}>Fast & Furious</Text>
                                             </View>
@@ -80,7 +80,7 @@ export default class WorkoutOverViewScreen extends Component {
                                         <Text style={styles.TitleTxt}>SHARE WORKOUT</Text>
                                         <Text style={styles.Description}>Show your workout achievements</Text>
                                         <Text style={styles.Description}>with your friends on instagram!</Text>
-                                        <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: '#18171A', marginBottom: 10, borderColor: '#18171A' }} onPress={() => this.complete()}>
+                                        <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: '#18171A', marginBottom: 10, borderColor: '#18171A' }}>
                                             <Image source={require('../../Assets/Images/InstagramIcon.png')} resizeMode='stretch' style={styles.InstagramIcon} />
                                             <Text style={{ ...styles.Dismiss, color: 'white' }}>Instagram Stroy</Text>
                                         </TouchableOpacity>
