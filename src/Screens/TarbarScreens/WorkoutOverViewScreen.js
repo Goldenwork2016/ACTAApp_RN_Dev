@@ -2,96 +2,102 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 
-export default class ActiveExersiceScreen extends Component {
+import WorkoutCompleteScreen from './WorkoutCompleteScreen'
+
+export default class WorkoutOverViewScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalVisible: false
+            isModalVisible: false,
+            ready: '',
+            Timer: '',
+            flag: false
         };
     }
 
     complete = () => {
         this.setState({ isModalVisible: false })
-        this.props.navigation.navigate("WorkoutOverViewScreen")
+        this.props.navigation.navigate("WorkoutCompleteScreen")
     }
-    QuitWorkout = () => {
-        this.setState({ isModalVisible: false })
-        this.props.navigation.navigate("ProgramWorkoutDetailScreen")
+
+    componentDidMount() {
+        this.state.Timer = setInterval(async () => {
+            await this.setState({ ready: ++this.state.ready })
+            if (this.state.processNumber == 3) {
+                clearInterval(this.state.Timer);
+            }
+        }, 1000);
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <View style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Text style={styles.headerRightTxt}>EXERCISE 5<Text style={{ color: '#82828f' }}>-8</Text></Text>
-                    </View>
-                    <View style={styles.dropDown}>
-                        <Text style={styles.headerTxt}>00:14</Text>
-                    </View>
-                    <TouchableOpacity style={styles.CloseBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.closeImage} />
-                    </TouchableOpacity>
-                </View>
-                <ScrollView style={{ width: '100%' }}>
-                    <View style={{ width: '100%' }}>
-                        <ImageBackground source={require('../../Assets/Images/ProgramWorkoutInfoImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
-                            <ImageBackground source={require('../../Assets/Images/TopBackImage.png')} resizeMode='stretch' style={styles.ImageBackground1}>
-                                <Text style={{ ...styles.numTxt, fontSize: 25 }}>6</Text>
-                                <Text style={{ ...styles.minTxt, color: 'white' }}>reps</Text>
-                            </ImageBackground>
-                            <Text style={styles.TileTxt}>Left Banded Glute Kickback</Text>
-                            <View style={styles.headerContent}>
-                                <TouchableOpacity style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                    <Image source={require('../../Assets/Images/PreviousImage.png')} resizeMode='stretch' style={styles.PreviousImage} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                    <View style={styles.StopImage}>
-                                        <Image source={require('../../Assets/Images/StopImage.png')} resizeMode='stretch' style={styles.PreviousImage} />
+                {
+                    this.state.ready >= 3 ?
+                        <View style={styles.container}>
+                            <ScrollView style={{ width: '100%' }}>
+                                <View style={{ width: '100%' }}>
+                                    <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} resizeMode='stretch' style={styles.ImageBackground}>
+                                        <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
+                                        <TouchableOpacity style={styles.shareBtn} onPress={() => this.setState({ isModalVisible: true })}>
+                                            <Image source={require('../../Assets/Images/shareImage.png')} resizeMode='stretch' style={styles.ImageBackground1} />
+                                        </TouchableOpacity>
+                                        <View style={styles.workTxt}>
+                                            <Text style={styles.TileTxt}>WORKOUT</Text>
+                                            <Text style={styles.TileTxt}>COMPLETE</Text>
+                                        </View>
+                                        <View style={styles.headerContent}>
+                                            <View style={{ width: '50%' }}>
+                                                <Text style={styles.achiveTxt}>Workout</Text>
+                                                <Text style={styles.minTxt1}>Fast & Furious</Text>
+                                            </View>
+                                        </View>
+                                    </ImageBackground>
+                                    <View style={styles.mainContainer}>
+                                        <View style={{ ...styles.content, flexDirection: 'row' }}>
+                                            <View style={{ width: '50%' }}>
+                                                <Text style={styles.achiveTxt}>Total Time</Text>
+                                                <Text style={styles.minTxt1}>00:28 min</Text>
+                                            </View>
+                                            <View style={{ width: '50%' }}>
+                                                <Text style={styles.achiveTxt}>Date</Text>
+                                                <Text style={styles.minTxt1}>Oct 10.2020</Text>
+                                            </View>
+                                        </View>
+                                        <View style={styles.content}>
+                                            <Text style={styles.achiveTxt}>Achievement</Text>
+                                            <View style={styles.NextArea}>
+                                                <Image source={require('../../Assets/Images/medalImage.png')} resizeMode='stretch' style={styles.medalImage} />
+                                            </View>
+                                        </View>
                                     </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                    <Image source={require('../../Assets/Images/NexImage.png')} resizeMode='stretch' style={styles.PreviousImage} />
-                                </TouchableOpacity>
-                            </View>
-                        </ImageBackground>
-                        <View style={styles.mainContainer}>
-                            <View style={{ width: "90%", alignSelf: 'center' }}>
-                                <View style={styles.NextArea}>
-                                    <Text style={styles.NextTxt}>Next Exercise</Text>
+                                    <TouchableOpacity style={styles.OverviewBtn} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
+                                        <Text style={styles.FastTxt}>Back to overview</Text>
+                                    </TouchableOpacity>
                                 </View>
-                                <View style={styles.ItemArea}>
-                                    <View >
-                                        <Text style={styles.FastTxt}>Left Banded Glude Kickback</Text>
+                                <Modal isVisible={this.state.isModalVisible}>
+                                    <View style={styles.modalView}>
+                                        <Text style={styles.TitleTxt}>SHARE WORKOUT</Text>
+                                        <Text style={styles.Description}>Show your workout achievements</Text>
+                                        <Text style={styles.Description}>with your friends on instagram!</Text>
+                                        <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: '#18171A', marginBottom: 10, borderColor: '#18171A' }} onPress={() => this.complete()}>
+                                            <Image source={require('../../Assets/Images/InstagramIcon.png')} resizeMode='stretch' style={styles.InstagramIcon} />
+                                            <Text style={{ ...styles.Dismiss, color: 'white' }}>Instagram Stroy</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.QuitWorkout}>
+                                            <Image source={require('../../Assets/Images/ShareIcon.png')} resizeMode='stretch' style={styles.ShareIcon} />
+                                            <Text style={styles.Dismiss}>Other options</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.setState({ isModalVisible: false })}>
+                                            <Text style={styles.Dismiss}>Dismiss</Text>
+                                        </TouchableOpacity>
                                     </View>
-                                    <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12<Text style={styles.minTxt}>reps</Text></Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                        <TouchableOpacity style={{ alignItems: 'center', marginVertical: 40, }} onPress={() => this.setState({ isModalVisible: true })}>
-                            <Text style={styles.FastTxt}>End workout</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <Modal isVisible={this.state.isModalVisible}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.TitleTxt}>END WORKOUT</Text>
-                            <Text style={styles.Description}>Are you sure you want to end</Text>
-                            <Text style={styles.Description}>your workout?</Text>
-                            <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: '#18171A', marginBottom: 10, borderColor: '#18171A' }} onPress={() => this.complete()}>
-                                <Text style={{ ...styles.Dismiss, color: 'white' }}>Complete Workout</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.QuitWorkout} onPress={()=>this.QuitWorkout()}>
-                                <Text style={styles.Dismiss}>QuitWorkout</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.setState({ isModalVisible: false })}>
-                                <Text style={styles.Dismiss}>Dismiss</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Modal>
-                </ScrollView>
-            </View >
+                                </Modal>
+                            </ScrollView>
+                        </View > :
+                        <WorkoutCompleteScreen />
+                }
+            </View>
         );
     }
 }
@@ -100,7 +106,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        width: '100%'
+    },
+    workTxt: {
+        marginTop: 50,
+        justifyContent: "center",
+        alignItems: 'center'
     },
     modalView: {
         width: '100%',
@@ -111,10 +123,58 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    InstagramIcon: {
+        width: 25,
+        height: 25,
+        position: 'absolute',
+        left: 20,
+        top: 12
+    },
+    ShareIcon: {
+        width: 15,
+        height: 15,
+        position: 'absolute',
+        left: 20,
+        top: 17
+    },
+    achiveTxt: {
+        color: '#82828f',
+        marginBottom: 15,
+        fontSize: 18,
+        fontFamily: 'FuturaPT-Book'
+    },
+    minTxt1: {
+        color: 'white',
+        marginBottom: 15,
+        fontSize: 22,
+        fontFamily: 'FuturaPT-Medium'
+    },
+    content: {
+        width: "90%",
+        alignSelf: 'center',
+        borderTopColor: '#82828f',
+        borderWidth: 0.5,
+        paddingTop: 30
+    },
+    OverviewBtn: {
+        alignItems: 'center',
+        marginVertical: 45,
+        width: '90%',
+        height: 55,
+        borderWidth: 2,
+        borderColor: 'white',
+        alignSelf: 'center',
+        justifyContent: 'center'
+    },
     ImageBackground: {
         width: '100%',
-        height: 520,
-        alignItems: 'center'
+        height: 465,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    medalImage: {
+        width: 35,
+        height: 55
     },
     Dismiss: {
         color: 'black',
@@ -130,6 +190,8 @@ const styles = StyleSheet.create({
     TitleTxt: {
         color: 'black',
         fontSize: 55,
+        width: '100%',
+        textAlign: 'center',
         marginBottom: 25,
         fontFamily: 'TrumpSoftPro-BoldItalic'
     },
@@ -145,13 +207,16 @@ const styles = StyleSheet.create({
         marginBottom: 40
     },
     ImageBackground1: {
-        width: 85,
-        height: 85,
+        width: 65,
+        height: 65,
         justifyContent: 'center',
         alignItems: 'center',
+
+    },
+    shareBtn: {
         position: 'absolute',
-        top: 20,
-        right: 20
+        top: 60,
+        right: 20,
     },
     UnderIcon: {
         width: 10,
@@ -177,7 +242,7 @@ const styles = StyleSheet.create({
         width: '95%',
         alignSelf: 'center',
         position: 'absolute',
-        bottom: 15,
+        bottom: -20,
         alignItems: 'center'
     },
 
@@ -274,13 +339,10 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     TileTxt: {
-        fontFamily: 'FuturaPT-Medium',
+        fontFamily: 'TrumpSoftPro-BoldItalic',
         color: 'white',
-        fontSize: 28,
+        fontSize: 65,
         textAlign: "center",
-        position: 'absolute',
-        bottom: 110,
-        lineHeight: 70
     },
     dropDown: {
     },
@@ -333,10 +395,11 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     NextArea: {
-        height: 55,
-        width: '100%',
+        height: 90,
+        width: 90,
         backgroundColor: "#111012",
         justifyContent: 'center',
+        alignItems: 'center'
     },
     NextArea1: {
         height: 55,
@@ -401,9 +464,9 @@ const styles = StyleSheet.create({
     },
     FastTxt: {
         color: 'white',
-        fontFamily: 'FuturaPT-Medium',
+        fontFamily: 'FuturaPT-Demi',
         marginVertical: 3,
-        fontSize: 20,
+        fontSize: 25,
         fontFamily: 'FuturaPT-Book',
     },
     FastTxt1: {

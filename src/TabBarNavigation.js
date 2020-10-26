@@ -18,6 +18,9 @@ import ReadyScreen from './Screens/TarbarScreens/ReadyScreen'
 import ActiveExersiceScreen from './Screens/TarbarScreens/ActiveExersiceScreen'
 import ProgramWorkoutRestScreen from './Screens/TarbarScreens/ProgramWorkoutRestScreen'
 import ProgramWorkoutInfoScreen from './Screens/TarbarScreens/ProgramWorkoutInfoScreen'
+import WorkoutCompleteScreen from './Screens/TarbarScreens/WorkoutCompleteScreen'
+import WorkoutOverViewScreen from './Screens/TarbarScreens/WorkoutOverViewScreen'
+import NotificationScreen from './Screens/TarbarScreens/NotificationScreen'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -50,7 +53,7 @@ Home.navigationOptions = ({ navigation }) => {
                 tabBarVisible = false;
             }
             else {
-              tabBarVisible = true;
+                tabBarVisible = true;
             }
         });
     }
@@ -115,6 +118,18 @@ const Exercices = createStackNavigator(
                 headerShown: false,
             }
         },
+        WorkoutCompleteScreen: {
+            screen: WorkoutCompleteScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        WorkoutOverViewScreen: {
+            screen: WorkoutOverViewScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'ExecicesScreen',
@@ -125,11 +140,11 @@ Exercices.navigationOptions = ({ navigation }) => {
     let tabBarVisible;
     if (navigation.state.routes.length > 1) {
         navigation.state.routes.map(route => {
-            if (route.routeName === "ReadyScreen" || route.routeName === "ProgramWorkoutInfoScreen") {
+            if (route.routeName === "ReadyScreen" || route.routeName === "ProgramWorkoutInfoScreen" || route.routeName === "WorkoutCompleteScreen" || route.routeName === "WorkoutOverViewScreen") {
                 tabBarVisible = false;
             }
             else {
-              tabBarVisible = true;
+                tabBarVisible = true;
             }
         });
     }
@@ -144,7 +159,13 @@ const Activity = createStackNavigator(
             navigationOptions: {
                 headerShown: false,
             }
-        }
+        },
+        NotificationScreen: {
+            screen: NotificationScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'ActivityScreen',
@@ -259,7 +280,7 @@ const TabNavigation = createBottomTabNavigator(
                 marginTop: perfectSize(-10),
                 marginBottom: perfectSize(10),
                 fontSize: perfectSize(15),
-                fontFamily:'FuturaPT-Book'
+                fontFamily: 'FuturaPT-Book'
             },
         },
     },

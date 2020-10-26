@@ -62,7 +62,7 @@ export default class ActivityScreen extends Component {
                 <View style={styles.dropDown}>
                   <Text style={styles.headerTxt}>ACTIVITY</Text>
                 </View>
-                <TouchableOpacity style={styles.AlarmkBtn}>
+                <TouchableOpacity style={styles.AlarmkBtn} onPress={()=>this.props.navigation.navigate("NotificationScreen")}>
                   <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
                   <View style={styles.notiNumArea}>
                     <Text style={styles.notiNum}>3</Text>
