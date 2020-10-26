@@ -21,6 +21,8 @@ import ProgramWorkoutInfoScreen from './Screens/TarbarScreens/ProgramWorkoutInfo
 import WorkoutCompleteScreen from './Screens/TarbarScreens/WorkoutCompleteScreen'
 import WorkoutOverViewScreen from './Screens/TarbarScreens/WorkoutOverViewScreen'
 import NotificationScreen from './Screens/TarbarScreens/NotificationScreen'
+import ActivityDetailScreen from './Screens/TarbarScreens/ActivityDetailScreen'
+import ActivityPoundsScreen from './Screens/TarbarScreens/ActivityPoundsScreen'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -162,6 +164,18 @@ const Activity = createStackNavigator(
         },
         NotificationScreen: {
             screen: NotificationScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        ActivityDetailScreen: {
+            screen: ActivityDetailScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        ActivityPoundsScreen: {
+            screen: ActivityPoundsScreen,
             navigationOptions: {
                 headerShown: false,
             }

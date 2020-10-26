@@ -84,7 +84,7 @@ export default class ActivityScreen extends Component {
             </View>
           </View>
           <View style={styles.mainContent}>
-            <View style={styles.ListArea}>
+            <TouchableOpacity style={styles.ListArea} onPress={()=>this.props.navigation.navigate("ActivityDetailScreen")}>
               <View style={styles.listHeader}>
                 <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
                 <View style={{ marginLeft: 15 }}>
@@ -114,7 +114,7 @@ export default class ActivityScreen extends Component {
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
             <View style={styles.ListArea}>
               <View style={styles.listHeader}>
                 <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.HeaderImage1} />

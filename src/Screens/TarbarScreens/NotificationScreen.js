@@ -59,9 +59,13 @@ export default class ActivityScreen extends Component {
                                 <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
                                     <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
                                 </TouchableOpacity>
-                                <Text style={styles.headerTxt}>NOTIFICATION</Text>
+                                <Text style={styles.headerTxt}>NOTIFICATIONS</Text>
                             </View>
                         </View>
+                    </View>
+                    <View style={styles.pendingArea}>
+                        <Text style={styles.timeTxt}>Pending following requests</Text>
+                        <Text style={styles.timeTxt}>2</Text>
                     </View>
                     <View style={styles.mainContent}>
                         <View style={styles.ListArea}>
@@ -80,7 +84,7 @@ export default class ActivityScreen extends Component {
                                 </View>
                                 <View style={{ width: '49.7%' }}>
                                     <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                                        <Text style={styles.AcceptTxt}>DECLINE</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -96,78 +100,44 @@ export default class ActivityScreen extends Component {
                             <View style={styles.BtbArea}>
                                 <View style={{ width: '49.7%' }}>
                                     <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                                        <Text style={styles.AcceptTxt}>ACCEPT</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ width: '49.7%' }}>
                                     <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
+                                        <Text style={styles.AcceptTxt}>DECLINE</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.ListArea}>
-                            <View style={styles.listHeader}>
-                                <Image source={require('../../Assets/Images/favPerson2.jpg')} resizeMode='stretch' style={styles.HeaderImage1} />
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.proTxt}>Kelly Winters</Text>
-                                    <Text style={styles.timeTxt}>Today at 10:40</Text>
-                                </View>
-                            </View>
-                            <View style={styles.listContents}>
-                                <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
-                                <View style={styles.contentBottom}>
-                                    <Image source={require('../../Assets/Images/favPerson4.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson2.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson3.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson1.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson2.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Text style={styles.timeTxt1}>24x keeppounding</Text>
-                                </View>
-                            </View>
-                            <View style={styles.BtbArea}>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
-                                    </TouchableOpacity>
-                                </View>
+                        <View style={{ ...styles.pendingArea, marginTop: 20 }}>
+                            <Text style={styles.timeTxt}>Activity</Text>
+                        </View>
+                        <View style={{flexDirection:'row', alignSelf:'flex-start', marginTop:10, borderBottomWidth:0.3, width:'95%', alignSelf:"center", paddingBottom:10, borderColor:'#82828f'}}>
+                            <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.activityImage} />
+                            <View>
+                                <Text style={styles.desTxt}><Text style={{color:'white'}}>Sammy and 5 others</Text> gave you </Text>
+                                <Text style={styles.desTxt}>pounds on your <Text  style={{color:'white'}}>Budy Workout</Text></Text>
+                                <Text style={{...styles.desTxt, color:'white'}}>with Zayn Perevalova </Text>
+                                <Text style={styles.desTxt}>30 minutes ago </Text>
                             </View>
                         </View>
-                        <View style={styles.ListArea}>
-                            <View style={styles.listHeader}>
-                                <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.proTxt}>Kelly Winters</Text>
-                                    <Text style={styles.timeTxt}>Today at 10:40</Text>
-                                </View>
+                        <View style={{flexDirection:'row', alignSelf:'flex-start', marginTop:10, borderBottomWidth:0.3, width:'95%', alignSelf:"center", paddingBottom:10, borderColor:'#82828f'}}>
+                            <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.activityImage} />
+                            <View>
+                                <Text style={styles.desTxt}><Text style={{color:'white'}}>Slawomir and 12 others</Text> gave you </Text>
+                                <Text style={styles.desTxt}>pounds on your <Text  style={{color:'white'}}>Flamin' Hot Cardio</Text></Text>
+                                <Text style={{...styles.desTxt, color:'white'}}>Circuit</Text>
+                                <Text style={styles.desTxt}>1 hour ago </Text>
                             </View>
-                            <View style={styles.listContents}>
-                                <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
-                                <View style={styles.contentBottom}>
-                                    <Image source={require('../../Assets/Images/favPerson2.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson3.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson1.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson4.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Image source={require('../../Assets/Images/favPerson1.jpg')} resizeMode='stretch' style={styles.personImage} />
-                                    <Text style={styles.timeTxt1}>24x keeppounding</Text>
-                                </View>
-                            </View>
-                            <View style={styles.BtbArea}>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Image source={require('../../Assets/Images/messageImage.png')} resizeMode='stretch' style={styles.BtnImage} />
-                                    </TouchableOpacity>
-                                </View>
+                        </View>
+                        <View style={{flexDirection:'row', alignSelf:'flex-start', marginTop:10, borderBottomWidth:0.3, width:'95%', alignSelf:"center", paddingBottom:10, borderColor:'#82828f'}}>
+                            <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.activityImage} />
+                            <View>
+                                <Text style={styles.desTxt}><Text style={{color:'white'}}>Sammy and 5 others</Text> gave you </Text>
+                                <Text style={styles.desTxt}>pounds on your <Text  style={{color:'white'}}>Budy Workout</Text></Text>
+                                <Text style={{...styles.desTxt, color:'white'}}>with Zayn Perevalova </Text>
+                                <Text style={styles.desTxt}>30 minutes ago </Text>
                             </View>
                         </View>
                         {/* <FlatList
@@ -180,7 +150,7 @@ export default class ActivityScreen extends Component {
             /> */}
                     </View>
                 </ScrollView>
-            </View>
+            </View >
         );
     }
 }
