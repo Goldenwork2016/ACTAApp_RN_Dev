@@ -65,13 +65,13 @@ export default class AccountScreen extends Component {
                             </View>
                             <View>
                                 <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.PersonProfileImage} />
-                                <TouchableOpacity style={styles.EditImageBtn} onPress={()=>this.props.navigation.navigate("AccountEditScreen")} >
+                                <TouchableOpacity style={styles.EditImageBtn}  >
                                     <Image source={require('../../Assets/Images/EditImage.png')} resizeMode='stretch' style={styles.EditImage} />
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.Content}>
-                            <View style={styles.ListContent2}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>this.props.navigation.navigate("AccountEditScreen")}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Name</Text>
                                     <View style={styles.ListContent4}>
@@ -81,8 +81,8 @@ export default class AccountScreen extends Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
-                            <View style={styles.ListContent2}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.ListContent2}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Email</Text>
                                     <View style={styles.ListContent4}>
@@ -92,8 +92,8 @@ export default class AccountScreen extends Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
-                            <View style={styles.ListContent2}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.ListContent2}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Mobile</Text>
                                     <View style={styles.ListContent4}>
@@ -103,8 +103,8 @@ export default class AccountScreen extends Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
-                            <View style={styles.ListContent2}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.ListContent2}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Birthday</Text>
                                     <View style={styles.ListContent4}>
@@ -114,8 +114,8 @@ export default class AccountScreen extends Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
-                            <View style={styles.ListContent2}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.ListContent2}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Measurement Units</Text>
                                     <View style={styles.ListContent4}>
@@ -125,8 +125,8 @@ export default class AccountScreen extends Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
-                            <View style={styles.ListContent2}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.ListContent2}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Connectivity</Text>
                                     <View style={styles.ListContent4}>
@@ -136,7 +136,7 @@ export default class AccountScreen extends Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                             <TouchableOpacity style={styles.QuitWorkout1}>
                                 <Text style={styles.Dismiss1}>Logout</Text>
                             </TouchableOpacity>
