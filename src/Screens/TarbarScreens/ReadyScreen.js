@@ -14,6 +14,7 @@ export default class ReadyScreen extends Component {
     }
 
     componentDidMount = () => {
+        this.setState({processNumber:this.props.navigation.getParam("processNumber")})
         this.state.Timer = setInterval(async () => {
             await this.setState({ processNumber: ++this.state.processNumber })
             if (this.state.processNumber == 4) {

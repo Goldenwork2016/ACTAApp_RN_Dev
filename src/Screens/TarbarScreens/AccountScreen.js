@@ -62,29 +62,29 @@ export default class AccountScreen extends Component {
                 <View style={styles.dropDown}>
                   <Text style={styles.headerTxt}>ACCOUNT</Text>
                 </View>
-                <TouchableOpacity style={styles.AlarmkBtn}>
+                <TouchableOpacity style={styles.AlarmkBtn} onPress={()=>this.props.navigation.navigate("AccountSettingScreen")}>
                   <Image source={require('../../Assets/Images/settingImage.png')} resizeMode='stretch' style={styles.notiImage} />
                 </TouchableOpacity>
               </View>
               <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.PersonProfileImage} />
               <Text style={styles.nameTxt}>Tom Arends</Text>
               <View style={styles.headerContent}>
-                <View style={styles.ContentList2}>
+                <TouchableOpacity style={styles.ContentList2} onPress={()=>this.props.navigation.navigate("AccountFollowingScreen",{ddd:true})}>
                   <Text style={styles.numTxt}>22</Text>
                   <Text style={styles.itemTxt}>Following</Text>
-                </View>
-                <View style={styles.ContentList2}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.ContentList2} onPress={()=>this.props.navigation.navigate("AccountFollowingScreen",{ddd:false})}>
                   <Text style={styles.numTxt}>326</Text>
                   <Text style={styles.itemTxt}>Followers</Text>
-                </View>
-                <View style={{...styles.ContentList2, borderRightWidth:0}}>
+                </TouchableOpacity>
+                <TouchableOpacity style={{...styles.ContentList2, borderRightWidth:0}} onPress={()=>this.props.navigation.navigate("AccountTraingenScreen")}>
                   <Text style={styles.numTxt}>48</Text>
                   <Text style={styles.itemTxt}>Workouts</Text>
-                </View>
+                </TouchableOpacity>
               </View>
               <View style={styles.ListBnt}>
                 <View style={{ width: '100%' }}>
-                  <TouchableOpacity style={styles.createBtn}>
+                  <TouchableOpacity style={styles.createBtn} onPress={()=>this.props.navigation.navigate("FindFriendScreen")}>
                     <Text style={styles.CreateTxt}>Find Friends</Text>
                   </TouchableOpacity>
                 </View>

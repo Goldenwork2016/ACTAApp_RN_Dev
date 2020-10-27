@@ -41,7 +41,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.itemTxt}>Based</Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ReadyScreen")}>
+                                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ReadyScreen", {processNumber:0})}>
                                     <Text style={styles.CreateTxt}>Start Workout</Text>
                                 </TouchableOpacity>
                             </ImageBackground>
@@ -392,12 +392,12 @@ const styles = StyleSheet.create({
     },
     leftMin: {
         position: 'absolute',
-        right: 20,
+        right: 15,
         borderLeftWidth: 0.2,
         borderColor: '#82828f',
         height: 50,
         justifyContent: "center",
-        paddingLeft: 20
+        paddingLeft: 15
     },
     leftMin1: {
         borderLeftWidth: 0.2,
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
         marginVertical: 3,
         fontSize: 22,
         fontFamily: 'FuturaPT-Book',
-        marginLeft: 20
+        marginLeft: 10
     },
     FastTxt1: {
         color: 'white',

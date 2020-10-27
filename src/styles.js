@@ -36,9 +36,18 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: '#111012',
   },
+  container2: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: '#000',
+  },
   ImageBackground: {
     width: '100%',
     // height: '100%'
+  },
+  ImageBackground1: {
+    width: '100%',
+    backgroundColor: 'black'
   },
   UnderIcon: {
     width: 10,
@@ -51,6 +60,24 @@ export const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     paddingBottom: 41,
+  },
+  header1: {
+    marginTop: Platform.OS === 'ios' ? 60 : 20,
+    width: "90%",
+    alignItems: "center",
+    paddingBottom: 41,
+    borderBottomWidth: 0.5,
+    alignSelf: 'center',
+    borderColor: '#53535f'
+  },
+  header2: {
+    marginTop: Platform.OS === 'ios' ? 60 : 20,
+    width: "90%",
+    alignItems: "center",
+    paddingBottom: 41,
+    borderBottomWidth: 0.5,
+    alignSelf: 'center',
+    backgroundColor: 'black'
   },
   headerTxt: {
     color: 'white',
@@ -69,17 +96,43 @@ export const styles = StyleSheet.create({
     paddingBottom: 3,
     borderColor: '#82828f'
   },
-  followBtn:{ 
-    width: 70, 
-    height: 35, 
-    position: 'absolute', 
-    right: 0, 
-    top: 5, 
-    borderRadius:3, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    borderWidth: 1.5, 
-    borderColor: 'white' 
+  ListContent5: {
+    marginTop: 10,
+    borderBottomWidth: 0.3,
+    width: '90%',
+    alignSelf: "center",
+    paddingBottom: 3,
+    borderColor: '#82828f'
+  },
+  QuitWorkout1: {
+    width: '90%',
+    height: 55,
+    borderWidth: 2,
+    borderColor: 'white',
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: 'black',
+    borderRadius: 5,
+    marginBottom: 40,
+    alignSelf: 'center',
+    marginTop: 30,
+  },
+  Dismiss1:{
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'FuturaPT-Medium',
+  },
+  followBtn: {
+    width: 70,
+    height: 35,
+    position: 'absolute',
+    right: 0,
+    top: 5,
+    borderRadius: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1.5,
+    borderColor: 'white'
   },
   HeaderImage: {
     marginLeft: 10,
@@ -117,6 +170,26 @@ export const styles = StyleSheet.create({
     height: 40,
     borderRadius: 22.5,
     marginRight: 30
+  },
+  numberTxt: {
+    fontFamily: 'TrumpSoftPro-BoldItalic',
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 110,
+    width: '100%',
+    marginTop: 45,
+    marginBottom: 15
+  },
+  btnTxt: {
+    color: 'white',
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 15
+  },
+  SearchImage: {
+    marginLeft: 10,
+    width: 25,
+    height: 25,
+    marginRight: 10
   },
   HeartUnselectImage: {
     marginLeft: 10,
@@ -192,11 +265,30 @@ export const styles = StyleSheet.create({
     height: 10,
     marginRight: 10
   },
+  RightIcon1: {
+    width: 6,
+    height: 10,
+  },
+  ListContent4: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
   BackBtn: {
     width: 26,
     height: 20,
     position: 'absolute',
     left: 10
+  },
+  EditImageBtn: {
+    alignSelf: 'center',
+    marginTop: -55,
+    marginLeft: 80
+  },
+  EditImage: {
+    width: 40,
+    height: 40,
   },
   AlarmkBtn: {
     width: 26,
@@ -265,13 +357,7 @@ export const styles = StyleSheet.create({
     marginBottom: 15
   },
   mainContent: {
-    alignItems: 'center'
-  },
-  ConHeaderTxt: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 23,
-    marginBottom: 15
+    alignItems: 'center',
   },
   ConHeaderTxt1: {
     fontFamily: 'FuturaPT-Medium',
@@ -298,6 +384,24 @@ export const styles = StyleSheet.create({
     width: '100%',
     textAlign: "center"
   },
+  ListTitle1: {
+    fontSize: 35,
+    color: 'white',
+    fontFamily: 'FuturaPT-Medium',
+    width: '100%',
+    position: 'absolute',
+    bottom: 48,
+    left: 30
+  },
+  Description: {
+    fontSize: 22,
+    color: '#82828f',
+    fontFamily: 'FuturaPT-Book',
+    width: '100%',
+    position: 'absolute',
+    bottom: 18,
+    left: 30
+  },
   ListContent1: {
     marginTop: 5,
     width: "97.5%",
@@ -306,9 +410,38 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  ListContent3: {
+    marginTop: 5,
+    width: "100%",
+    height: 390,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  ContentImage2: {
+    width: "97.5%",
+    height: 390,
+    marginRight: 20,
+    position: 'absolute',
+    borderRadius: 3
+  },
+  ConHeaderTxt5: {
+    fontFamily: 'FuturaPT-Medium',
+    color: 'white',
+    fontSize: 27,
+    marginBottom: 15
+  },
   AllArea: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: "center",
+  },
+  AllArea2: {
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 30,
     alignItems: "center",
   },
   AllArea1: {
@@ -451,12 +584,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center"
   },
-  ConHeaderTxt: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 23,
-    marginBottom: 15
-  },
   RightIcon: {
     width: 6,
     height: 10,
@@ -473,7 +600,7 @@ export const styles = StyleSheet.create({
   Content: {
     width: '100%',
     backgroundColor: 'black',
-    marginTop: 40,
+    paddingTop: 40,
     paddingBottom: 30
   },
   ImageArea: {

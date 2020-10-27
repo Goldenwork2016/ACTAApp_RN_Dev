@@ -74,7 +74,7 @@ export default class HomeScreen extends Component {
                 <Text style={styles.nextTxt}>Next up</Text>
                 <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
                 <Text style={styles.minText}>30 min. as fast as you can.</Text>
-                <TouchableOpacity style={styles.createBtn} onPress={() => this.props.navigation.navigate("CreateScreen")}>
+                <TouchableOpacity style={styles.createBtn} onPress={() => this.props.CreateScreen()}>
                   <Text style={styles.CreateTxt}>Start</Text>
                 </TouchableOpacity>
               </View>

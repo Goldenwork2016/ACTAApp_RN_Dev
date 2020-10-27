@@ -51,6 +51,10 @@ export default class HomeDropScreen extends Component {
     ]).start();
   };
 
+  CreateScreen =() =>{
+    this.props.navigation.navigate("ExecicesScreen")
+  }
+
   _rendermakelist1({ item }) {
     return (
       <View style={styles.ListContent1}>
@@ -114,7 +118,7 @@ export default class HomeDropScreen extends Component {
             position:'absolute'
           }}
         >
-          <HomeScreen AnimationsStart={this.AnimationsStart}/>
+          <HomeScreen AnimationsStart={this.AnimationsStart} CreateScreen={this.CreateScreen}/>
         </Animated.View>
       </View>
     );

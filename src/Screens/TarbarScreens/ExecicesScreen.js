@@ -78,7 +78,7 @@ export default class ExercicesScreen extends Component {
                     <Text style={styles.nextTxt}>Highlighted for you</Text>
                     <Text style={styles.TileTxt}>COUPLE {'\n'}WORKOUTS.</Text>
                     <Text style={styles.minText}>10 Workouts you can do together.</Text>
-                    <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("CreateScreen")}>
+                    <TouchableOpacity style={styles.createBtn2} >
                       <Text style={styles.CreateTxt}>Start</Text>
                     </TouchableOpacity>
                   </View>

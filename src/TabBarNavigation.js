@@ -23,6 +23,11 @@ import WorkoutOverViewScreen from './Screens/TarbarScreens/WorkoutOverViewScreen
 import NotificationScreen from './Screens/TarbarScreens/NotificationScreen'
 import ActivityDetailScreen from './Screens/TarbarScreens/ActivityDetailScreen'
 import ActivityPoundsScreen from './Screens/TarbarScreens/ActivityPoundsScreen'
+import FindFriendScreen from './Screens/TarbarScreens/FindFriendScreen'
+import AccountFollowingScreen from './Screens/TarbarScreens/AccountFollowingScreen'
+import AccountTraingenScreen from './Screens/TarbarScreens/AccountTraingenScreen'
+import AccountSettingScreen from './Screens/TarbarScreens/AccountSettingScreen'
+import AccountEditScreen from './Screens/TarbarScreens/AccountEditScreen'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -210,7 +215,37 @@ const Account = createStackNavigator(
             navigationOptions: {
                 headerShown: false,
             }
-        }
+        },
+        FindFriendScreen: {
+            screen: FindFriendScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        AccountFollowingScreen: {
+            screen: AccountFollowingScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        AccountTraingenScreen: {
+            screen: AccountTraingenScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        AccountSettingScreen: {
+            screen: AccountSettingScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        AccountEditScreen: {
+            screen: AccountEditScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'AccountScreen',
