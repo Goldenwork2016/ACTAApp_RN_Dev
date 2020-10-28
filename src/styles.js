@@ -137,7 +137,7 @@ export const styles = StyleSheet.create({
   HeaderImage: {
     marginLeft: 10,
     width: 25,
-    height: 25
+    height: 21
   },
   AcceptTxt: {
     color: 'white',

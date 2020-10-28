@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
         borderColor: '#82828f',
         height: 50,
         justifyContent: "center",
-        paddingLeft: 15
+        paddingLeft: 20
     },
     leftMin1: {
         borderLeftWidth: 0.2,

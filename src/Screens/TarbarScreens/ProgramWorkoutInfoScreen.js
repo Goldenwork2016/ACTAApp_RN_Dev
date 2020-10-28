@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     ItemArea: {
         height: 70,
         width: '100%',
-        padding: 10,
+        padding: 15,
         backgroundColor: '#18171A',
         flexDirection: 'row',
         alignItems: 'center',
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
         borderColor: '#82828f',
         height: 50,
         justifyContent: "center",
-        paddingLeft: 10
+        paddingLeft: 15
     },
     leftMin1: {
         borderLeftWidth: 0.2,

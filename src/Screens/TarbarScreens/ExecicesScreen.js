@@ -24,6 +24,10 @@ export default class ExercicesScreen extends Component {
     };
   }
 
+  componentDidMount(){
+    this.setState({toggle:this.props.navigation.getParam("toogle")})
+  }
+
   gotoDetailScreen = () => {
     this.props.navigation.navigate("ProgramWorkoutDetailScreen")
   }

@@ -51,8 +51,16 @@ export default class HomeDropScreen extends Component {
     ]).start();
   };
 
+  gotoProgramDetail=()=>{
+    this.props.navigation.navigate("ProgramDetailScreen")
+  }
+
+  gotoExcercise=()=>{
+    this.props.navigation.navigate("ExecicesScreen",{toogle:true})
+  }
+
   CreateScreen =() =>{
-    this.props.navigation.navigate("ExecicesScreen")
+    this.props.navigation.navigate("ProgramWorkoutDetailScreen",{toogle:false})
   }
 
   _rendermakelist1({ item }) {
@@ -118,7 +126,7 @@ export default class HomeDropScreen extends Component {
             position:'absolute'
           }}
         >
-          <HomeScreen AnimationsStart={this.AnimationsStart} CreateScreen={this.CreateScreen}/>
+          <HomeScreen AnimationsStart={this.AnimationsStart} CreateScreen={this.CreateScreen} gotoProgramDetail={this.gotoProgramDetail} gotoExcercise={this.gotoExcercise}/>
         </Animated.View>
       </View>
     );

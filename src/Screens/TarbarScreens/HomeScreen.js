@@ -41,10 +41,10 @@ export default class HomeScreen extends Component {
 
   _rendermakelist1({ item, index }) {
     return (
-      <View style={styles.ListContent1}>
+      <TouchableOpacity style={styles.ListContent1} onPress={() => this.props.gotoProgramDetail()}>
         <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
         <Text style={styles.ListTitle}>{item.Title}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -94,17 +94,22 @@ export default class HomeScreen extends Component {
           <View style={styles.mainContent}>
             <View style={styles.AllArea}>
               <Text style={styles.ConHeaderTxt}>Programs</Text>
-              <View style={styles.AllArea}>
+              <TouchableOpacity style={styles.AllArea} onPress={() => this.props.gotoExcercise()}>
                 <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
                 <Text style={styles.ConHeaderTxt1}>VIEW ALL</Text>
-              </View>
+              </TouchableOpacity>
             </View>
             <FlatList
               vertical
               showsVerticalScrollIndicator={true}
               numColumns={1}
               data={this.state.contentList1}
-              renderItem={this._rendermakelist1}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.ListContent1} onPress={() => this.props.gotoProgramDetail()}>
+                  <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
+                  <Text style={styles.ListTitle}>{item.Title}</Text>
+                </TouchableOpacity>
+              )}
               keyExtractor={item => `${item.id}`}
             />
           </View>
@@ -218,12 +223,12 @@ const styles = StyleSheet.create({
   },
   dropDown: {
     flexDirection: 'row',
-    marginLeft:'10%'
+    marginLeft: '10%'
   },
   notiNum: {
     textAlign: "center",
     fontSize: 12,
-    color:'black'
+    color: 'black'
   },
   notiNumArea: {
     backgroundColor: 'white',
