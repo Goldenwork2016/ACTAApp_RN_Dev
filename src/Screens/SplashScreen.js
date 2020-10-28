@@ -5,21 +5,25 @@ export default class SplashScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      rotationAngle: 0
     };
   }
 
-componentDidMount() {
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({ rotationAngle: this.state.rotationAngle + 10 })
+    }, 50)
     setTimeout(() => {
-        this.props.navigation.navigate('LoginScreen')
+      this.props.navigation.navigate('LoginScreen')
     }, 3000)
-}
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground source={require('../Assets/Images/CircleImage.png')} resizeMode='stretch' style={{width:88, height:88, justifyContent:"center", alignItems:'center'}} >
-          <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{width:30, height:27}} />
-        </ImageBackground>
+        <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 30, height: 27 }} />
+        <Image source={require('../Assets/Images/CircleImage.png')} resizeMode='stretch' style={{position:'absolute', width: 88, height: 88, justifyContent: "center", alignItems: 'center', transform: [{ rotate: `${this.state.rotationAngle}deg` }] }} >
+        </Image>
       </View>
     );
   }
@@ -28,8 +32,8 @@ componentDidMount() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#000000',
-    flex:1,
-    justifyContent:"center",
-    alignItems:'center'
+    flex: 1,
+    justifyContent: "center",
+    alignItems: 'center'
   }
 })
