@@ -16,9 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircleImage" translatesAutoresizingMaskIntoConstraints="NO" id="cQj-IS-aNX">
-                                <rect key="frame" x="142.5" y="287.5" width="90" height="92"/>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="VC7-uq-ooN">
                                 <rect key="frame" x="172.5" y="320" width="30" height="27"/>
                             </imageView>
@@ -27,8 +24,6 @@
                         <constraints>
                             <constraint firstItem="VC7-uq-ooN" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="U7K-8K-y1k"/>
                             <constraint firstItem="VC7-uq-ooN" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gs2-5Z-LOc"/>
-                            <constraint firstItem="cQj-IS-aNX" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qYc-Sf-eB8"/>
-                            <constraint firstItem="cQj-IS-aNX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="u13-JK-ipt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
@@ -39,7 +34,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CircleImage" width="90" height="92"/>
         <image name="logo" width="30" height="27"/>
     </resources>
 </document>
