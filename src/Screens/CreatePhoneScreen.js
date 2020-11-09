@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, Platform, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Modal from 'react-native-modal';
 
 
 import config from "../Api/config"
@@ -14,14 +15,20 @@ export default class CreateEmailScreen extends Component {
             email: '',
             phone: '',
             timeFlag: false,
-            isLoading: false
+            isLoading: false,
+            isModalVisible1: false,
+            isModalVisible2: false,
+            isModalVisible3: false,
+            isModalVisible4: false,
+            Timer: null,
+            isflag: false
         };
     }
 
     handler = () => {
         const { email, phone } = this.state
         if (phone == "") {
-            alert("Please input your phone numer")
+            this.setState({ isModalVisible1: true })
         } else {
             let details = {
                 'phone': phone,
@@ -51,9 +58,6 @@ export default class CreateEmailScreen extends Component {
                     clearTimeout(myTimer)
                     if (responseJson['status'] == 200) {
                         console.log('responseJson===>', responseJson);
-                        // await AsyncStorage.setItem('userID', JSON.stringify(responseJson['id']))
-                        // await AsyncStorage.setItem('verifyCode', JSON.stringify(responseJson['verifyCode']))
-                        // await AsyncStorage.setItem('isFace', JSON.stringify(responseJson['isFace']))
                         this.props.navigation.navigate('PhoneVerificationScreen', { email: email, phone: phone });
                     }
                 })
@@ -75,7 +79,7 @@ export default class CreateEmailScreen extends Component {
             <View style={styles.container}>
                 <Spinner
                     visible={this.state.isLoading}
-                    textContent={'Loading...'}
+                    textContent={'Checking phone number...'}
                     textStyle={{ color: 'white' }}
                 />
                 <View style={styles.header}>
@@ -98,7 +102,41 @@ export default class CreateEmailScreen extends Component {
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>
+                <Modal isVisible={this.state.isModalVisible1}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>Please input your phone number</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible1: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible2}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>Email type error</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible2: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible3}>
+                    <View style={styles.modalView1}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible3: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible4}>
+                    <View style={{ ...styles.modalView1, backgroundColor: '#111012' }}>
+                        <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
+                        <Text style={styles.Description2}>Your email is registered.</Text>
+                    </View>
+                </Modal>
             </View>
+
         );
     }
 }
@@ -125,7 +163,7 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     EmailInputTxt: {
-        width: 275,
+        width: 285,
         height: 50,
         backgroundColor: '#18171a',
         marginBottom: 8,
@@ -222,5 +260,68 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 15,
         fontFamily: 'FuturaPT-Demi'
-    }
+    },
+    modalView: {
+        width: '100%',
+        height: 200,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    modalView1: {
+        width: '100%',
+        height: 250,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    Description: {
+        color: "black",
+        fontSize: 23,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    Description1: {
+        color: "black",
+        fontSize: 23,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    Description2: {
+        color: 'white',
+        fontSize: 25,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    QuitWorkout: {
+        width: 100,
+        height: 45,
+        borderWidth: 2,
+        borderColor: 'black',
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        marginBottom: 20,
+        backgroundColor: '#18171A',
+        borderColor: '#18171A'
+    },
+    Dismiss: {
+        color: 'black',
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Medium'
+    },
+    TitleTxt1: {
+        color: 'black',
+        fontSize: 55,
+        marginTop: 30,
+        marginBottom: 10,
+        fontFamily: 'TrumpSoftPro-BoldItalic',
+        width: '100%',
+        textAlign: "center"
+    },
 })

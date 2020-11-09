@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, ScrollView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Switch } from 'react-native-switch';
+import AsyncStorage from '@react-native-community/async-storage';
 import Modal from 'react-native-modal';
 
 import config from "../Api/config"
@@ -25,7 +26,9 @@ export default class CreateFristnameScreen extends Component {
             isModalVisible1: false,
             isModalVisible2: false,
             isflag: '',
-            Timer: null
+            Timer: null,
+            loggedIn: false,
+            LoggedInStatus: "",
         };
     }
 
@@ -50,6 +53,10 @@ export default class CreateFristnameScreen extends Component {
         this.setState({ Checked: !this.state.Checked })
     }
 
+    async setLoggedInvalue(value) {
+        await AsyncStorage.setItem('loggedIn', value);
+    }
+
     NetworkSensor = async () => {
         await this.setState({
             timeFlag: true,
@@ -59,6 +66,7 @@ export default class CreateFristnameScreen extends Component {
     }
 
     registerHandle = async () => {
+        const self = this;
         const { email, password, name, phone, smscode, Checked, radioStatus1, radioStatus2, timeFlag } = this.state;
         let details;
         if (phone == '') {
@@ -107,21 +115,20 @@ export default class CreateFristnameScreen extends Component {
             .then((responseJson) => {
                 this.setState({ isLoading: false })
                 clearTimeout(myTimer)
+                console.log(responseJson)
                 if (responseJson['status'] == 200) {
+                    self.setState({ loggedIn: true })
+                    self.setState({ LoggedInStatus: "Success" })
+                    console.log(self.state.loggedIn);
+                    self.setLoggedInvalue(self.state.LoggedInStatus);
                     this.setState({ isModalVisible1: true })
-                    // this.state.Timer = setInterval(() => {
-                    //     if (this.state.isflag == true) {
-                    //         clearInterval(this.state.Timer);
-                    //         this.props.navigation.navigate('App');
-                    //         this.setState({ isflag: false })
-                    //     }
-                    // }, 100);
                     setTimeout(() => {
                         this.props.navigation.navigate('App');
                         this.setState({ isModalVisible1: false })
                     }, 2000)
                 } else {
                     this.setState({ isModalVisible2: true })
+                    console.log("+++++++++++++++++++++")
                 }
             })
             .catch((err) => {
@@ -130,6 +137,7 @@ export default class CreateFristnameScreen extends Component {
                 if (!timeFlag) {
                     this.setState({ isLoading: false })
                     this.setState({ isModalVisible2: true })
+                    console.log("================================")
                 } else {
                     this.setState({ timeFlag: false })
                 }

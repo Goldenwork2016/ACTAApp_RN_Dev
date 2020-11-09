@@ -21,6 +21,8 @@ export default class SigninEmailScreen extends Component {
       isModalVisible1: false,
       isModalVisible2: false,
       isModalVisible3: false,
+      isModalVisible4: false,
+      isModalVisible5: false,
       isflag: '',
       Timer: null
     };
@@ -130,7 +132,7 @@ export default class SigninEmailScreen extends Component {
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
             <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
-            <Text style={styles.Description1}>Welcome to ACTA!</Text>
+            <Text style={styles.Description1}>Welcome back to ACTA!</Text>
           </View>
         </Modal>
         <Modal isVisible={this.state.isModalVisible2}>
@@ -276,7 +278,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     marginBottom: 20,
     fontFamily: 'FuturaPT-Book'
-},
+  },
   Description1: {
     color: 'white',
     fontSize: 25,
@@ -319,7 +321,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: '#18171A',
     borderColor: '#18171A'
-},
+  },
   TitleTxt1: {
     color: 'black',
     fontSize: 55,
