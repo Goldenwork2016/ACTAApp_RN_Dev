@@ -22,6 +22,7 @@ export default class SigninEmailScreen extends Component {
       isModalVisible3: false,
       isModalVisible4: false,
       isModalVisible5: false,
+      isModalVisible6: false,
       isflag: '',
       Timer: null
     };
@@ -35,6 +36,10 @@ export default class SigninEmailScreen extends Component {
     alert('network error')
   }
 
+  async setLoggedInvalue(value) {
+    await AsyncStorage.setItem('loggedIn', value);
+  }
+
   loginHandle = async () => {
     const self = this;
     console.log('login');
@@ -46,7 +51,7 @@ export default class SigninEmailScreen extends Component {
       this.setState({ isModalVisible5: true })
     } else {
       let details = {
-        'email': phone,
+        'phone': phone,
         'password': password
       };
       var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 25000)
@@ -74,7 +79,6 @@ export default class SigninEmailScreen extends Component {
           if (responseJson['status'] == 200) {
             self.setState({ loggedIn: true })
             self.setState({ LoggedInStatus: "Success" })
-            console.log(self.state.loggedIn);
             self.setLoggedInvalue(self.state.LoggedInStatus);
             this.setState({ isModalVisible1: true })
             setTimeout(() => {
@@ -91,7 +95,7 @@ export default class SigninEmailScreen extends Component {
           console.log('JSON.stringify(err)=>', err);
           if (!timeFlag) {
             this.setState({ isLoading: false })
-            alert("Network Error!")
+            this.setState({ isModalVisible6: true })
             clearTimeout(myTimer);
           } else {
             this.setState({ timeFlag: false })
@@ -169,6 +173,15 @@ export default class SigninEmailScreen extends Component {
             <Text style={styles.TitleTxt1}>Oops!</Text>
             <Text style={styles.Description2}>Please input password</Text>
             <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible5: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={this.state.isModalVisible6}>
+          <View style={styles.modalView}>
+            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.Description2}>Login faild. Please try again.</Text>
+            <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible6: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
             </TouchableOpacity>
           </View>

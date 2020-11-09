@@ -56,7 +56,9 @@ export default class CreateEmailScreen extends Component {
                 .then(async (responseJson) => {
                     this.setState({ isLoading: false })
                     clearTimeout(myTimer)
-                    if (responseJson['status'] == 200) {
+                    if (responseJson['status'] == 400) {
+                        this.setState({ isModalVisible3: true })
+                    } else if (responseJson['status'] == 200) {
                         console.log('responseJson===>', responseJson);
                         this.props.navigation.navigate('PhoneVerificationScreen', { email: email, phone: phone });
                     }
@@ -123,7 +125,7 @@ export default class CreateEmailScreen extends Component {
                 <Modal isVisible={this.state.isModalVisible3}>
                     <View style={styles.modalView1}>
                         <Text style={styles.TitleTxt1}>Oops!</Text>
-                        <Text style={styles.Description}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text>
+                        <Text style={styles.Description1}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text>
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible3: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
                         </TouchableOpacity>
@@ -289,7 +291,8 @@ const styles = StyleSheet.create({
         color: "black",
         fontSize: 23,
         marginBottom: 20,
-        fontFamily: 'FuturaPT-Book'
+        fontFamily: 'FuturaPT-Book',
+        marginHorizontal:10
     },
     Description2: {
         color: 'white',

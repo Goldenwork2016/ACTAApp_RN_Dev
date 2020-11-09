@@ -23,6 +23,7 @@ export default class SigninEmailScreen extends Component {
       isModalVisible3: false,
       isModalVisible4: false,
       isModalVisible5: false,
+      isModalVisible6: false,
       isflag: '',
       Timer: null
     };
@@ -96,7 +97,7 @@ export default class SigninEmailScreen extends Component {
           console.log('JSON.stringify(err)=>', err);
           if (!timeFlag) {
             this.setState({ isLoading: false })
-            alert("Network Error!")
+            this.setState({ isModalVisible6: true })
             clearTimeout(myTimer);
           } else {
             this.setState({ timeFlag: false })
@@ -167,6 +168,15 @@ export default class SigninEmailScreen extends Component {
             <Text style={styles.TitleTxt1}>Oops!</Text>
             <Text style={styles.Description2}>Please input password</Text>
             <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible5: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={this.state.isModalVisible6}>
+          <View style={styles.modalView}>
+            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.Description2}>Login faild. Please try again.</Text>
+            <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible6: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
             </TouchableOpacity>
           </View>
