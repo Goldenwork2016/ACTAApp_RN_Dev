@@ -241,7 +241,7 @@ export default class CreateFristnameScreen extends Component {
                     </Modal>
                     <Modal isVisible={this.state.isModalVisible2}>
                         <View style={styles.modalView1}>
-                            <Text style={styles.TitleTxt1}>Oops!</Text>
+                            <Text style={styles.TitleTxt1}>OOPS!</Text>
                             <Text style={{ ...styles.Description, color: 'black' }}>Your registration is failed..{'\n'}Please try again</Text>
                             <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible2: false })}>
                                 <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>

@@ -106,7 +106,7 @@ export default class CreateEmailScreen extends Component {
                 </TouchableOpacity>
                 <Modal isVisible={this.state.isModalVisible1}>
                     <View style={styles.modalView}>
-                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
                         <Text style={styles.Description}>Please input your phone number</Text>
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible1: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
@@ -115,7 +115,7 @@ export default class CreateEmailScreen extends Component {
                 </Modal>
                 <Modal isVisible={this.state.isModalVisible2}>
                     <View style={styles.modalView}>
-                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
                         <Text style={styles.Description}>Email type error</Text>
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible2: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
@@ -124,7 +124,7 @@ export default class CreateEmailScreen extends Component {
                 </Modal>
                 <Modal isVisible={this.state.isModalVisible3}>
                     <View style={styles.modalView1}>
-                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
                         <Text style={styles.Description1}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text>
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible3: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>

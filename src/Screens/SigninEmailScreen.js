@@ -138,8 +138,8 @@ export default class SigninEmailScreen extends Component {
         </Modal>
         <Modal isVisible={this.state.isModalVisible2}>
           <View style={styles.modalView1}>
-            <Text style={styles.TitleTxt1}>Oops!</Text>
-            <Text style={{ ...styles.Description, color: 'black' }}>Email is not existed.{'\n'}Please check again</Text>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
+            <Text style={{ ...styles.Description, color: 'black' }}>Email does not exist.{'\n'}Please check again</Text>
             <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible2: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
             </TouchableOpacity>
@@ -147,7 +147,7 @@ export default class SigninEmailScreen extends Component {
         </Modal>
         <Modal isVisible={this.state.isModalVisible3}>
           <View style={styles.modalView1}>
-            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
             <Text style={{ ...styles.Description, color: 'black' }}>Password is wrong.{'\n'}Please check again</Text>
             <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible3: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
@@ -156,7 +156,7 @@ export default class SigninEmailScreen extends Component {
         </Modal>
         <Modal isVisible={this.state.isModalVisible4}>
           <View style={styles.modalView}>
-            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
             <Text style={styles.Description2}>Please input email</Text>
             <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible4: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
@@ -165,7 +165,7 @@ export default class SigninEmailScreen extends Component {
         </Modal>
         <Modal isVisible={this.state.isModalVisible5}>
           <View style={styles.modalView}>
-            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
             <Text style={styles.Description2}>Please input password</Text>
             <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible5: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
@@ -174,7 +174,7 @@ export default class SigninEmailScreen extends Component {
         </Modal>
         <Modal isVisible={this.state.isModalVisible6}>
           <View style={styles.modalView}>
-            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
             <Text style={styles.Description2}>Login faild. Please try again.</Text>
             <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible6: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
