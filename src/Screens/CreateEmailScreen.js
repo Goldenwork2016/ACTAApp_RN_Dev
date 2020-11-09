@@ -27,7 +27,7 @@ export default class CreateEmailScreen extends Component {
             timeFlag: false,
             isloading: false,
             Timer: null,
-            isflag:false
+            isflag: false
         };
     }
 
@@ -96,18 +96,7 @@ export default class CreateEmailScreen extends Component {
                         if (responseJson.body.email == true) {
                             this.setState({ isModalVisible3: true })
                         } else {
-                            this.setState({ isModalVisible4: true })
-                            // this.state.Timer = setInterval(() => {
-                            //     if(this.state.isflag == true){
-                            //         clearInterval(this.state.Timer);
-                            //         this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
-                            //         this.setState({isflag:false})
-                            //     }
-                            // }, 100);
-                            setTimeout(() => {
-                                this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
-                                this.setState({ isModalVisible4: false })
-                            }, 1500)
+                            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
                         }
                     }
                 })
@@ -172,9 +161,9 @@ export default class CreateEmailScreen extends Component {
                     </View>
                 </Modal>
                 <Modal isVisible={this.state.isModalVisible4}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.TitleTxt1}>Oops!</Text>
-                        <Text style={styles.Description}>Your email is registered.</Text>
+                    <View style={{ ...styles.modalView1, backgroundColor: '#111012' }}>
+                        <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
+                        <Text style={styles.Description2}>Your email is registered.</Text>
                     </View>
                 </Modal>
             </View>
@@ -302,6 +291,12 @@ const styles = StyleSheet.create({
     Description1: {
         color: "black",
         fontSize: 23,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    Description2: {
+        color: 'white',
+        fontSize: 25,
         marginBottom: 20,
         fontFamily: 'FuturaPT-Book'
     },

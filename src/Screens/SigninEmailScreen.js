@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Keybo
 import config, { BASE_PATH } from "../Api/config"
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-community/async-storage';
+import Modal from 'react-native-modal';
 
 let regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
 let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -17,6 +18,11 @@ export default class SigninEmailScreen extends Component {
       isloading: false,
       loggedIn: false,
       LoggedInStatus: "",
+      isModalVisible1: false,
+      isModalVisible2: false,
+      isModalVisible3: false,
+      isflag: '',
+      Timer: null
     };
   }
 
@@ -38,11 +44,9 @@ export default class SigninEmailScreen extends Component {
     const { email, password, timeFlag } = this.state
     Keyboard.dismiss()
     if (email == "") {
-      alert('Please enter email')
+      this.setState({ isModalVisible4: true })
     } else if (password == "") {
-      alert('Please enter password')
-    } else if (reg.test(email) === false) {
-      alert('Email type error')
+      this.setState({ isModalVisible5: true })
     } else {
       let details = {
         'email': email,
@@ -75,9 +79,15 @@ export default class SigninEmailScreen extends Component {
             self.setState({ LoggedInStatus: "Success" })
             console.log(self.state.loggedIn);
             self.setLoggedInvalue(self.state.LoggedInStatus);
-            this.props.navigation.navigate('App')
-          } if (responseJson['status'] == 400) {
-            alert("Phone number or password is incorrectly")
+            this.setState({ isModalVisible1: true })
+            setTimeout(() => {
+              this.props.navigation.navigate('App');
+              this.setState({ isModalVisible1: false })
+            }, 2000)
+          } else if (responseJson['status'] == 400) {
+            this.setState({ isModalVisible2: true })
+          } else if (responseJson['status'] == 410) {
+            this.setState({ isModalVisible3: true })
           }
         })
         .catch((err) => {
@@ -98,7 +108,7 @@ export default class SigninEmailScreen extends Component {
       <View style={styles.container}>
         <Spinner
           visible={this.state.isLoading}
-          textContent={'Loading...'}
+          textContent={'Logging in...'}
           textStyle={{ color: 'white' }}
         />
         <View style={styles.header}>
@@ -117,6 +127,48 @@ export default class SigninEmailScreen extends Component {
         <TouchableOpacity>
           <Text style={styles.forgotPwdTxt}>Forgot Password?</Text>
         </TouchableOpacity>
+        <Modal isVisible={this.state.isModalVisible1}>
+          <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
+            <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
+            <Text style={styles.Description1}>Welcome to ACTA!</Text>
+          </View>
+        </Modal>
+        <Modal isVisible={this.state.isModalVisible2}>
+          <View style={styles.modalView1}>
+            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={{ ...styles.Description, color: 'black' }}>Email is not existed.{'\n'}Please check again</Text>
+            <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible2: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={this.state.isModalVisible3}>
+          <View style={styles.modalView1}>
+            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={{ ...styles.Description, color: 'black' }}>Password is wrong.{'\n'}Please check again</Text>
+            <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible3: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={this.state.isModalVisible4}>
+          <View style={styles.modalView}>
+            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.Description2}>Please input email</Text>
+            <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible4: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={this.state.isModalVisible5}>
+          <View style={styles.modalView}>
+            <Text style={styles.TitleTxt1}>Oops!</Text>
+            <Text style={styles.Description2}>Please input password</Text>
+            <TouchableOpacity style={styles.QuitWorkout1} onPress={() => this.setState({ isModalVisible5: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -212,5 +264,77 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginTop: 8
-  }
+  },
+  Description: {
+    color: 'white',
+    fontSize: 25,
+    marginBottom: 60,
+    fontFamily: 'FuturaPT-Book'
+  },
+  Description2: {
+    color: "black",
+    fontSize: 23,
+    marginBottom: 20,
+    fontFamily: 'FuturaPT-Book'
+},
+  Description1: {
+    color: 'white',
+    fontSize: 25,
+    marginBottom: 20,
+    fontFamily: 'FuturaPT-Book'
+  },
+  Dismiss: {
+    color: 'black',
+    fontSize: 20,
+    fontFamily: 'FuturaPT-Medium'
+  },
+  modalView1: {
+    width: '100%',
+    height: 250,
+    borderRadius: 5,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  QuitWorkout: {
+    width: '30%',
+    height: 45,
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    position: 'absolute',
+    bottom: 25
+  },
+  QuitWorkout1: {
+    width: 100,
+    height: 45,
+    borderWidth: 2,
+    borderColor: 'black',
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#18171A',
+    borderColor: '#18171A'
+},
+  TitleTxt1: {
+    color: 'black',
+    fontSize: 55,
+    marginBottom: 25,
+    fontFamily: 'TrumpSoftPro-BoldItalic',
+    width: '100%',
+    textAlign: "center"
+  },
+  modalView: {
+    width: '100%',
+    height: 200,
+    borderRadius: 5,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 })
