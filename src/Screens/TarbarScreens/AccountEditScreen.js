@@ -20,7 +20,7 @@ export default class AccountEditScreen extends Component {
         <Text style={styles.TitleTxt}>Full Name</Text>
         <TextInput placeholder="Frist Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
         <TextInput placeholder="Last Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
-        <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("Tabbar")}>
+        <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("App")}>
           <Text style={styles.EmailTxt}>Save</Text>
         </TouchableOpacity>
       </View>

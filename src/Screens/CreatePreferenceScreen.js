@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, ScrollView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { Switch } from 'react-native-switch';
+
+import config from "../Api/config"
 
 export default class CreateFristnameScreen extends Component {
     constructor(props) {
@@ -11,15 +14,125 @@ export default class CreateFristnameScreen extends Component {
             radioStatus2: 1,
             radioUncheckImage: require('../Assets/Images/radioUncheckImage.png'),
             radioCheckImage: require('../Assets/Images/radioCheckImage.png'),
+            email: '',
+            password: '',
+            name: '',
+            phone: '',
+            smscode: '',
+            timeFlag: false,
+            isLoading: false
         };
+    }
+
+    componentDidMount = async () => {
+        const { navigation } = this.props.navigation
+        await this.setState({
+            email: this.props.navigation.getParam("email"),
+            password: this.props.navigation.getParam("password"),
+            name: this.props.navigation.getParam("name"),
+            phone: this.props.navigation.getParam("phone"),
+            smscode: this.props.navigation.getParam("smscode"),
+        })
+        console.log("=============================")
+        console.log(this.state.name)
+        console.log(this.state.phone)
+        console.log(this.state.email)
+        console.log(this.state.password)
+        console.log(this.state.smscode)
     }
 
     _onChangeSwitch() {
         this.setState({ Checked: !this.state.Checked })
     }
+
+    NetworkSensor = async () => {
+        await this.setState({
+            timeFlag: true,
+            isLoading: false
+        })
+        alert('network error')
+    }
+
+    registerHandle = async () => {
+        const { email, password, name, phone, smscode, Checked, radioStatus1, radioStatus2, timeFlag } = this.state;
+        let details;
+        if (phone == '') {
+            console.log(email)
+            details = {
+                'email': email,
+                'password': password,
+                'name': name,
+                'data[place]': radioStatus1,
+                'data[goal]': radioStatus2,
+                'data[notify]': Checked,
+            };
+        } else if (email == '') {
+            console.log(phone)
+            details = {
+                'sms': smscode,
+                'phone': phone,
+                'password': password,
+                'name': name,
+                'data[place]': radioStatus1,
+                'data[goal]': radioStatus2,
+                'data[notify]': Checked,
+            };
+        }
+
+
+        var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+        this.setState({ isLoading: true })
+
+        let formBody = [];
+        for (let property in details) {
+            let encodedKey = encodeURIComponent(property);
+            let encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+        console.log(formBody);
+        fetch(config.auth.register, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formBody
+        })
+            .then((response) => response.json())
+            .then(async (responseJson) => {
+                this.setState({ isLoading: false })
+                clearTimeout(myTimer)
+                if (responseJson['status'] == 200) {
+                    // console.log('responseJson===>', responseJson);
+                    // await AsyncStorage.setItem('userID', JSON.stringify(responseJson['id']))
+                    // await AsyncStorage.setItem('verifyCode', JSON.stringify(responseJson['verifyCode']))
+                    // await AsyncStorage.setItem('isFace', JSON.stringify(responseJson['isFace']))
+                    this.props.navigation.navigate('App');
+                } else if (responseJson['status'] == 400) {
+                    console.log('responseJson===>', responseJson);
+                    alert('User exists already')
+                }
+            })
+            .catch((err) => {
+                console.log('err =>', JSON.stringify(err));
+                clearTimeout(myTimer);
+                if (!timeFlag) {
+                    this.setState({ isLoading: false })
+                    alert("Network Error!!")
+                } else {
+                    this.setState({ timeFlag: false })
+                }
+            })
+    }
+
     render() {
         return (
             <View style={styles.container}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={'Loading...'}
+                    textStyle={{ color: 'white' }}
+                />
                 <ScrollView>
                     <View style={{ alignItems: "center" }}>
                         <View style={styles.header}>
@@ -96,7 +209,8 @@ export default class CreateFristnameScreen extends Component {
                                 circleActiveColor={'#FFF'}
                                 circleInActiveColor={'#FFF'} />
                         </View>
-                        <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("Tabbar")}>
+                        {/* <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("App")}> */}
+                        <TouchableOpacity style={styles.emailBtn} onPress={() => { this.registerHandle() }}>
                             <Text style={styles.EmailTxt}>Create my account</Text>
                         </TouchableOpacity>
                     </View>
@@ -108,7 +222,7 @@ export default class CreateFristnameScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: 'black',
     },
     header: {
@@ -203,7 +317,7 @@ const styles = StyleSheet.create({
     },
     radioArea: {
         width: '80%',
-        borderBottomWidth:1,
+        borderBottomWidth: 1,
         borderColor: '#53535f',
     },
     checkImage: {

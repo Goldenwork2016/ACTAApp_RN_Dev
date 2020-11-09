@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 
 const { height, width } = Dimensions.get('window')
 let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -8,24 +8,32 @@ let reg_strong = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,3
 // numeric digit, uppercase, lowercase
 let reg_average = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/;
 
-export default class CreateEmailScreen extends Component {
+export default class CreatePasswordScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email:'',
-            phone:'',
-            smscode:''
+            email: '',
+            phone: '',
+            smscode: ''
         };
     }
 
+    componentDidMount = async () => {
+        await this.setState({
+            email: this.props.navigation.getParam("email"),
+            phone: this.props.navigation.getParam("phone")
+        })
+        console.log(this.state.email)
+    }
+
     handler = () => {
-        const { email, phone, smscode } = this.state
-        if (email == "") {
-            alert("Please input your email")
-        } else if (reg.test(email) === false) {
-            alert('Email type error')
+        const { smscode, email, phone } = this.state
+        if (smscode == "") {
+            alert("Please input your smscode")
+        } else if (smscode.length != 6) {
+            alert("Please input 6 digital code")
         } else {
-            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone:phone, smscode:smscode })
+            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
         }
     }
 
@@ -39,8 +47,8 @@ export default class CreateEmailScreen extends Component {
                     <Text style={styles.headerTxt}>CREATE</Text>
                 </View>
                 <Text style={styles.TitleTxt}>CREATE.</Text>
-                <Text style={styles.desTxt}>What is your email address?</Text>
-                <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} />
+                <Text style={styles.desTxt}>Input your pin code from SMS</Text>
+                <TextInput keyboardType="number-pad" placeholder="6 digital code" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ smscode: e })} />
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>

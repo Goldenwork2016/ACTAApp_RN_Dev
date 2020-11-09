@@ -1,11 +1,49 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
+
+const { height, width } = Dimensions.get('window')
+let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+// lowercase, uppercase, one numeric digit, one special character
+let reg_strong = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/;
+// numeric digit, uppercase, lowercase
+let reg_average = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/;
 
 export default class CreatePasswordScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
+            phone: '',
+            password: '',
+            smscode: ''
         };
+    }
+
+    componentDidMount = async () => {
+        const { navigation } = this.props.navigation;
+        await this.setState({
+            email: this.props.navigation.getParam("email"),
+            phone: this.props.navigation.getParam("phone"),
+            smscode: this.props.navigation.getParam("smscode")
+        })
+        console.log(this.state.email)
+    }
+
+    handler = () => {
+        const { password, email, phone, smscode } = this.state
+        if (password == "") {
+            alert("Please input your password")
+        } else if (reg_strong.test(password) === false) {
+            alert(
+                "Password must contain the following: \n" +
+                "A lowercase letter\n" +
+                "A capital letter\n" +
+                "A number\n" +
+                "A special character\n" +
+                "Minimum 8 characters ");
+        } else {
+            this.props.navigation.navigate("CreateFirstnameScreen", { email: email, password: password, phone: phone, smscode: smscode })
+        }
     }
 
     render() {
@@ -19,8 +57,8 @@ export default class CreatePasswordScreen extends Component {
                 </View>
                 <Text style={styles.TitleTxt}>CREATE.</Text>
                 <Text style={styles.desTxt}>What is your password?</Text>
-                <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
-                <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("CreateFirstnameScreen")}>
+                <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ password: e })} />
+                <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>
             </View>

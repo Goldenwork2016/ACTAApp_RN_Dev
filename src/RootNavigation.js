@@ -1,5 +1,5 @@
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import SplashScreen from './Screens/SplashScreen';
 import LoginScreen from './Screens/LoginScreen';
@@ -12,88 +12,106 @@ import CreatePhoneScreen from './Screens/CreatePhoneScreen';
 import CreatePasswordScreen from './Screens/CreatePasswordScreen';
 import CreateFirstnameScreen from './Screens/CreateFirstnameScreen';
 import CreatePreferenceScreen from './Screens/CreatePreferenceScreen';
+import PhoneVerificationScreen from './Screens/PhoneVerificationScreen';
 import TabBarScreen from './TabBarNavigation'
 
 
-const RootNavigation = createStackNavigator(
+const AuthStack = createStackNavigator(
     {
-        SplashScreen:{
-            screen: SplashScreen,
-            navigationOptions:{
-                headerShown:false
-            }
-        },
-        LoginScreen:{
+        LoginScreen: {
             screen: LoginScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        CreateScreen:{
+        CreateScreen: {
             screen: CreateScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        SigninScreen:{
+        SigninScreen: {
             screen: SigninScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        SigninEmailScreen:{
+        SigninEmailScreen: {
             screen: SigninEmailScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        SigninPhoneScreen:{
+        SigninPhoneScreen: {
             screen: SigninPhoneScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        CreateEmailScreen:{
+        CreateEmailScreen: {
             screen: CreateEmailScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        CreatePhoneScreen:{
+        CreatePhoneScreen: {
             screen: CreatePhoneScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        CreatePasswordScreen:{
+        CreatePasswordScreen: {
             screen: CreatePasswordScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        CreateFirstnameScreen:{
+        CreateFirstnameScreen: {
             screen: CreateFirstnameScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        CreatePreferenceScreen:{
+        CreatePreferenceScreen: {
             screen: CreatePreferenceScreen,
-            navigationOptions:{
-                headerShown:false
+            navigationOptions: {
+                headerShown: false
             }
         },
-        Tabbar:{
-            screen: TabBarScreen,
-            navigationOptions:{
-                headerShown:false
+        PhoneVerificationScreen: {
+            screen: PhoneVerificationScreen,
+            navigationOptions: {
+                headerShown: false
             }
         },
     },
     {
-        initialRouteName:'SplashScreen'
+        initialRouteName: 'LoginScreen'
     }
 )
 
-const App = createAppContainer(RootNavigation);
-export default App;
+const AppStack = createStackNavigator({
+    Tabbar: {
+        screen: TabBarScreen,
+        navigationOptions: {
+            headerShown: false
+        }
+    },
+})
+
+// const App = createAppContainer(RootNavigation);
+// export default App;
+
+
+export default createAppContainer(
+    createSwitchNavigator(
+        {
+            Splash: SplashScreen,
+            Auth:AuthStack,
+            App: AppStack
+        },
+        {
+            initialRouteName: 'Splash'
+        }
+    )
+);

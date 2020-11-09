@@ -5,7 +5,33 @@ export default class CreateFristnameScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
+            password: '',
+            name: '',
+            phone: '',
+            smscode: ''
         };
+    }
+
+
+    componentDidMount = async () => {
+        const { navigation } = this.props.navigation;
+        await this.setState({
+            email: this.props.navigation.getParam("email"),
+            password: this.props.navigation.getParam("password"),
+            phone: this.props.navigation.getParam("phone"),
+            smscode: this.props.navigation.getParam("smscode")
+        })
+        console.log(this.state.password)
+    }
+
+    handler = () => {
+        const { name, password, phone, smscode, email } = this.state
+        if (name == "") {
+            alert("Please input your name")
+        } else {
+            this.props.navigation.navigate("CreatePreferenceScreen", { email: email, password: password, name: this.state.name, smscode: smscode, phone: phone })
+        }
     }
 
     render() {
@@ -19,8 +45,8 @@ export default class CreateFristnameScreen extends Component {
                 </View>
                 <Text style={styles.TitleTxt}>CREATE.</Text>
                 <Text style={styles.desTxt}>Tell us your name please</Text>
-                <TextInput placeholder="Your name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
-                <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("CreatePreferenceScreen")}>
+                <TextInput placeholder="Your name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ name: e })} />
+                <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>
             </View>

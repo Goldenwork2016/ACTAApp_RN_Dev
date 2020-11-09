@@ -1,16 +1,83 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, Platform, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
+
+
+import config from "../Api/config"
+
+let regExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
 export default class CreateEmailScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
+            phone: '',
+            timeFlag: false,
+            isLoading: false
         };
+    }
+
+    handler = () => {
+        const { email, phone } = this.state
+        if (phone == "") {
+            alert("Please input your phone numer")
+        } else {
+            let details = {
+                'phone': phone,
+            };
+
+            var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+            this.setState({ isLoading: true })
+
+            let formBody = [];
+            for (let property in details) {
+                let encodedKey = encodeURIComponent(property);
+                let encodedValue = encodeURIComponent(details[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+            console.log(formBody);
+            fetch(config.auth.verifySMS, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formBody
+            })
+                .then((response) => response.json())
+                .then(async (responseJson) => {
+                    this.setState({ isLoading: false })
+                    clearTimeout(myTimer)
+                    if (responseJson['status'] == 200) {
+                        console.log('responseJson===>', responseJson);
+                        // await AsyncStorage.setItem('userID', JSON.stringify(responseJson['id']))
+                        // await AsyncStorage.setItem('verifyCode', JSON.stringify(responseJson['verifyCode']))
+                        // await AsyncStorage.setItem('isFace', JSON.stringify(responseJson['isFace']))
+                        this.props.navigation.navigate('PhoneVerificationScreen', { email: email, phone: phone });
+                    }
+                })
+                .catch((err) => {
+                    console.log('err =>', JSON.stringify(err));
+                    clearTimeout(myTimer);
+                    if (!timeFlag) {
+                        this.setState({ isLoading: false })
+                        alert("Network Error!!")
+                    } else {
+                        this.setState({ timeFlag: false })
+                    }
+                })
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={'Loading...'}
+                    textStyle={{ color: 'white' }}
+                />
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
                         <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
@@ -21,14 +88,14 @@ export default class CreateEmailScreen extends Component {
                 <Text style={styles.headerTxt}>CREATE.</Text>
                 <Text style={styles.desTxt}>What is your phone number</Text>
                 <View style={{ flexDirection: 'row', width: 330 }}>
-                    <Text style={styles.countryNumber}>+31</Text>
-                    <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} />
+                    <Text style={styles.countryNumber}>+1</Text>
+                    <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />
                 </View>
                 {/* <TextInput placeholder="Password" placeholderTextColor="#53535f" style={styles.PasswordInputTxt} /> */}
                 <View style={{ width: 330 }}>
                     <Text style={styles.standardTxt}>Standard rates apply</Text>
                 </View>
-                <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("CreatePasswordScreen")}>
+                <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>
             </View>

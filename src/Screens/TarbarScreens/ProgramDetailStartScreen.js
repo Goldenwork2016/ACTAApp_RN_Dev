@@ -65,7 +65,7 @@ export default class ProgramDetailStartScreen extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ActiveExersiceScreen")}>
+                            <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ReadyScreen")}>
                                 <Text style={styles.CreateTxt}>Start Workout</Text>
                             </TouchableOpacity>
                             <Text style={styles.minText}>Your Statistics</Text>

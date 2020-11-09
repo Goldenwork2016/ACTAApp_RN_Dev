@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '../../styles'
+import AsyncStorage from '@react-native-community/async-storage';
+
+import config from "../../Api/config"
 
 export default class AccountScreen extends Component {
     constructor(props) {
@@ -49,6 +52,23 @@ export default class AccountScreen extends Component {
         )
     }
 
+
+    logout = async () => {
+        fetch(config.auth.logout, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((responseJson) => {
+                if (responseJson['status'] == 200) {
+                    AsyncStorage.setItem('loggedIn', "");
+                    this.props.navigation.navigate("Auth")
+                }
+            })
+            .catch((err) => {
+                console.log('JSON.stringify(err)=>', err);
+            })
+    }
+
     render() {
         return (
             <View style={styles.container2}>
@@ -71,7 +91,7 @@ export default class AccountScreen extends Component {
                             </View>
                         </View>
                         <View style={styles.Content}>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>this.props.navigation.navigate("AccountEditScreen")}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={() => this.props.navigation.navigate("AccountEditScreen")}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Name</Text>
                                     <View style={styles.ListContent4}>
@@ -137,10 +157,10 @@ export default class AccountScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.QuitWorkout1}>
+                            <TouchableOpacity style={styles.QuitWorkout1} onPress={() => { this.logout() }}>
                                 <Text style={styles.Dismiss1}>Logout</Text>
                             </TouchableOpacity>
-                            <Text style={{...styles.desTxt1, fontSize:13, textAlign:"center", color:'white'}}>VERSION 1.023</Text>
+                            <Text style={{ ...styles.desTxt1, fontSize: 13, textAlign: "center", color: 'white' }}>VERSION 1.023</Text>
                             <View style={styles.ListContent2}>
                                 <View style={{ width: '100%' }}>
                                     <View style={styles.ListContent4}>
