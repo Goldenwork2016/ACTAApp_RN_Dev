@@ -105,7 +105,7 @@ export default class SigninEmailScreen extends Component {
       <View style={styles.container}>
         <Spinner
           visible={this.state.isLoading}
-          textContent={'Loading...'}
+          textContent={'Logging in...'}
           textStyle={{ color: 'white' }}
         />
         <View style={styles.header}>
