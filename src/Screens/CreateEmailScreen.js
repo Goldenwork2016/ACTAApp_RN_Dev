@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import Modal from 'react-native-modal';
+import Spinner from 'react-native-loading-spinner-overlay';
+import AsyncStorage from '@react-native-community/async-storage';
+
+import config from "../Api/config"
 
 const { height, width } = Dimensions.get('window')
 let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -12,26 +17,121 @@ export default class CreateEmailScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email:'',
-            phone:'',
-            smscode:''
+            email: '',
+            phone: '',
+            smscode: '',
+            isModalVisible1: false,
+            isModalVisible2: false,
+            isModalVisible3: false,
+            isModalVisible4: false,
+            timeFlag: false,
+            isloading: false,
+            Timer: null,
+            isflag:false
         };
     }
 
+    checkingEmail = async () => {
+        fetch(config.auth.logout, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((responseJson) => {
+                if (responseJson['status'] == 200) {
+                    AsyncStorage.setItem('loggedIn', "");
+                    this.props.navigation.navigate("Auth")
+                }
+            })
+            .catch((err) => {
+                console.log('JSON.stringify(err)=>', err);
+            })
+    }
+
+    NetworkSensor = async () => {
+        await this.setState({
+            timeFlag: true,
+            isLoading: false
+        })
+        alert('network error')
+    }
+
     handler = () => {
-        const { email, phone, smscode } = this.state
+        const { email, phone, smscode, timeFlag } = this.state
         if (email == "") {
-            alert("Please input your email")
+            // alert("Please input your email")
+            this.setState({ isModalVisible1: true })
         } else if (reg.test(email) === false) {
-            alert('Email type error')
+            // alert('Email type error')
+            this.setState({ isModalVisible2: true })
         } else {
-            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone:phone, smscode:smscode })
+            let details = {
+                'email': email,
+            };
+            var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 25000)
+            this.setState({ isLoading: true })
+
+            let formBody = [];
+            for (let property in details) {
+                let encodedKey = encodeURIComponent(property);
+                let encodedValue = encodeURIComponent(details[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+            fetch(config.auth.status, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formBody
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({ isLoading: false })
+                    clearTimeout(myTimer)
+                    console.log('status =>', responseJson);
+                    if (responseJson['status'] == 200) {
+                        // alert("++++++++++++++++++++++")
+                        // console.log(responseJson.body.email)
+                        // this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
+                        if (responseJson.body.email == true) {
+                            this.setState({ isModalVisible3: true })
+                        } else {
+                            this.setState({ isModalVisible4: true })
+                            // this.state.Timer = setInterval(() => {
+                            //     if(this.state.isflag == true){
+                            //         clearInterval(this.state.Timer);
+                            //         this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
+                            //         this.setState({isflag:false})
+                            //     }
+                            // }, 100);
+                            setTimeout(() => {
+                                this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
+                                this.setState({ isModalVisible4: false })
+                            }, 1500)
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.log('JSON.stringify(err)=>', err);
+                    if (!timeFlag) {
+                        this.setState({ isLoading: false })
+                        alert("Network Error!")
+                        clearTimeout(myTimer);
+                    } else {
+                        this.setState({ timeFlag: false })
+                    }
+                })
         }
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={'Checking email...'}
+                    textStyle={{ color: 'white' }}
+                />
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
                         <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
@@ -44,6 +144,39 @@ export default class CreateEmailScreen extends Component {
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>
+                <Modal isVisible={this.state.isModalVisible1}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>Please input your email</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible1: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible2}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>Email type error</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible2: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible3}>
+                    <View style={styles.modalView1}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>This email is existed already.{'\n'}Please try to login with this email.</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible3: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible4}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>Your email is registered.</Text>
+                    </View>
+                </Modal>
             </View>
         );
     }
@@ -117,6 +250,15 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontFamily: 'FuturaPT-Demi'
     },
+    TitleTxt1: {
+        color: 'black',
+        fontSize: 55,
+        marginTop: 30,
+        marginBottom: 10,
+        fontFamily: 'TrumpSoftPro-BoldItalic',
+        width: '100%',
+        textAlign: "center"
+    },
     TitleTxt: {
         fontFamily: 'TrumpSoftPro-BoldItalic',
         color: 'white',
@@ -132,5 +274,53 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         marginBottom: 35
-    }
+    },
+    modalView: {
+        width: '100%',
+        height: 200,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    modalView1: {
+        width: '100%',
+        height: 250,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    Description: {
+        color: "black",
+        fontSize: 23,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    Description1: {
+        color: "black",
+        fontSize: 23,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    QuitWorkout: {
+        width: 100,
+        height: 45,
+        borderWidth: 2,
+        borderColor: 'black',
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        marginBottom: 20,
+        backgroundColor: '#18171A',
+        borderColor: '#18171A'
+    },
+    Dismiss: {
+        color: 'black',
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Medium'
+    },
 })

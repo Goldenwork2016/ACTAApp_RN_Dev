@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import Modal from 'react-native-modal';
 
 export default class CreateFristnameScreen extends Component {
     constructor(props) {
@@ -9,7 +10,8 @@ export default class CreateFristnameScreen extends Component {
             password: '',
             name: '',
             phone: '',
-            smscode: ''
+            smscode: '',
+            isModalVisible1: false,
         };
     }
 
@@ -28,7 +30,7 @@ export default class CreateFristnameScreen extends Component {
     handler = () => {
         const { name, password, phone, smscode, email } = this.state
         if (name == "") {
-            alert("Please input your name")
+            this.setState({isModalVisible1:true})
         } else {
             this.props.navigation.navigate("CreatePreferenceScreen", { email: email, password: password, name: this.state.name, smscode: smscode, phone: phone })
         }
@@ -49,6 +51,15 @@ export default class CreateFristnameScreen extends Component {
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>
+                <Modal isVisible={this.state.isModalVisible1}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>Oops!</Text>
+                        <Text style={styles.Description}>Please input your name</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible1: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
             </View>
         );
     }
@@ -137,5 +148,48 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         marginBottom: 35
-    }
+    },
+    modalView: {
+        width: '100%',
+        height: 200,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    TitleTxt1: {
+        color: 'black',
+        fontSize: 55,
+        marginTop: 30,
+        marginBottom: 10,
+        fontFamily: 'TrumpSoftPro-BoldItalic',
+        width: '100%',
+        textAlign: "center"
+    },
+    Description: {
+        color: "black",
+        fontSize: 20,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book',
+        fontWeight:'bold'
+    },
+    QuitWorkout: {
+        width: 100,
+        height: 45,
+        borderWidth: 2,
+        borderColor: 'black',
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        marginBottom: 20,
+        backgroundColor: '#18171A',
+        borderColor: '#18171A'
+    },
+    Dismiss: {
+        color: 'black',
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Medium'
+    },
 })

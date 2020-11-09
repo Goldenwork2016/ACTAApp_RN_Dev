@@ -107,7 +107,7 @@ export default createAppContainer(
     createSwitchNavigator(
         {
             Splash: SplashScreen,
-            Auth:AuthStack,
+            Auth: AuthStack,
             App: AppStack
         },
         {

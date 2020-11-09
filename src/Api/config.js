@@ -6,5 +6,6 @@ export default{
         login: BASE_PATH + '/api/user/login',
         verifySMS: BASE_PATH + '/api/user/verify/sms',
         logout: BASE_PATH + '/api/user/logout',
+        status: BASE_PATH + '/api/user/status',
     }
 }

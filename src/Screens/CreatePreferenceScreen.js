@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, ScrollView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Switch } from 'react-native-switch';
+import Modal from 'react-native-modal';
 
 import config from "../Api/config"
 
@@ -20,7 +21,11 @@ export default class CreateFristnameScreen extends Component {
             phone: '',
             smscode: '',
             timeFlag: false,
-            isLoading: false
+            isLoading: false,
+            isModalVisible1: false,
+            isModalVisible2: false,
+            isflag: '',
+            Timer: null
         };
     }
 
@@ -99,18 +104,24 @@ export default class CreateFristnameScreen extends Component {
             body: formBody
         })
             .then((response) => response.json())
-            .then(async (responseJson) => {
+            .then((responseJson) => {
                 this.setState({ isLoading: false })
                 clearTimeout(myTimer)
                 if (responseJson['status'] == 200) {
-                    // console.log('responseJson===>', responseJson);
-                    // await AsyncStorage.setItem('userID', JSON.stringify(responseJson['id']))
-                    // await AsyncStorage.setItem('verifyCode', JSON.stringify(responseJson['verifyCode']))
-                    // await AsyncStorage.setItem('isFace', JSON.stringify(responseJson['isFace']))
-                    this.props.navigation.navigate('App');
-                } else if (responseJson['status'] == 400) {
-                    console.log('responseJson===>', responseJson);
-                    alert('User exists already')
+                    this.setState({ isModalVisible1: true })
+                    // this.state.Timer = setInterval(() => {
+                    //     if (this.state.isflag == true) {
+                    //         clearInterval(this.state.Timer);
+                    //         this.props.navigation.navigate('App');
+                    //         this.setState({ isflag: false })
+                    //     }
+                    // }, 100);
+                    setTimeout(() => {
+                        this.props.navigation.navigate('App');
+                        this.setState({ isModalVisible1: false })
+                    }, 2000)
+                } else {
+                    this.setState({ isModalVisible2: true })
                 }
             })
             .catch((err) => {
@@ -118,7 +129,7 @@ export default class CreateFristnameScreen extends Component {
                 clearTimeout(myTimer);
                 if (!timeFlag) {
                     this.setState({ isLoading: false })
-                    alert("Network Error!!")
+                    this.setState({ isModalVisible2: true })
                 } else {
                     this.setState({ timeFlag: false })
                 }
@@ -130,7 +141,7 @@ export default class CreateFristnameScreen extends Component {
             <View style={styles.container}>
                 <Spinner
                     visible={this.state.isLoading}
-                    textContent={'Loading...'}
+                    textContent={'Creating your account...'}
                     textStyle={{ color: 'white' }}
                 />
                 <ScrollView>
@@ -214,6 +225,21 @@ export default class CreateFristnameScreen extends Component {
                             <Text style={styles.EmailTxt}>Create my account</Text>
                         </TouchableOpacity>
                     </View>
+                    <Modal isVisible={this.state.isModalVisible1}>
+                        <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
+                            <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
+                            <Text style={styles.Description1}>Welcome to ACTA!</Text>
+                        </View>
+                    </Modal>
+                    <Modal isVisible={this.state.isModalVisible2}>
+                        <View style={styles.modalView1}>
+                            <Text style={styles.TitleTxt1}>Oops!</Text>
+                            <Text style={{ ...styles.Description, color: 'black' }}>Your registration is failed..{'\n'}Please try again</Text>
+                            <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible2: false })}>
+                                <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>
                 </ScrollView>
             </View>
         );
@@ -296,6 +322,14 @@ const styles = StyleSheet.create({
         lineHeight: 70,
         marginTop: 35
     },
+    TitleTxt1: {
+        color: 'black',
+        fontSize: 55,
+        marginBottom: 25,
+        fontFamily: 'TrumpSoftPro-BoldItalic',
+        width: '100%',
+        textAlign: "center"
+    },
     desTxt: {
         fontFamily: 'FuturaPT-Book',
         color: '#82828f',
@@ -339,5 +373,51 @@ const styles = StyleSheet.create({
         width: 23,
         height: 23,
         marginRight: 15
-    }
+    },
+    Description: {
+        color: 'white',
+        fontSize: 25,
+        marginBottom: 60,
+        fontFamily: 'FuturaPT-Book'
+    },
+    Description1: {
+        color: 'white',
+        fontSize: 25,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    modalView: {
+        width: '100%',
+        height: 250,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 30
+    },
+    QuitWorkout: {
+        width: '30%',
+        height: 45,
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        position: 'absolute',
+        bottom: 25
+    },
+    Dismiss: {
+        color: 'black',
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Medium'
+    },
+    modalView1: {
+        width: '100%',
+        height: 250,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
 })

@@ -14,6 +14,7 @@ export default class ActiveExersiceScreen extends Component {
         this.setState({ isModalVisible: false })
         this.props.navigation.navigate("WorkoutOverViewScreen")
     }
+    
     QuitWorkout = () => {
         this.setState({ isModalVisible: false })
         this.props.navigation.navigate("ProgramWorkoutDetailScreen")
