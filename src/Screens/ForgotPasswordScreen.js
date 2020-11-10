@@ -72,7 +72,7 @@ export default class ForgotPasswordScreen extends Component {
                         clearTimeout(myTimer)
                         if (responseJson['status'] == 200) {
                             console.log('responseJson===>', responseJson);
-                            this.props.navigation.navigate("ConfirmSMSScreen", { isEmail: isEmail, email: email, phone:phone })
+                            this.props.navigation.navigate("ConfirmSMSScreen", { isEmail: isEmail, email: email, phone: phone })
                         } else if (responseJson['status'] == 400) {
                             this.setState({ isModalVisible3: true })
                         }
@@ -120,7 +120,7 @@ export default class ForgotPasswordScreen extends Component {
                         clearTimeout(myTimer)
                         if (responseJson['status'] == 200) {
                             console.log('responseJson===>', responseJson);
-                            this.props.navigation.navigate("ConfirmSMSScreen", { isEmail: isEmail, email: email, phone:phone })
+                            this.props.navigation.navigate("ConfirmSMSScreen", { isEmail: isEmail, email: email, phone: phone })
                         } else if (responseJson['status'] == 400) {
                             this.setState({ isModalVisible3: true })
                         }
@@ -166,7 +166,10 @@ export default class ForgotPasswordScreen extends Component {
                 }
                 {this.state.isEmail ?
                     <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} /> :
-                    <TextInput keyboardType="number-pad" placeholder="Phone number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />
+                    <View style={{ flexDirection: 'row', width: 330 }}>
+                        <Text style={styles.countryNumber}>+1</Text>
+                        <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} onChangeText={(e) => this.setState({ phone: e })} />
+                    </View>
                 }
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>SEND</Text>
@@ -232,6 +235,17 @@ const styles = StyleSheet.create({
     },
     EmailInputTxt: {
         width: 330,
+        height: 50,
+        backgroundColor: '#18171a',
+        marginBottom: 8,
+        borderRadius: 3,
+        paddingLeft: 20,
+        color: "white",
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    EmailInputTxt1: {
+        width: 285,
         height: 50,
         backgroundColor: '#18171a',
         marginBottom: 8,
@@ -345,5 +359,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    countryNumber: {
+        color: '#53535f',
+        fontSize: 20,
+        backgroundColor: '#18171a',
+        height: 50,
+        marginRight: 5,
+        alignContent: 'center',
+        textAlign: "center",
+        paddingVertical: 12,
+        paddingHorizontal: 8,
+        fontFamily: 'FuturaPT-Book'
     },
 })
