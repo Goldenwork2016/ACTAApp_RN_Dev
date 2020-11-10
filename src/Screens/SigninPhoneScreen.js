@@ -132,7 +132,7 @@ export default class SigninEmailScreen extends Component {
         <TouchableOpacity style={styles.emailBtn} onPress={() => { this.loginHandle() }}>
           <Text style={styles.EmailTxt}>Log in</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate("ForgotPasswordScreen",{isEmail:true})}}>
           <Text style={styles.forgotPwdTxt}>Forgot Password?</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
