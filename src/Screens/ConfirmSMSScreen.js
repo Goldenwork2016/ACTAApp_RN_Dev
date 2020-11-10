@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import Spinner from 'react-native-loading-spinner-overlay';
+
+import config from "../Api/config"
 
 export default class ConfirmSMSScreen extends Component {
     constructor(props) {
@@ -10,9 +13,12 @@ export default class ConfirmSMSScreen extends Component {
             password: '',
             name: '',
             phone: '',
-            smscode: '',
+            pincode: '',
             isModalVisible1: false,
+            isModalVisible2: false,
             isEmail: false,
+            timeFlag: false,
+            isLoading: false,
         };
     }
 
@@ -20,27 +26,128 @@ export default class ConfirmSMSScreen extends Component {
     componentDidMount = async () => {
         const { navigation } = this.props.navigation;
         await this.setState({
-            // email: this.props.navigation.getParam("email"),
-            // password: this.props.navigation.getParam("password"),
-            // phone: this.props.navigation.getParam("phone"),
-            // smscode: this.props.navigation.getParam("smscode")
+            email: this.props.navigation.getParam("email"),
+            phone: this.props.navigation.getParam("phone"),
             isEmail: this.props.navigation.getParam("isEmail")
         })
         console.log(this.state.isEmail)
     }
 
     handler = () => {
-        const { name, password, phone, smscode, email } = this.state
-        if (smscode == "") {
-            this.setState({ isModalVisible1: true })
+        const { phone, pincode, email, isEmail } = this.state
+        if (isEmail) {
+            if (pincode == "") {
+                this.setState({ isModalVisible1: true })
+            } else {
+                let details = {
+                    'email': email,
+                    'pin': pincode,
+                };
+
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
+
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.confirmPinCode, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            console.log('responseJson===>', responseJson);
+                            setTimeout(() => {
+                                this.props.navigation.navigate("ChangePasswordScreen", { pincode: pincode, email: email, phone: phone, isEmail: isEmail })
+                            }, 2000)
+                        } else {
+                            this.setState({ isModalVisible2: true })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            this.setState({ isModalVisible4: true })
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
         } else {
-            this.props.navigation.navigate("ChangePasswordScreen")
+            if (pincode == "") {
+                this.setState({ isModalVisible1: true })
+            } else {
+                let details = {
+                    'phone': phone,
+                    'pin': pincode,
+                };
+
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
+
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.confirmPinCode, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            console.log('responseJson===>', responseJson);
+                            setTimeout(() => {
+                                this.props.navigation.navigate("ChangePasswordScreen", { pincode: pincode, email: email, phone: phone, isEmail: isEmail })
+                            }, 2000)
+                        } else {
+                            this.setState({ isModalVisible2: true })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            this.setState({ isModalVisible4: true })
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
         }
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={'Checking pin code...'}
+                    textStyle={{ color: 'white' }}
+                />
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
                         <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
@@ -51,7 +158,7 @@ export default class ConfirmSMSScreen extends Component {
                 {this.state.isEmail ? <Text style={styles.desTxt}>Enter the verification code sent to your email address to reset password</Text> :
                     <Text style={styles.desTxt}>Enter the verification code sent to your phone to reset password</Text>
                 }
-                <TextInput keyboardType="number-pad" placeholder="6 digital Code" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ smscode: e })} />
+                <TextInput keyboardType="number-pad" placeholder="6 digital Code" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ pincode: e })} />
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Confirm</Text>
                 </TouchableOpacity>
@@ -60,6 +167,15 @@ export default class ConfirmSMSScreen extends Component {
                         <Text style={styles.TitleTxt1}>OOPS!</Text>
                         <Text style={styles.Description}>Please input SMS code</Text>
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible1: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible2}>
+                    <View style={styles.modalView1}>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
+                        <Text style={{ ...styles.Description, color: 'black' }}>Pin code is wrong{'\n'}Please try again</Text>
+                        <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible2: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
                         </TouchableOpacity>
                     </View>
@@ -196,5 +312,14 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 20,
         fontFamily: 'FuturaPT-Medium'
+    },
+    modalView1: {
+        width: '100%',
+        height: 250,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 })

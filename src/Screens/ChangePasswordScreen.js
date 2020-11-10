@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import Spinner from 'react-native-loading-spinner-overlay';
+
+import config from "../Api/config"
 
 const { height, width } = Dimensions.get('window')
 let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -17,10 +20,17 @@ export default class CreatePasswordScreen extends Component {
             phone: '',
             password: '',
             re_password: '',
-            smscode: '',
+            pincode: '',
             isModalVisible1: false,
             isModalVisible2: false,
             isModalVisible3: false,
+            isModalVisible4: false,
+            isModalVisible5: false,
+            Timer: null,
+            isflag: false,
+            isEmail: true,
+            timeFlag: false,
+            isLoading: false,
         };
     }
 
@@ -29,35 +39,138 @@ export default class CreatePasswordScreen extends Component {
         await this.setState({
             email: this.props.navigation.getParam("email"),
             phone: this.props.navigation.getParam("phone"),
-            smscode: this.props.navigation.getParam("smscode")
+            pincode: this.props.navigation.getParam("pincode"),
+            isEmail: this.props.navigation.getParam("isEmail")
         })
         console.log(this.state.email)
     }
 
     handler = () => {
-        const { password, email, phone, smscode, re_password } = this.state
-        if (password == "") {
-            // alert("Please input your password")
-            this.setState({ isModalVisible1: true })
-        } else if (reg_strong.test(password) === false) {
-            // alert(
-            //     "Password must contain the following: \n" +
-            //     "A lowercase letter\n" +
-            //     "A capital letter\n" +
-            //     "A number\n" +
-            //     "A special character\n" +
-            //     "Minimum 8 characters ");
-            this.setState({ isModalVisible2: true })
-        } else if( password != re_password){
-            this.setState({ isModalVisible3: true })
+        const { password, email, phone, pincode, re_password, isEmail } = this.state
+        if (isEmail) {
+            if (password == "") {
+                this.setState({ isModalVisible1: true })
+            } else if (reg_strong.test(password) === false) {
+                this.setState({ isModalVisible2: true })
+            } else if (password != re_password) {
+                this.setState({ isModalVisible3: true })
+            } else {
+                let details = {
+                    // 'email': email,
+                    // 'pin': pincode,
+                    'password': password
+                };
+
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
+
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.saveNewPassword, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            console.log('responseJson===>', responseJson);
+                            this.setState({ isModalVisible5: true })
+                            setTimeout(() => {
+                                this.props.navigation.navigate("SigninEmailScreen")
+                                this.setState({ isModalVisible5: false })
+                            }, 2000)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            this.setState({ isModalVisible4: true })
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
         } else {
-            this.props.navigation.navigate("SigninEmailScreen")
+            if (password == "") {
+                this.setState({ isModalVisible1: true })
+            } else if (reg_strong.test(password) === false) {
+                this.setState({ isModalVisible2: true })
+            } else if (password != re_password) {
+                this.setState({ isModalVisible3: true })
+            } else {
+                let details = {
+                    // 'phone': phone,
+                    // 'pin': pincode,
+                    'password': password
+                };
+    
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
+    
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.saveNewPassword, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            console.log('responseJson===>', responseJson);
+                            this.setState({ isModalVisible5: true })
+                            setTimeout(() => {
+                                this.props.navigation.navigate("SigninPhoneScreen")
+                                this.setState({ isModalVisible5: false })
+                            }, 2000)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            this.setState({ isModalVisible4: true })
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
         }
+
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={'Changing password...'}
+                    textStyle={{ color: 'white' }}
+                />
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
                         <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
@@ -83,7 +196,7 @@ export default class CreatePasswordScreen extends Component {
                 <Modal isVisible={this.state.isModalVisible2}>
                     <View style={styles.modalView1}>
                         <Text style={styles.TitleTxt1}>OOPS!</Text>
-                        <View style={{width:"95%", alignSelf:'center'}}>
+                        <View style={{ width: "95%", alignSelf: 'center' }}>
                             <Text style={styles.Description}>
                                 Password must contain following:
                             </Text>
@@ -108,6 +221,21 @@ export default class CreatePasswordScreen extends Component {
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible3: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
                         </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible4}>
+                    <View style={styles.modalView2}>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
+                        <Text style={styles.Description}>New password did not save.</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible4: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible5}>
+                    <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
+                        <Image source={require('../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
+                        <Text style={{ ...styles.Description1, color: 'white' }}>Password successfully changed</Text>
                     </View>
                 </Modal>
             </View>
@@ -216,7 +344,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center'
-    },modalView2: {
+    }, modalView2: {
         width: '100%',
         height: 250,
         borderRadius: 5,
@@ -239,17 +367,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20,
         fontFamily: 'FuturaPT-Book',
-        fontWeight:'bold',
-        textAlign:'center'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     Description1: {
         color: "black",
         fontSize: 20,
         marginBottom: 20,
         fontFamily: 'FuturaPT-Book',
-        width:'80%',
-        alignItems:'center',
-        marginLeft:20
+        width: '80%',
+        alignItems: 'center',
+        marginLeft: 20
     },
     QuitWorkout: {
         width: 100,

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import Spinner from 'react-native-loading-spinner-overlay';
+
+import config from "../Api/config"
 
 export default class ForgotPasswordScreen extends Component {
     constructor(props) {
@@ -12,7 +15,13 @@ export default class ForgotPasswordScreen extends Component {
             phone: '',
             smscode: '',
             isModalVisible1: false,
-            isEmail: true
+            isModalVisible2: false,
+            isModalVisible3: false,
+            isEmail: true,
+            timeFlag: false,
+            isLoading: false,
+            Timer: null,
+            isflag: false
         };
     }
 
@@ -30,17 +39,115 @@ export default class ForgotPasswordScreen extends Component {
     }
 
     handler = () => {
-        const { name, password, phone, smscode, email } = this.state
-        if (email == "") {
-            this.setState({ isModalVisible1: true })
+        const { name, password, phone, smscode, email, isEmail } = this.state
+        if (isEmail) {
+            if (email == "") {
+                this.setState({ isModalVisible1: true })
+            } else {
+                let details = {
+                    'email': email,
+                };
+
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
+
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.resetPassword, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            console.log('responseJson===>', responseJson);
+                            this.props.navigation.navigate("ConfirmSMSScreen", { isEmail: isEmail, email: email, phone:phone })
+                        } else if (responseJson['status'] == 400) {
+                            this.setState({ isModalVisible3: true })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            this.setState({ isModalVisible2: true })
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
         } else {
-            this.props.navigation.navigate("ConfirmSMSScreen", {isEmail:this.state.isEmail})
+            if (phone == "") {
+                this.setState({ isModalVisible1: true })
+            } else {
+                let details = {
+                    'phone': phone,
+                };
+
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
+
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.resetPassword, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            console.log('responseJson===>', responseJson);
+                            this.props.navigation.navigate("ConfirmSMSScreen", { isEmail: isEmail, email: email, phone:phone })
+                        } else if (responseJson['status'] == 400) {
+                            this.setState({ isModalVisible3: true })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            this.setState({ isModalVisible2: true })
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
         }
+
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={'Sending pin code...'}
+                    textStyle={{ color: 'white' }}
+                />
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
                         <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
@@ -51,13 +158,16 @@ export default class ForgotPasswordScreen extends Component {
                 {
                     this.state.isEmail ?
                         <Text style={styles.desTxt}>
-                            Please enter your email address. You will receive SMS code to create a new password via email
+                            Please enter your email address. You will receive PIN code to create a new password via email
                         </Text> :
                         <Text style={styles.desTxt}>
-                            Please enter your phone number. You will receive SMS code to create a new password via phone
+                            Please enter your phone number. You will receive PIN code to create a new password via phone
                         </Text>
                 }
-                <TextInput keyboardType={this.state.isEmail?"":"number-pad"} placeholder={this.state.isEmail ? "Email" : "Phone number"} placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} />
+                {this.state.isEmail ?
+                    <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} /> :
+                    <TextInput keyboardType="number-pad" placeholder="Phone number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />
+                }
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>SEND</Text>
                 </TouchableOpacity>
@@ -69,6 +179,27 @@ export default class ForgotPasswordScreen extends Component {
                             <Text style={styles.Description}>Please input your phone number</Text>
                         }
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible1: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible2}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
+                        <Text style={styles.Description}>Reset Password Faild</Text>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible2: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible3}>
+                    <View style={styles.modalView1}>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
+                        {this.state.isEmail ?
+                            <Text style={{ ...styles.Description, color: 'black' }}>Email dose not exist{'\n'}Please check again</Text> :
+                            <Text style={{ ...styles.Description, color: 'black' }}>Phone number dose not exist{'\n'}Please check again</Text>
+                        }
+                        <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: 'black' }} onPress={() => this.setState({ isModalVisible3: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
                         </TouchableOpacity>
                     </View>
@@ -205,5 +336,14 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 20,
         fontFamily: 'FuturaPT-Medium'
+    },
+    modalView1: {
+        width: '100%',
+        height: 250,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 })
