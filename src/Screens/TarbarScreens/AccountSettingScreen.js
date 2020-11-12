@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '../../styles'
 import AsyncStorage from '@react-native-community/async-storage';
+import ImagePicker from 'react-native-image-picker';
+import Spinner from 'react-native-loading-spinner-overlay';
+import Modal from 'react-native-modal';
 
-import config from "../../Api/config"
+import NonImage from '../../Assets/Images/nopicture.png'
+
+import config, { BASE_PATH } from "../../Api/config"
+
+const options = {
+    title: 'Choose Photo',
+    takePhotoButtonTitle: 'Take photo with your camera',
+    chooseFromLibraryButtonTitle: 'Choose photo from library'
+}
 
 export default class AccountScreen extends Component {
     constructor(props) {
@@ -31,8 +42,100 @@ export default class AccountScreen extends Component {
                     ImageUrl: require("../../Assets/Images/program3.png")
                 }
             ],
-
+            avatarSource: NonImage,
+            timeFlag: false,
+            isloading: false,
+            isflag: '',
+            Timer: null,
+            isModalVisible1: false,
+            isModalVisible2: false,
+            UserName: '',
+            Email: '',
+            phoneNumber: ''
         };
+        this.getInfo()
+    }
+
+    getInfo = () => {
+        fetch(config.auth.userInfo, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then(async (responseJson) => {
+                if (responseJson['status'] == 200) {
+                    await this.setState({ UserName: responseJson.body.name })
+                    await this.setState({ Email: responseJson.body.email })
+                    console.log(responseJson.body.email)
+                    if (responseJson.body.phone == "" || responseJson.body.phone == null || responseJson.body.phone == undefined) {
+                        await this.setState({ phoneNumber: "-" })
+                    } else {
+                        await this.setState({ phoneNumber: responseJson.body.phone })
+                    }
+                    console.log(BASE_PATH + responseJson.body.avatarUrl)
+                }
+            })
+            .catch((err) => {
+                console.log('JSON.stringify(err)=>', err);
+            })
+    }
+
+
+    chooseImage = () => {
+        ImagePicker.showImagePicker(options, async (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else {
+                const source = { uri: response.uri };
+                await this.setState({ avatarSource: source });
+                let details = {
+                    'dataUrl': "data:image/jpeg;base64," + this.state.avatarSource,
+                };
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 25000)
+                this.setState({ isLoading: true })
+
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                fetch(config.auth.profilePicture, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        console.log('status =>', responseJson);
+                        if (responseJson['status'] == 200) {
+                            this.setState({ isModalVisible1: true })
+                            setTimeout(() => {
+                                this.setState({ isModalVisible1: false })
+                            }, 2000)
+                        } else if (responseJson['status'] == 400) {
+                            this.setState({ isModalVisible2: true })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('JSON.stringify(err)=>', err);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            this.setState({ isModalVisible2: true })
+                            clearTimeout(myTimer);
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
+        });
     }
 
     _rendermakelist({ item, index }) {
@@ -72,6 +175,11 @@ export default class AccountScreen extends Component {
     render() {
         return (
             <View style={styles.container2}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={'Uploading profile picture...'}
+                    textStyle={{ color: 'white' }}
+                />
                 <ScrollView style={{ flex: 1, width: '100%' }}>
                     <View style={{ width: '100%' }}>
                         <View style={styles.ImageBackground1}>
@@ -84,8 +192,10 @@ export default class AccountScreen extends Component {
                                 </View>
                             </View>
                             <View>
-                                <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.PersonProfileImage} />
-                                <TouchableOpacity style={styles.EditImageBtn}  >
+                                <View style={styles.profileArea}>
+                                    <Image source={this.state.avatarSource} resizeMode='cover' style={styles.PersonProfileImage} />
+                                </View>
+                                <TouchableOpacity style={styles.EditImageBtn} onPress={() => { this.chooseImage() }}>
                                     <Image source={require('../../Assets/Images/EditImage.png')} resizeMode='stretch' style={styles.EditImage} />
                                 </TouchableOpacity>
                             </View>
@@ -95,7 +205,7 @@ export default class AccountScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Name</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Tom Arends</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.UserName}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
@@ -106,7 +216,7 @@ export default class AccountScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Email</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>tom@unusualpixels.com</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.Email}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
@@ -117,7 +227,7 @@ export default class AccountScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Mobile</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>-</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.phoneNumber}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
@@ -184,6 +294,21 @@ export default class AccountScreen extends Component {
                         </View>
                     </View>
                 </ScrollView>
+                <Modal isVisible={this.state.isModalVisible1}>
+                    <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
+                        <Image source={require('../../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
+                        <Text style={styles.Description1}>Picture uploaded successfully!</Text>
+                    </View>
+                </Modal>
+                <Modal isVisible={this.state.isModalVisible2}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
+                        <Text style={styles.Description2}>Uploading faild. Please try again.</Text>
+                        <TouchableOpacity style={styles.QuitWorkout2} onPress={() => this.setState({ isModalVisible2: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
             </View>
         );
     }

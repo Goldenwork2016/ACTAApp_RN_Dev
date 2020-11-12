@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import {styles} from '../../styles'
+import { styles } from '../../styles'
+
+import config, { BASE_PATH } from "../../Api/config"
 
 export default class AccountScreen extends Component {
   constructor(props) {
@@ -28,8 +30,25 @@ export default class AccountScreen extends Component {
           ImageUrl: require("../../Assets/Images/program3.png")
         }
       ],
-
+      UserName: ''
     };
+    this.getName()
+  }
+
+  getName() {
+    fetch(config.auth.userInfo, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then(async (responseJson) => {
+        if (responseJson['status'] == 200) {
+          await this.setState({ UserName: responseJson.body.name })
+          console.log(responseJson.body.name)
+        }
+      })
+      .catch((err) => {
+        console.log('JSON.stringify(err)=>', err);
+      })
   }
 
   _rendermakelist({ item, index }) {
@@ -62,29 +81,32 @@ export default class AccountScreen extends Component {
                 <View style={styles.dropDown}>
                   <Text style={styles.headerTxt}>ACCOUNT</Text>
                 </View>
-                <TouchableOpacity style={styles.AlarmkBtn} onPress={()=>this.props.navigation.navigate("AccountSettingScreen")}>
+                <TouchableOpacity style={styles.AlarmkBtn} onPress={() => this.props.navigation.navigate("AccountSettingScreen")}>
                   <Image source={require('../../Assets/Images/settingImage.png')} resizeMode='stretch' style={styles.notiImage} />
                 </TouchableOpacity>
               </View>
-              <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.PersonProfileImage} />
-              <Text style={styles.nameTxt}>Tom Arends</Text>
+              {/* <Image source={require('../../Assets/Images/nopicture.png')} resizeMode='stretch' style={styles.PersonProfileImage} /> */}
+              <View style={styles.profileArea}>
+                <Image source={require('../../Assets/Images/nopicture.png')} resizeMode='cover' style={styles.PersonProfileImage} />
+              </View>
+              <Text style={styles.nameTxt}>{this.state.UserName}</Text>
               <View style={styles.headerContent}>
-                <TouchableOpacity style={styles.ContentList2} onPress={()=>this.props.navigation.navigate("AccountFollowingScreen",{ddd:true})}>
+                <TouchableOpacity style={styles.ContentList2} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: true })}>
                   <Text style={styles.numTxt}>22</Text>
                   <Text style={styles.itemTxt}>Following</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.ContentList2} onPress={()=>this.props.navigation.navigate("AccountFollowingScreen",{ddd:false})}>
+                <TouchableOpacity style={styles.ContentList2} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: false })}>
                   <Text style={styles.numTxt}>326</Text>
                   <Text style={styles.itemTxt}>Followers</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{...styles.ContentList2, borderRightWidth:0}} onPress={()=>this.props.navigation.navigate("AccountTraingenScreen")}>
+                <TouchableOpacity style={{ ...styles.ContentList2, borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen")}>
                   <Text style={styles.numTxt}>48</Text>
                   <Text style={styles.itemTxt}>Workouts</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.ListBnt}>
                 <View style={{ width: '100%' }}>
-                  <TouchableOpacity style={styles.createBtn} onPress={()=>this.props.navigation.navigate("FindFriendScreen")}>
+                  <TouchableOpacity style={styles.createBtn} onPress={() => this.props.navigation.navigate("FindFriendScreen")}>
                     <Text style={styles.CreateTxt}>Find Friends</Text>
                   </TouchableOpacity>
                 </View>
@@ -145,7 +167,7 @@ export default class AccountScreen extends Component {
               <View style={styles.AllArea1}>
                 <Text style={styles.ConHeaderTxt}>Weight</Text>
                 <View style={styles.AllArea}>
-                  <Text style={styles.ConHeaderTxt1}><Text style={{fontSize:25, marginTop:5}}>+</Text>  WEIGTH IN</Text>
+                  <Text style={styles.ConHeaderTxt1}><Text style={{ fontSize: 25, marginTop: 5 }}>+</Text>  WEIGTH IN</Text>
                 </View>
               </View>
               <Image source={require('../../Assets/Images/chartImage1.png')} resizeMode='stretch' style={styles.chartImage1} />
@@ -154,7 +176,7 @@ export default class AccountScreen extends Component {
               </View>
               <Image source={require('../../Assets/Images/chartImage2.png')} resizeMode='stretch' style={styles.chartImage1} />
             </View>
-          </View>          
+          </View>
         </ScrollView>
       </View>
     );

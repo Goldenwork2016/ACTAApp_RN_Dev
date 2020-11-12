@@ -10,5 +10,7 @@ export default{
         resetPassword: BASE_PATH + '/api/user/request',
         saveNewPassword: BASE_PATH + '/api/user/change',
         confirmPinCode: BASE_PATH + '/api/user/verify/pin',
+        profilePicture: BASE_PATH + '/api/user/avatar',
+        userInfo: BASE_PATH + '/api/user/me',
     }
 }

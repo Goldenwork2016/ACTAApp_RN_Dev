@@ -117,7 +117,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 30,
   },
-  Dismiss1:{
+  Dismiss1: {
     color: 'white',
     fontSize: 20,
     fontFamily: 'FuturaPT-Medium',
@@ -149,8 +149,17 @@ export const styles = StyleSheet.create({
     width: 110,
     height: 110,
     alignSelf: 'center',
-    marginTop: 10,
-    marginBottom: 18
+    borderRadius: 55,
+  },
+  profileArea: {
+    borderRadius: 50,
+    width: 100,
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginBottom: 18,
+    backgroundColor:'white'
   },
   HeaderImage1: {
     marginLeft: 10,
@@ -634,5 +643,52 @@ export const styles = StyleSheet.create({
     height: 250,
     alignSelf: 'center',
     marginTop: 10
+  },
+  modalView: {
+    width: '100%',
+    height: 200,
+    borderRadius: 5,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  Description1: {
+    color: 'white',
+    fontSize: 25,
+    marginBottom: 20,
+    fontFamily: 'FuturaPT-Book'
+  },
+  TitleTxt1: {
+    color: 'black',
+    fontSize: 55,
+    marginBottom: 25,
+    fontFamily: 'TrumpSoftPro-BoldItalic',
+    width: '100%',
+    textAlign: "center"
+  },
+  Description2: {
+    color: "black",
+    fontSize: 23,
+    marginBottom: 20,
+    fontFamily: 'FuturaPT-Book'
+  },
+  QuitWorkout2: {
+    width: 100,
+    height: 45,
+    borderWidth: 2,
+    borderColor: 'black',
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#18171A',
+    borderColor: '#18171A'
+  },
+  Dismiss: {
+    color: 'black',
+    fontSize: 20,
+    fontFamily: 'FuturaPT-Medium'
   },
 })
