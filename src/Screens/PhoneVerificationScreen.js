@@ -14,26 +14,28 @@ export default class CreatePasswordScreen extends Component {
         this.state = {
             email: '',
             phone: '',
-            smscode: ''
+            smscode: '',
+            isEmail:''
         };
     }
 
     componentDidMount = async () => {
         await this.setState({
             email: this.props.navigation.getParam("email"),
-            phone: this.props.navigation.getParam("phone")
+            phone: this.props.navigation.getParam("phone"),
+            isEmail: this.props.navigation.getParam("isEmail"),
         })
         console.log(this.state.email)
     }
 
     handler = () => {
-        const { smscode, email, phone } = this.state
+        const { smscode, email, phone, isEmail } = this.state
         if (smscode == "") {
             alert("Please input your smscode")
         } else if (smscode.length != 6) {
             alert("Please input 6 digital code")
         } else {
-            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
+            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode, isEmail:isEmail })
         }
     }
 

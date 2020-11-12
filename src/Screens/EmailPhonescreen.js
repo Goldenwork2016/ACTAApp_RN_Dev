@@ -7,6 +7,8 @@ import Modal from 'react-native-modal';
 import config from "../Api/config"
 
 let regExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+let reg_strong = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/;
+let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 export default class CreateEmailScreen extends Component {
     constructor(props) {
@@ -14,6 +16,10 @@ export default class CreateEmailScreen extends Component {
         this.state = {
             email: '',
             phone: '',
+            password: '',
+            name: '',
+            phone: '',
+            smscode: '',
             timeFlag: false,
             isLoading: false,
             isModalVisible1: false,
@@ -22,59 +28,130 @@ export default class CreateEmailScreen extends Component {
             isModalVisible4: false,
             Timer: null,
             isflag: false,
-            isEmail:false
+            isEmail: ''
         };
     }
 
+    componentDidMount = async () => {
+        const { navigation } = this.props.navigation;
+        await this.setState({
+            email: this.props.navigation.getParam("email"),
+            password: this.props.navigation.getParam("password"),
+            phone: this.props.navigation.getParam("phone"),
+            smscode: this.props.navigation.getParam("smscode"),
+            name: this.props.navigation.getParam("name"),
+            isEmail: this.props.navigation.getParam("isEmail"),
+        })
+        console.log(this.state.password)
+    }
+
     handler = () => {
-        const { email, phone, isEmail } = this.state
-        if (phone == "") {
-            this.setState({ isModalVisible1: true })
-        } else {
-            let details = {
-                'phone': phone,
-            };
+        const { email, phone, password, smscode, name, isEmail } = this.state
+        if (isEmail) {
+            if (phone == "") {
+                this.setState({ isModalVisible1: true })
+            } else {
+                let details = {
+                    'phone': phone,
+                };
 
-            var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
-            this.setState({ isLoading: true })
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
 
-            let formBody = [];
-            for (let property in details) {
-                let encodedKey = encodeURIComponent(property);
-                let encodedValue = encodeURIComponent(details[property]);
-                formBody.push(encodedKey + "=" + encodedValue);
-            }
-            formBody = formBody.join("&");
-            console.log(formBody);
-            fetch(config.auth.verifySMS, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: formBody
-            })
-                .then((response) => response.json())
-                .then(async (responseJson) => {
-                    this.setState({ isLoading: false })
-                    clearTimeout(myTimer)
-                    if (responseJson['status'] == 400) {
-                        this.setState({ isModalVisible3: true })
-                    } else if (responseJson['status'] == 200) {
-                        console.log('responseJson===>', responseJson);
-                        this.props.navigation.navigate('PhoneVerificationScreen', { email: email, phone: phone, isEmail:isEmail });
-                    }
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.status, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
                 })
-                .catch((err) => {
-                    console.log('err =>', JSON.stringify(err));
-                    clearTimeout(myTimer);
-                    if (!timeFlag) {
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
                         this.setState({ isLoading: false })
-                        alert("Network Error!!")
-                    } else {
-                        this.setState({ timeFlag: false })
-                    }
-                })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            if (responseJson.body.phone == true) {
+                                this.setState({ isModalVisible3: true })
+                            } else {
+                                this.props.navigation.navigate("CreatePreferenceScreen", { email: email, phone: phone, smscode: smscode, name: name, password: password, isEmail: isEmail })
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            alert("Network Error!!")
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
         }
+        if (isEmail == false) {
+            if (email == "") {
+                this.setState({ isModalVisible1: true })
+            } else if (reg.test(email) === false) {
+                // alert('Email type error')
+                this.setState({ isModalVisible2: true })
+            }
+            else {
+                let details = {
+                    'email': email,
+                };
+
+                var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
+                this.setState({ isLoading: true })
+
+                let formBody = [];
+                for (let property in details) {
+                    let encodedKey = encodeURIComponent(property);
+                    let encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+                console.log(formBody);
+                fetch(config.auth.status, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formBody
+                })
+                    .then((response) => response.json())
+                    .then(async (responseJson) => {
+                        this.setState({ isLoading: false })
+                        clearTimeout(myTimer)
+                        if (responseJson['status'] == 200) {
+                            if (responseJson.body.email == true) {
+                                this.setState({ isModalVisible3: true })
+                            } else {
+                                this.props.navigation.navigate("CreatePreferenceScreen", { email: email, phone: phone, smscode: smscode, name: name, password: password, isEmail: isEmail })
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('err =>', JSON.stringify(err));
+                        clearTimeout(myTimer);
+                        if (!timeFlag) {
+                            this.setState({ isLoading: false })
+                            alert("Network Error!!")
+                        } else {
+                            this.setState({ timeFlag: false })
+                        }
+                    })
+            }
+        }
+
     }
 
     render() {
@@ -82,7 +159,7 @@ export default class CreateEmailScreen extends Component {
             <View style={styles.container}>
                 <Spinner
                     visible={this.state.isLoading}
-                    textContent={'Checking phone number...'}
+                    textContent={this.state.isEmail ? 'Checking phone number...' : 'Checking Email...'}
                     textStyle={{ color: 'white' }}
                 />
                 <View style={styles.header}>
@@ -94,10 +171,17 @@ export default class CreateEmailScreen extends Component {
 
                 <Text style={styles.headerTxt}>CREATE.</Text>
                 <Text style={styles.desTxt}>What is your phone number</Text>
-                <View style={{ flexDirection: 'row', width: 330 }}>
+                {/* <View style={{ flexDirection: 'row', width: 330 }}>
                     <Text style={styles.countryNumber}>+1</Text>
                     <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />
-                </View>
+                </View> */}
+                {!this.state.isEmail ?
+                    <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} /> :
+                    <View style={{ flexDirection: 'row', width: 330 }}>
+                        <Text style={styles.countryNumber}>+1</Text>
+                        <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} onChangeText={(e) => this.setState({ phone: e })} />
+                    </View>
+                }
                 {/* <TextInput placeholder="Password" placeholderTextColor="#53535f" style={styles.PasswordInputTxt} /> */}
                 <View style={{ width: 330 }}>
                     <Text style={styles.standardTxt}>Standard rates apply</Text>
@@ -109,7 +193,7 @@ export default class CreateEmailScreen extends Component {
                     <View style={styles.modalView}>
                         <Text style={styles.TitleTxt1}>OOPS!</Text>
                         <Text style={styles.Description}>Please input your phone number</Text>
-                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible1: false })}>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ CreatePreferenceScreen: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
                         </TouchableOpacity>
                     </View>
@@ -166,6 +250,17 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     EmailInputTxt: {
+        width: 330,
+        height: 50,
+        backgroundColor: '#18171a',
+        marginBottom: 8,
+        borderRadius: 3,
+        paddingLeft: 20,
+        color: "white",
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Book'
+    },
+    EmailInputTxt1: {
         width: 285,
         height: 50,
         backgroundColor: '#18171a',
@@ -293,7 +388,7 @@ const styles = StyleSheet.create({
         fontSize: 23,
         marginBottom: 20,
         fontFamily: 'FuturaPT-Book',
-        marginHorizontal:10
+        marginHorizontal: 10
     },
     Description2: {
         color: 'white',

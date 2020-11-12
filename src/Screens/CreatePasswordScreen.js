@@ -19,6 +19,7 @@ export default class CreatePasswordScreen extends Component {
             smscode: '',
             isModalVisible1: false,
             isModalVisible2: false,
+            isEmail:''
         };
     }
 
@@ -27,13 +28,14 @@ export default class CreatePasswordScreen extends Component {
         await this.setState({
             email: this.props.navigation.getParam("email"),
             phone: this.props.navigation.getParam("phone"),
-            smscode: this.props.navigation.getParam("smscode")
+            smscode: this.props.navigation.getParam("smscode"),
+            isEmail: this.props.navigation.getParam("isEmail"),
         })
         console.log(this.state.email)
     }
 
     handler = () => {
-        const { password, email, phone, smscode } = this.state
+        const { password, email, phone, smscode, isEmail } = this.state
         if (password == "") {
             // alert("Please input your password")
             this.setState({ isModalVisible1: true })
@@ -47,7 +49,7 @@ export default class CreatePasswordScreen extends Component {
             //     "Minimum 8 characters ");
             this.setState({ isModalVisible2: true })
         } else {
-            this.props.navigation.navigate("CreateFirstnameScreen", { email: email, password: password, phone: phone, smscode: smscode })
+            this.props.navigation.navigate("CreateFirstnameScreen", { email: email, password: password, phone: phone, smscode: smscode, isEmail:isEmail })
         }
     }
 

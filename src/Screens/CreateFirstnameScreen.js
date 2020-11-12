@@ -12,6 +12,7 @@ export default class CreateFristnameScreen extends Component {
             phone: '',
             smscode: '',
             isModalVisible1: false,
+            isEmail: '',
         };
     }
 
@@ -22,17 +23,18 @@ export default class CreateFristnameScreen extends Component {
             email: this.props.navigation.getParam("email"),
             password: this.props.navigation.getParam("password"),
             phone: this.props.navigation.getParam("phone"),
-            smscode: this.props.navigation.getParam("smscode")
+            smscode: this.props.navigation.getParam("smscode"),
+            isEmail: this.props.navigation.getParam("isEmail"),
         })
         console.log(this.state.password)
     }
 
     handler = () => {
-        const { name, password, phone, smscode, email } = this.state
+        const { name, password, phone, smscode, email, isEmail } = this.state
         if (name == "") {
-            this.setState({isModalVisible1:true})
+            this.setState({ isModalVisible1: true })
         } else {
-            this.props.navigation.navigate("CreatePreferenceScreen", { email: email, password: password, name: this.state.name, smscode: smscode, phone: phone })
+            this.props.navigation.navigate("EmailPhonescreen", { email: email, password: password, name: this.state.name, smscode: smscode, phone: phone, isEmail: isEmail })
         }
     }
 
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20,
         fontFamily: 'FuturaPT-Book',
-        fontWeight:'bold'
+        fontWeight: 'bold'
     },
     QuitWorkout: {
         width: 100,

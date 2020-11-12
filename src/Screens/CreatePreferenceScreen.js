@@ -29,6 +29,7 @@ export default class CreateFristnameScreen extends Component {
             Timer: null,
             loggedIn: false,
             LoggedInStatus: "",
+            isEmail:'',
         };
     }
 
@@ -40,6 +41,7 @@ export default class CreateFristnameScreen extends Component {
             name: this.props.navigation.getParam("name"),
             phone: this.props.navigation.getParam("phone"),
             smscode: this.props.navigation.getParam("smscode"),
+            isEmail: this.props.navigation.getParam("isEmail"),
         })
         console.log("=============================")
         console.log(this.state.name)
@@ -67,9 +69,9 @@ export default class CreateFristnameScreen extends Component {
 
     registerHandle = async () => {
         const self = this;
-        const { email, password, name, phone, smscode, Checked, radioStatus1, radioStatus2, timeFlag } = this.state;
+        const { email, password, name, phone, smscode, Checked, radioStatus1, radioStatus2, timeFlag, isEmail } = this.state;
         let details;
-        if (phone == '') {
+        if (isEmail == true) {
             console.log(email)
             details = {
                 'email': email,
@@ -78,8 +80,9 @@ export default class CreateFristnameScreen extends Component {
                 'data[place]': radioStatus1,
                 'data[goal]': radioStatus2,
                 'data[notify]': Checked,
+                'add_phone':phone
             };
-        } else if (email == '') {
+        } else if (isEmail == false) {
             console.log(phone)
             details = {
                 'sms': smscode,
@@ -89,6 +92,7 @@ export default class CreateFristnameScreen extends Component {
                 'data[place]': radioStatus1,
                 'data[goal]': radioStatus2,
                 'data[notify]': Checked,
+                'add_email':email
             };
         }
 

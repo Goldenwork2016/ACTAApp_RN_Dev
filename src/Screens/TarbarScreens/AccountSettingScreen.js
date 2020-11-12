@@ -78,7 +78,7 @@ export default class AccountScreen extends Component {
                         await this.setState({ Email: responseJson.body.email })
                     }
                     console.log(responseJson.body.email)
-                    if (responseJson.body.data.mobile == "" || responseJson.body.data.mobile == null || responseJson.body.data.mobile == undefined) {
+                    if (responseJson.body.phone == "" || responseJson.body.phone == null || responseJson.body.phone == undefined) {
                         await this.setState({ phoneNumber: "-" })
                     } else {
                         await this.setState({ phoneNumber: responseJson.body.phone })
@@ -91,7 +91,7 @@ export default class AccountScreen extends Component {
                     if (responseJson.body.data.measurement == "" || responseJson.body.data.measurement == null || !responseJson.body.data.measurement) {
                         await this.setState({ measurement: "-" })
                     } else {
-                        await this.setState({ phoneNumber: responseJson.body.data.measurement })
+                        await this.setState({ measurement: responseJson.body.data.measurement })
                     }
                     if (responseJson.body.data.connectivity == "" || responseJson.body.data.connectivity == null || !responseJson.body.data.connectivity) {
                         await this.setState({ connectivity: "-" })

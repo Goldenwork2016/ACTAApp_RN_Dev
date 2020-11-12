@@ -27,7 +27,8 @@ export default class CreateEmailScreen extends Component {
             timeFlag: false,
             isloading: false,
             Timer: null,
-            isflag: false
+            isflag: false,
+            isEmail:true
         };
     }
 
@@ -56,7 +57,7 @@ export default class CreateEmailScreen extends Component {
     }
 
     handler = () => {
-        const { email, phone, smscode, timeFlag } = this.state
+        const { email, phone, smscode, timeFlag, isEmail } = this.state
         if (email == "") {
             // alert("Please input your email")
             this.setState({ isModalVisible1: true })
@@ -96,7 +97,7 @@ export default class CreateEmailScreen extends Component {
                         if (responseJson.body.email == true) {
                             this.setState({ isModalVisible3: true })
                         } else {
-                            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
+                            this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode, isEmail })
                         }
                     }
                 })

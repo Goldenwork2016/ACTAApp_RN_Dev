@@ -16,6 +16,7 @@ import PhoneVerificationScreen from './Screens/PhoneVerificationScreen';
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import ConfirmSMSScreen from './Screens/ConfirmSMSScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
+import EmailPhonescreen from './Screens/EmailPhonescreen';
 import TabBarScreen from './TabBarNavigation'
 
 
@@ -101,6 +102,12 @@ const AuthStack = createStackNavigator(
         },
         ChangePasswordScreen: {
             screen: ChangePasswordScreen,
+            navigationOptions: {
+                headerShown: false
+            }
+        },
+        EmailPhonescreen: {
+            screen: EmailPhonescreen,
             navigationOptions: {
                 headerShown: false
             }
