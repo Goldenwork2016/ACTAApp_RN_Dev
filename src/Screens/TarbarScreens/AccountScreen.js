@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, AppState, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '../../styles'
 
 import config, { BASE_PATH } from "../../Api/config"
+
+import NonImage from '../../Assets/Images/nopicture.png'
 
 export default class AccountScreen extends Component {
   constructor(props) {
@@ -30,10 +32,32 @@ export default class AccountScreen extends Component {
           ImageUrl: require("../../Assets/Images/program3.png")
         }
       ],
-      UserName: ''
+      UserName: '',
+      avatarSource: NonImage,
+      appState: AppState.currentState,
     };
+
     this.getName()
   }
+
+  componentWillMount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    // if (!this.state.appState.match(/inactive|background/) && nextAppState !== 'active') {
+    //   this.getName()
+    // }
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      this.getName()
+    }
+    this.setState({ appState: nextAppState });
+  }
+
 
   getName() {
     fetch(config.auth.userInfo, {
@@ -43,6 +67,7 @@ export default class AccountScreen extends Component {
       .then(async (responseJson) => {
         if (responseJson['status'] == 200) {
           await this.setState({ UserName: responseJson.body.name })
+          await this.setState({ avatarSource: BASE_PATH + responseJson.body.avatarUrl })
           console.log(responseJson.body.name)
         }
       })
@@ -81,13 +106,13 @@ export default class AccountScreen extends Component {
                 <View style={styles.dropDown}>
                   <Text style={styles.headerTxt}>ACCOUNT</Text>
                 </View>
-                <TouchableOpacity style={styles.AlarmkBtn} onPress={() => this.props.navigation.navigate("AccountSettingScreen")}>
+                <TouchableOpacity style={styles.AlarmkBtn} onPress={() => { this.props.navigation.navigate("AccountSettingScreen") }}>
                   <Image source={require('../../Assets/Images/settingImage.png')} resizeMode='stretch' style={styles.notiImage} />
                 </TouchableOpacity>
               </View>
               {/* <Image source={require('../../Assets/Images/nopicture.png')} resizeMode='stretch' style={styles.PersonProfileImage} /> */}
               <View style={styles.profileArea}>
-                <Image source={require('../../Assets/Images/nopicture.png')} resizeMode='cover' style={styles.PersonProfileImage} />
+                <Image source={{ uri: this.state.avatarSource.toString() }} resizeMode='cover' style={styles.PersonProfileImage} />
               </View>
               <Text style={styles.nameTxt}>{this.state.UserName}</Text>
               <View style={styles.headerContent}>

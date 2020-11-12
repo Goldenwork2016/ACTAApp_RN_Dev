@@ -43,6 +43,7 @@ export default class AccountScreen extends Component {
                 }
             ],
             avatarSource: NonImage,
+            avatarURL: '',
             timeFlag: false,
             isloading: false,
             isflag: '',
@@ -51,9 +52,12 @@ export default class AccountScreen extends Component {
             isModalVisible2: false,
             UserName: '',
             Email: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            birthday: '',
+            measurement: '',
+            connectivity: ''
         };
-        this.getInfo()
+        this.getInfo();
     }
 
     getInfo = () => {
@@ -63,15 +67,38 @@ export default class AccountScreen extends Component {
             .then((res) => res.json())
             .then(async (responseJson) => {
                 if (responseJson['status'] == 200) {
+                    console.log("_____________________________________________________")
+                    console.log(BASE_PATH + responseJson.body.avatarUrl)
                     await this.setState({ UserName: responseJson.body.name })
                     await this.setState({ Email: responseJson.body.email })
+                    await this.setState({ avatarSource: BASE_PATH + responseJson.body.avatarUrl })
+                    if (responseJson.body.email == "" || responseJson.body.email == null || responseJson.body.email == undefined) {
+                        await this.setState({ Email: "-" })
+                    } else {
+                        await this.setState({ Email: responseJson.body.email })
+                    }
                     console.log(responseJson.body.email)
-                    if (responseJson.body.phone == "" || responseJson.body.phone == null || responseJson.body.phone == undefined) {
+                    if (responseJson.body.data.mobile == "" || responseJson.body.data.mobile == null || responseJson.body.data.mobile == undefined) {
                         await this.setState({ phoneNumber: "-" })
                     } else {
                         await this.setState({ phoneNumber: responseJson.body.phone })
                     }
-                    console.log(BASE_PATH + responseJson.body.avatarUrl)
+                    if (responseJson.body.data.birthday == "" || responseJson.body.data.birthday == null || !responseJson.body.data.birthday) {
+                        await this.setState({ birthday: "-" })
+                    } else {
+                        await this.setState({ birthday: responseJson.body.data.birthday })
+                    }
+                    if (responseJson.body.data.measurement == "" || responseJson.body.data.measurement == null || !responseJson.body.data.measurement) {
+                        await this.setState({ measurement: "-" })
+                    } else {
+                        await this.setState({ phoneNumber: responseJson.body.data.measurement })
+                    }
+                    if (responseJson.body.data.connectivity == "" || responseJson.body.data.connectivity == null || !responseJson.body.data.connectivity) {
+                        await this.setState({ connectivity: "-" })
+                    } else {
+                        await this.setState({ connectivity: responseJson.body.data.connectivity })
+                    }
+
                 }
             })
             .catch((err) => {
@@ -88,10 +115,12 @@ export default class AccountScreen extends Component {
             } else if (response.error) {
                 console.log('ImagePicker Error: ', response.error);
             } else {
+                console.log(response.uri)
                 const source = { uri: response.uri };
-                await this.setState({ avatarSource: source });
+                const URL = response.data;
+                await this.setState({ avatarURL: URL });
                 let details = {
-                    'dataUrl': "data:image/jpeg;base64," + this.state.avatarSource,
+                    'dataUrl': "data:image/jpeg;base64," + this.state.avatarURL,
                 };
                 var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 25000)
                 this.setState({ isLoading: true })
@@ -114,9 +143,10 @@ export default class AccountScreen extends Component {
                     .then(async (responseJson) => {
                         this.setState({ isLoading: false })
                         clearTimeout(myTimer)
-                        console.log('status =>', responseJson);
                         if (responseJson['status'] == 200) {
+                            console.log(responseJson)
                             this.setState({ isModalVisible1: true })
+                            this.getInfo()
                             setTimeout(() => {
                                 this.setState({ isModalVisible1: false })
                             }, 2000)
@@ -173,6 +203,7 @@ export default class AccountScreen extends Component {
     }
 
     render() {
+        const avatarSource = this.state
         return (
             <View style={styles.container2}>
                 <Spinner
@@ -188,12 +219,12 @@ export default class AccountScreen extends Component {
                                     <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
                                 </TouchableOpacity>
                                 <View style={styles.dropDown}>
-                                    <Text style={styles.headerTxt}>SETTING</Text>
+                                    <Text style={styles.headerTxt}>SETTINGS</Text>
                                 </View>
                             </View>
                             <View>
                                 <View style={styles.profileArea}>
-                                    <Image source={this.state.avatarSource} resizeMode='cover' style={styles.PersonProfileImage} />
+                                    <Image source={{ uri: this.state.avatarSource.toString() }} resizeMode='cover' style={styles.PersonProfileImage} />
                                 </View>
                                 <TouchableOpacity style={styles.EditImageBtn} onPress={() => { this.chooseImage() }}>
                                     <Image source={require('../../Assets/Images/EditImage.png')} resizeMode='stretch' style={styles.EditImage} />
@@ -238,7 +269,7 @@ export default class AccountScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Birthday</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>17 October 1987</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.birthday}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
@@ -249,7 +280,7 @@ export default class AccountScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Measurement Units</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Metric</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.measurement}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
@@ -260,7 +291,7 @@ export default class AccountScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Connectivity</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Apple Health</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.connectivity}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
