@@ -170,7 +170,10 @@ export default class CreateEmailScreen extends Component {
                 </View>
 
                 <Text style={styles.headerTxt}>CREATE.</Text>
-                <Text style={styles.desTxt}>What is your phone number</Text>
+                {!this.state.isEmail ?
+                    <Text style={styles.desTxt}>What is your email</Text> :
+                    <Text style={styles.desTxt}>What is your phone number</Text>
+                }
                 {/* <View style={{ flexDirection: 'row', width: 330 }}>
                     <Text style={styles.countryNumber}>+1</Text>
                     <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />

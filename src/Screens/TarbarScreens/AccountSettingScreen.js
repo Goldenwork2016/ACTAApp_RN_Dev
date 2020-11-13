@@ -265,7 +265,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:true})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Email</Text>
                                     <View style={styles.ListContent4}>
@@ -276,7 +276,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2}>
+                            <TouchableOpacity style={styles.ListContent2}  onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:false})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Mobile</Text>
                                     <View style={styles.ListContent4}>
