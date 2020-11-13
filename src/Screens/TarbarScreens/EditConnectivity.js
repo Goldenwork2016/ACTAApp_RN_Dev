@@ -5,12 +5,11 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import config, { BASE_PATH } from "../../Api/config"
 
-export default class AccountEditScreen extends Component {
+export default class EditConnectivity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
+      connectivity: '',
       timeFlag: false,
       isloading: false,
       isflag: '',
@@ -30,17 +29,11 @@ export default class AccountEditScreen extends Component {
   }
 
   saveName = () => {
-    if (this.state.firstName == '') {
+    if (this.state.connectivity == '') {
       this.setState({ isModalVisible2: true })
-    } else if (this.state.lastName == '') {
-      this.setState({ isModalVisible3: true })
     } else {
-      let addName = this.state.firstName;
-      addName += " ";
-      addName += this.state.lastName;
-      console.log(addName);
       let details = {
-        'name': addName,
+        'connectivity': this.state.connectivity,
       };
       var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 25000)
       this.setState({ isLoading: true })
@@ -92,31 +85,30 @@ export default class AccountEditScreen extends Component {
       <View style={styles.container}>
         <Spinner
           visible={this.state.isLoading}
-          textContent={'Changing full name...'}
+          textContent={'Changing measurement units...'}
           textStyle={{ color: 'white' }}
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
             <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
           </TouchableOpacity>
-          <Text style={styles.headerTxt}>NAME</Text>
+          <Text style={styles.headerTxt}>CONNECTIVITY</Text>
         </View>
-        <Text style={styles.TitleTxt}>Full Name</Text>
-        <TextInput placeholder="Frist Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ firstName: e })} />
-        <TextInput placeholder="Last Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ lastName: e })} />
+        <Text style={styles.TitleTxt}>Connectivity</Text>
+        <TextInput placeholder="Connectivity" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ connectivity: e })} />
         <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
           <Text style={styles.EmailTxt}>Save</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
             <Image source={require('../../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
-            <Text style={styles.Description1}>Your name changed successfully!</Text>
+            <Text style={styles.Description1}>Connectivity changed successfully!</Text>
           </View>
         </Modal>
         <Modal isVisible={this.state.isModalVisible2}>
           <View style={styles.modalView}>
             <Text style={styles.TitleTxt1}>OOPS!</Text>
-            <Text style={styles.Description2}>Please input first name.</Text>
+            <Text style={styles.Description2}>Please input connectivity.</Text>
             <TouchableOpacity style={styles.QuitWorkout2} onPress={() => this.setState({ isModalVisible2: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
             </TouchableOpacity>

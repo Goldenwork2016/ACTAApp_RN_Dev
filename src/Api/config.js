@@ -12,5 +12,6 @@ export default{
         confirmPinCode: BASE_PATH + '/api/user/verify/pin',
         profilePicture: BASE_PATH + '/api/user/avatar',
         userInfo: BASE_PATH + '/api/user/me',
+        updateField: BASE_PATH + '/api/user/update/field',
     }
 }

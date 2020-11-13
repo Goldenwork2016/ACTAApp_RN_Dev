@@ -28,6 +28,8 @@ import AccountFollowingScreen from './Screens/TarbarScreens/AccountFollowingScre
 import AccountTraingenScreen from './Screens/TarbarScreens/AccountTraingenScreen'
 import AccountSettingScreen from './Screens/TarbarScreens/AccountSettingScreen'
 import AccountEditScreen from './Screens/TarbarScreens/AccountEditScreen'
+import EditMeasurement from './Screens/TarbarScreens/EditMeasurement'
+import EditConnectivity from './Screens/TarbarScreens/EditConnectivity'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -185,6 +187,12 @@ const Activity = createStackNavigator(
                 headerShown: false,
             }
         },
+        EditConnectivity: {
+            screen: EditConnectivity,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'ActivityScreen',
@@ -242,6 +250,12 @@ const Account = createStackNavigator(
         },
         AccountEditScreen: {
             screen: AccountEditScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        EditMeasurement: {
+            screen: EditMeasurement,
             navigationOptions: {
                 headerShown: false,
             }

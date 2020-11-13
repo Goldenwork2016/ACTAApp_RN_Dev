@@ -6,6 +6,8 @@ import ImagePicker from 'react-native-image-picker';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Modal from 'react-native-modal';
 
+import { withNavigation } from "react-navigation";
+
 import NonImage from '../../Assets/Images/nopicture.png'
 
 import config, { BASE_PATH } from "../../Api/config"
@@ -16,7 +18,7 @@ const options = {
     chooseFromLibraryButtonTitle: 'Choose photo from library'
 }
 
-export default class AccountScreen extends Component {
+class AccountSettingScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,6 +60,18 @@ export default class AccountScreen extends Component {
             connectivity: ''
         };
         this.getInfo();
+    }
+
+    componentWillUnmount() {
+        this.focusListener.remove();
+    }
+
+    componentDidMount() {
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didFocus", () => {
+            console.log('sdfsfsdfddddddddddd++++++++++++++++++=sdfsdfsd')
+            this.getInfo()
+        });
     }
 
     getInfo = () => {
@@ -104,6 +118,14 @@ export default class AccountScreen extends Component {
             .catch((err) => {
                 console.log('JSON.stringify(err)=>', err);
             })
+    }
+
+    NetworkSensor = async () => {
+        await this.setState({
+            timeFlag: true,
+            isLoading: false
+        })
+        alert('network error')
     }
 
 
@@ -276,7 +298,7 @@ export default class AccountScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditMeasurement")}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Measurement Units</Text>
                                     <View style={styles.ListContent4}>
@@ -287,7 +309,7 @@ export default class AccountScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditConnectivity")}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Connectivity</Text>
                                     <View style={styles.ListContent4}>
@@ -344,3 +366,5 @@ export default class AccountScreen extends Component {
         );
     }
 }
+
+export default withNavigation(AccountSettingScreen);

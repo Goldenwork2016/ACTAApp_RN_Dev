@@ -158,7 +158,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    marginBottom: 18,
+    marginBottom: 25,
     backgroundColor:'white'
   },
   HeaderImage1: {

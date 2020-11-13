@@ -6,32 +6,12 @@ import config, { BASE_PATH } from "../../Api/config"
 
 import NonImage from '../../Assets/Images/nopicture.png'
 
-export default class AccountScreen extends Component {
+import { withNavigation } from "react-navigation";
+
+class AccountScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentList: [
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        },
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        }
-      ],
-      contentList1: [
-        {
-          Title: 'SUMMER READY',
-          ImageUrl: require("../../Assets/Images/program1.png")
-        },
-        {
-          Title: 'KELLY WINTERS',
-          ImageUrl: require("../../Assets/Images/program2.png")
-        },
-        {
-          Title: 'COUPLE WORKOUT',
-          ImageUrl: require("../../Assets/Images/program3.png")
-        }
-      ],
       UserName: '',
       avatarSource: NonImage,
       appState: AppState.currentState,
@@ -40,20 +20,32 @@ export default class AccountScreen extends Component {
     this.getName()
   }
 
-  componentWillMount() {
-    AppState.removeEventListener('change', this._handleAppStateChange);
+  componentWillUnmount() {
+    // AppState.removeEventListener('change', this._handleAppStateChange);
+    this.focusListener.remove();
   }
 
   componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener("didFocus", () => {
+      // The screen is focused      
+      // Call any action      
+      console.log('sdfsfsdfddddddddddd++++++++++++++++++=sdfsdfsd')
+      this.getName()
+    });
+    // AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   _handleAppStateChange = (nextAppState) => {
-    // if (!this.state.appState.match(/inactive|background/) && nextAppState !== 'active') {
-    //   this.getName()
-    // }
+    if (!this.state.appState.match(/inactive|background/) && nextAppState !== 'active') {
+      this.getName()
+      console.log("________________________________________________________")
+      console.log("background")
+    }
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.getName()
+      console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      console.log("foreground")
     }
     this.setState({ appState: nextAppState });
   }
@@ -207,3 +199,5 @@ export default class AccountScreen extends Component {
     );
   }
 }
+
+export default withNavigation(AccountScreen);
