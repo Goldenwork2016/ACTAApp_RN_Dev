@@ -287,7 +287,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditBirthdayScreen")}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Birthday</Text>
                                     <View style={styles.ListContent4}>
