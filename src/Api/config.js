@@ -13,5 +13,6 @@ export default{
         profilePicture: BASE_PATH + '/api/user/avatar',
         userInfo: BASE_PATH + '/api/user/me',
         updateField: BASE_PATH + '/api/user/update/field',
+        verify: BASE_PATH + '/api/user/verify/compare',
     }
 }
