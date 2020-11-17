@@ -15,7 +15,7 @@ export default class CreatePasswordScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isModalVisible: false,
+			modal: false,
 			email: '',
 			phone: '',
 			smscode: '',
@@ -35,9 +35,13 @@ export default class CreatePasswordScreen extends Component {
 	handler = () => {
 		const { smscode, email, phone, isEmail } = this.state
 		if (smscode == "") {
-			alert("Please input your smscode")
+			this.setState({
+				modal: true
+			});
 		} else if (smscode.length != 6) {
-			alert("Please input 6 digital code")
+			this.setState({
+				modal: true
+			});
 		} else {
 			fetch(config.auth.verify, {
 				method: 'POST',
@@ -55,7 +59,7 @@ export default class CreatePasswordScreen extends Component {
 					this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode, isEmail:isEmail })
 				} else {
 					this.setState({
-						isModalVisible: true
+						modal: true
 					});
 				}
 			});
@@ -77,7 +81,7 @@ export default class CreatePasswordScreen extends Component {
 				<TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
 					<Text style={styles.EmailTxt}>Next</Text>
 				</TouchableOpacity>
-                <Modal isVisible={this.state.isModalVisible}>
+                <Modal isVisible={this.state.modal}>
                     <View style={styles.modalView1}>
                         <Text style={styles.TitleTxt1}>OOPS!</Text>
                         <View style={{width:"95%", alignSelf:'center'}}>
@@ -85,7 +89,7 @@ export default class CreatePasswordScreen extends Component {
 								Please input correct 6 digital code.
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible: false })}>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ modal: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
                         </TouchableOpacity>
                     </View>
