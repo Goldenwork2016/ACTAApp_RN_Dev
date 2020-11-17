@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
-import config, { BASE_PATH } from "../Api/config"
+import config, { BASE_PATH } from "../Api/config";
+import Modal from 'react-native-modal';
 
 
 const { height, width } = Dimensions.get('window')
@@ -14,6 +15,7 @@ export default class CreatePasswordScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isModalVisible: false,
 			email: '',
 			phone: '',
 			smscode: '',
@@ -51,9 +53,10 @@ export default class CreatePasswordScreen extends Component {
 				console.log(resp);
 				if (resp.message) {
 					this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode, isEmail:isEmail })
-				}
-				else {
-					alert("Please input correct smscode")
+				} else {
+					this.setState({
+						isModalVisible: true
+					});
 				}
 			});
 		}
@@ -74,6 +77,19 @@ export default class CreatePasswordScreen extends Component {
 				<TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
 					<Text style={styles.EmailTxt}>Next</Text>
 				</TouchableOpacity>
+                <Modal isVisible={this.state.isModalVisible}>
+                    <View style={styles.modalView1}>
+                        <Text style={styles.TitleTxt1}>OOPS!</Text>
+                        <View style={{width:"95%", alignSelf:'center'}}>
+                            <Text style={styles.Description}>
+								Please input correct 6 digital code.
+                            </Text>
+                        </View>
+                        <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible: false })}>
+                            <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
 			</View>
 		);
 	}
@@ -162,5 +178,49 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: "center",
 		marginBottom: 35
-	}
+	},
+    modalView1: {
+        width: '100%',
+        height: 350,
+        borderRadius: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    TitleTxt1: {
+        color: 'black',
+        fontSize: 55,
+        marginTop: 30,
+        marginBottom: 10,
+        fontFamily: 'TrumpSoftPro-BoldItalic',
+        width: '100%',
+        textAlign: "center"
+    },
+    Description: {
+        color: "black",
+        fontSize: 20,
+        marginBottom: 20,
+        fontFamily: 'FuturaPT-Book',
+        fontWeight:'bold',
+		textAlign: 'center'
+    },
+    QuitWorkout: {
+        width: 100,
+        height: 45,
+        borderWidth: 2,
+        borderColor: 'black',
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        marginBottom: 20,
+        backgroundColor: '#18171A',
+        borderColor: '#18171A'
+    },
+    Dismiss: {
+        color: 'black',
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Medium'
+    }
 })
