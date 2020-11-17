@@ -15,10 +15,9 @@ export default class EditEmailScreen extends Component {
     super(props);
     this.state = {
       email: window.user.email,
-      phone: '',
+      phone: window.user.phone,
       password: '',
       name: '',
-      phone: '',
       smscode: '',
       timeFlag: false,
       isLoading: false,
@@ -44,7 +43,7 @@ export default class EditEmailScreen extends Component {
   }
 
   handler = () => {
-    const { email, phone, smscode, isEmail } = this.state
+    const { email, phone, smscode, isEmail } = this.state;
     if (isEmail == false) {
       if (phone == "") {
         this.setState({ isModalVisible5: true })
@@ -96,7 +95,6 @@ export default class EditEmailScreen extends Component {
       }
     }
     if (isEmail) {
-		console.log(reg.test(email));
       if (email == "") {
         this.setState({ isModalVisible1: true })
       } else if (reg.test(email) === false) {
@@ -170,7 +168,7 @@ export default class EditEmailScreen extends Component {
       <View style={styles.container}>
         <Spinner
           visible={this.state.isLoading}
-          textContent={this.state.isEmail ? 'Checking phone number...' : 'Checking Email...'}
+          textContent={this.state.isEmail ? 'Checking Email...' : 'Checking phone number...'}
           textStyle={{ color: 'white' }}
         />
         <View style={styles.header}>
@@ -197,7 +195,7 @@ export default class EditEmailScreen extends Component {
           <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.email} onChangeText={(e) => this.setState({ email: e })} /> :
           <View style={{ flexDirection: 'row', width: 330 }}>
             <Text style={styles.countryNumber}>+1</Text>
-            <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} onChangeText={(e) => this.setState({ phone: e })} />
+            <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} defaultValue={this.state.phone} onChangeText={(e) => this.setState({ phone: e })} />
           </View>
         }
         <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
