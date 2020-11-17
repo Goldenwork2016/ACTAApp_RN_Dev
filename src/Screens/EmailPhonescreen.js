@@ -49,7 +49,7 @@ export default class CreateEmailScreen extends Component {
         const { email, phone, password, smscode, name, isEmail } = this.state
         if (isEmail) {
             if (phone == "") {
-                this.setState({ isModalVisible1: true })
+                this.props.navigation.navigate("CreatePreferenceScreen", { email: email, phone: phone, smscode: smscode, name: name, password: password, isEmail: isEmail });
             } else {
                 let details = {
                     'phone': phone,
@@ -185,10 +185,12 @@ export default class CreateEmailScreen extends Component {
                         <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} onChangeText={(e) => this.setState({ phone: e })} />
                     </View>
                 }
+				{!!this.state.isEmail  &&
+					<View style={{ width: 330 }}>
+						<Text style={styles.standardTxt}>Standard rates apply</Text>
+					</View>
+      			}
                 {/* <TextInput placeholder="Password" placeholderTextColor="#53535f" style={styles.PasswordInputTxt} /> */}
-                <View style={{ width: 330 }}>
-                    <Text style={styles.standardTxt}>Standard rates apply</Text>
-                </View>
                 <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
                     <Text style={styles.EmailTxt}>Next</Text>
                 </TouchableOpacity>
