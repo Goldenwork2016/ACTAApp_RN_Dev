@@ -81,6 +81,7 @@ class AccountSettingScreen extends Component {
             .then((res) => res.json())
             .then(async (responseJson) => {
                 if (responseJson['status'] == 200) {
+					window.user = responseJson.body;
                     console.log("_____________________________________________________")
                     console.log(BASE_PATH + responseJson.body.avatarUrl)
                     await this.setState({ UserName: responseJson.body.name })

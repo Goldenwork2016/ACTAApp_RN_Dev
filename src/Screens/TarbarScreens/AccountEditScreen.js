@@ -8,9 +8,10 @@ import config, { BASE_PATH } from "../../Api/config"
 export default class AccountEditScreen extends Component {
   constructor(props) {
     super(props);
+	let name = window.user.name.split(' ');
     this.state = {
-      firstName: '',
-      lastName: '',
+      firstName: name.length&&name[0]||'',
+      lastName: name.length>1&&name[1]||'',
       timeFlag: false,
       isloading: false,
       isflag: '',
@@ -32,19 +33,18 @@ export default class AccountEditScreen extends Component {
   saveName = () => {
     if (this.state.firstName == '') {
       this.setState({ isModalVisible2: true })
-    } else if (this.state.lastName == '') {
-      this.setState({ isModalVisible3: true })
-    } else {
+    } else {		
       let addName = this.state.firstName;
-      addName += " ";
-      addName += this.state.lastName;
+	  if(this.state.lastName){
+		addName += " ";
+		addName += this.state.lastName;
+	  }
       console.log(addName);
       let details = {
         'name': addName,
       };
       var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 25000)
       this.setState({ isLoading: true })
-
       let formBody = [];
       for (let property in details) {
         let encodedKey = encodeURIComponent(property);
@@ -70,8 +70,9 @@ export default class AccountEditScreen extends Component {
             // this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
             this.setState({ isModalVisible1: true })
             setTimeout(() => {
-              this.setState({ isModalVisible1: false })
-            }, 2000)
+              this.setState({ isModalVisible1: false });
+			  this.props.navigation.goBack();
+            }, 2000);
           }
         })
         .catch((err) => {
@@ -102,8 +103,8 @@ export default class AccountEditScreen extends Component {
           <Text style={styles.headerTxt}>NAME</Text>
         </View>
         <Text style={styles.TitleTxt}>Full Name</Text>
-        <TextInput placeholder="Frist Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ firstName: e })} />
-        <TextInput placeholder="Last Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ lastName: e })} />
+        <TextInput placeholder="First Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.firstName} onChangeText={(e) => this.setState({ firstName: e })} />
+        <TextInput placeholder="Last Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.lastName} onChangeText={(e) => this.setState({ lastName: e })} />
         <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
           <Text style={styles.EmailTxt}>Save</Text>
         </TouchableOpacity>
