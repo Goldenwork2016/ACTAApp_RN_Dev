@@ -8,13 +8,13 @@ import config from "../../Api/config"
 
 let regExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 let reg_strong = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/;
-let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 
 export default class EditEmailScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      email: window.user.email,
       phone: '',
       password: '',
       name: '',
@@ -27,6 +27,7 @@ export default class EditEmailScreen extends Component {
       isModalVisible3: false,
       isModalVisible4: false,
       isModalVisible5: false,
+      isModalVisible6: false,
       Timer: null,
       isflag: false,
       isEmail: ''
@@ -95,17 +96,16 @@ export default class EditEmailScreen extends Component {
       }
     }
     if (isEmail) {
+		console.log(reg.test(email));
       if (email == "") {
         this.setState({ isModalVisible1: true })
       } else if (reg.test(email) === false) {
         // alert('Email type error')
         this.setState({ isModalVisible2: true })
-      }
-      else {
+      } else {
         let details = {
           'email': email,
         };
-
         var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
         this.setState({ isLoading: true })
 
@@ -130,9 +130,24 @@ export default class EditEmailScreen extends Component {
             clearTimeout(myTimer)
             if (responseJson['status'] == 200) {
               if (responseJson.body.email == true) {
-                this.setState({ isModalVisible3: true })
+                this.setState({ isModalVisible3: true });
               } else {
-                this.props.navigation.navigate("CreatePreferenceScreen", { email: email, phone: phone, smscode: smscode, name: name, password: password, isEmail: isEmail })
+				fetch('https://acta.webart.work/api/user/uniqueemail', {
+					method: "POST",
+					headers: {
+            			'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(details)
+				}).then(resp=>resp.json()).then(resp=>{
+                	this.setState({ isModalVisible4: true });
+					setTimeout(()=>{
+                		this.setState({ isModalVisible4: false });
+			  			this.props.navigation.goBack();
+					}, 1000)
+				})
+                /*
+				this.props.navigation.navigate("CreatePreferenceScreen", { email: email, phone: phone, smscode: smscode, name: name, password: password, isEmail: isEmail })
+				*/
               }
             }
           })
@@ -148,7 +163,6 @@ export default class EditEmailScreen extends Component {
           })
       }
     }
-
   }
 
   render() {
@@ -180,7 +194,7 @@ export default class EditEmailScreen extends Component {
                     <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />
                 </View> */}
         {this.state.isEmail ?
-          <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} /> :
+          <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.email} onChangeText={(e) => this.setState({ email: e })} /> :
           <View style={{ flexDirection: 'row', width: 330 }}>
             <Text style={styles.countryNumber}>+1</Text>
             <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} onChangeText={(e) => this.setState({ phone: e })} />
@@ -219,8 +233,17 @@ export default class EditEmailScreen extends Component {
         <Modal isVisible={this.state.isModalVisible3}>
           <View style={styles.modalView1}>
             <Text style={styles.TitleTxt1}>OOPS!</Text>
-            <Text style={styles.Description1}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text>
+            <Text style={styles.Description1}>This email is existed already.</Text>
             <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible3: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={this.state.isModalVisible6}>
+          <View style={styles.modalView1}>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
+            <Text style={styles.Description1}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text>
+            <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible6: false })}>
               <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
             </TouchableOpacity>
           </View>
@@ -228,7 +251,7 @@ export default class EditEmailScreen extends Component {
         <Modal isVisible={this.state.isModalVisible4}>
           <View style={{ ...styles.modalView1, backgroundColor: '#111012' }}>
             <Image source={require('../../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
-            <Text style={styles.Description2}>Your email is registered.</Text>
+            <Text style={styles.Description2}>Your email changed successfully!</Text>
           </View>
         </Modal>
       </View>
