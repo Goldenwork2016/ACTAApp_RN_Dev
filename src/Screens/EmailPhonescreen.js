@@ -8,7 +8,7 @@ import config from "../Api/config"
 
 let regExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 let reg_strong = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/;
-let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 
 export default class CreateEmailScreen extends Component {
     constructor(props) {
@@ -215,7 +215,10 @@ export default class CreateEmailScreen extends Component {
                 <Modal isVisible={this.state.isModalVisible3}>
                     <View style={styles.modalView1}>
                         <Text style={styles.TitleTxt1}>OOPS!</Text>
-                        <Text style={styles.Description1}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text>
+						{!!this.state.isEmail ?
+							<Text style={styles.Description1}>This phone number is existed already.{'\n'}Please try to login with this phone number.</Text> : 
+							<Text style={styles.Description1}>This email is existed already.{'\n'}Please try to login with this email.</Text>
+						}                        
                         <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible3: false })}>
                             <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
                         </TouchableOpacity>
