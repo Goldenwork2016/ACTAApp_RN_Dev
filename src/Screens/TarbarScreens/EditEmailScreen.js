@@ -29,7 +29,9 @@ export default class EditEmailScreen extends Component {
       isModalVisible6: false,
       Timer: null,
       isflag: false,
-      isEmail: ''
+      isEmail: '',
+      code: '',
+      isVerify: false
     };
   }
 
@@ -43,7 +45,34 @@ export default class EditEmailScreen extends Component {
   }
 
   handler = () => {
-    const { email, phone, smscode, isEmail } = this.state;
+	 
+    const { email, phone, code, isEmail, isVerify } = this.state;
+	if (isVerify) {
+		fetch(config.auth.upadatePhone, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+			  sms: code
+		  })
+        })
+		.then((response) => response.json())
+        .then(async (responseJson) => {
+			if (responseJson.status == 200) {
+				this.setState({ isModalVisible8: true })
+				setTimeout(() => {
+					this.setState({ isModalVisible8: false })
+					this.props.navigation.goBack();
+				},1000)	
+				
+			}
+			else {
+        		this.setState({ isModalVisible7: true })	
+			}
+		})
+		return;
+	}
     if (isEmail == false) {
       if (phone == "") {
         this.setState({ isModalVisible5: true })
@@ -63,7 +92,7 @@ export default class EditEmailScreen extends Component {
         }
         formBody = formBody.join("&");
         console.log(formBody);
-        fetch(config.auth.status, {
+        fetch(config.auth.verifySMS, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -75,12 +104,16 @@ export default class EditEmailScreen extends Component {
             this.setState({ isLoading: false })
             clearTimeout(myTimer)
             if (responseJson['status'] == 200) {
-              if (responseJson.body.phone == true) {
-                this.setState({ isModalVisible3: true })
-              } else {
-                this.props.navigation.navigate("CreatePreferenceScreen", { email: email, phone: phone, smscode: smscode, name: name, password: password, isEmail: isEmail })
-              }
+				
+             this.setState({
+				 isVerify: true
+
+			 })
+              
             }
+			else {
+				this.setState({ isModalVisible9: true })
+			}
           })
           .catch((err) => {
             console.log('err =>', JSON.stringify(err));
@@ -198,6 +231,14 @@ export default class EditEmailScreen extends Component {
             <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} defaultValue={this.state.phone} onChangeText={(e) => this.setState({ phone: e })} />
           </View>
         }
+		{this.state.isVerify &&
+          <View style={{ flexDirection: 'row', width: 330,}}>
+            <TextInput keyboardType="numeric" placeholder="Enter code" placeholderTextColor="#53535f" style={styles.EmailInputTxt2} onChangeText={(e) => this.setState({ code: e })} />
+          </View>
+        }
+		
+          
+        
         <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
           <Text style={styles.EmailTxt}>Save</Text>
         </TouchableOpacity>
@@ -246,6 +287,30 @@ export default class EditEmailScreen extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
+		<Modal isVisible={this.state.isModalVisible9}>
+          <View style={styles.modalView1}>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
+            <Text style={styles.Description1}>This phone number is existed already.</Text>
+            <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible9: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+		<Modal isVisible={this.state.isModalVisible7}>
+          <View style={styles.modalView1}>
+            <Text style={styles.TitleTxt1}>OOPS!</Text>
+            <Text style={styles.Description1}>This sms code is incorrect</Text>
+            <TouchableOpacity style={styles.QuitWorkout} onPress={() => this.setState({ isModalVisible7: false })}>
+              <Text style={{ ...styles.Dismiss, color: 'white' }}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+		<Modal isVisible={this.state.isModalVisible8}>
+          <View style={{ ...styles.modalView1, backgroundColor: '#111012' }}>
+            <Image source={require('../../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
+            <Text style={styles.Description2}>Your phone changed successfully!</Text>
+          </View>
+        </Modal>
         <Modal isVisible={this.state.isModalVisible4}>
           <View style={{ ...styles.modalView1, backgroundColor: '#111012' }}>
             <Image source={require('../../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
@@ -292,6 +357,17 @@ const styles = StyleSheet.create({
   },
   EmailInputTxt1: {
     width: 285,
+    height: 50,
+    backgroundColor: '#18171a',
+    marginBottom: 8,
+    borderRadius: 3,
+    paddingLeft: 20,
+    color: "white",
+    fontSize: 20,
+    fontFamily: 'FuturaPT-Book'
+  },
+   EmailInputTxt2: {
+    width: 330,
     height: 50,
     backgroundColor: '#18171a',
     marginBottom: 8,
