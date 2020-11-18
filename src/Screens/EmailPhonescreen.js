@@ -108,30 +108,21 @@ export default class CreateEmailScreen extends Component {
                 let details = {
                     'email': email,
                 };
-
                 var myTimer = setTimeout(function () { this.NetworkSensor() }.bind(this), 30000)
                 this.setState({ isLoading: true })
-
-                let formBody = [];
-                for (let property in details) {
-                    let encodedKey = encodeURIComponent(property);
-                    let encodedValue = encodeURIComponent(details[property]);
-                    formBody.push(encodedKey + "=" + encodedValue);
-                }
-                formBody = formBody.join("&");
-                console.log(formBody);
                 fetch(config.auth.status, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json',
                     },
-                    body: formBody
+                    body: JSON.stringify(details)
                 })
                     .then((response) => response.json())
                     .then(async (responseJson) => {
                         this.setState({ isLoading: false })
                         clearTimeout(myTimer)
                         if (responseJson['status'] == 200) {
+							console.log(responseJson.body);
                             if (responseJson.body.email == true) {
                                 this.setState({ isModalVisible3: true })
                             } else {
