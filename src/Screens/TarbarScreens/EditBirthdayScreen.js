@@ -9,7 +9,7 @@ export default class AccountEditScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      birthday: '',
+      birthday: window.user.data.birthday || '',
       timeFlag: false,
       isloading: false,
       isflag: '',
@@ -64,6 +64,7 @@ export default class AccountEditScreen extends Component {
             this.setState({ isModalVisible1: true })
             setTimeout(() => {
               this.setState({ isModalVisible1: false })
+			  this.props.navigation.goBack()
             }, 2000)
           }
         })
@@ -95,7 +96,7 @@ export default class AccountEditScreen extends Component {
           <Text style={styles.headerTxt}>BIRTHDAY</Text>
         </View>
         <Text style={styles.TitleTxt}>Birthday</Text>
-        <TextInput placeholder="Birthday" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ birthday: e })} />
+        <TextInput placeholder="Birthday" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.birthday} onChangeText={(e) => this.setState({ birthday: e })} />
         <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
           <Text style={styles.EmailTxt}>Save</Text>
         </TouchableOpacity>

@@ -9,7 +9,7 @@ export default class AccountEditScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      measurement: '',
+      measurement: window.user.data.measurement || '',
       timeFlag: false,
       isloading: false,
       isflag: '',
@@ -63,7 +63,8 @@ export default class AccountEditScreen extends Component {
             // this.props.navigation.navigate("CreatePasswordScreen", { email: email, phone: phone, smscode: smscode })
             this.setState({ isModalVisible1: true })
             setTimeout(() => {
-              this.setState({ isModalVisible1: false })
+				this.setState({ isModalVisible1: false })
+				this.props.navigation.goBack()
             }, 2000)
           }
         })
@@ -95,14 +96,14 @@ export default class AccountEditScreen extends Component {
           <Text style={styles.headerTxt}>MEASUREMENT UNITS</Text>
         </View>
         <Text style={styles.TitleTxt}>Measurement Units</Text>
-        <TextInput placeholder="Measurement" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ measurement: e })} />
+        <TextInput placeholder="Measurement" placeholderTextColor="#53535f" defaultValue={this.state.measurement} style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ measurement: e })} />
         <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
           <Text style={styles.EmailTxt}>Save</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
             <Image source={require('../../Assets/Images/logo.png')} resizeMode='stretch' style={{ width: 40, height: 38, marginBottom: 20 }} />
-            <Text style={styles.Description1}>Your name changed successfully!</Text>
+            <Text style={styles.Description1}>Your measurement changed successfully!</Text>
           </View>
         </Modal>
         <Modal isVisible={this.state.isModalVisible2}>

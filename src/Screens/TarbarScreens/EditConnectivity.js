@@ -9,7 +9,7 @@ export default class EditConnectivity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      connectivity: '',
+	  connectivity: window.user.data.connectivity || '',
       timeFlag: false,
       isloading: false,
       isflag: '',
@@ -64,6 +64,8 @@ export default class EditConnectivity extends Component {
             this.setState({ isModalVisible1: true })
             setTimeout(() => {
               this.setState({ isModalVisible1: false })
+				this.props.navigation.goBack()
+
             }, 2000)
           }
         })
@@ -95,7 +97,7 @@ export default class EditConnectivity extends Component {
           <Text style={styles.headerTxt}>CONNECTIVITY</Text>
         </View>
         <Text style={styles.TitleTxt}>Connectivity</Text>
-        <TextInput placeholder="Connectivity" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ connectivity: e })} />
+        <TextInput placeholder="Connectivity" placeholderTextColor="#53535f" defaultValue={this.state.connectivity} style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ connectivity: e })} />
         <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
           <Text style={styles.EmailTxt}>Save</Text>
         </TouchableOpacity>
