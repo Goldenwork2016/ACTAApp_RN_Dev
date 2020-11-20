@@ -5,55 +5,43 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentList: [
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        },
-        {
-          ImageUrl: require("../../Assets/Images/workout.png")
-        }
-      ],
-      contentList1: [
-        {
-          Title: 'SUMMER READY',
-          ImageUrl: require("../../Assets/Images/program1.png")
-        },
-        {
-          Title: 'KELLY WINTERS',
-          ImageUrl: require("../../Assets/Images/program2.png")
-        },
-        {
-          Title: 'COUPLE WORKOUT',
-          ImageUrl: require("../../Assets/Images/program3.png")
-        }
-      ],
-      modalVisible: false,
+		exercise: null,
+		exercises: [],
+		programs: [],
+		modalVisible: false
     };
+	fetch('https://acta.webart.work/api/exercise/get', {
+		method: "GET"
+	}).then(resp=>resp.json()).then(resp=>{
+		if(resp.body.length) this.setState({exercise: resp.body.shift()});
+		if(resp.body.length) this.setState({exercises: resp.body});
+	});
+	fetch('https://acta.webart.work/api/program/get', {
+		method: "GET"
+	}).then(resp=>resp.json()).then(resp=>{
+		if(resp.body.length) this.setState({programs: resp.body});
+	});
   }
-
   _rendermakelist({ item, index }) {
     return (
-      <View style={{ marginTop: 5 }}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
+      <View style={{ marginTop: 5, position: 'relative'}}>
+        <Image source={{
+          uri: 'https://acta.webart.work'+item.thumb
+        }} resizeMode="stretch" style={styles.ContentImage} />
+		<Text style={styles.imgTxt1}>{item.name}</Text>
+		<Text style={styles.imgTxt2}>{item.details}</Text>
       </View>
     )
   }
-
-  _rendermakelist1({ item, index }) {
-    return (
-      <TouchableOpacity style={styles.ListContent1} onPress={() => this.props.gotoProgramDetail()}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-        <Text style={styles.ListTitle}>{item.Title}</Text>
-      </TouchableOpacity>
-    )
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
           <View style={{ width: '100%', height: 520 }}>
-            <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} resizeMode='stretch' style={styles.ImageBackground}>
+			{ this.state.exercise && 
+            <ImageBackground source={{
+				uri: 'https://acta.webart.work'+this.state.exercise.thumb
+			  }} resizeMode='stretch' style={styles.ImageBackground}>
               <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
               <View style={styles.header}>
                 <View style={styles.BackBtn}>
@@ -72,21 +60,22 @@ export default class HomeScreen extends Component {
               </View>
               <View style={styles.mainContainer}>
                 <Text style={styles.nextTxt}>Next up</Text>
-                <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
-                <Text style={styles.minText}>30 min. as fast as you can.</Text>
+                <Text style={styles.TileTxt}>{this.state.exercise.name}</Text>
+                <Text style={styles.minText}>{this.state.exercise.details}</Text>
                 <TouchableOpacity style={styles.createBtn} onPress={() => this.props.CreateScreen()}>
                   <Text style={styles.CreateTxt}>Start</Text>
                 </TouchableOpacity>
               </View>
             </ImageBackground>
-          </View>
+  			}
+		  </View>
           <View style={styles.mainContent}>
             <Text style={styles.ConHeaderTxt}>Coming up this week</Text>
             <FlatList
               horizontal
               // showsVerticalScrollIndicator={true}
               numColumns={1}
-              data={this.state.contentList}
+              data={this.state.exercises}
               renderItem={this._rendermakelist}
               keyExtractor={item => `${item.id}`}
             />
@@ -103,11 +92,13 @@ export default class HomeScreen extends Component {
               vertical
               showsVerticalScrollIndicator={true}
               numColumns={1}
-              data={this.state.contentList1}
+              data={this.state.programs}
               renderItem={({ item }) => (
                 <TouchableOpacity style={styles.ListContent1} onPress={() => this.props.gotoProgramDetail()}>
-                  <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-                  <Text style={styles.ListTitle}>{item.Title}</Text>
+                  <Image source={{
+					uri: 'https://acta.webart.work'+item.thumb
+					}} resizeMode="stretch" style={styles.ContentImage1} />
+                  <Text style={styles.ListTitle}>{item.name}</Text>
                 </TouchableOpacity>
               )}
               keyExtractor={item => `${item.id}`}
@@ -252,6 +243,33 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     marginBottom: 15
+  },
+   imgTxt1: {
+    fontFamily: 'FuturaPT-Book',
+    textAlign: "center",
+    color: 'white',
+    fontSize: 18,
+    marginBottom: 15,
+	position: 'absolute',
+	bottom: 30,
+	fontWeight: 'bold',
+	textShadowColor: 'rgba(0, 0, 0, 0.4)',
+	textShadowOffset: {width: -1, height: 1},
+	textShadowRadius: 3,
+	left: 10
+  },
+  imgTxt2: {
+    fontFamily: 'FuturaPT-Book',
+    textAlign: "center",
+    color: '#777',
+    fontSize: 18,
+    marginBottom: 15,
+	position: 'absolute',
+	bottom: 10,
+	left: 10,
+	textShadowColor: 'rgba(0, 0, 0, 0.4)',
+	textShadowOffset: {width: -1, height: 1},
+	textShadowRadius: 3,
   },
   mainContent: {
     marginTop: 45,
