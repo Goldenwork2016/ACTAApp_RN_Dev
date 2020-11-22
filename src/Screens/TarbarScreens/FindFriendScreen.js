@@ -6,8 +6,16 @@ export default class ActivityPoundsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+			users: [],
+			search: ''
         };
+		fetch('https://acta.webart.work/api/user/get', {
+			method: "GET"
+		}).then(resp=>resp.json()).then(resp=>{
+			this.setState({
+				users: resp.body
+			});
+		});
     }
 
 
@@ -28,7 +36,7 @@ export default class ActivityPoundsScreen extends Component {
                         </View>
                     </View>
                     <View style={{ width: '100%', paddingTop: 5, paddingBottom:35, backgroundColor: '#111012' }}>
-                        <TextInput placeholder="Search for friends" placeholderTextColor="white" style={{...styles.SendInputTxt, backgroundColor:'black', color:'white', fontSize:20}} />
+                        <TextInput placeholder="Search for friends" placeholderTextColor="white" onChangeText={(e) => this.setState({ search: e })} style={{...styles.SendInputTxt, backgroundColor:'black', color:'white', fontSize:20}} />
                         <TouchableOpacity style={styles.sendBtn}>
                             <Image source={require('../../Assets/Images/SearchImage.png')} resizeMode='stretch' style={styles.SearchImage} />
                         </TouchableOpacity>
@@ -37,79 +45,35 @@ export default class ActivityPoundsScreen extends Component {
                         <View style={styles.pendingArea}>
                             <Text style={styles.timeTxt}>Suggestions based on current community</Text>
                         </View>
-                        <View style={styles.ListContent2}>
-                            <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.activityImage} />
-                            <View>
-                                <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Boon-mee Yao-</Text></Text>
-                                <Text style={styles.desTxt1}>Hamilton</Text>
-                            </View>
-                            <TouchableOpacity style={styles.followBtn}>
-                                <Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.ListContent2}>
-                            <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.activityImage} />
-                            <View>
-                                <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Anton</Text></Text>
-                                <Text style={styles.desTxt1}>Lincoln</Text>
-                            </View>
-                            <TouchableOpacity style={styles.followBtn}>
-                                <Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.ListContent2}>
-                            <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.activityImage} />
-                            <View>
-                                <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Lia Castro</Text></Text>
-                                <Text style={styles.desTxt1}>Sacramento</Text>
-                            </View>
-                            <TouchableOpacity style={styles.followBtn}>
-                                <Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.ListContent2}>
-                            <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.activityImage} />
-                            <View>
-                                <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Lia Castro</Text></Text>
-                                <Text style={styles.desTxt1}>Sacramento</Text>
-                            </View>
-                            <TouchableOpacity style={styles.followBtn}>
-                                <Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.ListContent2}>
-                            <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.activityImage} />
-                            <View>
-                                <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Boon-mee Yao-</Text></Text>
-                                <Text style={styles.desTxt1}>Hamilton</Text>
-                            </View>
-                            <TouchableOpacity style={styles.followBtn}>
-                                <Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.ListContent2}>
-                            <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.activityImage} />
-                            <View>
-                                <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Anton</Text></Text>
-                                <Text style={styles.desTxt1}>Lincoln</Text>
-                            </View>
-                            <TouchableOpacity style={styles.followBtn}>
-                                <Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.ListContent2}>
-                            <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.activityImage} />
-                            <View>
-                                <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Lia Castro</Text></Text>
-                                <Text style={styles.desTxt1}>Sacramento</Text>
-                            </View>
-                            <TouchableOpacity style={styles.followBtn}>
-                                <Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
-                            </TouchableOpacity>
-                        </View>
+						
+						{ this.state.users.filter((user)=>{
+							if(!this.state.search) return true;
+							else return user.name.indexOf(this.state.search)>-1;
+						}).map(user=>{
+							let name = user.name.split(' ')[0];
+							let surname = user.name.split(' ');
+							if(surname.length>1) surname=surname[1];
+							else surname = '';
+							return (
+								<View style={styles.ListContent2}>
+									<Image source={{
+									uri: 'https://acta.webart.work'+user.avatarUrl
+									}} resizeMode='stretch' style={styles.activityImage} />
+									<View>
+										<Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{name}</Text></Text>
+										<Text style={styles.desTxt1}>{surname}</Text>
+									</View>
+									<TouchableOpacity style={styles.followBtn}>
+										<Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
+									</TouchableOpacity>
+								</View>
+							)	
+						}) }
                     </View>
                 </ScrollView>
             </View >
         );
     }
 }
+
+
