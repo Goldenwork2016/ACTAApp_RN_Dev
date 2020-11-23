@@ -49,7 +49,7 @@ export default class ActivityFollowingScreen extends Component {
                     <View style={{ width: '100%' }}>
                         {this.state.toggleFlag ?
                             <View style={styles.mainContent}>
-                                <Text style={styles.numberTxt}>{window.core.each(window.us.data.followers).length}</Text>
+                                <Text style={styles.numberTxt}>{window.core.each(window.us.data.follow).length}</Text>
 								{
 									window.core.each(window.us.data.follow).map(userId=>{
 										let user = window.us._users[userId]||{data:{}};
@@ -72,7 +72,7 @@ export default class ActivityFollowingScreen extends Component {
 								}
                             </View> :
                             <View style={styles.mainContent}>
-                                <Text style={styles.numberTxt}>{window.core.each(window.us.follow).length}</Text>
+                                <Text style={styles.numberTxt}>{window.core.each(window.us.followers).length}</Text>
                                 {
                                     window.core.each(window.us.follow).map(userId=>{
                                         let user = window.us._users[userId]||{data:{}};
