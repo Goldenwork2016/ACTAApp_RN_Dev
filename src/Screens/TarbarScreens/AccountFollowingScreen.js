@@ -52,7 +52,7 @@ export default class ActivityFollowingScreen extends Component {
                                 <Text style={styles.numberTxt}>{window.core.each(window.us.data.followers).length}</Text>
 								{
 									window.core.each(window.us.data.follow).map(userId=>{
-										let user = window.us._users[userId]|| {};
+										let user = window.us._users[userId]||{data:{}};
 										return (
 											 <View style={styles.ListContent2}>
 												<Image source={{
@@ -75,7 +75,7 @@ export default class ActivityFollowingScreen extends Component {
                                 <Text style={styles.numberTxt}>{window.core.each(window.us.follow).length}</Text>
                                 {
                                     window.core.each(window.us.follow).map(userId=>{
-                                        let user = window.us._users[userId]|| {};
+                                        let user = window.us._users[userId]||{data:{}};
                                         return (
                                              <View style={styles.ListContent2}>
                                                 <Image source={{
