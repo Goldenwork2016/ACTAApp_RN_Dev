@@ -74,7 +74,7 @@ export default class ActivityFollowingScreen extends Component {
                             <View style={styles.mainContent}>
                                 <Text style={styles.numberTxt}>{window.core.each(window.us.follow).length}</Text>
                                 {
-                                    window.core.each(window.us.data.follow).map(userId=>{
+                                    window.core.each(window.us.follow).map(userId=>{
                                         let user = window.us._users[userId]|| {};
                                         return (
                                              <View style={styles.ListContent2}>
@@ -87,7 +87,7 @@ export default class ActivityFollowingScreen extends Component {
                                                     <Text style={styles.desTxt1}>{user.data.address}</Text>
                                                 </View>
                                                 <TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=!window.us.data.follow[user._id]; window.us.update(); this.setState({reload: this.state.reload}) }}  style={styles.followBtn}>
-                                                    <Text style={styles.btnTxt}>{window.us.data.follow[user._id]?'Unfollow':'Follow';}</Text>
+                                                    <Text style={styles.btnTxt}>{ window.us.data.follow[user._id] && "Unfollow" || "Follow" }</Text>
                                                 </TouchableOpacity>
                                             </View>
                                         )

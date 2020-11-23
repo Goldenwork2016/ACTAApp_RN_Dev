@@ -37,6 +37,7 @@ export default function user(){
 	const followers = ()=>{
 		if(!us.users.length || us._id) return;
 		for (var i = users.length - 1; i >= 0; i--) {
+			if(users[i]._id == us._id) continue;
 			if(!users[i].data.follow) continue;
 			if(users[i].data.follow[us._id]){
 				us.followers[users[i]._id] = true;
