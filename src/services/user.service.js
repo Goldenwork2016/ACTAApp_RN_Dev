@@ -4,6 +4,7 @@ export default function user(){
 		is: {},
 		data: {},
 		users: [],
+		followers: {},
 		update: ()=>{
 			window.http.post('/api/user/update', {
 				name: us.name,
@@ -30,8 +31,18 @@ export default function user(){
 			}
 			if(!us.data) us.data={};
 			if(!us.data.follow) us.data.follow={};
+			followers();
 		}
 	};
+	const followers = ()=>{
+		if(!us.users.length || us._id) return;
+		for (var i = users.length - 1; i >= 0; i--) {
+			if(!users[i].data.follow) continue;
+			if(users[i].data.follow[us._id]){
+				us.followers[users[i]._id] = true;
+			}
+		}
+	}
 	window.us = us;
 	//if(AsyncStorage.getItem("acta_user")){
 		//us.set(JSON.parse(AsyncStorage.getItem("acta_user")));
@@ -42,11 +53,11 @@ export default function user(){
 		us._users = {};
 		for (var i = users.length - 1; i >= 0; i--) {
 			if(!users[i].data) users[i].data={};
+			if(!users[i].data.follow.index) users[i].data={};
 			us._users[users[i]._id] = users[i];
 		}
+		followers();
 		window.render.call('users');
-		//window.render.call('sing up');
-		//	console.log(us);
 	});
 	window.core = {
 		each: function(obj){
