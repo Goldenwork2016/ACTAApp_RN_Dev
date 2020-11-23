@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TextInput, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '../../styles'
-
 export default class ActivityPoundsScreen extends Component {
     constructor(props) {
         super(props);
+		window.render.add('users', ()=>{
+			this.setState({reload: !this.state.reload});
+		});
         this.state = {
-			users: [],
+			reload: true,
 			search: ''
         };
-		fetch('https://acta.webart.work/api/user/get', {
-			method: "GET"
-		}).then(resp=>resp.json()).then(resp=>{
-			this.setState({
-				users: resp.body
-			});
-		});
     }
 
 
@@ -46,24 +41,22 @@ export default class ActivityPoundsScreen extends Component {
                             <Text style={styles.timeTxt}>Suggestions based on current community</Text>
                         </View>
 						
-						{ this.state.users.filter((user)=>{
+						{ window.us.users.filter((user)=>{
+							if(window.us._id == user._id) return false;
+							if(window.us.data.follow[user._id]) return false;
 							if(!this.state.search) return true;
-							else return user.name.indexOf(this.state.search)>-1;
+							return user.name.indexOf(this.state.search)>-1;
 						}).map(user=>{
-							let name = user.name.split(' ')[0];
-							let surname = user.name.split(' ');
-							if(surname.length>1) surname=surname[1];
-							else surname = '';
 							return (
 								<View style={styles.ListContent2}>
 									<Image source={{
 									uri: 'https://acta.webart.work'+user.avatarUrl
 									}} resizeMode='stretch' style={styles.activityImage} />
 									<View>
-										<Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{name}</Text></Text>
-										<Text style={styles.desTxt1}>{surname}</Text>
+										<Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{user.name}</Text></Text>
+										<Text style={styles.desTxt1}>{user.data.address||''}</Text>
 									</View>
-									<TouchableOpacity style={styles.followBtn}>
+									<TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=true; window.us.update(); this.setState({reload: this.state.reload}) }} style={styles.followBtn}>
 										<Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
 									</TouchableOpacity>
 								</View>
@@ -75,5 +68,3 @@ export default class ActivityPoundsScreen extends Component {
         );
     }
 }
-
-

@@ -31,6 +31,9 @@ export const styles = StyleSheet.create({
     borderColor: '#111012',
     marginBottom: 10
   },
+  ImageFitCover: {
+	  backgroundColor: 'white'
+  },
   container1: {
     flex: 1,
     alignItems: "center",
@@ -178,7 +181,9 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 22.5,
-    marginRight: 30
+    marginRight: 30,
+	backgroundColor: 'white',
+	resizeMode: 'cover'
   },
   numberTxt: {
     fontFamily: 'TrumpSoftPro-BoldItalic',

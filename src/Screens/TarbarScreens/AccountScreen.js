@@ -109,7 +109,7 @@ class AccountScreen extends Component {
               <Text style={styles.nameTxt}>{this.state.UserName}</Text>
               <View style={styles.headerContent}>
                 <TouchableOpacity style={styles.ContentList2} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: true })}>
-                  <Text style={styles.numTxt}>22</Text>
+                  <Text style={styles.numTxt}>{window.core.each(window.us.data.follow).length}</Text>
                   <Text style={styles.itemTxt}>Following</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ContentList2} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: false })}>
