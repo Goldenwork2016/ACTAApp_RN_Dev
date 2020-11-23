@@ -53,6 +53,7 @@ export default class ActivityFollowingScreen extends Component {
 								{
 									window.core.each(window.us.data.follow).map(userId=>{
 										let user = window.us._users[userId]||{data:{}};
+                                        if(!user._id) return;
 										return (
 											 <View style={styles.ListContent2}>
 												<Image source={{
@@ -76,6 +77,7 @@ export default class ActivityFollowingScreen extends Component {
                                 {
                                     window.core.each(window.us.follow).map(userId=>{
                                         let user = window.us._users[userId]||{data:{}};
+                                        if(!user._id) return;
                                         return (
                                              <View style={styles.ListContent2}>
                                                 <Image source={{
