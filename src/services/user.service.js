@@ -5,11 +5,12 @@ export default function user(){
 		data: {},
 		users: [],
 		followers: {},
-		update: ()=>{
+		form: {},
+		update: (cb=(resp)=>{})=>{
 			window.http.post('/api/user/update', {
 				name: us.name,
 				data: us.data
-			}, (resp)=>{});
+			}, cb);
 		},
 		change_password: (oldPass, newPass)=>{
 			window.http.post('/api/user/changePassword', {

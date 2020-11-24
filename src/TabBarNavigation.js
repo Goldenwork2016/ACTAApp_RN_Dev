@@ -32,6 +32,7 @@ import EditMeasurement from './Screens/TarbarScreens/EditMeasurement'
 import EditConnectivity from './Screens/TarbarScreens/EditConnectivity'
 import EditEmailScreen from './Screens/TarbarScreens/EditEmailScreen'
 import EditBirthdayScreen from './Screens/TarbarScreens/EditBirthdayScreen'
+import ProfileEdit from './pages/user/ProfileEdit'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -253,6 +254,12 @@ const Account = createStackNavigator(
         },
         EditMeasurement: {
             screen: EditMeasurement,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
+        ProfileEdit: {
+            screen: ProfileEdit,
             navigationOptions: {
                 headerShown: false,
             }
