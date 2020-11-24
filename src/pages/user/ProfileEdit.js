@@ -17,7 +17,7 @@ export default class AccountEditScreen extends Component {
 		}
 		window.us.data[window.us.form.field] = this.state.value;
 		this.setState({ isModalVisible1: true });
-		this.update(()=>{
+		window.us.update(()=>{
 			setTimeout(() => {
 				this.setState({ isModalVisible1: false });
 				this.props.navigation.goBack();
