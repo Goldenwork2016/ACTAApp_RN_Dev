@@ -299,22 +299,22 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditMeasurement")}}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{window.us.form={header: 'My Address', title: 'Address', placeholder: 'Fill Address', field: 'address'}; this.props.navigation.navigate("ProfileEdit")}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Measurement Units</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Address</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.measurement}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{window.us.data.address||'-'}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{window.us.form={header: 'My Address', title: 'Address', placeholder: 'Fill Address', field: 'address'}; this.props.navigation.navigate("ProfileEdit")}}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditMeasurement")}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Address</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Measurement Units</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{window.us.data.address||'-'}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.measurement}</Text></Text>
                                         <TouchableOpacity>
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
                                         </TouchableOpacity>
