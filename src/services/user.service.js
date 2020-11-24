@@ -54,12 +54,12 @@ export default function user(){
 		us.users = users;
 		us._users = {};
 		for (var i = users.length - 1; i >= 0; i--) {
-			if(!users[i].data) users[i].data={};
-			if(!users[i].data.follow.index) users[i].data={};
 			us._users[users[i]._id] = users[i];
+			if(!users[i].data) users[i].data={};
+			if(!users[i].data.follow) users[i].data.follow={};
 		}
-		followers();
 		window.render.call('users');
+		followers();
 	});
 	window.core = {
 		each: function(obj){
