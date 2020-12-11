@@ -66,7 +66,7 @@ export default class ExercicesScreen extends Component {
                       </View>
                     </TouchableOpacity>
                   </View>
-                  <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
+                 {/* <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
                     <View style={{ width: '50%' }}>
                       <TouchableOpacity style={styles.createBtn} onPress={() => { this.setState({ toggleFlag: true }) }}>
                         <Text style={styles.CreateTxt}>Programs</Text>
@@ -77,7 +77,7 @@ export default class ExercicesScreen extends Component {
                         <Text style={styles.CreateTxt1}>Workouts</Text>
                       </TouchableOpacity>
                     </View>
-                  </View>
+                  </View>*/}
                   <View style={styles.mainContainer}>
                     <Text style={styles.nextTxt}>Highlighted for you</Text>
                     <Text style={styles.TileTxt}>COUPLE {'\n'}WORKOUTS.</Text>

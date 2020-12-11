@@ -3,6 +3,7 @@ import { StatusBar } from 'react-native';
 import http from './services/http.service';
 import user from './services/user.service';
 import render from './services/render.service';
+import programs from './services/program.service';
 import RootNavigator from './RootNavigation';
 const theme = {}
 
@@ -12,6 +13,7 @@ export default class App extends Component {
 		render();
 		http();
 		user();
+        programs();
 	}
     render() {
         return (

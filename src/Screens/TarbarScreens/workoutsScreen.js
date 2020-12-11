@@ -234,13 +234,13 @@ const styles = StyleSheet.create({
   CreateTxt: {
     fontFamily: 'FuturaPT-Medium',
     color: 'black',
-    fontSize: 22,
+    fontSize: 18,
     textAlign: "center",
   },
   CreateTxt1: {
     fontFamily: 'FuturaPT-Medium',
     color: 'white',
-    fontSize: 22,
+    fontSize: 18,
     textAlign: "center",
   },
   LoginTxt: {
