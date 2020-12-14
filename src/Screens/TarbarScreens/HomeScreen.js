@@ -11,8 +11,8 @@ export default class HomeScreen extends Component {
     });
   }
   state = {
-    exercise: null,
-    exercises: [],
+    exercise:  window.exercise.exercise,
+    exercises: window.exercise.exercises,
     workouts: [],
     programs:  window.program.programs,
     modalVisible: false,
@@ -21,14 +21,14 @@ export default class HomeScreen extends Component {
     start: false
   }
 
-  componentDidMount(){
-   fetch('https://acta.webart.work/api/exercise/get', {
-    method: "GET"
-  }).then(resp=>resp.json()).then(resp=>{
-    if(resp.body.length) this.setState({exercise: resp.body.shift()});
-    if(resp.body.length) this.setState({exercises: resp.body});
-  });
-  }
+  // componentDidMount(){
+  // //  fetch('https://acta.webart.work/api/exercise/get', {
+  // //   method: "GET"
+  // // }).then(resp=>resp.json()).then(resp=>{
+  // //   if(resp.body.length) this.setState({exercise: resp.body.shift()});
+  // //   if(resp.body.length) this.setState({exercises: resp.body});
+  // // });
+  // }
     toggle = async () => {
     await this.setState({ toggleFlag: true });
   }
@@ -50,9 +50,7 @@ export default class HomeScreen extends Component {
         <ScrollView style={{ flex: 1, width: '100%' }}>
         <View style={{ width: '100%', height: 520 }}>
         { this.state.exercise && 
-          <ImageBackground source={{
-            uri: 'https://acta.webart.work'+this.state.exercise.thumb
-          }} resizeMode='stretch' style={styles.ImageBackground}>
+          <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} resizeMode='stretch' style={styles.ImageBackground}>
           <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
           <View style={styles.header}>
           <View style={styles.BackBtn}>
@@ -77,7 +75,7 @@ export default class HomeScreen extends Component {
       <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center',  marginTop: 30 }}>
       <View style={{ width: '50%' }}>
       <TouchableOpacity style={styles.createBtnPrograms} onPress={() => { this.setState({ toggleFlag: true }) }}>
-      <Text style={styles.createTxtPrograms}>Programs</Text>
+      <Text style={styles.createTxtPrograms}>Program</Text>
       </TouchableOpacity>
       </View>
       <View style={{ width: '63%' }}>
@@ -87,23 +85,23 @@ export default class HomeScreen extends Component {
       </View>
       </View>
       </View>
-
-
-
-
       <View  style={styles.mainContainer}>
       <Text style={styles.nextTxt}>Start your first program</Text>
-
-
-      <Text style={styles.TileTxt}>{this.state.exercise.name}</Text>
-
-    {/*<Text style={styles.minText}>{this.state.exercise.details}</Text>*/}
+      
+      {/*<Text style={styles.TileTxt}>{this.state.exercise.name}</Text>
+        <Text style={styles.minText}>{this.state.exercise.details}</Text>*/}
+      
+      <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
 
     {this.state.start ? <ProgressStatus/> : <Text></Text>}
-
-    <TouchableOpacity style={styles.createBtn} onPress={() =>{this.setState({start: true})}}>
-    {!this.state.start ? <Text style={styles.CreateTxt}>Start</Text> : <Text style={styles.CreateTxt}>Continue</Text>}
-    </TouchableOpacity>
+      <View style ={styles.mainButton}>
+        <TouchableOpacity style={styles.createBtn} onPress={() =>{this.setState({start: true})}}>
+        {!this.state.start ? <Text style={styles.CreateTxt}>Start</Text> : <Text style={styles.CreateTxt}>Continue</Text>}
+        </TouchableOpacity>
+        <View>
+         <Image source={require('../../Assets/Images/noti.png')}  resizeMode='stretch' style={styles.infoImage} alt="Help"/>
+        </View>
+      </View>
     </View>
     </ImageBackground>
   }
@@ -120,7 +118,7 @@ export default class HomeScreen extends Component {
   
 <View style ={styles.headerQuickWorkouts}>
 <Text style={styles.ConHeaderTxt}>Quick workouts</Text>
-<TouchableOpacity style={styles.dropDown} onPress={() => this.props.AnimationsStart()}>
+<TouchableOpacity style={styles.Categories} onPress={() => this.props.AnimationsStart()}>
 <Text style={styles.headerTxt}>CATEGORIES</Text>
 <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
 </TouchableOpacity>
@@ -164,7 +162,7 @@ keyExtractor={item => `${item.id}`}
        </TouchableOpacity>
   </View>
 </View>
-</ScrollView> :  <WorkoutsScreen toggle={this.toggle} gotoDetailScreen={this.gotoDetailScreen} />}
+</ScrollView> :  <WorkoutsScreen toggle={this.toggle}  />}
 </View>
 );
 }
@@ -238,6 +236,7 @@ const styles = StyleSheet.create({
   },
   UnderIcon: {
     width: 10,
+    color: '#4e4e59',
     height: 7,
     alignSelf: 'center',
     marginLeft: 8
@@ -280,6 +279,16 @@ const styles = StyleSheet.create({
   bottom: 0,
   alignSelf: 'center'
 },
+mainButton:{
+  flexDirection: 'row',
+  alignSelf: 'center'
+},
+infoImage:{ 
+  marginLeft: 20,
+  width: 22,
+  height: 23,
+  marginTop: 13
+},
 CreateTxt: {
   fontFamily: 'FuturaPT-Medium',
   color: 'black',
@@ -311,9 +320,7 @@ TileTxt: {
   lineHeight: 70
 },
 dropDown: {
-  flexDirection: 'row',
-  height: 20,
-  marginTop: 8
+  marginLeft: '10%'
 
 },
 notiNum: {
@@ -430,6 +437,11 @@ headerQuickWorkouts:{
   flexDirection:'row',
   justifyContent: 'space-between',
   marginRight: 15
+},
+Categories:{
+  flexDirection: 'row',
+  height: 20,
+  marginTop: 8,
 },
 Social:{
   marginTop: 45,

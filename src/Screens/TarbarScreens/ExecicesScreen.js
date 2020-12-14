@@ -8,19 +8,55 @@ export default class ExercicesScreen extends Component {
     this.state = {
       contentList1: [
         {
-          Title: 'SUMMER READY',
+          Title: 'ABS',
           ImageUrl: require("../../Assets/Images/program1.png")
         },
         {
-          Title: 'KELLY WINTERS',
+          Title: 'QUADS',
           ImageUrl: require("../../Assets/Images/program2.png")
         },
         {
-          Title: 'COUPLE WORKOUT',
+          Title: 'HAMSTRINGS',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'HAMSTRINGS',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'CALVES',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'TRICEPS',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'BICEPS',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'SHOULDERS',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'PECTORALS',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'LATS',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'BACK',
+          ImageUrl: require("../../Assets/Images/program3.png")
+        },
+        {
+          Title: 'GLUTES',
           ImageUrl: require("../../Assets/Images/program3.png")
         }
       ],
-      toggleFlag: true
+      // toggleFlag: true
     };
   }
 
@@ -32,9 +68,9 @@ export default class ExercicesScreen extends Component {
     this.props.navigation.navigate("ProgramWorkoutDetailScreen")
   }
 
-  toggle = async () => {
-    await this.setState({ toggleFlag: true });
-  }
+  // toggle = async () => {
+  //   await this.setState({ toggleFlag: true });
+  // }
 
   rendermakelist1 = ({ item }) => (
     <TouchableOpacity style={styles.ListContent1} onPress={() => { this.props.navigation.navigate("ProgramDetailScreen") }}>
@@ -46,12 +82,8 @@ export default class ExercicesScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {
-          this.state.toggleFlag ?
             <ScrollView style={{ flex: 1, width: '100%' }}>
-              <View style={{ width: '100%', height: 520 }}>
-                <ImageBackground source={require('../../Assets/Images/ExerciseBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
-                  <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
+              <View style={{ width: '100%', height: 220 }}>
                   <View style={styles.header}>
                     <View style={styles.BackBtn}>
                       <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
@@ -66,36 +98,13 @@ export default class ExercicesScreen extends Component {
                       </View>
                     </TouchableOpacity>
                   </View>
-                 {/* <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
-                    <View style={{ width: '50%' }}>
-                      <TouchableOpacity style={styles.createBtn} onPress={() => { this.setState({ toggleFlag: true }) }}>
-                        <Text style={styles.CreateTxt}>Programs</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={{ width: '50%' }}>
-                      <TouchableOpacity style={styles.createBtn1} onPress={() => { this.setState({ toggleFlag: false }) }}>
-                        <Text style={styles.CreateTxt1}>Workouts</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>*/}
+                  <View style={styles.LineStyle}/>
                   <View style={styles.mainContainer}>
-                    <Text style={styles.nextTxt}>Highlighted for you</Text>
-                    <Text style={styles.TileTxt}>COUPLE {'\n'}WORKOUTS.</Text>
-                    <Text style={styles.minText}>10 Workouts you can do together.</Text>
-                    <TouchableOpacity style={styles.createBtn2} >
-                      <Text style={styles.CreateTxt}>Start</Text>
-                    </TouchableOpacity>
+                   <Text style={styles.TileTxt}>EXERCISES</Text>
+                    <Text style={styles.minText}>Learn how to perform exercises by muscle group</Text>
                   </View>
-                </ImageBackground>
               </View>
               <View style={styles.mainContent}>
-                <View style={styles.AllArea}>
-                  <Text style={styles.ConHeaderTxt}>Programs</Text>
-                  <View style={styles.AllArea}>
-                    <Text style={styles.ConHeaderTxt1}>ALL</Text>
-                    <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
-                  </View>
-                </View>
                 <FlatList
                   vertical
                   showsVerticalScrollIndicator={true}
@@ -105,9 +114,7 @@ export default class ExercicesScreen extends Component {
                   keyExtractor={item => `${item.id}`}
                 />
               </View>
-            </ScrollView> :
-            <WorkoutsScreen toggle={this.toggle} gotoDetailScreen={this.gotoDetailScreen} />
-        }
+            </ScrollView>      
       </View>
     );
   }
@@ -279,7 +286,7 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   mainContent: {
-    marginTop: 45,
+        marginTop: 15,
     marginLeft: '3%'
   },
   ConHeaderTxt: {
@@ -326,5 +333,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center",
     marginRight: 5
-  }
+  },
+  LineStyle:{
+    borderBottomColor: '#18171a',
+    borderBottomWidth: 1,
+    marginLeft: '5%',
+    marginRight: '5%'
+   }
 })
