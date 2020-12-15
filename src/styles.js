@@ -266,9 +266,8 @@ export const styles = StyleSheet.create({
     borderRadius: 13.5
   },
   BtnImage: {
-    marginLeft: 10,
-    width: 25,
-    height: 25,
+    width: 15,
+    height: 15,
   },
   notiImage: {
     width: 22,
@@ -497,8 +496,8 @@ export const styles = StyleSheet.create({
     marginTop: 1,
     width: '100%',
     borderRadius: 3,
-    height: 105,
-    backgroundColor: '#111012',
+    height: 155,
+    backgroundColor: '#18171a',
     justifyContent: "center"
   },
   proTxt: {
@@ -509,7 +508,7 @@ export const styles = StyleSheet.create({
   timeTxt: {
     color: '#575763',
     fontFamily: 'FuturaPT-Book',
-    fontSize: 18
+    fontSize: 16
   },
   timeTxt1: {
     color: '#575763',
@@ -519,10 +518,11 @@ export const styles = StyleSheet.create({
   },
   contentHeader: {
     fontFamily: 'FuturaPT-Demi',
-    fontSize: 20,
+    fontSize: 18,
     color: '#fff',
-    marginLeft: 20,
-    marginBottom: 10
+    marginLeft: 15,
+    marginTop: 15,
+    marginBottom: 5
   },
   contentBottom: {
     flexDirection: 'row',
@@ -696,4 +696,48 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'FuturaPT-Medium'
   },
+  like:{
+    flex: 1, 
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginRight: 25
+  },
+  countLike:{
+    marginLeft: 13,
+    color: 'white',
+    fontFamily: 'FuturaPT-Book',
+  },
+   LineStyle:{
+    marginTop: 10,
+    borderBottomColor: '#0e0d0f',
+    borderBottomWidth: 1,
+    marginLeft: '5%',
+    marginRight: '5%'
+   },
+   message:{
+    color: '#575763',
+    width: '70%',
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 16,
+    marginLeft: 15,
+    lineHeight: 25
+  },
+  completed:{
+    color: '#575763',
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 14,
+    marginLeft: 7,
+  },
+  timeComplete:{
+    color: 'white',
+    fontFamily: 'FuturaPT-Book',
+    fontSize: 14,
+    marginLeft: 10,
+  
+  },
+  TimeIcon:{
+    marginLeft: 5,
+    width: 15,
+    height: 15
+  }
 })

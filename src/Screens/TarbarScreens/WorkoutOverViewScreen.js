@@ -71,7 +71,7 @@ export default class WorkoutOverViewScreen extends Component {
                                             </View>
                                         </View>
                                     </View>
-                                    <TouchableOpacity style={styles.OverviewBtn} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
+                                    <TouchableOpacity style={styles.OverviewBtn} onPress={() => this.props.navigation.navigate("r")}>
                                         <Text style={styles.FastTxt}>Back to overview</Text>
                                     </TouchableOpacity>
                                 </View>

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
 import WorkoutsScreen from './workoutsScreen';
-import ProgressStatus from './Components/ProgressStatus'
+import ProgressStatus from './Components/ProgressStatus';
+import SocialActivities from './Components/SocialActivities'
+
+
 
 export default class HomeScreen extends Component {
   constructor(props){
@@ -96,10 +99,10 @@ export default class HomeScreen extends Component {
     {this.state.start ? <ProgressStatus/> : <Text></Text>}
       <View style ={styles.mainButton}>
         <TouchableOpacity style={styles.createBtn} onPress={() =>{this.setState({start: true})}}>
-        {!this.state.start ? <Text style={styles.CreateTxt}>Start</Text> : <Text style={styles.CreateTxt}>Continue</Text>}
+        {!this.state.start ? <Text style={styles.CreateTxt}>Start</Text> : <Text style={styles.CreateTxt} onPress={() => this.props.gotoReadyScreen()}>Continue</Text>}
         </TouchableOpacity>
         <View>
-         <Image source={require('../../Assets/Images/noti.png')}  resizeMode='stretch' style={styles.infoImage} alt="Help"/>
+         <Image source={require('../../Assets/Images/Mask.png')} resizeMode='stretch' style={styles.infoImage} alt="Help"/>
         </View>
       </View>
     </View>
@@ -153,16 +156,15 @@ keyExtractor={item => `${item.id}`}
 
 <View style ={styles.mainContent, styles.Social}>
   <Text style ={styles.ConHeaderTxt}>Social Activities</Text>
-  <View style={styles.socialActivitiesBody}>
-        <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImageSocial} />
+  {!this.state.start ? <View style={styles.socialActivitiesBody}>
+        <Image source={require('../../Assets/Images/ProjectIcon.png')} resizeMode='stretch' style={styles.HeaderImageSocial} />
       <TouchableOpacity style={styles.socialActvitiesRightBlock}>
         <Text style={styles.socialActivitiesText}>Find and follow friends and athletes to see their social activities here
-         <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/></Text> 
-        
+         <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/></Text>    
        </TouchableOpacity>
-  </View>
-</View>
-</ScrollView> :  <WorkoutsScreen toggle={this.toggle}  />}
+  </View> : <SocialActivities />}
+</View> 
+</ScrollView> :  <WorkoutsScreen toggle={this.toggle} gotoDetailScreen ={this.props.gotoDetailScreen} />}
 </View>
 );
 }
@@ -249,6 +251,7 @@ const styles = StyleSheet.create({
   createBtn: {
     width: 100,
     height: 53,
+
     backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
@@ -280,19 +283,18 @@ const styles = StyleSheet.create({
   alignSelf: 'center'
 },
 mainButton:{
-  flexDirection: 'row',
+  marginLeft: 55,
+    flexDirection: 'row',
   alignSelf: 'center'
 },
 infoImage:{ 
   marginLeft: 20,
-  width: 22,
-  height: 23,
   marginTop: 13
 },
 CreateTxt: {
   fontFamily: 'FuturaPT-Medium',
   color: 'black',
-  fontSize: 22
+  fontSize: 20
 },
 createTxtPrograms:{
   fontFamily: 'FuturaPT-Medium',
@@ -449,8 +451,7 @@ Social:{
   marginRight: '3%',
 },
 HeaderImageSocial:{
-    width: 25,
-    height: 21,
+   
     marginTop: 10,
     marginRight: 20
 },

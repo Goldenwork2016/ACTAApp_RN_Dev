@@ -9,54 +9,50 @@ export default class ExercicesScreen extends Component {
       contentList1: [
         {
           Title: 'ABS',
-          ImageUrl: require("../../Assets/Images/program1.png")
+          ImageUrl: require("../../Assets/Images/program_11_execises.png")
         },
         {
           Title: 'QUADS',
-          ImageUrl: require("../../Assets/Images/program2.png")
+          ImageUrl: require("../../Assets/Images/program_10_execises.png")
         },
         {
           Title: 'HAMSTRINGS',
-          ImageUrl: require("../../Assets/Images/program3.png")
-        },
-        {
-          Title: 'HAMSTRINGS',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_9_execises.png")
         },
         {
           Title: 'CALVES',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_8_execises.png")
         },
         {
           Title: 'TRICEPS',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_7_execises.png")
         },
         {
           Title: 'BICEPS',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_6_execises.png")
         },
         {
           Title: 'SHOULDERS',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_5_execises.png")
         },
         {
           Title: 'PECTORALS',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_4_execises.png")
         },
         {
           Title: 'LATS',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_3_execises.png")
         },
         {
           Title: 'BACK',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_2_execises.png")
         },
         {
           Title: 'GLUTES',
-          ImageUrl: require("../../Assets/Images/program3.png")
+          ImageUrl: require("../../Assets/Images/program_1_execises.png")
         }
       ],
-      // toggleFlag: true
+       toggleFlag: true
     };
   }
 
@@ -64,13 +60,13 @@ export default class ExercicesScreen extends Component {
     this.setState({toggle:this.props.navigation.getParam("toogle")})
   }
 
-  gotoDetailScreen = () => {
-    this.props.navigation.navigate("ProgramWorkoutDetailScreen")
-  }
-
-  // toggle = async () => {
-  //   await this.setState({ toggleFlag: true });
+  // gotoDetailScreen = () => {
+  //   this.props.navigation.navigate("ProgramWorkoutDetailScreen")
   // }
+
+  toggle = async () => {
+    await this.setState({ toggleFlag: true });
+  }
 
   rendermakelist1 = ({ item }) => (
     <TouchableOpacity style={styles.ListContent1} onPress={() => { this.props.navigation.navigate("ProgramDetailScreen") }}>
@@ -82,6 +78,7 @@ export default class ExercicesScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+         {/*this.state.toggleFlag ? */} 
             <ScrollView style={{ flex: 1, width: '100%' }}>
               <View style={{ width: '100%', height: 220 }}>
                   <View style={styles.header}>
@@ -114,7 +111,8 @@ export default class ExercicesScreen extends Component {
                   keyExtractor={item => `${item.id}`}
                 />
               </View>
-            </ScrollView>      
+            </ScrollView>   
+          {/*  : <WorkoutsScreen gotoDetailScreen ={this.gotoDetailScreen}/>*/}   
       </View>
     );
   }

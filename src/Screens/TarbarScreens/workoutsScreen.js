@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-
+import ExercicesSrcreen from './ExecicesScreen'
 export default class ExercicesScreen extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +41,7 @@ export default class ExercicesScreen extends Component {
     };
   }
 
+
   _rendermakelist1({ item }) {
     return (
       <TouchableOpacity style={styles.ListContent1} onPress={()=>this.props.toggle()}>
@@ -50,7 +51,10 @@ export default class ExercicesScreen extends Component {
       </TouchableOpacity>
     )
   }
-
+  // gotoDetailScreen = () => {
+  //   this.props.navigation.navigate("ProgramWorkoutDetailScreen")
+  // }
+  
   render() {
     return (
         <ScrollView style={{ flex: 1, width: '100%' }}>

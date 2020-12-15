@@ -6,18 +6,18 @@ import ProgressCircle from 'react-native-progress-circle'
 export default function ProgressStatus (){
 	return <>
 	<View style={styles.headerContent}>
-		<View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+		<View style={{ ...styles.ContentList2, borderRightWidth: 0, marginTop: 27}}>
 			<Text style={styles.itemTxt}>Week</Text>
 			<View style={{flex: 1, flexDirection: 'row'}}>
 				<Text style={styles.numTxt}>4</Text>
 				<Text style={styles.from}>/8</Text>
 			</View>
 		</View>
-		<ProgressCircle style ={styles.progressCircle}
+		<ProgressCircle
 			percent={25}
 			radius={65}
 			borderWidth={3}
-			bgColor="#000"
+		    bgColor='#000'
 			shadowColor="#111012"
 			color="white"
 			outerCircleStyle={{}}>
@@ -34,7 +34,8 @@ export default function ProgressStatus (){
 	</>
 }
 const styles = StyleSheet.create({
-	headerContent: {
+    headerContent: {
+
         flexDirection: 'row',
         width: '95%',
         alignSelf: 'center',
@@ -51,21 +52,21 @@ const styles = StyleSheet.create({
     itemTxt: {
         fontFamily: 'FuturaPT-Book',
         color: '#82828f',
-        fontSize: 20,
+        fontSize: 18,
         textAlign: 'center',
         marginVertical: 3
     },
     numTxt: {
         color: 'white',
-        fontSize: 28,
+        fontSize: 24,
         fontFamily: 'FuturaPT-Medium',
         textAlign: 'center',
         marginVertical: 3
     },
     from:{
-    	color: '#82828f',
-        fontSize: 16,
-    	marginTop: 10,
+        color: '#82828f',
+        fontSize: 14,
+        marginTop: 10,
         fontFamily: 'FuturaPT-Medium',
         textAlign: 'center',
         paddingLeft: 2,
