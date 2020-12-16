@@ -15,7 +15,7 @@ export default function ProgressStatus (){
 		</View>
 		<ProgressCircle
 			percent={25}
-			radius={65}
+			radius={61}
 			borderWidth={3}
 		    bgColor='#000'
 			shadowColor="#111012"
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '95%',
         alignSelf: 'center',
-        marginTop: 30,
-        marginBottom: 30,
+        marginTop: 15,
+        marginBottom: 25,
         alignItems: 'center'
     },
     ContentList2: {

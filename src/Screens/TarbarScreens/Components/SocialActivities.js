@@ -75,6 +75,10 @@ export default class SocialActivities extends Component {
          		  </View>
               </View>
             </TouchableOpacity>
+          	  <TouchableOpacity style={styles.ViewMore}>
+					<Image source={require('../../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
+					<Text style={styles.ConHeaderTxt1}>VIEW MORE</Text>
+				</TouchableOpacity>
           </View>
         </>
 	}

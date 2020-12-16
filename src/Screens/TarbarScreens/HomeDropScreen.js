@@ -63,7 +63,6 @@ export default class HomeDropScreen extends Component {
     this.props.navigation.navigate("ProgramWorkoutDetailScreen",{toogle:false})
   }
   gotoReadyScreen = () => {
-   // this.props.navigation.navigate("ProgramWorkoutDetailScreen")
   this.props.navigation.navigate("ReadyScreen")
   }
   gotoDetailScreen = () => {

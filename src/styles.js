@@ -372,13 +372,6 @@ export const styles = StyleSheet.create({
   mainContent: {
     alignItems: 'center',
   },
-  ConHeaderTxt1: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 14,
-    letterSpacing: 2,
-    textAlign: "center"
-  },
   ContentImage: {
     width: 224,
     height: 224,
@@ -603,14 +596,7 @@ export const styles = StyleSheet.create({
     height: 10,
     marginRight: 10
   },
-  ConHeaderTxt1: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 14,
-    marginRight: 10,
-    letterSpacing: 2,
-    textAlign: "center"
-  },
+
   Content: {
     width: '100%',
     backgroundColor: 'black',
@@ -739,5 +725,21 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     width: 15,
     height: 15
-  }
+  },
+  ViewMore:{
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: 30,
+    paddingBottom: 30,
+    marginRight: 10,
+    alignItems: 'center'
+  },
+    ConHeaderTxt1: {
+    fontFamily: 'FuturaPT-Medium',
+    color: 'white',
+    fontSize: 12,
+    marginRight: 10,
+    letterSpacing: 2,
+    textAlign: "center"
+  }, 
 })

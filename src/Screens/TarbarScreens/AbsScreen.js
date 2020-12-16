@@ -1,107 +1,87 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import AbsScreen from './AbsScreen'
-import WorkoutsScreen from './workoutsScreen';
+import WorkoutsScreen from './workoutsScreen'
 
-
-export default class ExercicesScreen extends Component {
+export default class ABSScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       contentList1: [
         {
-          Title: 'ABS',
+          Title: 'Standing Abs Exercise',
           ImageUrl: require("../../Assets/Images/program_11_execises.png")
         },
         {
-          Title: 'QUADS',
+          Title: 'Standing Abs Exercise with Towel',
           ImageUrl: require("../../Assets/Images/program_10_execises.png")
         },
         {
-          Title: 'HAMSTRINGS',
+          Title: 'Standing Abs Exercise',
           ImageUrl: require("../../Assets/Images/program_9_execises.png")
         },
         {
-          Title: 'CALVES',
+          Title: 'Standing Abs Exercise with Towel',
           ImageUrl: require("../../Assets/Images/program_8_execises.png")
         },
         {
-          Title: 'TRICEPS',
+          Title: 'Standing Abs Exercise',
           ImageUrl: require("../../Assets/Images/program_7_execises.png")
         },
         {
-          Title: 'BICEPS',
+          Title: 'Standing Abs Exercise with Towel',
           ImageUrl: require("../../Assets/Images/program_6_execises.png")
         },
         {
-          Title: 'SHOULDERS',
+          Title: 'Standing Abs Exercise',
           ImageUrl: require("../../Assets/Images/program_5_execises.png")
         },
         {
-          Title: 'PECTORALS',
+          Title: 'Standing Abs Exercise with Towel',
           ImageUrl: require("../../Assets/Images/program_4_execises.png")
         },
         {
-          Title: 'LATS',
+          Title: 'Standing Abs Exercise',
           ImageUrl: require("../../Assets/Images/program_3_execises.png")
         },
         {
-          Title: 'BACK',
+          Title: 'Standing Abs Exercise with Towel',
           ImageUrl: require("../../Assets/Images/program_2_execises.png")
-        },
-        {
-          Title: 'GLUTES',
-          ImageUrl: require("../../Assets/Images/program_1_execises.png")
         }
-      ],
-       toggleFlag: true,
-       abs: true
+      ]
     };
   }
 
-  componentDidMount(){
-    this.setState({toggle:this.props.navigation.getParam("toogle")})
-  }
+  // componentDidMount(){
+  //   this.setState({toggle:this.props.navigation.getParam("toogle")})
+  // }
 
-  toggle = async () => {
-    await this.setState({ toggleFlag: true });
-  }
-  goBack =()=>{
-    this.setState({abs: true})
-  }
-   /*this.props.navigation.navigate("ProgramDetailScreen") */
+  // gotoDetailScreen = () => {
+  //   this.props.navigation.navigate("ProgramWorkoutDetailScreen")
+  // }
+
+  // toggle = async () => {
+  //   await this.setState({ toggleFlag: true });
+  // }
+
+
   rendermakelist1 = ({ item }) => (
-    <TouchableOpacity style={styles.ListContent1} onPress={() =>{this.setState({abs: false})}}>
+    <TouchableOpacity style={styles.ListContent1}>
       <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
       <Text style={styles.ListTitle}>{item.Title}</Text>
     </TouchableOpacity>
   )
-
   render() {
     return (
       <View style={styles.container}>
-         {/*this.state.toggleFlag ? */} 
-          {this.state.abs ? 
-            <ScrollView style={{ flex: 1, width: '100%' }}>
-              <View style={{ width: '100%', height: 220 }}>
+            <ScrollView style={{ flex: 1, width: '95%' }}>
+            <View style={{ width: '100%'}}>
                   <View style={styles.header}>
-                    <View style={styles.BackBtn}>
-                      <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
-                    </View>
-                    <View style={styles.dropDown}>
-                      <Text style={styles.headerTxt}>EXERCISES</Text>
-                    </View>
-                    <TouchableOpacity style={styles.AlarmkBtn}>
-                      <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                      <View style={styles.notiNumArea}>
-                        <Text style={styles.notiNum}>3</Text>
-                      </View>
+                    <TouchableOpacity style={styles.BackBtn} onPress={() => {this.props.goBack()}}>
+                      <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
                     </TouchableOpacity>
-                  </View>
-                  <View style={styles.LineStyle}/>
-                  <View style={styles.mainContainer}>
-                   <Text style={styles.TileTxt}>EXERCISES</Text>
-                    <Text style={styles.minText}>Learn how to perform exercises by muscle group</Text>
+                    <View style={styles.dropDown}>
+                      <Text style={styles.headerTxt}>ABS</Text>
+                    </View>
                   </View>
               </View>
               <View style={styles.mainContent}>
@@ -115,7 +95,6 @@ export default class ExercicesScreen extends Component {
                 />
               </View>
             </ScrollView>   
-           : <AbsScreen goBack ={this.goBack} />}
       </View>
     );
   }
@@ -128,10 +107,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width: '100%'
   },
-  ImageBackground: {
-    width: '100%',
-    height: '100%'
-  },
   UnderIcon: {
     width: 10,
     height: 7,
@@ -142,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 60 : 20,
     width: "90%",
     alignItems: "center",
-    paddingBottom: 41,
+    paddingBottom: 31,
   },
   headerTxt: {
     color: 'white',
@@ -155,10 +130,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 21
   },
-  notiImage: {
-    width: 22,
-    height: 23
-  },
   RightIcon: {
     width: 6,
     height: 10,
@@ -169,12 +140,6 @@ const styles = StyleSheet.create({
     height: 20,
     position: 'absolute',
     left: 10
-  },
-  AlarmkBtn: {
-    width: 26,
-    height: 20,
-    position: 'absolute',
-    right: "-8%"
   },
   AlphaImage: {
     width: '100%',
@@ -287,8 +252,6 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   mainContent: {
-    marginTop: 15,
-    marginBottom: 30,
     marginLeft: '3%'
   },
   ConHeaderTxt: {
@@ -316,17 +279,18 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   ListTitle: {
-    fontSize: 35,
+    fontSize: 18,
     color: 'white',
-    fontFamily: 'TrumpSoftPro-BoldItalic',
+    fontFamily: 'FuturaPT-Medium',
     width: '100%',
-    textAlign: "center"
+    paddingTop: 100,
+    paddingLeft: 25
   },
   ListContent1: {
     marginTop: 5,
     width: "97.5%",
     height: 160,
-    marginBottom: 7,
+    marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },

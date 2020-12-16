@@ -75,7 +75,7 @@ export default class HomeScreen extends Component {
         <Text style={styles.notiNum}>3</Text>
         </View>
         </TouchableOpacity>
-      <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center',  marginTop: 30 }}>
+      <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center',  marginTop: 30}}>
       <View style={{ width: '50%' }}>
       <TouchableOpacity style={styles.createBtnPrograms} onPress={() => { this.setState({ toggleFlag: true }) }}>
       <Text style={styles.createTxtPrograms}>Program</Text>
@@ -89,17 +89,19 @@ export default class HomeScreen extends Component {
       </View>
       </View>
       <View  style={styles.mainContainer}>
-      <Text style={styles.nextTxt}>Start your first program</Text>
-      
-      {/*<Text style={styles.TileTxt}>{this.state.exercise.name}</Text>
-        <Text style={styles.minText}>{this.state.exercise.details}</Text>*/}
+      {!this.state.start ? <Text style={styles.nextTxt}>Start your first program</Text>
+       : <Text style={styles.nextTxt}>Your current program</Text>}
+
+
+    {/* <Text style={styles.TileTxt}>{this.state.exercise.name}</Text>
+         <Text style={styles.minText}>{this.state.exercise.details}</Text>*/}
       
       <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
 
     {this.state.start ? <ProgressStatus/> : <Text></Text>}
       <View style ={styles.mainButton}>
         <TouchableOpacity style={styles.createBtn} onPress={() =>{this.setState({start: true})}}>
-        {!this.state.start ? <Text style={styles.CreateTxt}>Start</Text> : <Text style={styles.CreateTxt} onPress={() => this.props.gotoReadyScreen()}>Continue</Text>}
+         {!this.state.start? <Text style={styles.CreateTxt}>Start</Text> : <Text style={styles.CreateTxt} onPress={() => this.props.gotoReadyScreen()}>Continue</Text>}
         </TouchableOpacity>
         <View>
          <Image source={require('../../Assets/Images/Mask.png')} resizeMode='stretch' style={styles.infoImage} alt="Help"/>
@@ -111,12 +113,10 @@ export default class HomeScreen extends Component {
   </View>
 
   <View style={styles.mainContent}>
-  <View style={styles.AllArea}>
 <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.gotoExcercise()}>
 <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
 <Text style={styles.ConHeaderTxt1}>ALL PROGRAMS</Text>
 </TouchableOpacity>
-</View>
 <View style={styles.mainContent}>
   
 <View style ={styles.headerQuickWorkouts}>
@@ -250,8 +250,7 @@ const styles = StyleSheet.create({
   },
   createBtn: {
     width: 100,
-    height: 53,
-
+    height: 45,
     backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
@@ -261,7 +260,7 @@ const styles = StyleSheet.create({
   },
   createBtnPrograms:{
    width: "100%",
-   height: 53,
+   height: 46,
    backgroundColor: 'white',
    justifyContent: "center",
    alignItems: "center",
@@ -270,7 +269,7 @@ const styles = StyleSheet.create({
  },
  createBtnWorkouts:{
    width: "100%",
-   height: 53,
+   height: 46,
    backgroundColor: 'rgba(255,255,255,0.2)',
    justifyContent: "center",
    alignItems: "center",
@@ -284,7 +283,7 @@ const styles = StyleSheet.create({
 },
 mainButton:{
   marginLeft: 55,
-    flexDirection: 'row',
+  flexDirection: 'row',
   alignSelf: 'center'
 },
 infoImage:{ 
@@ -316,9 +315,9 @@ LoginTxt: {
 },
 TileTxt: {
   fontFamily: 'TrumpSoftPro-BoldItalic',
-  color: 'white', fontSize: 62,
+  color: 'white', 
+  fontSize: 62,
   textAlign: "center",
-  marginBottom: 5,
   lineHeight: 70
 },
 dropDown: {
@@ -381,7 +380,7 @@ imgTxt2: {
   textShadowRadius: 3,
 },
 mainContent: {
-  marginTop: 45,
+   marginTop: 25,
   marginLeft: '3%'
 },
 ConHeaderTxt: {
