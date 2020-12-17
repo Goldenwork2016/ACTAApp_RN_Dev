@@ -149,8 +149,8 @@ export const styles = StyleSheet.create({
     fontFamily: "FuturaPT-Medium"
   },
   PersonProfileImage: {
-    width: 110,
-    height: 110,
+    width: 100,
+    height: 100,
     alignSelf: 'center',
     borderRadius: 55,
   },
@@ -161,7 +161,6 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    marginBottom: 25,
     backgroundColor:'white'
   },
   HeaderImage1: {
@@ -317,7 +316,7 @@ export const styles = StyleSheet.create({
   },
   createBtn: {
     width: "98%",
-    height: 51,
+    height: 46,
     backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
@@ -527,17 +526,18 @@ export const styles = StyleSheet.create({
     width: '95%',
     alignSelf: 'center',
     justifyContent: 'space-between',
+    marginBottom: 40
   },
   numTxt: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 26,
     fontFamily: 'FuturaPT-Medium',
     textAlign: 'center'
   },
   itemTxt: {
     fontFamily: 'FuturaPT-Book',
     color: '#82828f',
-    fontSize: 20,
+    fontSize: 16,
     textAlign: 'center',
   },
   itemTxt1: {
@@ -600,8 +600,6 @@ export const styles = StyleSheet.create({
   Content: {
     width: '100%',
     backgroundColor: 'black',
-    paddingTop: 40,
-    paddingBottom: 30
   },
   ImageArea: {
     width: "85%",
@@ -738,8 +736,53 @@ export const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Medium',
     color: 'white',
     fontSize: 12,
-    marginRight: 10,
+    marginRight: 15,
     letterSpacing: 2,
     textAlign: "center"
   }, 
+    ConHeaderTxt: {
+    fontFamily: 'FuturaPT-Medium',
+    color: 'white',
+    fontSize: 20,
+    marginLeft: 10,
+    textAlign: "center"
+  }, 
+  ContentList6: {
+    width: '33%',
+    height: 45,
+    alignItems: "center",
+    borderRightWidth: 1,
+    borderColor: '#1d1c1e'
+  },
+  LineStyle:{
+    borderBottomColor: '#18171a',
+    borderBottomWidth: 1,
+    marginLeft: '5%',
+    marginRight: '5%'
+   },
+  allProgramsButton:{
+    flex: 1,
+    width: '90%',
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderColor: "#575763",
+    borderWidth: 0.6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 50
+  },
+  modeText:{
+   fontFamily: 'FuturaPT-Medium',
+    color: 'white',
+    fontSize: 20,
+    marginLeft: 20,
+    marginBottom: 40
+},
+ modeBlock:{
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginRight: 13
+  }
 })

@@ -118,7 +118,7 @@ export default class HomeScreen extends Component {
 <Text style={styles.ConHeaderTxt1}>ALL PROGRAMS</Text>
 </TouchableOpacity>
 <View style={styles.mainContent}>
-  
+
 <View style ={styles.headerQuickWorkouts}>
 <Text style={styles.ConHeaderTxt}>Quick workouts</Text>
 <TouchableOpacity style={styles.Categories} onPress={() => this.props.AnimationsStart()}>
@@ -159,8 +159,11 @@ keyExtractor={item => `${item.id}`}
   {!this.state.start ? <View style={styles.socialActivitiesBody}>
         <Image source={require('../../Assets/Images/ProjectIcon.png')} resizeMode='stretch' style={styles.HeaderImageSocial} />
       <TouchableOpacity style={styles.socialActvitiesRightBlock}>
-        <Text style={styles.socialActivitiesText}>Find and follow friends and athletes to see their social activities here
-         <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/></Text>    
+        <Text style={styles.socialActivitiesText}>
+          Find and follow friends and athletes to see their social activities here
+          <Text>  </Text>
+         <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>  
+          </Text>
        </TouchableOpacity>
   </View> : <SocialActivities />}
 </View> 
@@ -209,9 +212,8 @@ const styles = StyleSheet.create({
     height: 23
   },
   RightIcon: {
-    width: 6,
-    height: 10,
-    marginRight: 6
+    width: 5,
+    height: 9,
   },
   BackBtn: {
     width: 26,
@@ -462,7 +464,7 @@ socialActivitiesBody:{
   marginBottom: 20
 },
 socialActvitiesRightBlock:{
-  flexDirection: 'row'
+  flexDirection: 'row',
 },
 socialActivitiesText:{
   width: '85%',

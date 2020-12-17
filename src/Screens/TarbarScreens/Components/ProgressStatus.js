@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
 import ProgressCircle from 'react-native-progress-circle'
 
-
 export default function ProgressStatus (){
 	return <>
 	<View style={styles.headerContent}>
@@ -26,7 +25,7 @@ export default function ProgressStatus (){
 				<Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
 			</View>
 		</ProgressCircle>
-		<View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+  		<View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
 			<Text style={styles.itemTxt}>Day</Text>
 			<Text style={styles.numTxt}>2</Text>
 		</View>

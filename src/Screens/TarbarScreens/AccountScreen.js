@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, AppState, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, AppState, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity,CheckBox} from 'react-native';
 import { styles } from '../../styles'
 
 import config, { BASE_PATH } from "../../Api/config"
@@ -15,6 +15,7 @@ class AccountScreen extends Component {
       UserName: '',
       avatarSource: NonImage,
       appState: AppState.currentState,
+      isSelected: true
     };
 
     this.getName()
@@ -67,6 +68,9 @@ class AccountScreen extends Component {
         console.log('JSON.stringify(err)=>', err);
       })
   }
+  changeMode = ()=>{
+    this.setState({isSelected: !this.state.isSelected})
+  }
 
   _rendermakelist({ item, index }) {
     return (
@@ -108,15 +112,15 @@ class AccountScreen extends Component {
               </View>
               <Text style={styles.nameTxt}>{this.state.UserName}</Text>
               <View style={styles.headerContent}>
-                <TouchableOpacity style={styles.ContentList2} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: true })}>
+                <TouchableOpacity style={styles.ContentList6} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: true })}>
                   <Text style={styles.numTxt}>{window.core.each(window.us.data.follow).length}</Text>
                   <Text style={styles.itemTxt}>Following</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.ContentList2} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: false })}>
+                <TouchableOpacity style={styles.ContentList6} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: false })}>
                   <Text style={styles.numTxt}>{window.core.each(window.us.followers).length}</Text>
                   <Text style={styles.itemTxt}>Followers</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ ...styles.ContentList2, borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen")}>
+                <TouchableOpacity style={{ ...styles.ContentList2,  borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen")}>
                   <Text style={styles.numTxt}>48</Text>
                   <Text style={styles.itemTxt}>Workouts</Text>
                 </TouchableOpacity>
@@ -157,6 +161,7 @@ class AccountScreen extends Component {
                   <Text style={styles.itemTxt1}>Great start</Text>
                 </View>
               </View>
+                  <View style={styles.LineStyle}/>
               <View style={styles.AllArea1}>
                 <Text style={styles.ConHeaderTxt}>Progress Pics</Text>
                 <View style={styles.AllArea}>
@@ -181,19 +186,33 @@ class AccountScreen extends Component {
                   </View>
                 </View>
               </View>
-              <View style={styles.AllArea1}>
+             {/*<View style={styles.AllArea1}>
                 <Text style={styles.ConHeaderTxt}>Weight</Text>
                 <View style={styles.AllArea}>
                   <Text style={styles.ConHeaderTxt1}><Text style={{ fontSize: 25, marginTop: 5 }}>+</Text>  WEIGTH IN</Text>
-                </View>
-              </View>
-              <Image source={require('../../Assets/Images/chartImage1.png')} resizeMode='stretch' style={styles.chartImage1} />
+                </View>*/}
+                  <View style={styles.mainContent}>
+                    <TouchableOpacity style={styles.allProgramsButton}>
+                      <Text style={styles.ConHeaderTxt}>Compare and Share</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style ={styles.modeBlock}>
+                    <Text  style={styles.modeText}>Dark Mode</Text>
+                     <CheckBox
+                          value={this.state.isSelected}
+                           onValueChange={this.changeMode}
+                         />
+                </View>  
+              </View>   
+              
+             {/*} <Image source={require('../../Assets/Images/chartImage1.png')} resizeMode='stretch' style={styles.chartImage1} />
               <View style={styles.AllArea1}>
                 <Text style={styles.ConHeaderTxt}>Average Heart Rage</Text>
               </View>
               <Image source={require('../../Assets/Images/chartImage2.png')} resizeMode='stretch' style={styles.chartImage1} />
-            </View>
+            </View>*/}
           </View>
+
         </ScrollView>
       </View>
     );
@@ -201,3 +220,12 @@ class AccountScreen extends Component {
 }
 
 export default withNavigation(AccountScreen);
+
+const account_styles = StyleSheet.create({
+    // modeBlock:{
+    //   flex: 1,
+    //   flexDirection: 'row',
+    //   justifyContent: 'space-between',
+    //   marginRight: 13
+    // }
+});
