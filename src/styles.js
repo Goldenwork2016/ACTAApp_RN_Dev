@@ -439,7 +439,7 @@ export const styles = StyleSheet.create({
   AllArea: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: "center",
+    alignItems: "center"
   },
   AllArea2: {
     width: '90%',
@@ -454,6 +454,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center",
     marginTop: 30,
+    marginBottom: 20,
     width: '95%',
     alignSelf: 'center'
   },
@@ -629,9 +630,9 @@ export const styles = StyleSheet.create({
   },
   chartImage1: {
     width: '90%',
-    height: 250,
+    height: 210,
     alignSelf: 'center',
-    marginTop: 10
+
   },
   modalView: {
     width: '100%',
@@ -736,7 +737,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Medium',
     color: 'white',
     fontSize: 12,
-    marginRight: 15,
+    marginRight: 10,
     letterSpacing: 2,
     textAlign: "center"
   }, 
@@ -759,6 +760,12 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginLeft: '5%',
     marginRight: '5%'
+   },
+  LineStyle2:{
+    borderBottomColor: '#2d2c31',
+    borderBottomWidth: 1,
+    marginLeft: '15%',
+    marginRight: '15%'
    },
   allProgramsButton:{
     flex: 1,

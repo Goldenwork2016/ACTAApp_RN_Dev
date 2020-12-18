@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, AppState, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity,CheckBox} from 'react-native';
+import { View, Text, Image, AppState, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity, Switch} from 'react-native';
 import { styles } from '../../styles'
 
 import config, { BASE_PATH } from "../../Api/config"
@@ -90,6 +90,7 @@ class AccountScreen extends Component {
   }
 
   render() {
+    let imageSwitch = <Image source={require('../../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.RightIcon} />
     return (
       <View style={styles.container1}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
@@ -198,10 +199,17 @@ class AccountScreen extends Component {
                   </View>
                   <View style ={styles.modeBlock}>
                     <Text  style={styles.modeText}>Dark Mode</Text>
-                     <CheckBox
-                          value={this.state.isSelected}
-                           onValueChange={this.changeMode}
-                         />
+                    <View style={{width: 250}}>
+                      <Switch
+                        trackColor={{ false: "#18171a", true: "#18171a" }}
+                         style={{transform: [{ scaleX: 1.2}, { scaleY: 1.2}], marginRight: 25}}
+                        thumbColor={this.state.isSelected ? "#fff" : '#fff'}
+                        ios_backgroundColor="#18171a"
+                        onValueChange={this.changeMode}
+                        value={this.state.isSelected}
+                      />
+                    </View>
+
                 </View>  
               </View>   
               
@@ -220,12 +228,3 @@ class AccountScreen extends Component {
 }
 
 export default withNavigation(AccountScreen);
-
-const account_styles = StyleSheet.create({
-    // modeBlock:{
-    //   flex: 1,
-    //   flexDirection: 'row',
-    //   justifyContent: 'space-between',
-    //   marginRight: 13
-    // }
-});

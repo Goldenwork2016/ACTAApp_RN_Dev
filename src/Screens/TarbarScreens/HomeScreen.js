@@ -115,7 +115,7 @@ export default class HomeScreen extends Component {
   <View style={styles.mainContent}>
 <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.gotoExcercise()}>
 <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
-<Text style={styles.ConHeaderTxt1}>ALL PROGRAMS</Text>
+<Text style={styles.ConHeaderTxt1}> ALL PROGRAMS</Text>
 </TouchableOpacity>
 <View style={styles.mainContent}>
 
