@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   },
   createBtn: {
     width: "100%",
-    height: 53,
+    height: 46,
     backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   },
   createBtn1: {
     width: "100%",
-    height: 53,
+    height: 46,
     backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: "center",
     alignItems: "center",
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   },
   createBtn2: {
     width: 200,
-    height: 53,
+    height: 46,
     backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",

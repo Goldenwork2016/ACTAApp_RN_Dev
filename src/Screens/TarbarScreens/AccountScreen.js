@@ -6,7 +6,7 @@ import config, { BASE_PATH } from "../../Api/config"
 
 import NonImage from '../../Assets/Images/nopicture.png'
 
-import { withNavigation } from "react-navigation";
+import { withNavigation } from "react-navigation"
 
 class AccountScreen extends Component {
   constructor(props) {
@@ -15,7 +15,8 @@ class AccountScreen extends Component {
       UserName: '',
       avatarSource: NonImage,
       appState: AppState.currentState,
-      isSelected: true
+      isSelected: true,
+      isCompare: false
     };
 
     this.getName()
@@ -193,7 +194,7 @@ class AccountScreen extends Component {
                   <Text style={styles.ConHeaderTxt1}><Text style={{ fontSize: 25, marginTop: 5 }}>+</Text>  WEIGTH IN</Text>
                 </View>*/}
                   <View style={styles.mainContent}>
-                    <TouchableOpacity style={styles.allProgramsButton}>
+                    <TouchableOpacity style={styles.allProgramsButton} onPress ={() =>  {this.setState({isCompare: true})}}>
                       <Text style={styles.ConHeaderTxt}>Compare and Share</Text>
                     </TouchableOpacity>
                   </View>
@@ -220,7 +221,6 @@ class AccountScreen extends Component {
               <Image source={require('../../Assets/Images/chartImage2.png')} resizeMode='stretch' style={styles.chartImage1} />
             </View>*/}
           </View>
-
         </ScrollView>
       </View>
     );

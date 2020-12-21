@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import ProgressCircle from 'react-native-progress-circle'
+import ProgressStatus from './Components/ProgressStatus'
 
 export default class ProgramDetailStartScreen extends Component {
     constructor(props) {
@@ -23,10 +24,12 @@ export default class ProgramDetailStartScreen extends Component {
                                 <Text style={styles.headerTxt}>PROGRAM</Text>
                             </View>
                         </View>
+                          <View style={styles.LineStyle}/>
                         <View style={styles.mainContainer}>
                             <Text style={styles.TileTxt}>SUMMER</Text>
                             <Text style={styles.TileTxt}>READY.</Text>
-                            <View style={styles.headerContent}>
+                            <ProgressStatus />
+                           {/* <View style={styles.headerContent}>
                                 <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
                                     <Text style={styles.itemTxt}>Week</Text>
                                     <Text style={styles.numTxt}>4</Text>
@@ -49,7 +52,7 @@ export default class ProgramDetailStartScreen extends Component {
                                     <Text style={styles.itemTxt}>Day</Text>
                                     <Text style={styles.numTxt}>2</Text>
                                 </View>
-                            </View>
+                            </View>*/}
                             <View>
                                 <View style={styles.NextArea}>
                                     <Text style={styles.NextTxt}>Next Workout</Text>
@@ -69,12 +72,12 @@ export default class ProgramDetailStartScreen extends Component {
                                 <Text style={styles.CreateTxt}>Start Workout</Text>
                             </TouchableOpacity>
                             <Text style={styles.minText}>Your Statistics</Text>
-                            <View style={{ ...styles.headerContent, marginTop: 0 }}>
-                                <View style={styles.ContentList2}>
+                            <View style={{ ...styles.headerContent, marginTop: -10}}>
+                                <View style={styles.ContentList6}>
                                     <Text style={styles.numTxt}>14</Text>
                                     <Text style={styles.itemTxt}>Workouts</Text>
                                 </View>
-                                <View style={styles.ContentList2}>
+                                <View style={styles.ContentList6}>
                                     <Text style={styles.numTxt}>10</Text>
                                     <Text style={styles.itemTxt}>Days</Text>
                                 </View>
@@ -85,6 +88,7 @@ export default class ProgramDetailStartScreen extends Component {
                             </View>
                         </View>
                         <View>
+                            <View style={styles.LineStyle}/>
                             <View style={styles.bottomList}>
                                 <Text style={styles.ConHeaderTxt1}>Program Overview</Text>
                                 <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
@@ -145,6 +149,7 @@ const styles = StyleSheet.create({
     },
     ContentList2: {
         width: '33%',
+        height: 45,
         alignItems: "center",
         borderRightWidth: 0.2,
         borderColor: '#82828f'
@@ -152,13 +157,13 @@ const styles = StyleSheet.create({
     itemTxt: {
         fontFamily: 'FuturaPT-Book',
         color: '#82828f',
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center',
         marginVertical: 3
     },
     numTxt: {
         color: 'white',
-        fontSize: 28,
+        fontSize: 24,
         fontFamily: 'FuturaPT-Medium',
         textAlign: 'center',
         marginVertical: 3
@@ -219,8 +224,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: -20,
         lineHeight: 70
-    },
-    dropDown: {
     },
     minText: {
         fontFamily: 'FuturaPT-Book',
@@ -300,8 +303,8 @@ const styles = StyleSheet.create({
     leftMin: {
         position: 'absolute',
         right: 20,
-        borderLeftWidth: 0.2,
-        borderColor: '#82828f',
+        borderLeftWidth: 0.25,
+        borderColor: '#242326',
         height: 50,
         justifyContent: "center",
         paddingLeft: 20
@@ -321,8 +324,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingVertical:15, 
         marginHorizontal: '5%', 
-        borderTopWidth:0.2, 
-        borderBottomWidth:0.2, 
+        borderBottomWidth:0.25, 
         borderColor:'#82828f' 
-    }
+    },
+    ContentList6: {
+        width: '33%',
+        height: 45,
+        alignItems: "center",
+        borderRightWidth: 1,
+        borderColor: '#1d1c1e'
+    },
+    LineStyle:{
+        borderBottomColor: '#18171a',
+        borderBottomWidth: 1,
+        marginLeft: '5%',
+        marginRight: '5%'
+   },
 })

@@ -28,11 +28,11 @@ export default class ProgramDetailStartScreen extends Component {
                                 <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
                                 <Text style={styles.TileTxt}>FAST & FURIOUS</Text>
                                 <View style={styles.headerContent}>
-                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+                                    <View style={styles.ContentList2}>
                                         <Text style={styles.numTxt}>30</Text>
                                         <Text style={styles.itemTxt}>Minutes</Text>
                                     </View>
-                                    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+                                    <View style={styles.ContentList2}>
                                         <Text style={styles.numTxt}>Legs</Text>
                                         <Text style={styles.itemTxt}>Type</Text>
                                     </View>
@@ -58,7 +58,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.FastTxt}>Incline Walk</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>5</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25}}>5</Text>
                                         <Text style={styles.minTxt}>min</Text>
                                     </View>
                                 </View>
@@ -85,7 +85,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.FastTxt}>KickBack</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25}}>12</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
@@ -230,22 +230,20 @@ const styles = StyleSheet.create({
     ContentList2: {
         width: '33%',
         alignItems: "center",
-        borderRightWidth: 0.2,
+        borderRightWidth: 0.25,
         borderColor: '#82828f'
     },
     itemTxt: {
         fontFamily: 'FuturaPT-Book',
         color: '#82828f',
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center',
-        marginVertical: 3
     },
     numTxt: {
         color: 'white',
         fontSize: 20,
         fontFamily: 'FuturaPT-Medium',
         textAlign: 'center',
-        marginVertical: 3
     },
     BackBtn: {
         width: 26,
@@ -361,8 +359,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     fastImage: {
-        width: 65,
-        height: 65
+        width: 45,
+        height: 55
     },
     ItemArea: {
         height: 100,
@@ -393,8 +391,8 @@ const styles = StyleSheet.create({
     leftMin: {
         position: 'absolute',
         right: 15,
-        borderLeftWidth: 0.2,
-        borderColor: '#82828f',
+        borderLeftWidth: 0.25,
+        borderColor: '#302f32',
         height: 50,
         justifyContent: "center",
         paddingLeft: 20

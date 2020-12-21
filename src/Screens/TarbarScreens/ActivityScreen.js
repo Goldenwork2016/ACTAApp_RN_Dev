@@ -32,22 +32,22 @@ export default class ActivityScreen extends Component {
     };
   }
 
-  _rendermakelist({ item, index }) {
-    return (
-      <View style={{ marginTop: 5 }}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
-      </View>
-    )
-  }
+  // _rendermakelist({ item, index }) {
+  //   return (
+  //     <View style={{ marginTop: 5 }}>
+  //       <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
+  //     </View>
+  //   )
+  // }
 
-  _rendermakelist1({ item, index }) {
-    return (
-      <View style={styles.ListContent1}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-        <Text style={styles.ListTitle}>{item.Title}</Text>
-      </View>
-    )
-  }
+  // _rendermakelist1({ item, index }) {
+  //   return (
+  //     <View style={styles.ListContent1}>
+  //       <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
+  //       <Text style={styles.ListTitle}>{item.Title}</Text>
+  //     </View>
+  //   )
+  // }
 
   render() {
     return (

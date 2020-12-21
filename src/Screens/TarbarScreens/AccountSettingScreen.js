@@ -257,7 +257,7 @@ class AccountSettingScreen extends Component {
                         <View style={styles.Content}>
                             <TouchableOpacity style={styles.ListContent2} onPress={() => this.props.navigation.navigate("AccountEditScreen")}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Name</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Name</Text>
                                     <View style={styles.ListContent4}>
                                         <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.UserName}</Text></Text>
                                         <TouchableOpacity>
@@ -268,7 +268,7 @@ class AccountSettingScreen extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:true})}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Email</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Email</Text>
                                     <View style={styles.ListContent4}>
                                         <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.Email}</Text></Text>
                                         <TouchableOpacity>
@@ -279,7 +279,7 @@ class AccountSettingScreen extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.ListContent2}  onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:false})}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Mobile</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Mobile</Text>
                                     <View style={styles.ListContent4}>
                                         <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.phoneNumber}</Text></Text>
                                         <TouchableOpacity>
@@ -290,7 +290,7 @@ class AccountSettingScreen extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditBirthdayScreen")}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Birthday</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Birthday</Text>
                                     <View style={styles.ListContent4}>
                                         <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.birthday}</Text></Text>
                                         <TouchableOpacity>
@@ -301,7 +301,7 @@ class AccountSettingScreen extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.ListContent2} onPress={()=>{window.us.form={header: 'My Address', title: 'Address', placeholder: 'Fill Address', field: 'address'}; this.props.navigation.navigate("ProfileEdit")}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Address</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Address</Text>
                                     <View style={styles.ListContent4}>
                                         <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{window.us.data.address||'-'}</Text></Text>
                                         <TouchableOpacity>
@@ -312,7 +312,7 @@ class AccountSettingScreen extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditMeasurement")}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Measurement Units</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Measurement Units</Text>
                                     <View style={styles.ListContent4}>
                                         <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.measurement}</Text></Text>
                                         <TouchableOpacity>
@@ -323,7 +323,7 @@ class AccountSettingScreen extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditConnectivity")}}>
                                 <View style={{ width: '100%' }}>
-                                    <Text style={{ ...styles.desTxt1, fontSize: 18 }}>Connectivity</Text>
+                                    <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Connectivity</Text>
                                     <View style={styles.ListContent4}>
                                         <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.connectivity}</Text></Text>
                                         <TouchableOpacity>

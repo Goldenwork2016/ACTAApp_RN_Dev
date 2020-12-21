@@ -30,8 +30,8 @@ export default class ActivityPoundsScreen extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{ width: '100%', paddingTop: 5, paddingBottom:35, backgroundColor: '#111012' }}>
-                        <TextInput placeholder="Search for friends" placeholderTextColor="white" onChangeText={(e) => this.setState({ search: e })} style={{...styles.SendInputTxt, backgroundColor:'black', color:'white', fontSize:20}} />
+                    <View style={{ width: '100%', paddingBottom:35, backgroundColor: '#111012' }}>
+                        <TextInput placeholder="Search for friends" placeholderTextColor="white" onChangeText={(e) => this.setState({ search: e })} style={{...styles.SendInputTxt, backgroundColor:'black', color:'white', fontSize:18}} />
                         <TouchableOpacity style={styles.sendBtn}>
                             <Image source={require('../../Assets/Images/SearchImage.png')} resizeMode='stretch' style={styles.SearchImage} />
                         </TouchableOpacity>
@@ -53,11 +53,11 @@ export default class ActivityPoundsScreen extends Component {
 									uri: 'https://acta.webart.work'+user.avatarUrl
 									}} resizeMode='stretch' style={styles.activityImage} />
 									<View>
-										<Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{user.name}</Text></Text>
+										<Text style={styles.desTxt}>{user.name}</Text>
 										<Text style={styles.desTxt1}>{user.data.address||''}</Text>
 									</View>
 									<TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=true; window.us.update(); this.setState({reload: this.state.reload}) }} style={styles.followBtn}>
-										<Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 15 }}>Follow</Text>
+										<Text style={{ color: 'white', fontFamily: 'FuturaPT-Book', fontSize: 13 }}>Follow</Text>
 									</TouchableOpacity>
 								</View>
 							)	

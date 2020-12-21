@@ -333,9 +333,9 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 60 : 20,
     width: "90%",
     alignItems: "center",
-    paddingBottom: 48,
-    borderBottomWidth: 0.3,
-    borderColor: 'white'
+    paddingBottom: 37,
+    borderBottomWidth: 0.25,
+    borderColor: '#53535f'
   },
   LoginTxtImage: {
     marginTop: 45,
@@ -456,11 +456,11 @@ const styles = StyleSheet.create({
   TitleTxt: {
     fontFamily: 'FuturaPT-Book',
     color: 'white',
-    fontSize: 30,
+    fontSize: 27,
     textAlign: "center",
-    marginBottom: 20,
-    lineHeight: 70,
-    marginTop: 35
+    marginBottom: 10,
+    lineHeight: 50,
+    marginTop: 25
   },
   desTxt: {
     fontFamily: 'FuturaPT-Book',

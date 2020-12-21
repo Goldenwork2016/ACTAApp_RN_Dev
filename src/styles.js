@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: '#111012',
-    paddingBottom: 20
+  
   },
   pendingArea: {
     width: '95%',
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 60 : 20,
     width: "90%",
     alignItems: "center",
-    paddingBottom: 41,
+    paddingBottom: 37,
   },
   header1: {
     marginTop: Platform.OS === 'ios' ? 60 : 20,
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 60 : 20,
     width: "90%",
     alignItems: "center",
-    paddingBottom: 41,
+    paddingBottom: 27,
     borderBottomWidth: 0.5,
     alignSelf: 'center',
     backgroundColor: 'black'
@@ -93,15 +93,15 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'flex-start',
     marginTop: 10,
-    borderBottomWidth: 0.3,
+    borderBottomWidth: 0.25,
     width: '95%',
     alignSelf: "center",
-    paddingBottom: 3,
+  
     borderColor: '#82828f'
   },
   ListContent5: {
     marginTop: 10,
-    borderBottomWidth: 0.3,
+    borderBottomWidth: 0.25,
     width: '90%',
     alignSelf: "center",
     paddingBottom: 3,
@@ -109,8 +109,8 @@ export const styles = StyleSheet.create({
   },
   QuitWorkout1: {
     width: '90%',
-    height: 55,
-    borderWidth: 2,
+    height: 50,
+    borderWidth: 1,
     borderColor: 'white',
     justifyContent: "center",
     alignItems: 'center',
@@ -126,8 +126,8 @@ export const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Medium',
   },
   followBtn: {
-    width: 70,
-    height: 35,
+    width: 60,
+    height: 30,
     position: 'absolute',
     right: 0,
     top: 5,
@@ -136,6 +136,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1.5,
     borderColor: 'white'
+  },
+   unfollowBtn: {
+    width: 60,
+    height: 30,
+    position: 'absolute',
+    right: 0,
+    top: 5,
+    borderRadius: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1.5,
+    borderColor: '#18171a'
   },
   HeaderImage: {
     marginLeft: 10,
@@ -149,15 +161,15 @@ export const styles = StyleSheet.create({
     fontFamily: "FuturaPT-Medium"
   },
   PersonProfileImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     alignSelf: 'center',
     borderRadius: 55,
   },
   profileArea: {
-    borderRadius: 50,
-    width: 100,
-    height: 100,
+    borderRadius: 55,
+    width: 80,
+    height: 80,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -193,15 +205,23 @@ export const styles = StyleSheet.create({
     marginTop: 45,
     marginBottom: 15
   },
+  numberTxtWorkouts: {
+    fontFamily: 'TrumpSoftPro-BoldItalic',
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 100,
+    width: '100%',
+    marginTop: 10
+  },
   btnTxt: {
     color: 'white',
     fontFamily: 'FuturaPT-Book',
-    fontSize: 15
+    fontSize: 13
   },
   SearchImage: {
     marginLeft: 10,
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
     marginRight: 10
   },
   HeartUnselectImage: {
@@ -211,14 +231,14 @@ export const styles = StyleSheet.create({
     borderRadius: 22.5,
   },
   desTxt: {
-    color: '#82828f',
+    color: 'white',
     fontSize: 20,
     fontFamily: 'FuturaPT-Book',
-    marginBottom: 10
+ 
   },
   desTxt1: {
     color: '#82828f',
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: 'FuturaPT-Book',
     marginBottom: 10
   },
@@ -232,7 +252,7 @@ export const styles = StyleSheet.create({
   },
   SendInputTxt: {
     width: '95%',
-    height: 55,
+    height: 45,
     alignSelf: 'center',
     backgroundColor: 'white',
     borderRadius: 5,
@@ -243,7 +263,7 @@ export const styles = StyleSheet.create({
   sendBtn: {
     position: 'absolute',
     right: 25,
-    top: 20,
+    top: 13,
   },
   sendBtnTxt: {
     fontFamily: 'FuturaPT-Medium',
@@ -295,12 +315,12 @@ export const styles = StyleSheet.create({
   },
   EditImageBtn: {
     alignSelf: 'center',
-    marginTop: -55,
-    marginLeft: 80
+    marginTop: -20,
+    marginLeft: 55
   },
   EditImage: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
   },
   AlarmkBtn: {
     width: 26,
@@ -325,7 +345,7 @@ export const styles = StyleSheet.create({
   },
   createBtn1: {
     width: "100%",
-    height: 53,
+    height: 46,
     backgroundColor: '#111012',
     justifyContent: "center",
     alignItems: "center",
@@ -390,7 +410,7 @@ export const styles = StyleSheet.create({
     textAlign: "center"
   },
   ListTitle1: {
-    fontSize: 35,
+    fontSize: 33,
     color: 'white',
     fontFamily: 'FuturaPT-Medium',
     width: '100%',
@@ -399,8 +419,8 @@ export const styles = StyleSheet.create({
     left: 30
   },
   Description: {
-    fontSize: 22,
-    color: '#82828f',
+    fontSize: 18,
+    color: '#767575',
     fontFamily: 'FuturaPT-Book',
     width: '100%',
     position: 'absolute',
@@ -453,8 +473,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center",
-    marginTop: 30,
-    marginBottom: 20,
+    marginTop: 25,
+    marginBottom: 5,
     width: '95%',
     alignSelf: 'center'
   },
@@ -560,7 +580,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingBottom: 30,
     marginTop: 15,
-    borderBottomWidth: 0.2,
+  
     borderColor: '#82828f'
   },
   ContentList2: {
@@ -693,7 +713,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Book',
   },
    LineStyle:{
-    marginTop: 10,
     borderBottomColor: '#0e0d0f',
     borderBottomWidth: 1,
     marginLeft: '5%',
@@ -774,7 +793,7 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderColor: "#575763",
-    borderWidth: 0.6,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 50
@@ -782,7 +801,7 @@ export const styles = StyleSheet.create({
   modeText:{
    fontFamily: 'FuturaPT-Medium',
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     marginLeft: 20,
     marginBottom: 40
 },

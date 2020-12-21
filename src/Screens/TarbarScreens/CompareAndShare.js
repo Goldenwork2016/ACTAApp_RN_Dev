@@ -1,66 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import CategoryScreen from './CategoryScreen'
-import WorkoutsScreen from './workoutsScreen';
 
 
-export default class ExercicesScreen extends Component {
+export default class CompareAndShare extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentList1: [
-        {
-          Title: 'ABS',
-          ImageUrl: require("../../Assets/Images/program_11_execises.png")
-        },
-        {
-          Title: 'QUADS',
-          ImageUrl: require("../../Assets/Images/program_10_execises.png")
-        },
-        {
-          Title: 'HAMSTRINGS',
-          ImageUrl: require("../../Assets/Images/program_9_execises.png")
-        },
-        {
-          Title: 'CALVES',
-          ImageUrl: require("../../Assets/Images/program_8_execises.png")
-        },
-        {
-          Title: 'TRICEPS',
-          ImageUrl: require("../../Assets/Images/program_7_execises.png")
-        },
-        {
-          Title: 'BICEPS',
-          ImageUrl: require("../../Assets/Images/program_6_execises.png")
-        },
-        {
-          Title: 'SHOULDERS',
-          ImageUrl: require("../../Assets/Images/program_5_execises.png")
-        },
-        {
-          Title: 'PECTORALS',
-          ImageUrl: require("../../Assets/Images/program_4_execises.png")
-        },
-        {
-          Title: 'LATS',
-          ImageUrl: require("../../Assets/Images/program_3_execises.png")
-        },
-        {
-          Title: 'BACK',
-          ImageUrl: require("../../Assets/Images/program_2_execises.png")
-        },
-        {
-          Title: 'GLUTES',
-          ImageUrl: require("../../Assets/Images/program_1_execises.png")
-        }
-      ],
-       toggleFlag: true,
-       abs: true
+      abs: true
     };
-  }
-
-  componentDidMount(){
-    this.setState({toggle:this.props.navigation.getParam("toogle")})
   }
 
   toggle = async () => {
@@ -68,54 +15,33 @@ export default class ExercicesScreen extends Component {
   }
   goBack =()=>{
     this.setState({abs: true})
-  }
-   /*this.props.navigation.navigate("ProgramDetailScreen") */
-  rendermakelist1 = ({ item }) => (
-    <TouchableOpacity style={styles.ListContent1} onPress={() =>{this.setState({abs: false})}}>
-      <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-      <Text style={styles.ListTitle}>{item.Title}</Text>
-    </TouchableOpacity>
-  )
 
   render() {
     return (
       <View style={styles.container}>
-         {/*this.state.toggleFlag ? */} 
           {this.state.abs ? 
             <ScrollView style={{ flex: 1, width: '100%' }}>
               <View style={{ width: '100%', height: 220 }}>
                   <View style={styles.header}>
                     <View style={styles.BackBtn}>
-                      <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                      <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
                     </View>
                     <View style={styles.dropDown}>
-                      <Text style={styles.headerTxt}>EXERCISES</Text>
+                      <Text style={styles.headerTxt}>COMPARE & SHARE</Text>
                     </View>
                     <TouchableOpacity style={styles.AlarmkBtn}>
-                      <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                      <View style={styles.notiNumArea}>
-                        <Text style={styles.notiNum}>3</Text>
-                      </View>
                     </TouchableOpacity>
                   </View>
                   <View style={styles.LineStyle}/>
                   <View style={styles.mainContainer}>
-                   <Text style={styles.TileTxt}>EXERCISES</Text>
-                    <Text style={styles.minText}>Learn how to perform exercises by muscle group</Text>
+                   <Text style={styles.TileTxt}>COMPARE</Text>
+                    <Text style={styles.TileTxt}>AND SHARE</Text>
                   </View>
               </View>
               <View style={styles.mainContent}>
-                <FlatList
-                  vertical
-                  showsVerticalScrollIndicator={true}
-                  numColumns={1}
-                  data={this.state.contentList1}
-                  renderItem={this.rendermakelist1}
-                  keyExtractor={item => `${item.id}`}
-                />
+               
               </View>
             </ScrollView>   
-           : <CategoryScreen goBack ={this.goBack} />}
       </View>
     );
   }

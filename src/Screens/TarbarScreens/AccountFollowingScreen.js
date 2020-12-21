@@ -17,7 +17,6 @@ export default class ActivityFollowingScreen extends Component {
     componentDidMount(){
         this.setState({toggleFlag: this.props.navigation.getParam("ddd")})
     }
-
     render() {
         return (
             <View style={{ ...styles.container, backgroundColor: 'black' }}>
@@ -64,7 +63,7 @@ export default class ActivityFollowingScreen extends Component {
 													<Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{user.name}</Text></Text>
 													<Text style={styles.desTxt1}>{user.data.address}</Text>
 												</View>
-												<TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=false; window.us.update(); this.setState({reload: this.state.reload}) }}  style={styles.followBtn}>
+												<TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=false; window.us.update(); this.setState({reload: this.state.reload}) }}  style={styles.unfollowBtn}>
 													<Text style={styles.btnTxt}>Unfollow</Text>
 												</TouchableOpacity>
 											</View>
@@ -88,7 +87,7 @@ export default class ActivityFollowingScreen extends Component {
                                                     <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{user.name}</Text></Text>
                                                     <Text style={styles.desTxt1}>{user.data.address}</Text>
                                                 </View>
-                                                <TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=!window.us.data.follow[user._id]; window.us.update(); this.setState({reload: this.state.reload}) }}  style={styles.followBtn}>
+                                                <TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=!window.us.data.follow[user._id]; window.us.update(); this.setState({reload: this.state.reload}) }}   style={styles.followBtn}>
                                                     <Text style={styles.btnTxt}>{ window.us.data.follow[user._id] && "Unfollow" || "Follow" }</Text>
                                                 </TouchableOpacity>
                                             </View>
@@ -99,7 +98,7 @@ export default class ActivityFollowingScreen extends Component {
                         }
                     </View>
                 </ScrollView>
-            </View >
+            </View>
         );
     }
 }

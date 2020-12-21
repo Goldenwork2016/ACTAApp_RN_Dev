@@ -53,7 +53,7 @@ export default class HomeScreen extends Component {
         <ScrollView style={{ flex: 1, width: '100%' }}>
         <View style={{ width: '100%', height: 520 }}>
         { this.state.exercise && 
-          <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} resizeMode='stretch' style={styles.ImageBackground}>
+          <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')}style={styles.ImageBackground}>
           <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
           <View style={styles.header}>
           <View style={styles.BackBtn}>

@@ -57,9 +57,10 @@ export default class ActivityTraingenScreen extends Component {
                             </View>
                         </View>
                     </View>
+                        <View style={styles.LineStyle}/>
                     <View style={{ width: '100%' }}>
                         <View style={styles.mainContent}>
-                            <Text style={styles.numberTxt}>48</Text>
+                            <Text style={styles.numberTxtWorkouts}>48</Text>
                             <View style={styles.AllArea2}>
                                 <Text style={styles.ConHeaderTxt5}>September 27</Text>
                                 <Text style={{...styles.ConHeaderTxt5, color:'#82828f'}}>2020</Text>
@@ -83,7 +84,7 @@ export default class ActivityTraingenScreen extends Component {
                         </View>
                     </View>
                 </ScrollView>
-            </View >
+            </View>
         );
     }
 }

@@ -66,13 +66,13 @@ export default class ActiveExersiceScreen extends Component {
                                         <Text style={styles.FastTxt}>Left Banded Glude Kickback</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12<Text style={styles.minTxt}>reps</Text></Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12 <Text style={styles.minTxt}>reps</Text></Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
-                        <TouchableOpacity style={{ alignItems: 'center', marginVertical: 40, }} onPress={() => this.setState({ isModalVisible: true })}>
-                            <Text style={styles.FastTxt}>End workout</Text>
+                        <TouchableOpacity style={{ alignItems: 'center', marginTop: 30}} onPress={() => this.setState({ isModalVisible: true })}>
+                            <Text style={styles.EndTxt}>End workout</Text>
                         </TouchableOpacity>
                     </View>
                     <Modal isVisible={this.state.isModalVisible}>
@@ -189,8 +189,8 @@ const styles = StyleSheet.create({
         borderColor: '#82828f'
     },
     StopImage: {
-        width: 90,
-        height: 90,
+        width: 70,
+        height: 70,
         borderRadius: 45,
         justifyContent: 'center',
         alignItems: "center",
@@ -387,9 +387,9 @@ const styles = StyleSheet.create({
     leftMin: {
         position: 'absolute',
         right: 15,
-        borderLeftWidth: 0.2,
-        borderColor: '#82828f',
-        height: 50,
+        borderLeftWidth: 0.3,
+        borderColor: 'white',
+        height: 25,
         justifyContent: "center",
         paddingLeft: 15
     },
@@ -406,6 +406,17 @@ const styles = StyleSheet.create({
         marginVertical: 3,
         fontSize: 20,
         fontFamily: 'FuturaPT-Book',
+    },
+    EndTxt:{
+           color: 'white',
+        fontFamily: 'FuturaPT-Medium',
+        marginVertical: 3,
+        fontSize: 20,
+        fontFamily: 'FuturaPT-Book',
+        borderBottomWidth: 3,
+        borderRadius: 3,
+        borderColor: 'white',
+        paddingBottom: 25
     },
     FastTxt1: {
         color: 'white',

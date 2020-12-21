@@ -72,11 +72,11 @@ export default class ProgramDetailScreen extends Component {
                 <Text style={styles.TileTxt}>READY.</Text>
                 <Text style={styles.minText}>Start working on your beach body</Text>
                 <View style={styles.headerContent}>
-                  <View style={styles.ContentList2}>
+                  <View style={styles.ContentList6}>
                     <Text style={styles.numTxt}>8</Text>
                     <Text style={styles.itemTxt}>Week</Text>
                   </View>
-                  <View style={styles.ContentList2}>
+                  <View style={styles.ContentList6}>
                     <Text style={styles.numTxt}>5</Text>
                     <Text style={styles.itemTxt}>Per Week</Text>
                   </View>
@@ -92,7 +92,7 @@ export default class ProgramDetailScreen extends Component {
             </ImageBackground>
           </View>
           <View style={styles.mainContent}>
-            <View style={{ width: '100%', alignSelf: "center", marginBottom: 30 }}>
+            <View style={{marginBottom: 30 }}>
               <Text style={styles.DescriptionTxt}>
                 Mauris posuere magna ut ex dictum vehicula. Nulla neque ipsum, molestie ac magna non, viverra maximus nulla. Etiam vulputate euismod sapien, sed vehicula lorem blandit vel.
                 </Text>
@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
   ContentList2: {
     width: '33%',
     alignItems: "center",
-    borderRightWidth: 0.2,
-    borderColor: '#82828f'
+    borderRightWidth: 0.25,
+    borderColor: '#131214'
   },
   itemTxt: {
     fontFamily: 'FuturaPT-Book',
@@ -232,8 +232,8 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   mainContent: {
-    marginTop: 45,
-    width: '95%',
+    marginTop: 30,
+    width: '90%',
     alignSelf: 'center'
   },
   ConHeaderTxt: {
@@ -296,6 +296,13 @@ const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Book',
     color: '#82828f',
     fontSize: 18,
-    lineHeight: 30
-  }
+    lineHeight: 30,
+  },
+    ContentList6: {
+    width: '33%',
+    height: 45,
+    alignItems: "center",
+    borderRightWidth: 1,
+    borderColor: '#1d1c1e'
+  },
 })

@@ -9,43 +9,35 @@ export default class ABSScreen extends Component {
       contentList1: [
         {
           Title: 'Standing Abs Exercise',
-          ImageUrl: require("../../Assets/Images/program_11_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo1.png")
         },
         {
           Title: 'Standing Abs Exercise with Towel',
-          ImageUrl: require("../../Assets/Images/program_10_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo2.png")
         },
         {
           Title: 'Standing Abs Exercise',
-          ImageUrl: require("../../Assets/Images/program_9_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo3.png")
         },
         {
           Title: 'Standing Abs Exercise with Towel',
-          ImageUrl: require("../../Assets/Images/program_8_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo4.png")
         },
         {
           Title: 'Standing Abs Exercise',
-          ImageUrl: require("../../Assets/Images/program_7_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo5.png")
         },
         {
           Title: 'Standing Abs Exercise with Towel',
-          ImageUrl: require("../../Assets/Images/program_6_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo6.png")
         },
         {
           Title: 'Standing Abs Exercise',
-          ImageUrl: require("../../Assets/Images/program_5_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo7.png")
         },
         {
           Title: 'Standing Abs Exercise with Towel',
-          ImageUrl: require("../../Assets/Images/program_4_execises.png")
-        },
-        {
-          Title: 'Standing Abs Exercise',
-          ImageUrl: require("../../Assets/Images/program_3_execises.png")
-        },
-        {
-          Title: 'Standing Abs Exercise with Towel',
-          ImageUrl: require("../../Assets/Images/program_2_execises.png")
+          ImageUrl: require("../../Assets/Images/CategoryVideo8.png")
         }
       ]
     };
@@ -117,7 +109,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 60 : 20,
     width: "90%",
     alignItems: "center",
-    paddingBottom: 31,
+    paddingBottom: 27,
   },
   headerTxt: {
     color: 'white',
@@ -252,7 +244,8 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   mainContent: {
-    marginLeft: '3%'
+    marginLeft: '3%',
+    marginBottom: 20
   },
   ConHeaderTxt: {
     fontFamily: 'FuturaPT-Medium',

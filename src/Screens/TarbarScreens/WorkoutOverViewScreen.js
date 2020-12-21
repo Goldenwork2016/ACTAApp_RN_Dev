@@ -94,7 +94,7 @@ export default class WorkoutOverViewScreen extends Component {
                                     </View>
                                 </Modal>
                             </ScrollView>
-                        </View > :
+                        </View> :
                         <WorkoutCompleteScreen />
                 }
             </View>
@@ -139,21 +139,21 @@ const styles = StyleSheet.create({
     },
     achiveTxt: {
         color: '#82828f',
-        marginBottom: 15,
-        fontSize: 18,
+        marginBottom: 5,
+        fontSize: 16,
         fontFamily: 'FuturaPT-Book'
     },
     minTxt1: {
         color: 'white',
         marginBottom: 15,
-        fontSize: 22,
+        fontSize: 20,
         fontFamily: 'FuturaPT-Medium'
     },
     content: {
         width: "90%",
         alignSelf: 'center',
         borderTopColor: '#82828f',
-        borderWidth: 0.5,
+        borderWidth: 0.25,
         paddingTop: 30
     },
     OverviewBtn: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
         marginVertical: 45,
         width: '90%',
         height: 55,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: 'white',
         alignSelf: 'center',
         justifyContent: 'center'
@@ -207,15 +207,15 @@ const styles = StyleSheet.create({
         marginBottom: 40
     },
     ImageBackground1: {
-        width: 65,
-        height: 65,
+        width: 45,
+        height: 45,
         justifyContent: 'center',
         alignItems: 'center',
 
     },
     shareBtn: {
         position: 'absolute',
-        top: 60,
+        top: 30,
         right: 20,
     },
     UnderIcon: {
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     ContentList2: {
         width: '33%',
         alignItems: "center",
-        borderRightWidth: 0.2,
+        borderRightWidth: 0.25,
         borderColor: '#82828f'
     },
     StopImage: {
@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'FuturaPT-Demi',
         marginVertical: 3,
-        fontSize: 25,
+        fontSize: 22,
         fontFamily: 'FuturaPT-Book',
     },
     FastTxt1: {
