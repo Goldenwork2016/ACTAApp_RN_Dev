@@ -57,7 +57,7 @@ export default class ReadyScreen extends Component {
                             <Text style={styles.GetTxt}>Get redy in ...</Text>
                         </View>
                 }
-            </View >
+            </View>
         );
     }
 }

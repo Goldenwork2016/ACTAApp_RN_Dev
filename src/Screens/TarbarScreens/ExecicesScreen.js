@@ -264,6 +264,7 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   notiNumArea: {
+    
     backgroundColor: 'white',
     width: 15,
     height: 15,

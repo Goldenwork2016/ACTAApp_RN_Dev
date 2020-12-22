@@ -194,7 +194,7 @@ class AccountScreen extends Component {
                   <Text style={styles.ConHeaderTxt1}><Text style={{ fontSize: 25, marginTop: 5 }}>+</Text>  WEIGTH IN</Text>
                 </View>*/}
                   <View style={styles.mainContent}>
-                    <TouchableOpacity style={styles.allProgramsButton} onPress ={() =>  {this.setState({isCompare: true})}}>
+                    <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.navigation.navigate("CompareAndShare")}>
                       <Text style={styles.ConHeaderTxt}>Compare and Share</Text>
                     </TouchableOpacity>
                   </View>

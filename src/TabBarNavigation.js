@@ -33,6 +33,7 @@ import EditConnectivity from './Screens/TarbarScreens/EditConnectivity'
 import EditEmailScreen from './Screens/TarbarScreens/EditEmailScreen'
 import EditBirthdayScreen from './Screens/TarbarScreens/EditBirthdayScreen'
 import ProfileEdit from './pages/user/ProfileEdit'
+import CompareAndShare from './Screens/TarbarScreens/CompareAndShare'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
 
@@ -282,6 +283,12 @@ const Account = createStackNavigator(
                 headerShown: false,
             }
         },
+        CompareAndShare: {
+            screen: CompareAndShare,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'AccountScreen',
@@ -358,7 +365,7 @@ const TabNavigation = createBottomTabNavigator(
             activeTintColor: 'white',
             style: {
                 backgroundColor: '#000',
-                //----------add this line------------------------//
+                //----------add this line------------------------//     
                 height: perfectSize(70),
             },
             labelStyle: {

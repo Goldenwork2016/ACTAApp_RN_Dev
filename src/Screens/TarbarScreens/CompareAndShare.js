@@ -3,34 +3,18 @@ import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageB
 
 
 export default class CompareAndShare extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      abs: true
-    };
-  }
-
-  toggle = async () => {
-    await this.setState({ toggleFlag: true });
-  }
-  goBack =()=>{
-    this.setState({abs: true})
-
   render() {
     return (
       <View style={styles.container}>
-          {this.state.abs ? 
             <ScrollView style={{ flex: 1, width: '100%' }}>
               <View style={{ width: '100%', height: 220 }}>
                   <View style={styles.header}>
-                    <View style={styles.BackBtn}>
+                    <TouchableOpacity style={styles.BackBtn}  onPress={() => this.props.navigation.goBack()}>
                       <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
-                    </View>
-                    <View style={styles.dropDown}>
-                      <Text style={styles.headerTxt}>COMPARE & SHARE</Text>
-                    </View>
-                    <TouchableOpacity style={styles.AlarmkBtn}>
                     </TouchableOpacity>
+                    <View style={styles.dropDown}>
+                        <Text style={styles.headerTxt}>COMPARE & SHARE</Text>
+                    </View>
                   </View>
                   <View style={styles.LineStyle}/>
                   <View style={styles.mainContainer}>
@@ -38,15 +22,39 @@ export default class CompareAndShare extends Component {
                     <Text style={styles.TileTxt}>AND SHARE</Text>
                   </View>
               </View>
-              <View style={styles.mainContent}>
-               
+              <View style={styles.headerContent1}>
+                <View style={styles.ContentList3}>
+                  <View style={styles.ImageArea1}>
+                    <Image source={require('../../Assets/Images/ProPersonImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  </View>
+                </View>
+                <View style={styles.ContentList3}>
+                  <View style={styles.ImageArea1}>
+                    <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  </View>
+                </View>
               </View>
-            </ScrollView>   
-      </View>
-    );
+               <View style={{alignSelf: 'center', marginBottom: 60}}>
+                  <Text style={styles.ConHeaderTxt5}>Share your progress</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity style={styles.ShareIconBtn}>
+                     <Image source={require('../../Assets/Images/facebook.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.ShareIconBtn}>
+                      <Image source={require('../../Assets/Images/twitter.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.ShareIconBtn}>
+                      <Image source={require('../../Assets/Images/instagram.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.ShareIconBtn}>
+                      <Image source={require('../../Assets/Images/whatsapp.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+            </ScrollView> 
+      </View>);
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -57,12 +65,6 @@ const styles = StyleSheet.create({
   ImageBackground: {
     width: '100%',
     height: '100%'
-  },
-  UnderIcon: {
-    width: 10,
-    height: 7,
-    alignSelf: "center",
-    marginRight: 20
   },
   header: {
     marginTop: Platform.OS === 'ios' ? 60 : 20,
@@ -77,18 +79,16 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5
   },
   HeaderImage: {
-    marginLeft: 10,
+    marginLeft: 15,
     width: 25,
     height: 21
   },
-  notiImage: {
-    width: 22,
-    height: 23
-  },
-  RightIcon: {
-    width: 6,
-    height: 10,
-    marginRight: 10
+  ShareImage:{
+    alignItems: 'center',
+    marginTop: 15,
+    marginLeft: 15,
+    width: 19,
+    height: 19
   },
   BackBtn: {
     width: 26,
@@ -102,81 +102,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: "-8%"
   },
-  AlphaImage: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  PursueImage: {
-    width: 200,
-    height: 100,
-    alignSelf: "center",
-    marginBottom: 35
-  },
-  UnderIcon: {
-    width: 10,
-    height: 7,
-    alignSelf: "center",
-    marginLeft: 15
-  },
-  LoginImage: {
-    width: 46,
-    height: 19,
-    alignSelf: "center"
-  },
-  createBtn: {
-    width: "100%",
-    height: 53,
-    backgroundColor: 'white',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
-  },
-  createBtn1: {
-    width: "100%",
-    height: 53,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
-  },
-  createBtn2: {
-    width: 80,
-    height: 53,
-    backgroundColor: 'white',
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    borderRadius: 3,
-  },
+
   mainContainer: {
     position: 'absolute',
-    bottom: 0,
+    width: "60%",
+    bottom: -50,
     alignSelf: 'center'
   },
-  CreateTxt: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'black',
-    fontSize: 22,
-    textAlign: "center",
-  },
-  CreateTxt1: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 22,
-    textAlign: "center",
-  },
-  LoginTxt: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 22,
-    textAlign: "center"
-  },
+
   TileTxt: {
     fontFamily: 'TrumpSoftPro-BoldItalic',
-    color: 'white', fontSize: 62,
+    color: 'white',
+     fontSize: 62,
     textAlign: "center",
     marginBottom: 5,
     lineHeight: 70
@@ -184,88 +121,56 @@ const styles = StyleSheet.create({
   dropDown: {
     marginLeft: '10%'
   },
-  notiNum: {
-    textAlign: "center",
-    fontSize: 12,
-    color: 'black'
-  },
-  notiNumArea: {
-    backgroundColor: 'white',
-    width: 15,
-    height: 15,
-    borderRadius: 7.5,
-    position: "absolute",
-    top: -3,
-    right: -3,
-  },
-  minText: {
-    fontFamily: 'FuturaPT-Book',
-    color: '#82828f',
-    fontSize: 18,
-    textAlign: "center",
-    marginBottom: 20
-  },
-  nextTxt: {
-    fontFamily: 'FuturaPT-Book',
-    textAlign: "center",
-    color: 'white',
-    fontSize: 18,
-    marginBottom: 15
-  },
+
   mainContent: {
     marginTop: 15,
     marginBottom: 30,
     marginLeft: '3%'
-  },
-  ConHeaderTxt: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 23,
-    marginBottom: 15
-  },
-  ConHeaderTxt1: {
-    fontFamily: 'FuturaPT-Medium',
-    color: 'white',
-    fontSize: 14,
-    letterSpacing: 2,
-    textAlign: "center"
-  },
-  ContentImage: {
-    width: 224,
-    height: 224,
-    marginRight: 20
-  },
-  ContentImage1: {
-    width: "97.5%",
-    height: 160,
-    marginRight: 20,
-    position: 'absolute'
-  },
-  ListTitle: {
-    fontSize: 35,
-    color: 'white',
-    fontFamily: 'TrumpSoftPro-BoldItalic',
-    width: '100%',
-    textAlign: "center"
-  },
-  ListContent1: {
-    marginTop: 5,
-    width: "97.5%",
-    height: 160,
-    marginBottom: 7,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  AllArea: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: "center",
-    marginRight: 5
   },
   LineStyle:{
     borderBottomColor: '#18171a',
     borderBottomWidth: 1,
     marginLeft: '5%',
     marginRight: '5%'
-   }
+   },
+  headerContent1: {
+    flexDirection: 'row',
+    width: '95%',
+    alignSelf: 'center',
+    paddingBottom: 30,
+    marginTop: 65,
+    borderColor: '#82828f'
+  },
+  ContentList3: {
+    width: '50%',
+    alignItems: "center",
+  },
+  ConHeaderTxt5: {
+    fontFamily: 'FuturaPT-Medium',
+    color: 'white',
+    fontSize: 23,
+    marginBottom: 15,
+    marginLeft: 30
+  },
+  ImageArea1: {
+    width: "90%",
+    height: 220,
+    backgroundColor: '#111012',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+    marginBottom: 15
+  },
+  ArchieveImage1: {
+    width: '100%',
+    height: '100%'
+  },
+  ShareIconBtn:{
+    marginLeft: 10,
+    width: 50,
+    height: 50, 
+    backgroundColor: 'white',
+    borderRadius: 50
+  }
 })
+

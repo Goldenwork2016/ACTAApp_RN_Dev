@@ -73,6 +73,7 @@ export default class ActiveExersiceScreen extends Component {
                         </View>
                         <TouchableOpacity style={{ alignItems: 'center', marginTop: 30}} onPress={() => this.setState({ isModalVisible: true })}>
                             <Text style={styles.EndTxt}>End workout</Text>
+                            <View style = {styles.EndLine}/>
                         </TouchableOpacity>
                     </View>
                     <Modal isVisible={this.state.isModalVisible}>
@@ -408,14 +409,11 @@ const styles = StyleSheet.create({
         fontFamily: 'FuturaPT-Book',
     },
     EndTxt:{
-           color: 'white',
+        color: 'white',
         fontFamily: 'FuturaPT-Medium',
         marginVertical: 3,
         fontSize: 20,
         fontFamily: 'FuturaPT-Book',
-        borderBottomWidth: 3,
-        borderRadius: 3,
-        borderColor: 'white',
         paddingBottom: 25
     },
     FastTxt1: {
@@ -439,5 +437,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'FuturaPT-Demi',
         letterSpacing: 2
+    },
+    EndLine:{
+        borderWidth: 2,
+        borderRadius: 3,
+        width: '37%',
+        borderColor: 'white',
     }
 })

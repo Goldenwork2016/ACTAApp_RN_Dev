@@ -69,7 +69,7 @@ export default class ProgramDetailStartScreen extends Component {
                                     <View style={{borderColor:'#18171A', borderBottomWidth:2, width:"50%"}}>
                                     </View>
                                     <View style={styles.leftMin1}>
-                                    <Text style={{ ...styles.numTxt, fontSize: 25 }}>60</Text>
+                                    <Text style={{ ...styles.numTxt, fontSize: 25, color: '#82828f' }}>60</Text>
                                         <Text style={styles.minTxt}>sec.</Text>
                                     </View>
                                 </View>
@@ -96,7 +96,7 @@ export default class ProgramDetailStartScreen extends Component {
                                         <Text style={styles.FastTxt}>Bridge</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12</Text>
+                                        <Text style={{...styles.numTxt, fontSize: 25 }}>12</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
@@ -128,7 +128,7 @@ export default class ProgramDetailStartScreen extends Component {
                                     <View style={{borderColor:'#18171A', borderBottomWidth:2, width:"50%"}}>
                                     </View>
                                     <View style={styles.leftMin1}>
-                                    <Text style={{ ...styles.numTxt, fontSize: 25 }}>60</Text>
+                                    <Text style={{ ...styles.numTxt, fontSize: 25, color: '#82828f'}}>60</Text>
                                         <Text style={styles.minTxt}>sec.</Text>
                                     </View>
                                 </View>
@@ -359,8 +359,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     fastImage: {
-        width: 45,
-        height: 55
+        width: 55,
+        height: 60
     },
     ItemArea: {
         height: 100,
@@ -391,15 +391,13 @@ const styles = StyleSheet.create({
     leftMin: {
         position: 'absolute',
         right: 15,
-        borderLeftWidth: 0.25,
+        borderLeftWidth: 1,
         borderColor: '#302f32',
         height: 50,
         justifyContent: "center",
         paddingLeft: 20
     },
     leftMin1: {
-        borderLeftWidth: 0.2,
-        borderColor: '#82828f',
         height: 50,
         justifyContent: "center",
         paddingLeft: 20

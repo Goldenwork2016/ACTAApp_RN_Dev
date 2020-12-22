@@ -580,7 +580,6 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingBottom: 30,
     marginTop: 15,
-  
     borderColor: '#82828f'
   },
   ContentList2: {
