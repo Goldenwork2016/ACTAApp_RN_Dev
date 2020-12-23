@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
 import WorkoutsScreen from './workoutsScreen';
 import ProgressStatus from './Components/ProgressStatus';
-import SocialActivities from './Components/SocialActivities'
+import SocialActivities from './Components/SocialActivities';
 
 
 
@@ -52,13 +52,13 @@ export default class HomeScreen extends Component {
           { this.state.toggleFlag ?
         <ScrollView style={{ flex: 1, width: '100%' }}>
         <View style={{ width: '100%', height: 520}}>
-        { this.state.exercise && 
-          <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')}  resizeMode='stretch'  style={styles.ImageBackground}>
+        { this.state.exercises && 
+          <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} style={styles.ImageBackground} resizeMode= 'contain'>
           <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
           <View style={styles.header}>
-          <View style={styles.BackBtn}>
-          <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
-          </View>
+            <View style={styles.BackBtn}>
+              <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+            </View>
 
 
           {/*<TouchableOpacity style={styles.dropDown} onPress={() => this.props.AnimationsStart()}>
@@ -113,27 +113,27 @@ export default class HomeScreen extends Component {
   </View>
 
   <View style={!this.state.start ? styles.mainContent : {...styles.mainContent, marginTop: 80}}>
-<TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.gotoExcercise()}>
-<Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
-<Text style={styles.ConHeaderTxt1}> ALL PROGRAMS</Text>
-</TouchableOpacity>
-<View style={styles.mainContent}>
+    <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.gotoExcercise()}>
+    <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
+    <Text style={styles.ConHeaderTxt1}> ALL PROGRAMS</Text>
+    </TouchableOpacity>
+    <View style={styles.mainContent}>
 
-<View style ={styles.headerQuickWorkouts}>
-<Text style={styles.ConHeaderTxt}>Quick workouts</Text>
-<TouchableOpacity style={styles.Categories} onPress={() => this.props.AnimationsStart()}>
-<Text style={styles.headerTxt}>CATEGORIES</Text>
-<Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
-</TouchableOpacity>
-</View>
-<FlatList
-horizontal
-// showsVerticalScrollIndicator={true}
-numColumns={1}
-data={this.state.exercises}
-renderItem={this._rendermakelist}
-keyExtractor={item => `${item.id}`}
-/>
+    <View style ={styles.headerQuickWorkouts}>
+    <Text style={styles.ConHeaderTxt}>Quick workouts</Text>
+    <TouchableOpacity style={styles.Categories} onPress={() => this.props.AnimationsStart()}>
+    <Text style={styles.headerTxt}>CATEGORIES</Text>
+    <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
+    </TouchableOpacity>
+    </View>
+    <FlatList
+    horizontal
+    // showsVerticalScrollIndicator={true}
+    numColumns={1}
+    data={this.state.exercises}
+    renderItem={this._rendermakelist}
+    keyExtractor={item => `${item.id}`}
+    />
 </View>
 
 {/*<FlatList
@@ -387,7 +387,7 @@ imgTxt2: {
 },
 mainContent: {
    marginTop: 15,
-  marginLeft: '3%'
+  marginLeft: '3%',
 },
 ConHeaderTxt: {
   fontFamily: 'FuturaPT-Medium',
@@ -434,6 +434,7 @@ allProgramsButton:{
   paddingTop: 15,
   paddingBottom: 15,
   marginRight: 15,
+  marginBottom: 55,
   borderColor: "#232327",
   borderWidth: 1,
   justifyContent: 'center',

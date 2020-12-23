@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 41,
     borderBottomWidth: 1,
-    borderColor: '#53535f'
+    borderColor: '#18171a'
   },
   LoginTxtImage: {
     marginTop: 45,

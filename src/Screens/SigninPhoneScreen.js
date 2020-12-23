@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 48,
     borderBottomWidth: 0.3,
-    borderColor: 'white'
+    borderColor: '#18171a'
   },
   LoginTxtImage: {
     marginTop: 45,
