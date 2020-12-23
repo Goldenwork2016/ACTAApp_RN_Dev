@@ -14,7 +14,7 @@ export default function ProgressStatus (){
 				<Text style={styles.from}>/8</Text>
 			</View>
 		</View>
-		<ProgressCircle
+		{/*<ProgressCircle
             percent={25}
             radius={61}
             borderWidth={3}
@@ -27,19 +27,25 @@ export default function ProgressStatus (){
 				<Text style={{ fontSize: 50, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>25</Text>
 				<Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
 			</View>
-		</ProgressCircle>
-        {/*<AnimatedCircularProgress
-              size={100}
-              width={3}
+		</ProgressCircle>*/}
+        <AnimatedCircularProgress
+              size={122}
+              width={2}
               fill={25}
+              rotation = {360}
               tintColor="#fff"
-              backgroundColor="#000" 
-              />
-                     <View style={{ flexDirection: 'row' }}>
+              backgroundColor="#1a1a1a" 
+              >
+               {
+    (fill) => (
+        <View style={{ flexDirection: 'row' }}>
                 <Text style={{ fontSize: 50, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>25</Text>
                 <Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
             </View>
-        </AnimatedCircularProgress>*/}
+    )
+  }
+        </AnimatedCircularProgress>
+                
   		<View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
 			<Text style={styles.itemTxt}>Day</Text>
 			<Text style={styles.numTxt}>2</Text>
