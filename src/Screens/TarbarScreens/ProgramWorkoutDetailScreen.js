@@ -390,12 +390,12 @@ const styles = StyleSheet.create({
     },
     leftMin: {
         position: 'absolute',
-        right: 15,
+        right: 25,
         borderLeftWidth: 1,
         borderColor: '#302f32',
         height: 50,
         justifyContent: "center",
-        paddingLeft: 20
+        paddingLeft: 30
     },
     leftMin1: {
         height: 50,

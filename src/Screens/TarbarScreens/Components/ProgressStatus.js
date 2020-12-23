@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
 import ProgressCircle from 'react-native-progress-circle'
-//import {CircularProgressbar} from 'react-circular-progressbar';
+import {CircularProgressbar} from 'react-circular-progressbar';
 
 export default function ProgressStatus (){
     const percentage = 0.25;
@@ -27,7 +27,7 @@ export default function ProgressStatus (){
 				<Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
 			</View>
 		</ProgressCircle>
-           {/* <CircularProgressbar       
+       {/*  <CircularProgressbar       
             value={percentage}
             strokeWidth={5}>
                 <View style={{ flexDirection: 'row' }}>

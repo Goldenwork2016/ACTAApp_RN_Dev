@@ -51,9 +51,9 @@ export default class HomeScreen extends Component {
         <View style={styles.container}>
           { this.state.toggleFlag ?
         <ScrollView style={{ flex: 1, width: '100%' }}>
-        <View style={{ width: '100%', height: 520 }}>
+        <View style={{ width: '100%', height: 520}}>
         { this.state.exercise && 
-          <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')}style={styles.ImageBackground}>
+          <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')}  resizeMode='stretch'  style={styles.ImageBackground}>
           <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
           <View style={styles.header}>
           <View style={styles.BackBtn}>
@@ -88,7 +88,7 @@ export default class HomeScreen extends Component {
       </View>
       </View>
       </View>
-      <View  style={styles.mainContainer}>
+      <View  style={!this.state.start ? styles.mainContainer : styles.mainContainer2}>
       {!this.state.start ? <Text style={styles.nextTxt}>Start your first program</Text>
        : <Text style={styles.nextTxt}>Your current program</Text>}
 
@@ -112,7 +112,7 @@ export default class HomeScreen extends Component {
   }
   </View>
 
-  <View style={styles.mainContent}>
+  <View style={!this.state.start ? styles.mainContent : {...styles.mainContent, marginTop: 80}}>
 <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.gotoExcercise()}>
 <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
 <Text style={styles.ConHeaderTxt1}> ALL PROGRAMS</Text>
@@ -280,7 +280,11 @@ const styles = StyleSheet.create({
  },
  mainContainer: {
   position: 'absolute',
-  bottom: 0,
+  marginTop: 320,
+  alignSelf: 'center'
+},
+ mainContainer2: {
+  marginTop: 100,
   alignSelf: 'center'
 },
 mainButton:{
@@ -382,7 +386,7 @@ imgTxt2: {
   textShadowRadius: 3,
 },
 mainContent: {
-   marginTop: 25,
+   marginTop: 15,
   marginLeft: '3%'
 },
 ConHeaderTxt: {

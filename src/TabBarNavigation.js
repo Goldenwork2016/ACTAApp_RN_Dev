@@ -364,8 +364,10 @@ const TabNavigation = createBottomTabNavigator(
         tabBarOptions: {
             activeTintColor: 'white',
             style: {
+                borderTopWidth: 0.6,
+                borderTopColor: '#18171a',
                 backgroundColor: '#000',
-                //----------add this line------------------------//     
+                //----------add this line------------------------// 
                 height: perfectSize(70),
             },
             labelStyle: {

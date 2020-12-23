@@ -73,7 +73,7 @@ export default class ActiveExersiceScreen extends Component {
                         </View>
                         <TouchableOpacity style={{ alignItems: 'center', marginTop: 30}} onPress={() => this.setState({ isModalVisible: true })}>
                             <Text style={styles.EndTxt}>End workout</Text>
-                            <View style = {styles.EndLine}/>
+                            {/*<View style = {styles.EndLine}/>*/}
                         </TouchableOpacity>
                     </View>
                     <Modal isVisible={this.state.isModalVisible}>

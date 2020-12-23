@@ -509,7 +509,6 @@ export const styles = StyleSheet.create({
     marginTop: 1,
     width: '100%',
     borderRadius: 3,
-    height: 155,
     backgroundColor: '#18171a',
     justifyContent: "center"
   },
@@ -616,7 +615,6 @@ export const styles = StyleSheet.create({
     height: 10,
     marginRight: 10
   },
-
   Content: {
     width: '100%',
     backgroundColor: 'black',
@@ -711,19 +709,13 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'FuturaPT-Book',
   },
-   LineStyle:{
-    borderBottomColor: '#0e0d0f',
-    borderBottomWidth: 1,
-    marginLeft: '5%',
-    marginRight: '5%'
-   },
    message:{
     color: '#575763',
-    width: '70%',
+    width: '80%',
     fontFamily: 'FuturaPT-Book',
     fontSize: 16,
     marginLeft: 15,
-    lineHeight: 25
+    lineHeight: 25,
   },
   completed:{
     color: '#575763',
@@ -773,6 +765,14 @@ export const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderColor: '#1d1c1e'
   },
+  LineStyle1:{
+    borderBottomColor: '#0e0d0f',
+    borderBottomWidth: 1,
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginTop: 15,
+    marginBottom: 10
+   },
   LineStyle:{
     borderBottomColor: '#18171a',
     borderBottomWidth: 1,
