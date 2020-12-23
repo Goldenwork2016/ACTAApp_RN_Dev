@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
-import ProgressCircle from 'react-native-progress-circle'
-import {CircularProgressbar} from 'react-circular-progressbar';
+import ProgressCircle from 'react-native-progress-circle';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function ProgressStatus (){
     const percentage = 0.25;
@@ -15,26 +15,31 @@ export default function ProgressStatus (){
 			</View>
 		</View>
 		<ProgressCircle
-			percent={25}
-			radius={61}
-			borderWidth={3}
-		    bgColor='#000'
-			shadowColor="#111012"
-			color="white"
-			outerCircleStyle={{}}>
+            percent={25}
+            radius={61}
+            borderWidth={3}
+            color="white"
+            shadowColor="#111012"
+            bgColor="#000"
+            outerCircleStyle={{}}
+			>
 			<View style={{ flexDirection: 'row' }}>
 				<Text style={{ fontSize: 50, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>25</Text>
 				<Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
 			</View>
 		</ProgressCircle>
-       {/*  <CircularProgressbar       
-            value={percentage}
-            strokeWidth={5}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 50, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>25</Text>
-                    <Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
-                </View>
-            </CircularProgressbar>*/}
+        {/*<AnimatedCircularProgress
+              size={100}
+              width={3}
+              fill={25}
+              tintColor="#fff"
+              backgroundColor="#000" 
+              />
+                     <View style={{ flexDirection: 'row' }}>
+                <Text style={{ fontSize: 50, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>25</Text>
+                <Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
+            </View>
+        </AnimatedCircularProgress>*/}
   		<View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
 			<Text style={styles.itemTxt}>Day</Text>
 			<Text style={styles.numTxt}>2</Text>
