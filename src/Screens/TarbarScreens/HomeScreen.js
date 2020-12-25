@@ -47,6 +47,7 @@ export default class HomeScreen extends Component {
       )
     }
     render() {
+      console.log(this.state.exercises)
       return (
         <View style={styles.container}>
           { this.state.toggleFlag ?
@@ -91,8 +92,6 @@ export default class HomeScreen extends Component {
       <View  style={!this.state.start ? styles.mainContainer : styles.mainContainer2}>
       {!this.state.start ? <Text style={styles.nextTxt}>Start your first program</Text>
        : <Text style={styles.nextTxt}>Your current program</Text>}
-
-
     {/* <Text style={styles.TileTxt}>{this.state.exercise.name}</Text>
          <Text style={styles.minText}>{this.state.exercise.details}</Text>*/}
       

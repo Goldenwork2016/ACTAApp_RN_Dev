@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: '#111012',
-  
   },
   pendingArea: {
     width: '95%',

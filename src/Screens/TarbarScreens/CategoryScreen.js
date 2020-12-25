@@ -72,7 +72,7 @@ export default class ABSScreen extends Component {
                       <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
                     </TouchableOpacity>
                     <View style={styles.dropDown}>
-                      <Text style={styles.headerTxt}>ABS</Text>
+                      <Text style={styles.headerTxt}>{this.props.title}</Text>
                     </View>
                   </View>
               </View>

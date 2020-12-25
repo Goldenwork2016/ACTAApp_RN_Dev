@@ -55,7 +55,8 @@ export default class ExercicesScreen extends Component {
         }
       ],
        toggleFlag: true,
-       abs: true
+       abs: true, 
+       data: {}
     };
   }
 
@@ -71,7 +72,7 @@ export default class ExercicesScreen extends Component {
   }
    /*this.props.navigation.navigate("ProgramDetailScreen") */
   rendermakelist1 = ({ item }) => (
-    <TouchableOpacity style={styles.ListContent1} onPress={() =>{this.setState({abs: false})}}>
+    <TouchableOpacity style={styles.ListContent1} onPress={() =>{console.log(this.setState({abs: false, data: item}))}}>
       <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
       <Text style={styles.ListTitle}>{item.Title}</Text>
     </TouchableOpacity>
@@ -115,7 +116,7 @@ export default class ExercicesScreen extends Component {
                 />
               </View>
             </ScrollView>   
-           : <CategoryScreen goBack ={this.goBack} />}
+           : <CategoryScreen goBack ={this.goBack} title = {this.state.data.Title}/>}
       </View>
     );
   }
