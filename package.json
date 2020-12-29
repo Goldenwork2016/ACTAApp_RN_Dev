@@ -27,11 +27,14 @@
     "react-native-reanimated": "1.13.1",
     "react-native-safe-area-context": "3.1.8",
     "react-native-screens": "2.11.0",
+    "react-native-sqlite-storage": "^5.0.0",
     "react-native-svg": "^12.1.0",
     "react-native-switch": "2.0.0",
     "react-navigation": "4.4.2",
     "react-navigation-stack": "2.8.4",
-    "react-navigation-tabs": "2.9.2"
+    "react-navigation-tabs": "2.9.2",
+    "sync-storage": "^0.4.2",
+    "wrcom": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
