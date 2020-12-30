@@ -6,24 +6,28 @@ export default class HomeDropScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentList1: [
-        {
-          Title: 'BUILD MUSCLE',
-          ImageUrl: require("../../Assets/Images/program1.png")
-        },
-        {
-          Title: 'LOOSE FAT',
-          ImageUrl: require("../../Assets/Images/program2.png")
-        },
-        {
-          Title: 'BOTH',
-          ImageUrl: require("../../Assets/Images/program3.png")
-        }
-      ],
+      contentList1: null,
+      // [
+      //   {
+      //     Title: 'BUILD MUSCLE',
+      //     ImageUrl: require("../../Assets/Images/program1.png")
+      //   },
+      //   {
+      //     Title: 'LOOSE FAT',
+      //     ImageUrl: require("../../Assets/Images/program2.png")
+      //   },
+      //   {
+      //     Title: 'BOTH',
+      //     ImageUrl: require("../../Assets/Images/program3.png")
+      //   }
+      // ],
       SlideInLeft: new Animated.Value(1),
     };
   }
-
+  componentDidMount(){
+    let workout = global.mongo.get('workout')
+    this.setState({contentList1: workout.all})
+  }
   _rendermakelist({ item }) {
     return (
       <View style={{ marginTop: 5 }}>
@@ -71,8 +75,8 @@ export default class HomeDropScreen extends Component {
   _rendermakelist1({ item }) {
     return (
       <View style={styles.ListContent1}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-        <Text style={styles.ListTitle}>{item.Title}</Text>
+        <Image source={{uri: 'https://acta.webart.work'+item.thumb}} resizeMode="stretch" style={styles.ContentImage1} />
+        <Text style={styles.ListTitle}>{item.name}</Text>
       </View>
     )
   }
@@ -88,7 +92,7 @@ export default class HomeDropScreen extends Component {
                 <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
               </View>
               <TouchableOpacity style={styles.dropDown} onPress={() => this.AnimationsEnd()}>
-                <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
+                <Text style={styles.headerTxt}>CATEGORIES</Text>
                 <Image source={require('../../Assets/Images/upImage.png')} resizeMode='stretch' style={styles.UnderIcon} />
               </TouchableOpacity>
               <TouchableOpacity style={styles.AlarmkBtn} onPress={() => this.AnimationsEnd()}>
@@ -302,7 +306,7 @@ const styles = StyleSheet.create({
   },
   ContentImage1: {
     width: "95%",
-    height: 160,
+    height: 350,
     marginRight: 20,
     position: 'absolute'
   },
@@ -317,7 +321,7 @@ const styles = StyleSheet.create({
   ListContent1: {
     marginTop: 5,
     width: "100%",
-    height: 160,
+    height: 360,
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center'

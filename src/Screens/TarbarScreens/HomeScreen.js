@@ -47,12 +47,16 @@ export default class HomeScreen extends Component {
       )
     }
     render() {
-      console.log(this.state.exercises)
+      // let exercise = global.mongo.get('exercise');
+      // setTimeout (()=>{
+      //     console.log(exercise.all);
+      //   }, 5000)
+    
       return (
         <View style={styles.container}>
           { this.state.toggleFlag ?
         <ScrollView style={{ flex: 1, width: '100%' }}>
-        <View style={{ width: '100%', height: 520}}>
+        <View style={{ width: '100%', height: 600}}>
         { this.state.exercises && 
           <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} style={styles.ImageBackground} resizeMode= 'cover'>
           <Image source={require('../../Assets/Images/AlphaImage.png')} resizeMode='stretch' style={styles.AlphaImage} />
@@ -77,19 +81,19 @@ export default class HomeScreen extends Component {
         </View>
         </TouchableOpacity>
       <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center',  marginTop: 30}}>
-      <View style={{ width: '50%' }}>
-      <TouchableOpacity style={styles.createBtnPrograms} onPress={() => { this.setState({ toggleFlag: true }) }}>
-      <Text style={styles.createTxtPrograms}>Program</Text>
-      </TouchableOpacity>
+        <View style={{ width: '50%' }}>
+          <TouchableOpacity style={styles.createBtnPrograms} onPress={() => { this.setState({ toggleFlag: true }) }}>
+            <Text style={styles.createTxtPrograms}>Program</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ width: '63%' }}>
+          <TouchableOpacity style={styles.createBtnWorkouts} onPress={() => { this.setState({ toggleFlag: false }) }}>
+            <Text style={styles.CreateTxtWorkouts}>Workouts</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={{ width: '63%' }}>
-      <TouchableOpacity style={styles.createBtnWorkouts} onPress={() => { this.setState({ toggleFlag: false }) }}>
-      <Text style={styles.CreateTxtWorkouts}>Workouts</Text>
-      </TouchableOpacity>
       </View>
-      </View>
-      </View>
-      <View  style={!this.state.start ? styles.mainContainer : styles.mainContainer2}>
+      <View  style={styles.mainContainer}>
       {!this.state.start ? <Text style={styles.nextTxt}>Start your first program</Text>
        : <Text style={styles.nextTxt}>Your current program</Text>}
     {/* <Text style={styles.TileTxt}>{this.state.exercise.name}</Text>
@@ -97,11 +101,15 @@ export default class HomeScreen extends Component {
       
       <Text style={styles.TileTxt}>FAST & FURIOUS.</Text>
 
-    {this.state.start ? <ProgressStatus/> : <Text></Text>}
+    {this.state.start ? <ProgressStatus/> : null}
       <View style ={styles.mainButton}>
+       {!this.state.start ? 
         <TouchableOpacity style={styles.createBtn} onPress={() =>{this.setState({start: true})}}>
-         {!this.state.start? <Text style={styles.CreateTxt}>Start</Text> : <Text style={styles.CreateTxt} onPress={() => this.props.gotoReadyScreen()}>Continue</Text>}
-        </TouchableOpacity>
+          <Text style={styles.CreateTxt}>Start</Text>
+        </TouchableOpacity> : 
+         <TouchableOpacity  style={{...styles.createBtn, width: 110}} onPress={() => {this.props.gotoReadyScreen()}}>
+          <Text style={styles.CreateTxt}>Continue</Text>
+        </TouchableOpacity>}
         <View>
          <Image source={require('../../Assets/Images/Mask.png')} resizeMode='stretch' style={styles.infoImage} alt="Help"/>
         </View>
@@ -111,7 +119,7 @@ export default class HomeScreen extends Component {
   }
   </View>
 
-  <View style={!this.state.start ? styles.mainContent : {...styles.mainContent, marginTop: 80}}>
+  <View style={!this.state.start ? styles.mainContent : {...styles.mainContent}}>
     <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.gotoExcercise()}>
     <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
     <Text style={styles.ConHeaderTxt1}> ALL PROGRAMS</Text>
@@ -250,14 +258,15 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   createBtn: {
-    width: 100,
-    height: 45,
+    width: 90,
+    marginTop: 25,
+    marginBottom: 25,
+    height: 50,
     backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
     alignSelf: 'center',
     borderRadius: 3,
-
   },
   createBtnPrograms:{
    width: "100%",
@@ -279,21 +288,17 @@ const styles = StyleSheet.create({
  },
  mainContainer: {
   position: 'absolute',
-  marginTop: 320,
-  alignSelf: 'center'
-},
- mainContainer2: {
-  marginTop: 100,
+  bottom: 0,
   alignSelf: 'center'
 },
 mainButton:{
-  marginLeft: 55,
+  marginLeft: 44,
   flexDirection: 'row',
   alignSelf: 'center'
 },
 infoImage:{ 
   marginLeft: 20,
-  marginTop: 13
+  marginTop: 38,
 },
 CreateTxt: {
   fontFamily: 'FuturaPT-Medium',
@@ -355,7 +360,6 @@ nextTxt: {
   textAlign: "center",
   color: 'white',
   fontSize: 18,
-  marginBottom: 15
 },
 imgTxt1: {
   fontFamily: 'FuturaPT-Book',

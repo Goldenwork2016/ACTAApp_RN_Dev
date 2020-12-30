@@ -4,7 +4,6 @@ import ProgressCircle from 'react-native-progress-circle';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function ProgressStatus (){
-    const percentage = 0.25;
 	return <>
 	<View style={styles.headerContent}>
 		<View style={{ ...styles.ContentList2, borderRightWidth: 0, marginTop: 27}}>
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
         width: '95%',
         alignSelf: 'center',
         marginTop: 15,
-        marginBottom: 25,
+        marginBottom: 10,
         alignItems: 'center'
     },
     ContentList2: {
