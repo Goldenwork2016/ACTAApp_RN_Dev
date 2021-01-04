@@ -72,7 +72,7 @@ export default class ExercicesScreen extends Component {
   }
    /*this.props.navigation.navigate("ProgramDetailScreen") */
   rendermakelist1 = ({ item }) => (
-    <TouchableOpacity style={styles.ListContent1} onPress={() =>{console.log(this.setState({abs: false, data: item}))}}>
+    <TouchableOpacity style={styles.ListContent1} onPress={() =>{this.props.navigation.navigate('CategoryScreen', {item})}}>
       <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
       <Text style={styles.ListTitle}>{item.Title}</Text>
     </TouchableOpacity>
@@ -82,7 +82,7 @@ export default class ExercicesScreen extends Component {
     return (
       <View style={styles.container}>
          {/*this.state.toggleFlag ? */} 
-          {this.state.abs ? 
+          {/*this.state.abs ?*/} 
             <ScrollView style={{ flex: 1, width: '100%' }}>
               <View style={{ width: '100%', height: 220 }}>
                   <View style={styles.header}>
@@ -92,7 +92,7 @@ export default class ExercicesScreen extends Component {
                     <View style={styles.dropDown}>
                       <Text style={styles.headerTxt}>EXERCISES</Text>
                     </View>
-                    <TouchableOpacity style={styles.AlarmkBtn}>
+                    <TouchableOpacity style={styles.AlarmkBtn} onPress = {()=>{this.props.navigation.navigate('NotificationScreen')}}>
                       <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
                       <View style={styles.notiNumArea}>
                         <Text style={styles.notiNum}>3</Text>
@@ -116,7 +116,7 @@ export default class ExercicesScreen extends Component {
                 />
               </View>
             </ScrollView>   
-           : <CategoryScreen goBack ={this.goBack} title = {this.state.data.Title}/>}
+           {/*: <CategoryScreen goBack ={this.goBack} title = {this.state.data.Title}/>*/}
       </View>
     );
   }

@@ -63,16 +63,17 @@ export default class ABSScreen extends Component {
     </TouchableOpacity>
   )
   render() {
+   let categoryData = this.props.navigation.getParam('item')
     return (
       <View style={styles.container}>
             <ScrollView style={{ flex: 1, width: '95%' }}>
             <View style={{ width: '100%'}}>
                   <View style={styles.header}>
-                    <TouchableOpacity style={styles.BackBtn} onPress={() => {this.props.goBack()}}>
+                    <TouchableOpacity style={styles.BackBtn} onPress={() => {this.props.navigation.goBack()}}>
                       <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
                     </TouchableOpacity>
                     <View style={styles.dropDown}>
-                      <Text style={styles.headerTxt}>{this.props.title}</Text>
+                      <Text style={styles.headerTxt}>{categoryData.Title}</Text>
                     </View>
                   </View>
               </View>

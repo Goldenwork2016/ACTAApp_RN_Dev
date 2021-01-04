@@ -72,6 +72,9 @@ export default class HomeDropScreen extends Component {
   gotoDetailScreen = () => {
     this.props.navigation.navigate("ProgramWorkoutDetailScreen")
   }
+  goToNotification =()=>{
+    this.props.navigation.navigate('NotificationScreen')
+  }
   _rendermakelist1({ item }) {
     return (
       <View style={styles.ListContent1}>
@@ -135,7 +138,7 @@ export default class HomeDropScreen extends Component {
             position:'absolute'
           }}
         >
-          <HomeScreen AnimationsStart={this.AnimationsStart} CreateScreen={this.CreateScreen} gotoProgramDetail={this.gotoProgramDetail} gotoExcercise={this.gotoExcercise} gotoReadyScreen ={this.gotoReadyScreen}
+          <HomeScreen AnimationsStart={this.AnimationsStart} CreateScreen={this.CreateScreen} gotoProgramDetail={this.gotoProgramDetail} gotoExcercise={this.gotoExcercise} gotoReadyScreen ={this.gotoReadyScreen} goToNotification={this.goToNotification}
           gotoDetailScreen ={this.gotoDetailScreen}/>
         </Animated.View>
       </View>

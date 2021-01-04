@@ -74,7 +74,7 @@ export default class HomeScreen extends Component {
         <View style={styles.dropDown}>
         <Text  style={styles.headerTxt}>DASHBOARD</Text>
         </View>
-        <TouchableOpacity  style={styles.AlarmkBtn}>
+        <TouchableOpacity  style={styles.AlarmkBtn} onPress = {()=>{this.props.goToNotification()}}>
         <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
         <View style={styles.notiNumArea}>
         <Text style={styles.notiNum}>3</Text>

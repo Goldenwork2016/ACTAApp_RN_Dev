@@ -100,10 +100,10 @@ export default class ExercicesScreen extends Component {
           <View style={styles.mainContent}>
             <View style={styles.AllArea}>
               <Text style={styles.ConHeaderTxt}>Workouts</Text>
-              <View style={styles.AllArea}>
+             {/* <View style={styles.AllArea}>
                 <Text style={styles.ConHeaderTxt1}>LOOSE FAT</Text>
                 <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
-              </View>
+              </View>*/}
             </View>
             <FlatList
               vertical

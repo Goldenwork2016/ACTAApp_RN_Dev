@@ -23,6 +23,7 @@ import WorkoutOverViewScreen from './Screens/TarbarScreens/WorkoutOverViewScreen
 import NotificationScreen from './Screens/TarbarScreens/NotificationScreen'
 import ActivityDetailScreen from './Screens/TarbarScreens/ActivityDetailScreen'
 import ActivityPoundsScreen from './Screens/TarbarScreens/ActivityPoundsScreen'
+import CategoryScreen from './Screens/TarbarScreens/CategoryScreen'
 import FindFriendScreen from './Screens/TarbarScreens/FindFriendScreen'
 import AccountFollowingScreen from './Screens/TarbarScreens/AccountFollowingScreen'
 import AccountTraingenScreen from './Screens/TarbarScreens/AccountTraingenScreen'
@@ -143,6 +144,12 @@ const Exercices = createStackNavigator(
                 headerShown: false,
             }
         },
+        CategoryScreen: {
+            screen: CategoryScreen,
+            navigationOptions: {
+                headerShown: false,
+            }
+        },
     },
     {
         initialRouteName: 'ExecicesScreen',
@@ -191,7 +198,6 @@ const Activity = createStackNavigator(
                 headerShown: false,
             }
         },
-
     },
     {
         initialRouteName: 'ActivityScreen',
@@ -289,6 +295,7 @@ const Account = createStackNavigator(
                 headerShown: false,
             }
         },
+        
     },
     {
         initialRouteName: 'AccountScreen',
