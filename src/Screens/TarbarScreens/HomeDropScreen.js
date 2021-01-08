@@ -78,8 +78,10 @@ export default class HomeDropScreen extends Component {
   _rendermakelist1({ item }) {
     return (
       <View style={styles.ListContent1}>
+      {console.log(item)}
         <Image source={{uri: 'https://acta.webart.work'+item.thumb}} resizeMode="stretch" style={styles.ContentImage1} />
-        <Text style={styles.ListTitle}>{item.name}</Text>
+        <Text style={styles.ListTitle1}>{item.name}</Text>
+          <Text style={styles.Description}>{item.details} {item.duration} min.</Text>
       </View>
     )
   }
@@ -309,9 +311,10 @@ const styles = StyleSheet.create({
   },
   ContentImage1: {
     width: "95%",
-    height: 350,
+    height: 390,
     marginRight: 20,
-    position: 'absolute'
+    position: 'absolute',
+    borderRadius: 3
   },
   ListTitle: {
     fontSize: 35,
@@ -322,9 +325,10 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   ListContent1: {
-    marginTop: 5,
+     marginTop: 5,
+     marginRight: 25,
     width: "100%",
-    height: 360,
+    height: 390,
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center'
@@ -333,5 +337,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center"
-  }
+  },
+  ListTitle1: {
+    fontSize: 33,
+    color: 'white',
+    fontFamily: 'FuturaPT-Medium',
+    width: '100%',
+    position: 'absolute',
+    bottom: 48,
+    left: 30
+  },
+  Description: {
+    fontSize: 18,
+    color: '#767575',
+    fontFamily: 'FuturaPT-Book',
+    width: '100%',
+    position: 'absolute',
+    bottom: 18,
+    left: 30
+  },
 })

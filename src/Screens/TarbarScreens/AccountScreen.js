@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, AppState, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity, Switch} from 'react-native';
 import { styles } from '../../styles'
-
 import config, { BASE_PATH } from "../../Api/config"
-
-import NonImage from '../../Assets/Images/nopicture.png'
+import NonImage from '../../Assets/Images/nopicture.png';
+import ToggleSwitch from 'toggle-switch-react-native';
+import Icon from 'react-native-vector-icons/Entypo'; 
 
 import { withNavigation } from "react-navigation"
 
@@ -15,8 +15,7 @@ class AccountScreen extends Component {
       UserName: '',
       avatarSource: NonImage,
       appState: AppState.currentState,
-      isSelected: true,
-      isCompare: false
+      isOn: true,
     };
 
     this.getName()
@@ -70,7 +69,7 @@ class AccountScreen extends Component {
       })
   }
   changeMode = ()=>{
-    this.setState({isSelected: !this.state.isSelected})
+    this.setState({isOn: !this.state.isOn})
   }
 
   _rendermakelist({ item, index }) {
@@ -200,17 +199,18 @@ class AccountScreen extends Component {
                   </View>
                   <View style ={styles.modeBlock}>
                     <Text  style={styles.modeText}>Dark Mode</Text>
-                    <View style={{width: 250}}>
-                      <Switch
-                        trackColor={{ false: "#18171a", true: "#18171a" }}
-                         style={{transform: [{ scaleX: 1.2}, { scaleY: 1.2}], marginRight: 25}}
-                        thumbColor={this.state.isSelected ? "#fff" : '#fff'}
-                        ios_backgroundColor="#18171a"
-                        onValueChange={this.changeMode}
-                        value={this.state.isSelected}
+                     <ToggleSwitch
+                        isOn = {this.state.isOn}
+                        onColor="#18171a"
+                        offColor="#18171a"
+                       // labelStyle={{ color: "black", fontWeight: "700" }}
+                         icon={<Icon 
+                          name = "check"
+                          size={14}
+                          color="black"/>}
+                        size="large"
+                        onToggle={this.changeMode}
                       />
-                    </View>
-
                 </View>  
               </View>   
               

@@ -794,14 +794,15 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 50
+     marginBottom: 20
   },
   modeText:{
    fontFamily: 'FuturaPT-Medium',
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     marginLeft: 20,
-    marginBottom: 40
+    marginBottom: 40,
+    marginTop: 45
 },
  modeBlock:{
       flex: 1,
