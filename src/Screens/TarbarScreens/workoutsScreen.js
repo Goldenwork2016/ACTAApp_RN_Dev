@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: 'center',
     borderRadius: 3,
+    marginBottom: 30
   },
   mainContainer: {
     position: 'absolute',

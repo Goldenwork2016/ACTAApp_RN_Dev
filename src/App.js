@@ -9,7 +9,11 @@ import workout from './services/workout.service';
 import {Store_Service} from './services/store.service';
 import {MongoService, RenderService} from 'wrcom';
 import RootNavigator from './RootNavigation';
+import {themeConstans} from './theme/themeConstants';
 const theme = {}
+
+export const ThemeContext = React.createContext(null);
+
 
 export default class App extends Component {
 	constructor(props){
@@ -85,11 +89,26 @@ export default class App extends Component {
         MongoService();
         RenderService();
 	}
+     state = {
+        theme: 'light',
+        isOn: false
+    };
+
+    toggleTheme = () => {
+            this.setState(({ theme }) => ({
+            theme: theme === 'light' ? 'dark' : 'light',
+         }));
+             this.setState(({ isOn }) => ({
+            isOn: isOn === false ? true : false,
+         }));
+    };
     render() {
         return (
             <>
                 {/* <StatusBar hidden={true} /> */}
-                <RootNavigator />
+                <ThemeContext.Provider value={{ theme: this.state.theme, toggleTheme: this.toggleTheme, isOn: this.state.isOn }} >
+                    <RootNavigator />
+                </ThemeContext.Provider>
             </>
         );
     }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import CategoryScreen from './CategoryScreen'
+import CategoryScreen from './CategoryScreen';
 import WorkoutsScreen from './workoutsScreen';
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
 
 
 export default class ExercicesScreen extends Component {
@@ -55,7 +57,6 @@ export default class ExercicesScreen extends Component {
         }
       ],
        toggleFlag: true,
-       abs: true, 
        data: {}
     };
   }
@@ -67,9 +68,6 @@ export default class ExercicesScreen extends Component {
   toggle = async () => {
     await this.setState({ toggleFlag: true });
   }
-  goBack =()=>{
-    this.setState({abs: true})
-  }
    /*this.props.navigation.navigate("ProgramDetailScreen") */
   rendermakelist1 = ({ item }) => (
     <TouchableOpacity style={styles.ListContent1} onPress={() =>{this.props.navigation.navigate('CategoryScreen', {item})}}>
@@ -79,30 +77,34 @@ export default class ExercicesScreen extends Component {
   )
 
   render() {
-    return (
-      <View style={styles.container}>
+    return (  <ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor:  ThemeConstants[theme].backgroundColor}}>
          {/*this.state.toggleFlag ? */} 
           {/*this.state.abs ?*/} 
             <ScrollView style={{ flex: 1, width: '100%' }}>
               <View style={{ width: '100%', height: 220 }}>
                   <View style={styles.header}>
                     <View style={styles.BackBtn}>
-                      <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    {theme === 'light' ?
+                      <Image source={require('../../Assets/Images/iconBlack.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                      :  <Image source={require('../../Assets/Images/iconWhite.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    }
                     </View>
                     <View style={styles.dropDown}>
-                      <Text style={styles.headerTxt}>EXERCISES</Text>
+                      <Text style={{...styles.headerTxt,  color:  ThemeConstants[theme].textColorTitle}}>EXERCISES</Text>
                     </View>
                     <TouchableOpacity style={styles.AlarmkBtn} onPress = {()=>{this.props.navigation.navigate('NotificationScreen')}}>
                       <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                      <View style={styles.notiNumArea}>
-                        <Text style={styles.notiNum}>3</Text>
+                      <View style={{...styles.notiNumArea, backgroundColor: ThemeConstants[theme].backgroundColor}}>
+                        <Text style={{...styles.notiNum, color: ThemeConstants[theme].textColorDescription}}>3</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
-                  <View style={styles.LineStyle}/>
+                  <View style={{...styles.LineStyle, borderBottomColor: ThemeConstants[theme].borderColor}}/>
                   <View style={styles.mainContainer}>
-                   <Text style={styles.TileTxt}>EXERCISES</Text>
-                    <Text style={styles.minText}>Learn how to perform exercises by muscle group</Text>
+                   <Text style={{...styles.TileTxt, color:  ThemeConstants[theme].textColorTitle}}>EXERCISES</Text>
+                    <Text style={{...styles.minText, color:  ThemeConstants[theme].textColorDescription}}>Learn how to perform exercises by muscle group</Text>
                   </View>
               </View>
               <View style={styles.mainContent}>
@@ -116,8 +118,9 @@ export default class ExercicesScreen extends Component {
                 />
               </View>
             </ScrollView>   
-           {/*: <CategoryScreen goBack ={this.goBack} title = {this.state.data.Title}/>*/}
       </View>
+      )}
+          </ThemeContext.Consumer>
     );
   }
 }
@@ -126,7 +129,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: 'black',
     width: '100%'
   },
   ImageBackground: {
@@ -265,8 +267,6 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   notiNumArea: {
-    
-    backgroundColor: 'white',
     width: 15,
     height: 15,
     borderRadius: 7.5,

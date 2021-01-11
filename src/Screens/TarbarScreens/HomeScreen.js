@@ -4,6 +4,9 @@ import WorkoutsScreen from './workoutsScreen';
 import ProgressStatus from './Components/ProgressStatus';
 import SocialActivities from './Components/SocialActivities';
 
+import {ThemeConstants} from '../../theme/themeConstants'
+import {ThemeContext} from '../../App'
+
 
 
 export default class HomeScreen extends Component {
@@ -52,8 +55,9 @@ export default class HomeScreen extends Component {
       //     console.log(exercise.all);
       //   }, 5000)
     
-      return (
-        <View style={styles.container}>
+      return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+        <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
           { this.state.toggleFlag ?
         <ScrollView style={{ flex: 1, width: '100%' }}>
         <View style={{ width: '100%', height: 600}}>
@@ -121,16 +125,16 @@ export default class HomeScreen extends Component {
 
   <View style={!this.state.start ? styles.mainContent : {...styles.mainContent}}>
     <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.gotoExcercise()}>
-    <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
-    <Text style={styles.ConHeaderTxt1}> ALL PROGRAMS</Text>
+    <Image source={require('../../Assets/Images/arrow_right.png')} resizeMode='stretch' style={styles.RightIcon}/>
+    <Text style={{...styles.ConHeaderTxt1,  color: ThemeConstants[theme].textColorTitle}}> ALL PROGRAMS</Text>
     </TouchableOpacity>
     <View style={styles.mainContent}>
 
     <View style ={styles.headerQuickWorkouts}>
     <Text style={styles.ConHeaderTxt}>Quick workouts</Text>
     <TouchableOpacity style={styles.Categories} onPress={() => this.props.AnimationsStart()}>
-    <Text style={styles.headerTxt}>CATEGORIES</Text>
-    <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />
+    <Text style={{...styles.headerTxt,   color: ThemeConstants[theme].textColorTitle}}>CATEGORIES</Text>
+    <Image source={require('../../Assets/Images/arrow_down.png')} resizeMode='stretch' style={styles.UnderIcon} />
     </TouchableOpacity>
     </View>
     <FlatList
@@ -163,20 +167,22 @@ export default class HomeScreen extends Component {
 
 <View style ={styles.mainContent, styles.Social}>
   <Text style ={styles.ConHeaderTxt}>Social Activities</Text>
-  {!this.state.start ? <View style={styles.socialActivitiesBody}>
-        <Image source={require('../../Assets/Images/ProjectIcon.png')} resizeMode='stretch' style={styles.HeaderImageSocial} />
+  {!this.state.start ? <View style={{...styles.socialActivitiesBody, backgroundColor: ThemeConstants[theme].backgroundColorBottom}}>
+  {theme === 'light' ? 
+          <Image source={require('../../Assets/Images/ProjectIconWhite.png')} resizeMode='stretch' style={styles.HeaderImageSocial} />
+        : <Image source={require('../../Assets/Images/ProjectIcon.png')} resizeMode='stretch' style={styles.HeaderImageSocial} />}
       <TouchableOpacity style={styles.socialActvitiesRightBlock}>
-        <Text style={styles.socialActivitiesText}>
+        <Text style={{...styles.socialActivitiesText, color: ThemeConstants[theme].textColorDescription}}>
           Find and follow friends and athletes to see their social activities here
           <Text>  </Text>
          <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>  
           </Text>
        </TouchableOpacity>
-  </View> : <SocialActivities />}
+  </View> : <SocialActivities/>}
 </View> 
 </ScrollView> :  <WorkoutsScreen toggle={this.toggle} gotoDetailScreen ={this.props.gotoDetailScreen} />}
-</View>
-);
+</View>)}
+ </ThemeContext.Consumer>);
 }
 }
 
@@ -460,7 +466,6 @@ Social:{
   marginRight: '3%',
 },
 HeaderImageSocial:{
-   
     marginTop: 10,
     marginRight: 20
 },
@@ -477,7 +482,6 @@ socialActvitiesRightBlock:{
 socialActivitiesText:{
   width: '85%',
   fontFamily: 'FuturaPT-Medium',
-  color: 'white',
   fontSize: 18,
   lineHeight: 25
 }

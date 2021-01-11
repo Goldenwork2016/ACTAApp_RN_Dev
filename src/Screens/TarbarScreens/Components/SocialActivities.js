@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import {styles} from '../../../styles'
+import {styles} from '../../../styles';
+import {ThemeConstants} from '../../../theme/themeConstants';
+import {ThemeContext} from '../../../App'
 
 export default class SocialActivities extends Component {
 	constructor(props) {
@@ -39,58 +41,39 @@ export default class SocialActivities extends Component {
 	}
 
 	_rendermakelist({ item, index }) {
-		return (
-			 <View style={styles.ListArea}>
-              <View style={styles.listHeader}>
+			
+		return <ThemeContext.Consumer>
+          {({ theme }) => (
+			 <View style={{...styles.ListArea,  borderColor: ThemeConstants[theme].borderColor}}>
+              <View style={{...styles.listHeader, backgroundColor: ThemeConstants[theme].backgroundColor, borderBottomColor: ThemeConstants[theme].borderColor}}>
                 <Image source={item.ImageUrl} resizeMode='stretch' style={styles.HeaderImage1} />
                 <View style={{ marginLeft: 15 }}>
-                  <Text style={styles.proTxt}>{item.name}</Text>
+                  <Text style={{...styles.proTxt, color: ThemeConstants[theme].textColorTitle}}>{item.name}</Text>
                   <Text style={styles.timeTxt}>{item.time}</Text>
                 </View>
                 <View style={styles.like}>
-                    <Image source={require('../../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
-                    <Text style={styles.countLike}>{item.countLike}</Text>
+                {theme === 'light' ?  <Image source={require('../../../Assets/Images/likeIconBlack.png')} resizeMode='stretch' style={styles.BtnImage} />
+                : <Image source={require('../../../Assets/Images/likeIconWhite.png')} resizeMode='stretch' style={styles.BtnImage} />}
+                    <Text style={{...styles.countLike, color: ThemeConstants[theme].textColorTitle}}>{item.countLike}</Text>
                     </View>
               </View>
-              <View style={styles.listContents}>
-                <Text style={styles.contentHeader}>{item.titleMessage}</Text>
+              <View style={{...styles.listContents, backgroundColor: ThemeConstants[theme].backgroundColor}}>
+                <Text style={{...styles.contentHeader, color: ThemeConstants[theme].textColorTitle}}>{item.titleMessage}</Text>
          		<Text style={styles.message}>{item.message}</Text>
-         		  <View style={styles.LineStyle1}/>
+         		  <View style={{...styles.LineStyle1,  borderBottomColor: ThemeConstants[theme].borderColor}}/>
          		  <View style={{marginLeft: 15,  flexDirection: 'row', margin: 20}}>
          		    <Image source={require('../../../Assets/Images/TimeIcon.png')} resizeMode='stretch' style={styles.TimeIcon}/>
          		  	<Text style={styles.completed}>Completed</Text>
-         		  	<Text  style={styles.timeComplete}>{item.timeComplete}</Text>
+         		  	<Text  style={{...styles.timeComplete, color: ThemeConstants[theme].textColorTitle}}>{item.timeComplete}</Text>
          		  </View>
               </View>
             </View>
-			)
+          )}
+ 		</ThemeContext.Consumer>
 	}
 
 	render() {
 		return <>
-             {/*<TouchableOpacity style={styles.ListArea} onPress={()=>this.props.navigation.navigate("ActivityDetailScreen")}>
-              <View style={styles.listHeader}>
-                <Image source={require('../../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
-                <View style={{ marginLeft: 15 }}>
-                  <Text style={styles.proTxt}>Kelly Winters</Text>
-                  <Text style={styles.timeTxt}>Today at 10:40</Text>
-                </View>
-                <View style={styles.like}>
-                    <Image source={require('../../../Assets/Images/airImage.png')} resizeMode='stretch' style={styles.BtnImage} />
-                    <Text style={styles.countLike}>4</Text>
-                    </View>
-              </View>
-              <View style={styles.listContents}>
-                <Text style={styles.contentHeader}>Flamin' Hot Cardio Circuit</Text>
-         		<Text style={styles.message}>I absolute nailed it today in my opinion. I felt strong like donkey kong!</Text>
-         		  <View style={styles.LineStyle}/>
-         		  <View style={{marginLeft: 15, flex: 1, flexDirection: 'row',  marginTop: 20}}>
-         		    <Image source={require('../../../Assets/Images/TimeIcon.png')} resizeMode='stretch' style={styles.TimeIcon}/>
-         		  	<Text style={styles.completed}>Completed</Text>
-         		  	<Text  style={styles.timeComplete}>12 min. 15 sec.</Text>
-         		  </View>
-              </View>
-            </TouchableOpacity>*/}
             <FlatList
 				vertical
 				// showsVerticalScrollIndicator={true}
@@ -99,12 +82,16 @@ export default class SocialActivities extends Component {
 				renderItem={this._rendermakelist}
 				keyExtractor={item => `${item.id}`}
 			/>
+			<ThemeContext.Consumer>
+          {({ theme }) => (
 			<View style={styles.mainContent}> 
           	  <TouchableOpacity style={styles.ViewMore}>
-					<Image source={require('../../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon}/>
-					<Text style={styles.ConHeaderTxt1}>VIEW MORE</Text>
+					<Image source={require('../../../Assets/Images/arrow_right.png')} resizeMode='stretch' style={styles.RightIcon}/>
+					<Text style={{...styles.ConHeaderTxt1, color: ThemeConstants[theme].textColorTitle}}>VIEW MORE</Text>
 				</TouchableOpacity>
          </View>
+           )}
+ 		</ThemeContext.Consumer>
         </>
 	}
 }

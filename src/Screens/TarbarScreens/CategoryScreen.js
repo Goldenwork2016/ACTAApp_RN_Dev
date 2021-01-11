@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import WorkoutsScreen from './workoutsScreen'
+import WorkoutsScreen from './workoutsScreen';
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
+
 
 export default class ABSScreen extends Component {
   constructor(props) {
@@ -64,16 +67,20 @@ export default class ABSScreen extends Component {
   )
   render() {
    let categoryData = this.props.navigation.getParam('item')
-    return (
-      <View style={styles.container}>
+    return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
             <ScrollView style={{ flex: 1, width: '95%' }}>
             <View style={{ width: '100%'}}>
                   <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => {this.props.navigation.goBack()}}>
-                      <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    {theme === "light" ?     
+                     <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    :  <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    }
                     </TouchableOpacity>
                     <View style={styles.dropDown}>
-                      <Text style={styles.headerTxt}>{categoryData.Title}</Text>
+                      <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>{categoryData.Title}</Text>
                     </View>
                   </View>
               </View>
@@ -88,7 +95,8 @@ export default class ABSScreen extends Component {
                 />
               </View>
             </ScrollView>   
-      </View>
+      </View>)}
+          </ThemeContext.Consumer>
     );
   }
 }

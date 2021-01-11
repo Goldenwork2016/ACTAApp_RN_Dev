@@ -5,6 +5,8 @@ import config, { BASE_PATH } from "../../Api/config"
 import NonImage from '../../Assets/Images/nopicture.png';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Icon from 'react-native-vector-icons/Entypo'; 
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
 
 import { withNavigation } from "react-navigation"
 
@@ -15,7 +17,6 @@ class AccountScreen extends Component {
       UserName: '',
       avatarSource: NonImage,
       appState: AppState.currentState,
-      isOn: true,
     };
 
     this.getName()
@@ -199,18 +200,22 @@ class AccountScreen extends Component {
                   </View>
                   <View style ={styles.modeBlock}>
                     <Text  style={styles.modeText}>Dark Mode</Text>
-                     <ToggleSwitch
-                        isOn = {this.state.isOn}
-                        onColor="#18171a"
-                        offColor="#18171a"
-                       // labelStyle={{ color: "black", fontWeight: "700" }}
-                         icon={<Icon 
-                          name = "check"
-                          size={14}
-                          color="black"/>}
-                        size="large"
-                        onToggle={this.changeMode}
-                      />
+                      <ThemeContext.Consumer>
+                       {({toggleTheme, isOn}) => (
+                         <ToggleSwitch
+                            isOn = {isOn}
+                            onColor="#18171a"
+                            offColor="#18171a"
+                           // labelStyle={{ color: "black", fontWeight: "700" }}
+                             icon={<Icon 
+                              name = "check"
+                              size={14}
+                              color="black"/>}
+                            size="large"
+                            onToggle={toggleTheme}
+                          />
+                          )}
+                      </ThemeContext.Consumer>
                 </View>  
               </View>   
               

@@ -480,12 +480,15 @@ export const styles = StyleSheet.create({
   ListArea: {
     width: '100%',
     alignItems: 'center',
+    borderWidth: 0.5,
+    borderRadius: 3,
     marginTop: 12
   },
   listHeader: {
     width: '100%',
     borderRadius: 3,
     height: 85,
+    borderBottomWidth: 0.5,
     backgroundColor: '#111012',
     flexDirection: 'row',
     alignItems: "center"
@@ -705,7 +708,6 @@ export const styles = StyleSheet.create({
   },
   countLike:{
     marginLeft: 13,
-    color: 'white',
     fontFamily: 'FuturaPT-Book',
   },
    message:{
