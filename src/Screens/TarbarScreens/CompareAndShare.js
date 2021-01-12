@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 
+import {ThemeConstants} from '../../theme/themeConstants'
+import {ThemeContext} from '../../App'
 
 export default class CompareAndShare extends Component {
   render() {
-    return (
-      <View style={styles.container}>
+    return (  <ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
             <ScrollView style={{ flex: 1, width: '100%' }}>
               <View style={{ width: '100%', height: 220 }}>
                   <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn}  onPress={() => this.props.navigation.goBack()}>
-                      <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    {theme === 'light' ? <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    :  <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                    }
                     </TouchableOpacity>
                     <View style={styles.dropDown}>
-                        <Text style={styles.headerTxt}>COMPARE & SHARE</Text>
+                        <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>COMPARE & SHARE</Text>
                     </View>
                   </View>
                   <View style={styles.LineStyle}/>
                   <View style={styles.mainContainer}>
-                   <Text style={styles.TileTxt}>COMPARE</Text>
-                    <Text style={styles.TileTxt}>AND SHARE</Text>
+                   <Text style={{...styles.TileTxt, color: ThemeConstants[theme].textColorTitle}}>COMPARE</Text>
+                    <Text style={{...styles.TileTxt, color: ThemeConstants[theme].textColorTitle}}>AND SHARE</Text>
                   </View>
               </View>
               <View style={styles.headerContent1}>
@@ -35,31 +40,43 @@ export default class CompareAndShare extends Component {
                 </View>
               </View>
                <View style={{alignSelf: 'center', marginBottom: 60}}>
-                  <Text style={styles.ConHeaderTxt5}>Share your progress</Text>
+                  <Text style={{...styles.ConHeaderTxt5,  color: ThemeConstants[theme].textColorTitle}}>Share your progress</Text>
                   <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.ShareIconBtn}>
-                     <Image source={require('../../Assets/Images/facebook.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    <TouchableOpacity style={{...styles.ShareIconBtn, backgroundColor: ThemeConstants[theme].textColorTitle}}>
+                    {theme === 'light' ?
+                      <Image source={require('../../Assets/Images/facebookWhite.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    : <Image source={require('../../Assets/Images/facebook.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    }
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ShareIconBtn}>
-                      <Image source={require('../../Assets/Images/twitter.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    <TouchableOpacity style={{...styles.ShareIconBtn,backgroundColor: ThemeConstants[theme].textColorTitle}}>
+                     {theme === 'light' ?
+                      <Image source={require('../../Assets/Images/twitterWhite.png')} resizeMode='stretch' style={styles.ShareImage} />
+                      :<Image source={require('../../Assets/Images/twitter.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    }
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ShareIconBtn}>
-                      <Image source={require('../../Assets/Images/instagram.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    <TouchableOpacity style={{...styles.ShareIconBtn,backgroundColor: ThemeConstants[theme].textColorTitle}}>
+                     {theme === 'light' ?
+                      <Image source={require('../../Assets/Images/instagramWhite.png')} resizeMode='stretch' style={styles.ShareImage} />
+                     : <Image source={require('../../Assets/Images/instagram.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    }
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ShareIconBtn}>
-                      <Image source={require('../../Assets/Images/whatsapp.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    <TouchableOpacity style={{...styles.ShareIconBtn,backgroundColor: ThemeConstants[theme].textColorTitle}}>
+                     {theme === 'light' ?
+                      <Image source={require('../../Assets/Images/whatsappWhile.png')} resizeMode='stretch' style={styles.ShareImage} />
+                     : <Image source={require('../../Assets/Images/whatsapp.png')} resizeMode='stretch' style={styles.ShareImage} />
+                    }
                     </TouchableOpacity>
                   </View>
                 </View>
             </ScrollView> 
-      </View>);
+      </View>)}
+ </ThemeContext.Consumer>);
   }
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: 'black',
     width: '100%'
   },
   ImageBackground: {

@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, SafeAreaView, Platform, TextInput, Image
 import Spinner from 'react-native-loading-spinner-overlay';
 import Modal from 'react-native-modal';
 
+import {ThemeConstants} from '../../theme/themeConstants'
+import {ThemeContext} from '../../App'
 
 import config from "../../Api/config"
 
@@ -197,8 +199,9 @@ export default class EditEmailScreen extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
+    return (<ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <Spinner
           visible={this.state.isLoading}
           textContent={this.state.isEmail ? 'Checking Email...' : 'Checking phone number...'}
@@ -206,29 +209,32 @@ export default class EditEmailScreen extends Component {
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.navigate("AccountSettingScreen")}>
-            <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          {theme === 'light' 
+          ?  <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+          :  <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          }
           </TouchableOpacity>
           {this.state.isEmail ?
-          <Text style={styles.createTxt}>Email</Text> :
-          <Text style={styles.createTxt}>Phone Number</Text>
+          <Text style={{...styles.createTxt, color: ThemeConstants[theme].textColorTitle}}>Email</Text> :
+          <Text style={{...styles.createTxt, color: ThemeConstants[theme].textColorTitle}}>Phone Number</Text>
         }
           {/* <Text style={styles.createTxt}>Email</Text> */}
         </View>
 
         {/* <Text style={styles.TitleTxt}>Email</Text> */}
         {this.state.isEmail ?
-          <Text style={styles.TitleTxt}>Email</Text> :
-          <Text style={styles.TitleTxt}>Phone Number</Text>
+          <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>Email</Text> :
+          <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>Phone Number</Text>
         }
         {/* <View style={{ flexDirection: 'row', width: 330 }}>
                     <Text style={styles.countryNumber}>+1</Text>
                     <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />
                 </View> */}
         {this.state.isEmail ?
-          <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.email} onChangeText={(e) => this.setState({ email: e })} /> :
+          <TextInput placeholder="Email" placeholderTextColor={ ThemeConstants[theme].textColorTitle} style={{...styles.EmailInputTxt, backgroundColor: ThemeConstants[theme].inputColor,  color: ThemeConstants[theme].textColorTitle }} defaultValue={this.state.email} onChangeText={(e) => this.setState({ email: e })} /> :
           <View style={{ flexDirection: 'row', width: 330 }}>
-            <Text style={styles.countryNumber}>+1</Text>
-            <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} defaultValue={this.state.phone} onChangeText={(e) => this.setState({ phone: e })} />
+            <Text style={{...styles.countryNumber, backgroundColor: ThemeConstants[theme].inputColor,  color: ThemeConstants[theme].textColorTitle}}>+1</Text>
+            <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor={ThemeConstants[theme].textColorTitle} style={{...styles.EmailInputTxt1, backgroundColor: ThemeConstants[theme].inputColor,  color: ThemeConstants[theme].textColorTitle}} defaultValue={this.state.phone} onChangeText={(e) => this.setState({ phone: e })} />
           </View>
         }
 		{this.state.isVerify &&
@@ -239,8 +245,8 @@ export default class EditEmailScreen extends Component {
 		
           
         
-        <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
-          <Text style={styles.EmailTxt}>Save</Text>
+        <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.handler() }}>
+          <Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Save</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={styles.modalView}>
@@ -317,9 +323,8 @@ export default class EditEmailScreen extends Component {
             <Text style={styles.Description2}>Your email changed successfully!</Text>
           </View>
         </Modal>
-      </View>
-
-    );
+      </View>)}
+ </ThemeContext.Consumer>);
   }
 }
 

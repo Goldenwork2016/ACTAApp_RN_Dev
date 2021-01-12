@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TextInput, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import { styles } from '../../styles'
+import { styles } from '../../styles';
+
+import {ThemeConstants} from '../../theme/themeConstants'
+import {ThemeContext} from '../../App'
 
 export default class ActivityTraingenScreen extends Component {
     constructor(props) {
@@ -42,17 +45,21 @@ export default class ActivityTraingenScreen extends Component {
     }
 
     render() {
-        return (
-            <View style={{ ...styles.container, backgroundColor: 'black' }}>
+        return (<ThemeContext.Consumer>
+          {({ theme }) => (
+            <View style={{ ...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <ScrollView style={{ flex: 1, width: '100%' }}>
                     <View style={{ width: '100%' }}>
                         <View style={styles.ImageBackground}>
-                            <View style={styles.header2}>
+                            <View style={{...styles.header2, borderBottomColor: ThemeConstants[theme].borderBottomWorkouts}}>
                                 <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                                    <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                                {theme === 'light' 
+                                ? <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                                : <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                                }
                                 </TouchableOpacity>
                                 <View style={styles.dropDown}>
-                                    <Text style={styles.headerTxt}>WORKOUTS</Text>
+                                    <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>WORKOUTS</Text>
                                 </View>
                             </View>
                         </View>
@@ -60,9 +67,9 @@ export default class ActivityTraingenScreen extends Component {
                         <View style={styles.LineStyle}/>
                     <View style={{ width: '100%' }}>
                         <View style={styles.mainContent}>
-                            <Text style={styles.numberTxtWorkouts}>48</Text>
+                            <Text style={{...styles.numberTxtWorkouts,color: ThemeConstants[theme].textColorTitle}}>48</Text>
                             <View style={styles.AllArea2}>
-                                <Text style={styles.ConHeaderTxt5}>September 27</Text>
+                                <Text style={{...styles.ConHeaderTxt5,color: ThemeConstants[theme].textColorTitle}}>September 27</Text>
                                 <Text style={{...styles.ConHeaderTxt5, color:'#82828f'}}>2020</Text>
                             </View>
                             <View width="95%">
@@ -85,6 +92,7 @@ export default class ActivityTraingenScreen extends Component {
                     </View>
                 </ScrollView>
             </View>
-        );
+      )}
+ </ThemeContext.Consumer>);
     }
 }

@@ -8,9 +8,13 @@ import Modal from 'react-native-modal';
 
 import { withNavigation } from "react-navigation";
 
+
 import NonImage from '../../Assets/Images/nopicture.png'
 
 import config, { BASE_PATH } from "../../Api/config"
+
+import {ThemeConstants} from '../../theme/themeConstants'
+import {ThemeContext} from '../../App'
 
 const options = {
     title: 'Choose Photo',
@@ -22,28 +26,6 @@ class AccountSettingScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contentList: [
-                {
-                    ImageUrl: require("../../Assets/Images/workout.png")
-                },
-                {
-                    ImageUrl: require("../../Assets/Images/workout.png")
-                }
-            ],
-            contentList1: [
-                {
-                    Title: 'SUMMER READY',
-                    ImageUrl: require("../../Assets/Images/program1.png")
-                },
-                {
-                    Title: 'KELLY WINTERS',
-                    ImageUrl: require("../../Assets/Images/program2.png")
-                },
-                {
-                    Title: 'COUPLE WORKOUT',
-                    ImageUrl: require("../../Assets/Images/program3.png")
-                }
-            ],
             avatarSource: NonImage,
             avatarURL: '',
             timeFlag: false,
@@ -227,41 +209,51 @@ class AccountSettingScreen extends Component {
 
     render() {
         const avatarSource = this.state
-        return (
+        return (<ThemeContext.Consumer>
+          {({ theme }) => (
             <View style={styles.container2}>
                 <Spinner
                     visible={this.state.isLoading}
                     textContent={'Uploading profile picture...'}
                     textStyle={{ color: 'white' }}
                 />
-                <ScrollView style={{ flex: 1, width: '100%' }}>
-                    <View style={{ width: '100%' }}>
-                        <View style={styles.ImageBackground1}>
+                <ScrollView style={{ flex: 1, width: '100%'}}>
+                    <View style={{ width: '100%'}}>
+                        <View style={{...styles.ImageBackground1, backgroundColor: ThemeConstants[theme].backgroundColor }}>
                             <View style={styles.header}>
                                 <TouchableOpacity style={{ ...styles.BackBtn, marginLeft: 20 }} onPress={() => this.props.navigation.goBack()}>
-                                    <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                                {theme === 'light'
+                                ? <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                                :    <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                                }
                                 </TouchableOpacity>
                                 <View style={styles.dropDown}>
-                                    <Text style={styles.headerTxt}>SETTINGS</Text>
+                                    <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>SETTINGS</Text>
                                 </View>
                             </View>
                             <View>
                                 <View style={styles.profileArea}>
                                     <Image source={{ uri: this.state.avatarSource.toString() }} resizeMode='cover' style={styles.PersonProfileImage} />
                                 </View>
-                                <TouchableOpacity style={styles.EditImageBtn} onPress={() => { this.chooseImage() }}>
-                                    <Image source={require('../../Assets/Images/EditImage.png')} resizeMode='stretch' style={styles.EditImage} />
+                                <TouchableOpacity style={{...styles.EditImageBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.chooseImage() }}>
+                                {theme === 'light' 
+                                ? <Image source={require('../../Assets/Images/editImageWhite.png')} resizeMode='stretch' style={styles.EditImage} />
+                                : <Image source={require('../../Assets/Images/editImageBlack.png')} resizeMode='stretch' style={styles.EditImage} />
+                            }
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.Content}>
+                        <View style={{...styles.Content, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                             <TouchableOpacity style={styles.ListContent2} onPress={() => this.props.navigation.navigate("AccountEditScreen")}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Name</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.UserName}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: ThemeConstants[theme].textColorTitle }}>{this.state.UserName}</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        : <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -270,9 +262,12 @@ class AccountSettingScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Email</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.Email}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color:  ThemeConstants[theme].textColorTitle }}>{this.state.Email}</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        : <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                    }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -281,9 +276,12 @@ class AccountSettingScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Mobile</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.phoneNumber}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color:  ThemeConstants[theme].textColorTitle }}>{this.state.phoneNumber}</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        : <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                    }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -292,9 +290,12 @@ class AccountSettingScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Birthday</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.birthday}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color:  ThemeConstants[theme].textColorTitle }}>{this.state.birthday}</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        :   <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -303,9 +304,12 @@ class AccountSettingScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Address</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{window.us.data.address||'-'}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color:  ThemeConstants[theme].textColorTitle }}>{window.us.data.address||'-'}</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        :  <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -314,9 +318,12 @@ class AccountSettingScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Measurement Units</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.measurement}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color:  ThemeConstants[theme].textColorTitle }}>{this.state.measurement}</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        :    <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -325,33 +332,43 @@ class AccountSettingScreen extends Component {
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Connectivity</Text>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>{this.state.connectivity}</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color:  ThemeConstants[theme].textColorTitle }}>{this.state.connectivity}</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        :  <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                    }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.QuitWorkout1} onPress={() => { this.logout() }}>
-                                <Text style={styles.Dismiss1}>Logout</Text>
+                            <TouchableOpacity style={{...styles.QuitWorkout1, backgroundColor: ThemeConstants[theme].backgroundColor, borderColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.logout() }}>
+                                <Text style={{...styles.Dismiss1, color: ThemeConstants[theme].textColorTitle}}>Logout</Text>
                             </TouchableOpacity>
-                            <Text style={{ ...styles.desTxt1, fontSize: 13, textAlign: "center", color: 'white' }}>VERSION 1.023</Text>
+                            <Text style={{ ...styles.desTxt1, fontSize: 13, textAlign: "center", color:ThemeConstants[theme].textColorTitle}}>VERSION 1.023</Text>
                             <View style={styles.ListContent2}>
                                 <View style={{ width: '100%' }}>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Privacy Policy</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: ThemeConstants[theme].textColorTitle }}>Privacy Policy</Text></Text>
                                         <TouchableOpacity>
-                                            <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        : <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
                             <View style={styles.ListContent2}>
-                                <View style={{ width: '100%' }}>
+                                <View style={{ width: '100%', marginBottom: 20}}>
                                     <View style={styles.ListContent4}>
-                                        <Text style={styles.desTxt1}><Text style={{ color: 'white' }}>Term & Conditions</Text></Text>
+                                        <Text style={styles.desTxt1}><Text style={{ color: ThemeConstants[theme].textColorTitle }}>Term & Conditions</Text></Text>
                                         <TouchableOpacity>
+                                         {theme === 'light' ?
+                                        <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        :
                                             <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon1} />
+                                        }
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -375,7 +392,8 @@ class AccountSettingScreen extends Component {
                     </View>
                 </Modal>
             </View>
-        );
+       )}
+ </ThemeContext.Consumer>);
     }
 }
 

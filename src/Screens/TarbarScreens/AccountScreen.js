@@ -92,20 +92,27 @@ class AccountScreen extends Component {
 
   render() {
     let imageSwitch = <Image source={require('../../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.RightIcon} />
-    return (
-      <View style={styles.container1}>
+    return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container1, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
           <View style={{ width: '100%' }}>
             <View style={styles.ImageBackground}>
               <View style={styles.header}>
                 <View style={styles.BackBtn}>
-                  <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                {theme === 'light' ?  
+                <Image source={require('../../Assets/Images/iconBlack.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                :  <Image source={require('../../Assets/Images/iconWhite.png')} resizeMode='stretch' style={styles.HeaderImage} />
+                }
                 </View>
                 <View style={styles.dropDown}>
                   <Text style={styles.headerTxt}>ACCOUNT</Text>
                 </View>
                 <TouchableOpacity style={styles.AlarmkBtn} onPress={() => { this.props.navigation.navigate("AccountSettingScreen") }}>
-                  <Image source={require('../../Assets/Images/settingImage.png')} resizeMode='stretch' style={styles.notiImage} />
+                {theme === "light" ? 
+                  <Image source={require('../../Assets/Images/settingBlack.png')} resizeMode='stretch' style={styles.notiImage} />
+                  : <Image source={require('../../Assets/Images/settingImage.png')} resizeMode='stretch' style={styles.notiImage} />
+                }
                 </TouchableOpacity>
               </View>
               {/* <Image source={require('../../Assets/Images/nopicture.png')} resizeMode='stretch' style={styles.PersonProfileImage} /> */}
@@ -115,32 +122,32 @@ class AccountScreen extends Component {
               <Text style={styles.nameTxt}>{this.state.UserName}</Text>
               <View style={styles.headerContent}>
                 <TouchableOpacity style={styles.ContentList6} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: true })}>
-                  <Text style={styles.numTxt}>{window.core.each(window.us.data.follow).length}</Text>
+                  <Text style={{...styles.numTxt,color: ThemeConstants[theme].textColorDescription}}>{window.core.each(window.us.data.follow).length}</Text>
                   <Text style={styles.itemTxt}>Following</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ContentList6} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: false })}>
-                  <Text style={styles.numTxt}>{window.core.each(window.us.followers).length}</Text>
+                  <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>{window.core.each(window.us.followers).length}</Text>
                   <Text style={styles.itemTxt}>Followers</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ ...styles.ContentList2,  borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen")}>
-                  <Text style={styles.numTxt}>48</Text>
+                  <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>48</Text>
                   <Text style={styles.itemTxt}>Workouts</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.ListBnt}>
-                <View style={{ width: '100%' }}>
-                  <TouchableOpacity style={styles.createBtn} onPress={() => this.props.navigation.navigate("FindFriendScreen")}>
-                    <Text style={styles.CreateTxt}>Find Friends</Text>
+                <View style={{ width: '100%'}}>
+                  <TouchableOpacity style={{...styles.createBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.props.navigation.navigate("FindFriendScreen")}>
+                    <Text style={{...styles.CreateTxt, color: ThemeConstants[theme].backgroundColor}}>Find Friends</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
-            <View style={styles.Content}>
+            <View style={{...styles.Content, backgroundColor: ThemeConstants[theme].backgroundColor}}>
               <View style={styles.AllArea1}>
-                <Text style={styles.ConHeaderTxt}>Achievements</Text>
+                <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Achievements</Text>
                 <View style={styles.AllArea}>
-                  <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
-                  <Text style={styles.ConHeaderTxt1}>VIEW ALL</Text>
+                  <Image source={require('../../Assets/Images/arrow_right.png')} resizeMode='stretch' style={styles.RightIcon} />
+                  <Text style={{...styles.ConHeaderTxt1,  color: ThemeConstants[theme].textColorTitle}}>VIEW ALL</Text>
                 </View>
               </View>
               <View style={styles.headerContent1}>
@@ -163,12 +170,12 @@ class AccountScreen extends Component {
                   <Text style={styles.itemTxt1}>Great start</Text>
                 </View>
               </View>
-                  <View style={styles.LineStyle}/>
+                  <View style={{...styles.LineStyle, borderBottomColor: ThemeConstants[theme].bottomBorderColor}}/>
               <View style={styles.AllArea1}>
-                <Text style={styles.ConHeaderTxt}>Progress Pics</Text>
+                <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Progress Pics</Text>
                 <View style={styles.AllArea}>
-                  <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
-                  <Text style={styles.ConHeaderTxt1}>VIEW ALL</Text>
+                  <Image source={require('../../Assets/Images/arrow_right.png')} resizeMode='stretch' style={styles.RightIcon} />
+                  <Text style={{...styles.ConHeaderTxt1, color: ThemeConstants[theme].textColorTitle}}>VIEW ALL</Text>
                 </View>
               </View>
               <View style={styles.headerContent1}>
@@ -195,11 +202,11 @@ class AccountScreen extends Component {
                 </View>*/}
                   <View style={styles.mainContent}>
                     <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.navigation.navigate("CompareAndShare")}>
-                      <Text style={styles.ConHeaderTxt}>Compare and Share</Text>
+                      <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Compare and Share</Text>
                     </TouchableOpacity>
                   </View>
                   <View style ={styles.modeBlock}>
-                    <Text  style={styles.modeText}>Dark Mode</Text>
+                    <Text  style={{...styles.modeText, color: ThemeConstants[theme].textColorTitle}}>Dark Mode</Text>
                       <ThemeContext.Consumer>
                        {({toggleTheme, isOn}) => (
                          <ToggleSwitch
@@ -228,7 +235,8 @@ class AccountScreen extends Component {
           </View>
         </ScrollView>
       </View>
-    );
+   )}
+ </ThemeContext.Consumer>);
   }
 }
 

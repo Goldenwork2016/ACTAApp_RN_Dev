@@ -3,7 +3,10 @@ import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Image
 import Modal from 'react-native-modal';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import config, { BASE_PATH } from "../../Api/config"
+import config, { BASE_PATH } from "../../Api/config";
+
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
 
 export default class AccountEditScreen extends Component {
   constructor(props) {
@@ -89,8 +92,9 @@ export default class AccountEditScreen extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
+    return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <Spinner
           visible={this.state.isLoading}
           textContent={'Changing full name...'}
@@ -98,15 +102,18 @@ export default class AccountEditScreen extends Component {
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-            <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          {theme === 'light' 
+          ?   <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+          : <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          }
           </TouchableOpacity>
-          <Text style={styles.headerTxt}>NAME</Text>
+          <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>NAME</Text>
         </View>
-        <Text style={styles.TitleTxt}>Full Name</Text>
-        <TextInput placeholder="First Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.firstName} onChangeText={(e) => this.setState({ firstName: e })} />
-        <TextInput placeholder="Last Name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.lastName} onChangeText={(e) => this.setState({ lastName: e })} />
-        <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
-          <Text style={styles.EmailTxt}>Save</Text>
+        <Text style={{...styles.TitleTxt,color: ThemeConstants[theme].textColorTitle}}>Full Name</Text>
+        <TextInput placeholder="First Name" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt, backgroundColor: ThemeConstants[theme].inputColor, color: ThemeConstants[theme].textColorTitle}} defaultValue={this.state.firstName} onChangeText={(e) => this.setState({ firstName: e })} />
+        <TextInput placeholder="Last Name" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt,backgroundColor: ThemeConstants[theme].inputColor, color: ThemeConstants[theme].textColorTitle}} defaultValue={this.state.lastName} onChangeText={(e) => this.setState({ lastName: e })} />
+        <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.saveName()}>
+          <Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Save</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
@@ -141,15 +148,14 @@ export default class AccountEditScreen extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-      </View>
-    );
+      </View>)}
+ </ThemeContext.Consumer>);
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center'
   },
   header: {
@@ -170,7 +176,6 @@ const styles = StyleSheet.create({
   EmailInputTxt: {
     width: 330,
     height: 50,
-    backgroundColor: '#18171a',
     marginBottom: 8,
     borderRadius: 3,
     paddingLeft: 20,

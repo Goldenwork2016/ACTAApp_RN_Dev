@@ -12,8 +12,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'center',
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
+    borderBottomWidth: 0.5,
+    borderTopWidth: 0.5,
     paddingVertical: 17,
     borderColor: '#111012',
     marginBottom: 10
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     paddingVertical: 10,
-    borderColor: '#111012',
+    borderColor: '#ececec',
     marginBottom: 10
   },
   ImageFitCover: {
@@ -41,7 +41,6 @@ export const styles = StyleSheet.create({
   container2: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: '#000',
   },
   ImageBackground: {
     width: '100%',
@@ -77,9 +76,8 @@ export const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     paddingBottom: 27,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 0.3,
     alignSelf: 'center',
-    backgroundColor: 'black'
   },
   headerTxt: {
     color: 'white',
@@ -95,8 +93,8 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 0.25,
     width: '95%',
     alignSelf: "center",
-  
-    borderColor: '#82828f'
+    borderBottomColor: '#0f0e10'
+ 
   },
   ListContent5: {
     marginTop: 10,
@@ -134,7 +132,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1.5,
-    borderColor: 'white'
+    borderColor: '#808080'
   },
    unfollowBtn: {
     width: 60,
@@ -145,8 +143,8 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1.5,
-    borderColor: '#18171a'
+    borderWidth: 0.5,
+    borderColor: '#808080'
   },
   HeaderImage: {
     marginLeft: 10,
@@ -253,7 +251,6 @@ export const styles = StyleSheet.create({
     width: '95%',
     height: 45,
     alignSelf: 'center',
-    backgroundColor: 'white',
     borderRadius: 5,
     paddingStart: 20,
     fontSize: 18,
@@ -315,11 +312,16 @@ export const styles = StyleSheet.create({
   EditImageBtn: {
     alignSelf: 'center',
     marginTop: -20,
-    marginLeft: 55
+    marginLeft: 55,
+    borderRadius: 50,
+    width: 30,
+    height: 30
   },
   EditImage: {
-    width: 30,
-    height: 30,
+    width: 15,
+    height: 15,
+    marginTop: 7,
+    marginLeft: 7
   },
   AlarmkBtn: {
     width: 26,
@@ -475,7 +477,7 @@ export const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 5,
     width: '95%',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   ListArea: {
     width: '100%',
@@ -767,8 +769,8 @@ export const styles = StyleSheet.create({
     borderColor: '#1d1c1e'
   },
   LineStyle1:{
-    borderBottomColor: '#0e0d0f',
-    borderBottomWidth: 1,
+    borderBottomColor: '#0f0e10',
+    borderBottomWidth: 0.5,
     marginLeft: '5%',
     marginRight: '5%',
     marginTop: 15,

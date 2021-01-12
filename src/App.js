@@ -90,7 +90,7 @@ export default class App extends Component {
         RenderService();
 	}
      state = {
-        theme: 'light',
+        theme: 'dark',
         isOn: false
     };
 
