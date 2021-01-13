@@ -21,9 +21,8 @@ export default class ActivityFollowingScreen extends Component {
         this.setState({toggleFlag: this.props.navigation.getParam("ddd")})
     }
     render() {
-        return (<ThemeContext.Consumer>
-          {({ theme }) => (
-            <View style={{ ...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor }}>
+        let theme = this.props.navigation.getParam('theme')
+        return (<View style={{ ...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor }}>
                 <ScrollView style={{ flex: 1, width: '100%' }}>
                     <View style={{ width: '100%' }}>
                         <View style={styles.ImageBackground}>
@@ -105,8 +104,6 @@ export default class ActivityFollowingScreen extends Component {
                         }
                     </View>
                 </ScrollView>
-            </View>
-     )}
- </ThemeContext.Consumer>);
+            </View>);
     }
 }

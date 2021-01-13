@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 
 import {ThemeConstants} from '../../theme/themeConstants'
-import {ThemeContext} from '../../App'
+//import {ThemeContext} from '../../App'
 
 export default class CompareAndShare extends Component {
-  render() {
-    return (  <ThemeContext.Consumer>
-          {({ theme }) => (
+  render() { 
+    let theme = this.props.navigation.getParam('theme')
+    return ( 
       <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
             <ScrollView style={{ flex: 1, width: '100%' }}>
               <View style={{ width: '100%', height: 220 }}>
@@ -69,8 +69,7 @@ export default class CompareAndShare extends Component {
                   </View>
                 </View>
             </ScrollView> 
-      </View>)}
- </ThemeContext.Consumer>);
+      </View>);
   }
 }
 const styles = StyleSheet.create({

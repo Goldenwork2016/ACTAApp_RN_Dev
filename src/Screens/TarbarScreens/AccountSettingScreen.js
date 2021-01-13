@@ -13,8 +13,8 @@ import NonImage from '../../Assets/Images/nopicture.png'
 
 import config, { BASE_PATH } from "../../Api/config"
 
-import {ThemeConstants} from '../../theme/themeConstants'
-import {ThemeContext} from '../../App'
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
 
 const options = {
     title: 'Choose Photo',
@@ -209,7 +209,7 @@ class AccountSettingScreen extends Component {
 
     render() {
         const avatarSource = this.state
-        return (<ThemeContext.Consumer>
+        return ( <ThemeContext.Consumer>
           {({ theme }) => (
             <View style={styles.container2}>
                 <Spinner
@@ -244,7 +244,7 @@ class AccountSettingScreen extends Component {
                             </View>
                         </View>
                         <View style={{...styles.Content, backgroundColor: ThemeConstants[theme].backgroundColor}}>
-                            <TouchableOpacity style={styles.ListContent2} onPress={() => this.props.navigation.navigate("AccountEditScreen")}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={() => this.props.navigation.navigate("AccountEditScreen", {theme: theme})}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Name</Text>
                                     <View style={styles.ListContent4}>
@@ -258,7 +258,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:true})}}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:true, theme: theme})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Email</Text>
                                     <View style={styles.ListContent4}>
@@ -272,7 +272,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2}  onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:false})}}>
+                            <TouchableOpacity style={styles.ListContent2}  onPress={()=>{this.props.navigation.navigate("EditEmailScreen",{isEmail:false, theme: theme})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Mobile</Text>
                                     <View style={styles.ListContent4}>
@@ -286,7 +286,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditBirthdayScreen")}}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditBirthdayScreen",  {theme: theme})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Birthday</Text>
                                     <View style={styles.ListContent4}>
@@ -300,7 +300,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{window.us.form={header: 'My Address', title: 'Address', placeholder: 'Fill Address', field: 'address'}; this.props.navigation.navigate("ProfileEdit")}}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{window.us.form={header: 'My Address', title: 'Address', placeholder: 'Fill Address', field: 'address'}; this.props.navigation.navigate("ProfileEdit", {theme: theme})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Address</Text>
                                     <View style={styles.ListContent4}>
@@ -314,7 +314,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditMeasurement")}}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditMeasurement", {theme: theme})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Measurement Units</Text>
                                     <View style={styles.ListContent4}>
@@ -328,7 +328,7 @@ class AccountSettingScreen extends Component {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditConnectivity")}}>
+                            <TouchableOpacity style={styles.ListContent2} onPress={()=>{this.props.navigation.navigate("EditConnectivity", {theme: theme})}}>
                                 <View style={{ width: '100%' }}>
                                     <Text style={{ ...styles.desTxt1, fontSize: 16 }}>Connectivity</Text>
                                     <View style={styles.ListContent4}>
@@ -391,8 +391,7 @@ class AccountSettingScreen extends Component {
                         </TouchableOpacity>
                     </View>
                 </Modal>
-            </View>
-       )}
+            </View>)}
  </ThemeContext.Consumer>);
     }
 }

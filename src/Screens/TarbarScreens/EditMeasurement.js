@@ -3,6 +3,9 @@ import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Image
 import Modal from 'react-native-modal';
 import Spinner from 'react-native-loading-spinner-overlay';
 
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
+
 import config, { BASE_PATH } from "../../Api/config"
 
 export default class AccountEditScreen extends Component {
@@ -82,23 +85,27 @@ export default class AccountEditScreen extends Component {
   }
 
   render() {
+    let theme = this.props.navigation.getParam('theme')
     return (
-      <View style={styles.container}>
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <Spinner
           visible={this.state.isLoading}
           textContent={'Changing measurement units...'}
           textStyle={{ color: 'white' }}
         />
         <View style={styles.header}>
-          <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-            <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
-          </TouchableOpacity>
-          <Text style={styles.headerTxt}>MEASUREMENT UNITS</Text>
+          <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}> 
+          {
+            theme === 'light'
+          ? <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+          : <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          }</TouchableOpacity>
+          <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>MEASUREMENT UNITS</Text>
         </View>
-        <Text style={styles.TitleTxt}>Measurement Units</Text>
-        <TextInput placeholder="Measurement" placeholderTextColor="#53535f" defaultValue={this.state.measurement} style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ measurement: e })} />
-        <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
-          <Text style={styles.EmailTxt}>Save</Text>
+        <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>Measurement Units</Text>
+        <TextInput placeholder="Measurement" placeholderTextColor={ThemeConstants[theme].textColorTitle} defaultValue={this.state.measurement} style={{...styles.EmailInputTxt,  backgroundColor: ThemeConstants[theme].inputColor,  color: ThemeConstants[theme].textColorTitle}} onChangeText={(e) => this.setState({ measurement: e })} />
+        <TouchableOpacity style={{...styles.emailBtn,backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.saveName()}>
+          <Text style={{...styles.EmailTxt,color: ThemeConstants[theme].backgroundColor}}>Save</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
@@ -141,7 +148,6 @@ export default class AccountEditScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center'
   },
   header: {

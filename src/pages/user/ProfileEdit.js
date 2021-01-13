@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, TextInput, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import {ThemeConstants} from '../../theme/themeConstants';
 
 export default class AccountEditScreen extends Component {
 	constructor(props) {
@@ -25,18 +26,22 @@ export default class AccountEditScreen extends Component {
 		});
 	}
 	render() {
+		    let theme = this.props.navigation.getParam('theme')
 		return (
-			<View style={styles.container}>
+			<View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
 				<View style={styles.header}>
 					<TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-						<Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+					  {theme === 'light'
+         			? 	<Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+					:	<Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+				}
 					</TouchableOpacity>
-					<Text style={styles.headerTxt}>{window.us.form.header}</Text>
+					<Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>{window.us.form.header}</Text>
 				</View>
-				<Text style={styles.TitleTxt}>{window.us.form.title}</Text>
-				<TextInput placeholder="{window.us.form.placeholder}" placeholderTextColor="#53535f" defaultValue={window.us.data[window.us.form.field]} style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ value: e })} />
-				<TouchableOpacity style={styles.emailBtn} onPress={() => this.update()}>
-					<Text style={styles.EmailTxt}>Save</Text>
+				<Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>{window.us.form.title}</Text>
+				<TextInput placeholder="{window.us.form.placeholder}" placeholderTextColor={ThemeConstants[theme].textColorTitle} defaultValue={window.us.data[window.us.form.field]} style={{...styles.EmailInputTxt, backgroundColor: ThemeConstants[theme].inputColor,  color: ThemeConstants[theme].textColorTitle}} onChangeText={(e) => this.setState({ value: e })} />
+				<TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.update()}>
+					<Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Save</Text>
 				</TouchableOpacity>
 				<Modal isVisible={this.state.isModalVisible1}>
 					<View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
@@ -61,7 +66,6 @@ export default class AccountEditScreen extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: 'black',
 		alignItems: 'center'
 	},
 	header: {

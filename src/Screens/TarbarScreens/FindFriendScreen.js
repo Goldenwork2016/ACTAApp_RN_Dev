@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TextInput, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '../../styles';
 import {ThemeConstants} from '../../theme/themeConstants';
-import {ThemeContext} from '../../App';
+//import {ThemeContext} from '../../App';
 export default class ActivityPoundsScreen extends Component {
     constructor(props) {
         super(props);
@@ -17,8 +17,8 @@ export default class ActivityPoundsScreen extends Component {
 
 
     render() {
-        return (  <ThemeContext.Consumer>
-          {({ theme }) => (
+            let theme = this.props.navigation.getParam('theme')
+        return (  
             <View style={{ ...styles.container, backgroundColor:  ThemeConstants[theme].backgroundColor}}>
                 <ScrollView style={{ flex: 1, width: '100%' }}>
                     <View style={{ width: '100%', backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
@@ -71,7 +71,6 @@ export default class ActivityPoundsScreen extends Component {
 						}) }
                     </View>
                 </ScrollView>
-            </View>)}
- </ThemeContext.Consumer>);
+            </View>);
     }
 }

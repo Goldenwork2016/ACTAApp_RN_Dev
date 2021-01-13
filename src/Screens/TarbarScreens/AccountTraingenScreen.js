@@ -3,7 +3,7 @@ import { View, Text, Image, TextInput, FlatList, SafeAreaView, Platform, ImageBa
 import { styles } from '../../styles';
 
 import {ThemeConstants} from '../../theme/themeConstants'
-import {ThemeContext} from '../../App'
+//import {ThemeContext} from '../../App'
 
 export default class ActivityTraingenScreen extends Component {
     constructor(props) {
@@ -45,8 +45,8 @@ export default class ActivityTraingenScreen extends Component {
     }
 
     render() {
-        return (<ThemeContext.Consumer>
-          {({ theme }) => (
+        let theme = this.props.navigation.getParam('theme')
+        return (
             <View style={{ ...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <ScrollView style={{ flex: 1, width: '100%' }}>
                     <View style={{ width: '100%' }}>
@@ -79,7 +79,7 @@ export default class ActivityTraingenScreen extends Component {
                                     numColumns={1}
                                     data={this.state.contentList1}
                                     renderItem={({ item }) => (
-                                        <TouchableOpacity style={styles.ListContent3} onPress={() => this.props.navigation.navigate("ProgramWorkoutDetailScreen")}>
+                                        <TouchableOpacity style={styles.ListContent3} onPress={() => this.props.navigation.navigate("ProgramWorkoutDetailScreen", {theme: theme})}>
                                             <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage2} />
                                             <Text style={styles.ListTitle1}>{item.Title}</Text>
                                             <Text style={styles.Description}>{item.Description}</Text>
@@ -91,8 +91,6 @@ export default class ActivityTraingenScreen extends Component {
                         </View>
                     </View>
                 </ScrollView>
-            </View>
-      )}
- </ThemeContext.Consumer>);
+            </View>);
     }
 }

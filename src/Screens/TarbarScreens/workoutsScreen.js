@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import ExercicesSrcreen from './ExecicesScreen'
+import ExercicesSrcreen from './ExecicesScreen';
+
+import {ThemeConstants} from '../../theme/themeConstants';
+
 export default class ExercicesScreen extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +59,7 @@ export default class ExercicesScreen extends Component {
   // }
   
   render() {
+    let theme = this.props.theme;
     return (
         <ScrollView style={{ flex: 1, width: '100%' }}>
           <View style={{ width: '100%', height: 600 }}>
@@ -99,7 +103,7 @@ export default class ExercicesScreen extends Component {
           </View>
           <View style={styles.mainContent}>
             <View style={styles.AllArea}>
-              <Text style={styles.ConHeaderTxt}>Workouts</Text>
+              <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Workouts</Text>
              {/* <View style={styles.AllArea}>
                 <Text style={styles.ConHeaderTxt1}>LOOSE FAT</Text>
                 <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />

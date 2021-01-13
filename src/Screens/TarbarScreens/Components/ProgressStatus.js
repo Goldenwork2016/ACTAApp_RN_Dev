@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
-import ProgressCircle from 'react-native-progress-circle';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function ProgressStatus (){

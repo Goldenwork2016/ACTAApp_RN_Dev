@@ -70,11 +70,13 @@ export default class ExercicesScreen extends Component {
   }
    /*this.props.navigation.navigate("ProgramDetailScreen") */
   rendermakelist1 = ({ item }) => (
-    <TouchableOpacity style={styles.ListContent1} onPress={() =>{this.props.navigation.navigate('CategoryScreen', {item})}}>
+     <ThemeContext.Consumer>
+          {({ theme }) => (
+    <TouchableOpacity style={styles.ListContent1} onPress={() =>{this.props.navigation.navigate('CategoryScreen', {item, theme: theme})}}>
       <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
       <Text style={styles.ListTitle}>{item.Title}</Text>
-    </TouchableOpacity>
-  )
+    </TouchableOpacity>)}
+    </ThemeContext.Consumer>)
 
   render() {
     return (  <ThemeContext.Consumer>

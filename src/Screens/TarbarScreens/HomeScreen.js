@@ -180,7 +180,7 @@ export default class HomeScreen extends Component {
        </TouchableOpacity>
   </View> : <SocialActivities/>}
 </View> 
-</ScrollView> :  <WorkoutsScreen toggle={this.toggle} gotoDetailScreen ={this.props.gotoDetailScreen} />}
+</ScrollView> :  <WorkoutsScreen toggle={this.toggle} gotoDetailScreen ={this.props.gotoDetailScreen}  theme = {theme}/>}
 </View>)}
  </ThemeContext.Consumer>);
 }

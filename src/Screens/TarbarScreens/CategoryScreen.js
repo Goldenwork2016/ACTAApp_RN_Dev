@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import WorkoutsScreen from './workoutsScreen';
 import {ThemeConstants} from '../../theme/themeConstants';
-import {ThemeContext} from '../../App';
+//import {ThemeContext} from '../../App';
 
 
 export default class ABSScreen extends Component {
@@ -67,8 +67,8 @@ export default class ABSScreen extends Component {
   )
   render() {
    let categoryData = this.props.navigation.getParam('item')
-    return ( <ThemeContext.Consumer>
-          {({ theme }) => (
+   let theme = this.props.navigation.getParam('theme')
+    return ( 
       <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
             <ScrollView style={{ flex: 1, width: '95%' }}>
             <View style={{ width: '100%'}}>
@@ -95,9 +95,7 @@ export default class ABSScreen extends Component {
                 />
               </View>
             </ScrollView>   
-      </View>)}
-          </ThemeContext.Consumer>
-    );
+      </View>);
   }
 }
 

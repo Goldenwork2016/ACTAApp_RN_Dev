@@ -3,7 +3,9 @@ import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Image
 import Modal from 'react-native-modal';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import config, { BASE_PATH } from "../../Api/config"
+import config, { BASE_PATH } from "../../Api/config";
+
+import {ThemeConstants} from '../../theme/themeConstants'
 
 export default class AccountEditScreen extends Component {
   constructor(props) {
@@ -82,8 +84,9 @@ export default class AccountEditScreen extends Component {
   }
 
   render() {
+      let theme = this.props.navigation.getParam('theme')
     return (
-      <View style={styles.container}>
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <Spinner
           visible={this.state.isLoading}
           textContent={'Changing birthday...'}
@@ -91,14 +94,17 @@ export default class AccountEditScreen extends Component {
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-            <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          {theme === 'light'
+          ?  <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+          : <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          }
           </TouchableOpacity>
-          <Text style={styles.headerTxt}>BIRTHDAY</Text>
+          <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>BIRTHDAY</Text>
         </View>
-        <Text style={styles.TitleTxt}>Birthday</Text>
-        <TextInput placeholder="Birthday" placeholderTextColor="#53535f" style={styles.EmailInputTxt} defaultValue={this.state.birthday} onChangeText={(e) => this.setState({ birthday: e })} />
-        <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
-          <Text style={styles.EmailTxt}>Save</Text>
+        <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>Birthday</Text>
+        <TextInput placeholder="Birthday" placeholderTextColor={ThemeConstants[theme].textColorTitle} style={{...styles.EmailInputTxt, backgroundColor: ThemeConstants[theme].inputColor,  color: ThemeConstants[theme].textColorTitle}} defaultValue={this.state.birthday} onChangeText={(e) => this.setState({ birthday: e })} />
+        <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.saveName()}>
+          <Text style={{...styles.EmailTxt,  color: ThemeConstants[theme].backgroundColor}}>Save</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
@@ -141,7 +147,6 @@ export default class AccountEditScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center'
   },
   header: {

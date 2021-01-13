@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
 import http from './services/http.service';
 import user from './services/user.service';
 import render from './services/render.service';
@@ -9,7 +8,10 @@ import workout from './services/workout.service';
 import {Store_Service} from './services/store.service';
 import {MongoService, RenderService} from 'wrcom';
 import RootNavigator from './RootNavigation';
-import {themeConstans} from './theme/themeConstants';
+import {ThemeConstans} from './theme/themeConstants';
+
+import AsyncStorage  from '@react-native-community/async-storage';
+
 const theme = {}
 
 export const ThemeContext = React.createContext(null);
@@ -90,19 +92,29 @@ export default class App extends Component {
         RenderService();
 	}
      state = {
-        theme: 'dark',
+        theme: 'light',
         isOn: false
     };
 
     toggleTheme = () => {
             this.setState(({ theme }) => ({
             theme: theme === 'light' ? 'dark' : 'light',
-         }));
+         })
+        // AsyncStorage.setItem('@storage_theme', JSON.stringify(theme))     
+            );
              this.setState(({ isOn }) => ({
             isOn: isOn === false ? true : false,
-         }));
+         }));     
     };
-    render() {
+    // componentDidMount (){
+    //      AsyncStorage.getItem('@storage_theme').then((theme) =>{
+    //     if(theme){
+    //         this.setState({theme: theme})
+    //         console.log(theme);
+    //     }
+    //    });
+    // }
+    render() { 
         return (
             <>
                 {/* <StatusBar hidden={true} /> */}

@@ -6,7 +6,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import config, { BASE_PATH } from "../../Api/config";
 
 import {ThemeConstants} from '../../theme/themeConstants';
-import {ThemeContext} from '../../App';
 
 export default class AccountEditScreen extends Component {
   constructor(props) {
@@ -92,8 +91,8 @@ export default class AccountEditScreen extends Component {
   }
 
   render() {
-    return ( <ThemeContext.Consumer>
-          {({ theme }) => (
+    let theme = this.props.navigation.getParam('theme')
+    return ( 
       <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <Spinner
           visible={this.state.isLoading}
@@ -148,8 +147,7 @@ export default class AccountEditScreen extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-      </View>)}
- </ThemeContext.Consumer>);
+      </View>);
   }
 }
 

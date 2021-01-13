@@ -3,7 +3,10 @@ import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, Image
 import Modal from 'react-native-modal';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import config, { BASE_PATH } from "../../Api/config"
+import config, { BASE_PATH } from "../../Api/config";
+
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
 
 export default class EditConnectivity extends Component {
   constructor(props) {
@@ -83,8 +86,9 @@ export default class EditConnectivity extends Component {
   }
 
   render() {
+         let theme = this.props.navigation.getParam('theme')
     return (
-      <View style={styles.container}>
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor }}>
         <Spinner
           visible={this.state.isLoading}
           textContent={'Changing measurement units...'}
@@ -92,14 +96,17 @@ export default class EditConnectivity extends Component {
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-            <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+             {theme === 'light'
+          ?  <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+          :  <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          }
           </TouchableOpacity>
-          <Text style={styles.headerTxt}>CONNECTIVITY</Text>
+          <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>CONNECTIVITY</Text>
         </View>
-        <Text style={styles.TitleTxt}>Connectivity</Text>
-        <TextInput placeholder="Connectivity" placeholderTextColor="#53535f" defaultValue={this.state.connectivity} style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ connectivity: e })} />
-        <TouchableOpacity style={styles.emailBtn} onPress={() => this.saveName()}>
-          <Text style={styles.EmailTxt}>Save</Text>
+        <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>Connectivity</Text>
+        <TextInput placeholder="Connectivity" placeholderTextColor={ThemeConstants[theme].textColorTitle} defaultValue={this.state.connectivity} style={{...styles.EmailInputTxt,backgroundColor: ThemeConstants[theme].inputColor,  color: ThemeConstants[theme].textColorTitle}} onChangeText={(e) => this.setState({ connectivity: e })} />
+        <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.saveName()}>
+          <Text style={{...styles.EmailTxt,  color: ThemeConstants[theme].backgroundColor}}>Save</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible1}>
           <View style={{ ...styles.modalView, backgroundColor: '#111012' }}>
@@ -142,7 +149,6 @@ export default class EditConnectivity extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center'
   },
   header: {

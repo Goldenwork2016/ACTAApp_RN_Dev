@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 
+import {ThemeConstants} from '../../theme/themeConstants';
+
 export default class ProgramDetailScreen extends Component {
   constructor(props) {
     super(props);
@@ -52,8 +54,9 @@ export default class ProgramDetailScreen extends Component {
   }
 
   render() {
+      let theme = this.props.navigation.getParam('theme')
     return (
-      <View style={styles.container}>
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
           <View style={{ width: '100%', height: 610 }}>
             <ImageBackground source={require('../../Assets/Images/ProgramBackgroundImage.png')} resizeMode='stretch' style={styles.ImageBackground}>
@@ -85,20 +88,24 @@ export default class ProgramDetailScreen extends Component {
                     <Text style={styles.itemTxt}>Minutes</Text>
                   </View>
                 </View>
-                <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
-                  <Text style={styles.CreateTxt}>Continus  Program</Text>
-                </TouchableOpacity>
+         
               </View>
             </ImageBackground>
+
           </View>
           <View style={styles.mainContent}>
+          <View>
+            <TouchableOpacity style={{...styles.createBtn2,  backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
+                  <Text style={{...styles.CreateTxt, color: ThemeConstants[theme].backgroundColor}}>Continus  Program</Text>
+                </TouchableOpacity>
+          </View>
             <View style={{marginBottom: 30 }}>
               <Text style={styles.DescriptionTxt}>
                 Mauris posuere magna ut ex dictum vehicula. Nulla neque ipsum, molestie ac magna non, viverra maximus nulla. Etiam vulputate euismod sapien, sed vehicula lorem blandit vel.
                 </Text>
             </View>
             <View style={styles.AllArea}>
-              <Text style={styles.ConHeaderTxt}>Workouts</Text>
+              <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Workouts</Text>
             </View>
             <FlatList
               vertical
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
   createBtn2: {
     width: "100%",
     height: 50,
-    backgroundColor: 'white',
+    marginBottom: 20,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: 'center',

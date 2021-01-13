@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import ProgressCircle from 'react-native-progress-circle'
+
+
+import {ThemeConstants} from '../../theme/themeConstants';
+
 
 export default class ProgramDetailStartScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-    }
-
     render() {
+        let theme = this.props.navigation.getParam('theme')
         return (
-            <View style={styles.container}>
+            <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <ScrollView style={{ width: '100%' }}>
                     <View style={{ width: '100%' }}>
                         <View style={styles.header}>
-                            <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen")}>
-                                <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                            <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.navigate("ProgramDetailStartScreen", {theme: theme})}>
+                                {theme === 'light' 
+                                ? <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                                : <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                            }
                             </TouchableOpacity>
                             <View style={styles.dropDown}>
-                                <Text style={styles.headerTxt}>WORKOUT</Text>
+                                <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>WORKOUT</Text>
                             </View>
                         </View>
                         <View style={styles.mainContainer}>
@@ -45,20 +45,20 @@ export default class ProgramDetailStartScreen extends Component {
                                     <Text style={styles.CreateTxt}>Start Workout</Text>
                                 </TouchableOpacity>
                             </ImageBackground>
-                            <Text style={{alignSelf:'center',color:'white', fontSize:25, fontFamily:'FuturaPT-Medium', marginVertical:30}} >
+                            <Text style={{alignSelf:'center', fontSize:25, fontFamily:'FuturaPT-Medium', marginVertical:30,color: ThemeConstants[theme].textColorTitle}} >
                                 Exercises
                             </Text>
                             <View style={{width:"90%", alignSelf:'center'}}>
-                                <View style={styles.NextArea}>
+                                <View style={{...styles.NextArea, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
                                     <Text style={styles.NextTxt}>Warming Up</Text>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View>
-                                        <Text style={styles.FastTxt}>Incline Walk</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Incline Walk</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25}}>5</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25,color: ThemeConstants[theme].textColorTitle}}>5</Text>
                                         <Text style={styles.minTxt}>min</Text>
                                     </View>
                                 </View>
@@ -355,7 +355,8 @@ const styles = StyleSheet.create({
     NextArea: {
         height: 50,
         width: '100%',
-        backgroundColor: "#111012",
+        borderWidth: 0.25,
+        backgroundColor: '#111012',
         justifyContent: 'center',
     },
     fastImage: {
@@ -366,7 +367,8 @@ const styles = StyleSheet.create({
         height: 100,
         width: '100%',
         padding: 20,
-        backgroundColor: '#18171A',
+        borderWidth: 0.25,
+        backgroundColor: '#18171a',
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 1,

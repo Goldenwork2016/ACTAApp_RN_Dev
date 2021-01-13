@@ -8,7 +8,8 @@ export const ThemeConstants = {
     textColorTitle: '#000',
     bottomBorderColor: '#e7e7e7',
     borderBottomWorkouts: '#E0E0E0',
-    inputColor: '#f1f1f1'
+    inputColor: '#f1f1f1',
+    backgroundExerciseColor: '#fff'
   },
   dark: {
     backgroundColor: '#000',
@@ -19,6 +20,7 @@ export const ThemeConstants = {
     textColorTitle: '#fff',
     bottomBorderColor: '#0f0e10',
     borderBottomWorkouts:'#18171A',
-    inputColor: '#18171a'
+    inputColor: '#18171a',
+    backgroundExerciseColor: '#18171a'
   },
 };

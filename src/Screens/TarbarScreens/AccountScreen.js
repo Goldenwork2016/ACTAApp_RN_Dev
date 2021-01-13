@@ -106,9 +106,9 @@ class AccountScreen extends Component {
                 }
                 </View>
                 <View style={styles.dropDown}>
-                  <Text style={styles.headerTxt}>ACCOUNT</Text>
+                  <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>ACCOUNT</Text>
                 </View>
-                <TouchableOpacity style={styles.AlarmkBtn} onPress={() => { this.props.navigation.navigate("AccountSettingScreen") }}>
+                <TouchableOpacity style={styles.AlarmkBtn} onPress={() => { this.props.navigation.navigate("AccountSettingScreen")}}>
                 {theme === "light" ? 
                   <Image source={require('../../Assets/Images/settingBlack.png')} resizeMode='stretch' style={styles.notiImage} />
                   : <Image source={require('../../Assets/Images/settingImage.png')} resizeMode='stretch' style={styles.notiImage} />
@@ -121,7 +121,7 @@ class AccountScreen extends Component {
               </View>
               <Text style={styles.nameTxt}>{this.state.UserName}</Text>
               <View style={styles.headerContent}>
-                <TouchableOpacity style={styles.ContentList6} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: true })}>
+                <TouchableOpacity style={styles.ContentList6} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: true, theme: theme})}>
                   <Text style={{...styles.numTxt,color: ThemeConstants[theme].textColorDescription}}>{window.core.each(window.us.data.follow).length}</Text>
                   <Text style={styles.itemTxt}>Following</Text>
                 </TouchableOpacity>
@@ -129,14 +129,14 @@ class AccountScreen extends Component {
                   <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>{window.core.each(window.us.followers).length}</Text>
                   <Text style={styles.itemTxt}>Followers</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ ...styles.ContentList2,  borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen")}>
+                <TouchableOpacity style={{ ...styles.ContentList2,  borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen", {theme: theme})}>
                   <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>48</Text>
                   <Text style={styles.itemTxt}>Workouts</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.ListBnt}>
                 <View style={{ width: '100%'}}>
-                  <TouchableOpacity style={{...styles.createBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.props.navigation.navigate("FindFriendScreen")}>
+                  <TouchableOpacity style={{...styles.createBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.props.navigation.navigate("FindFriendScreen", {theme: theme})}>
                     <Text style={{...styles.CreateTxt, color: ThemeConstants[theme].backgroundColor}}>Find Friends</Text>
                   </TouchableOpacity>
                 </View>
@@ -201,7 +201,7 @@ class AccountScreen extends Component {
                   <Text style={styles.ConHeaderTxt1}><Text style={{ fontSize: 25, marginTop: 5 }}>+</Text>  WEIGTH IN</Text>
                 </View>*/}
                   <View style={styles.mainContent}>
-                    <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.navigation.navigate("CompareAndShare")}>
+                    <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.navigation.navigate("CompareAndShare", {theme: theme})}>
                       <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Compare and Share</Text>
                     </TouchableOpacity>
                   </View>
@@ -212,12 +212,13 @@ class AccountScreen extends Component {
                          <ToggleSwitch
                             isOn = {isOn}
                             onColor="#18171a"
-                            offColor="#18171a"
+                            offColor="#e0e0e0"
                            // labelStyle={{ color: "black", fontWeight: "700" }}
-                             icon={<Icon 
+                             icon={
+                              isOn === true ? <Icon 
                               name = "check"
                               size={14}
-                              color="black"/>}
+                              color="black"/>: null}
                             size="large"
                             onToggle={toggleTheme}
                           />

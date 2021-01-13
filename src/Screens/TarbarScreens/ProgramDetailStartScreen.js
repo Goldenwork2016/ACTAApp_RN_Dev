@@ -1,118 +1,125 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import ProgressCircle from 'react-native-progress-circle'
-import ProgressStatus from './Components/ProgressStatus'
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+import {ThemeConstants} from '../../theme/themeConstants'
 
 export default class ProgramDetailStartScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-    }
-
     render() {
-        return (
-            <View style={styles.container}>
-                <ScrollView style={{ width: '100%' }}>
-                    <View style={{ width: '100%' }}>
-                        <View style={styles.header}>
-                            <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.navigate("ProgramDetailScreen")}>
-                                <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
-                            </TouchableOpacity>
-                            <View style={styles.dropDown}>
-                                <Text style={styles.headerTxt}>PROGRAM</Text>
-                            </View>
-                        </View>
-                          <View style={styles.LineStyle}/>
-                        <View style={styles.mainContainer}>
-                            <Text style={styles.TileTxt}>SUMMER</Text>
-                            <Text style={styles.TileTxt}>READY.</Text>
-                            <ProgressStatus />
-                           {/* <View style={styles.headerContent}>
-                                <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                    <Text style={styles.itemTxt}>Week</Text>
-                                    <Text style={styles.numTxt}>4</Text>
-                                </View>
-                                <ProgressCircle
-                                    percent={25}
-                                    radius={65}
-                                    borderWidth={3}
-                                    color="white"
-                                    shadowColor="#111012"
-                                    bgColor="#000"
-                                    outerCircleStyle={{}}
-                                >
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ fontSize: 50, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>25</Text>
-                                        <Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontFamily: 'TrumpSoftPro-BoldItalic' }}>%</Text>
-                                    </View>
-                                </ProgressCircle>
-                                <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
-                                    <Text style={styles.itemTxt}>Day</Text>
-                                    <Text style={styles.numTxt}>2</Text>
-                                </View>
-                            </View>*/}
-                            <View>
-                                <View style={styles.NextArea}>
-                                    <Text style={styles.NextTxt}>Next Workout</Text>
-                                </View>
-                                <View style={styles.ItemArea}>
-                                    <Image source={require('../../Assets/Images/FastFuriousImage.png')} resizeMode='stretch' style={styles.fastImage} />
-                                    <View>
-                                        <Text style={styles.FastTxt}>Fast & Furious</Text>
-                                    </View>
-                                    <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>30</Text>
-                                        <Text style={styles.minTxt}>min</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <TouchableOpacity style={styles.createBtn2} onPress={() => this.props.navigation.navigate("ReadyScreen")}>
-                                <Text style={styles.CreateTxt}>Start Workout</Text>
-                            </TouchableOpacity>
-                            <Text style={styles.minText}>Your Statistics</Text>
-                            <View style={{ ...styles.headerContent, marginTop: -10}}>
-                                <View style={styles.ContentList6}>
-                                    <Text style={styles.numTxt}>14</Text>
-                                    <Text style={styles.itemTxt}>Workouts</Text>
-                                </View>
-                                <View style={styles.ContentList6}>
-                                    <Text style={styles.numTxt}>10</Text>
-                                    <Text style={styles.itemTxt}>Days</Text>
-                                </View>
-                                <View style={{ ...styles.ContentList2, borderRightWidth: 0, }}>
-                                    <Text style={styles.numTxt}>166</Text>
-                                    <Text style={styles.itemTxt}>Min</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View>
-                            <View style={styles.LineStyle}/>
-                            <View style={styles.bottomList}>
-                                <Text style={styles.ConHeaderTxt1}>Program Overview</Text>
-                                <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
-                            </View>
-                            <View style={styles.bottomList}>
-                                <Text style={styles.ConHeaderTxt1}>Program Details</Text>
-                                <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
-                            </View>
-                        </View>
-                        <TouchableOpacity style={{margin:30}}>
-                            <Text style={styles.ConHeaderTxt1}>End workout</Text>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
-            </View >
-        );
+      let theme = this.props.navigation.getParam('theme')
+      return (
+        <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
+        <ScrollView style={{ width: '100%' }}>
+        <View style={{ width: '100%' }}>
+        <View style={styles.header}>
+        <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.navigate("ProgramDetailScreen", {theme:theme})}>
+        {theme === 'light' 
+        ? <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+        : 
+        <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
     }
+    </TouchableOpacity>
+    <View style={styles.dropDown}>
+    <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>PROGRAM</Text>
+    </View>
+    </View>
+    <View style={styles.LineStyle}/>
+    <View style={styles.mainContainer}>
+    <Text style={{...styles.TileTxt, color: ThemeConstants[theme].textColorTitle}}>SUMMER</Text>
+    <Text style={{...styles.TileTxt, color: ThemeConstants[theme].textColorTitle}}>READY.</Text>
+    <View style={styles.headerContent}>
+    <View style={{ ...styles.ContentList2, borderRightWidth: 0}}>
+    <Text style={styles.itemTxt}>Week</Text>
+    <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorTitle}}>4</Text>     
+    </View>
+    <AnimatedCircularProgress
+    size={122}
+    width={2}
+    fill={25}
+    rotation = {360}
+    tintColor={ThemeConstants[theme].textColorTitle}
+    backgroundColor={ThemeConstants[theme].borderBottomWorkouts} 
+    >
+    {
+        (fill) => (
+            <View style={{ flexDirection: 'row' }}>
+            <Text style={{ fontSize: 50, fontFamily: 'TrumpSoftPro-BoldItalic', color: ThemeConstants[theme].textColorTitle }}>25</Text>
+            <Text style={{ fontSize: 25, marginLeft: 5, fontFamily: 'TrumpSoftPro-BoldItalic', color: ThemeConstants[theme].textColorTitle }}>%</Text>
+            </View>
+            )
+    }
+    </AnimatedCircularProgress>
+
+    <View style={{ ...styles.ContentList2, borderRightWidth: 0 }}>
+    <Text style={styles.itemTxt}>Day</Text>
+    <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorTitle}}>2</Text>
+    </View>
+    </View>
+    <View>
+    <View style={{...styles.NextArea, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
+    <Text style={styles.NextTxt}>Next Workout</Text>
+    </View>
+    <View style={{...styles.ItemArea, backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
+    <Image source={require('../../Assets/Images/FastFuriousImage.png')} resizeMode='stretch' style={styles.fastImage} />
+    <View>
+    <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Fast & Furious</Text>
+    </View>
+    <View style={styles.leftMin}>
+    <Text style={{ ...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle }}>30</Text>
+    <Text style={styles.minTxt}>min</Text>
+    </View>
+    </View>
+    </View>
+    <TouchableOpacity style={{...styles.createBtn2, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => this.props.navigation.navigate("ReadyScreen")}>
+    <Text style={{...styles.CreateTxt, color: ThemeConstants[theme].backgroundColor}}>Start Workout</Text>
+    </TouchableOpacity>
+    <Text style={styles.minText}>Your Statistics</Text>
+    <View style={{ ...styles.headerContent, marginTop: -10}}>
+    <View style={styles.ContentList6}>
+    <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorTitle}}>14</Text>
+    <Text style={styles.itemTxt}>Workouts</Text>
+    </View>
+    <View style={styles.ContentList6}>
+    <Text style={{...styles.numTxt,color: ThemeConstants[theme].textColorTitle}}>10</Text>
+    <Text style={styles.itemTxt}>Days</Text>
+    </View>
+    <View style={{ ...styles.ContentList2, borderRightWidth: 0, }}>
+    <Text style={{...styles.numTxt,color: ThemeConstants[theme].textColorTitle}}>166</Text>
+    <Text style={styles.itemTxt}>Min</Text>
+    </View>
+    </View>
+    </View>
+    <View>
+    <View style={styles.LineStyle}/>
+    <View style={styles.bottomList}>
+    <Text style={{...styles.ConHeaderTxt1,color: ThemeConstants[theme].textColorTitle}}>Program Overview</Text>
+    {theme === 'light' ?
+    <Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+    : <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
+}
+</View>
+<View style={styles.bottomList}>
+<Text style={{...styles.ConHeaderTxt1,color: ThemeConstants[theme].textColorTitle}}>Program Details</Text>
+{theme === 'light' ?
+<Image source={require('../../Assets/Images/rightIconBlack.png')} resizeMode='stretch' style={styles.RightIcon1} />
+: <Image source={require('../../Assets/Images/RightIcon.png')} resizeMode='stretch' style={styles.RightIcon} />
+}
+</View>
+</View>
+<TouchableOpacity style={{margin:30}}>
+<Text style={{...styles.ConHeaderTxt1,color: ThemeConstants[theme].textColorTitle,fontWeight: 'bold'}}>End workout</Text>
+</TouchableOpacity>
+</View>
+</ScrollView>
+</View>
+);
+}
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: 'black'
     },
     ImageBackground: {
         width: '100%',
@@ -186,7 +193,6 @@ const styles = StyleSheet.create({
     },
     ConHeaderTxt1: {
         fontFamily: 'FuturaPT-Book',
-        color: 'white',
         fontSize: 18,
         marginRight: 10,
         textAlign: "center"
@@ -276,7 +282,7 @@ const styles = StyleSheet.create({
     NextArea: {
         height: 50,
         width: '100%',
-        backgroundColor: "#111012",
+        borderWidth: 0.25,
         justifyContent: 'center',
     },
     fastImage: {
@@ -287,7 +293,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: '100%',
         padding: 20,
-        backgroundColor: '#18171A',
+        borderWidth: 0.25,
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 1,
@@ -339,5 +345,5 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginLeft: '5%',
         marginRight: '5%'
-   },
+    },
 })
