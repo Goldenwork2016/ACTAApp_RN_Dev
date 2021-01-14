@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageB
 import Modal from 'react-native-modal';
 
 import WorkoutCompleteScreen from './WorkoutCompleteScreen'
+import {ThemeConstants} from '../../theme/themeConstants'
+
 
 export default class WorkoutOverViewScreen extends Component {
     constructor(props) {
@@ -11,13 +13,14 @@ export default class WorkoutOverViewScreen extends Component {
             isModalVisible: false,
             ready: '',
             Timer: '',
-            flag: false
+            flag: false,
+            theme: this.props.navigation.getParam('theme')
         };
     }
 
     complete = () => {
         this.setState({ isModalVisible: false })
-        this.props.navigation.navigate("WorkoutCompleteScreen")
+        this.props.navigation.navigate("WorkoutCompleteScreen", {theme: this.state.theme})
     }
 
     componentDidMount() {
@@ -31,10 +34,10 @@ export default class WorkoutOverViewScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={{...styles.container, backgroundColor: ThemeConstants[this.state.theme].backgroundColor}}>
                 {
                     this.state.ready >= 3 ?
-                        <View style={styles.container}>
+                        <View style={{...styles.container, backgroundColor: ThemeConstants[this.state.theme].backgroundColor}}>
                             <ScrollView style={{ width: '100%' }}>
                                 <View style={{ width: '100%' }}>
                                     <ImageBackground source={require('../../Assets/Images/HomeBackImage1.png')} resizeMode='stretch' style={styles.ImageBackground}>
@@ -43,53 +46,63 @@ export default class WorkoutOverViewScreen extends Component {
                                             <Image source={require('../../Assets/Images/shareImage.png')} resizeMode='stretch' style={styles.ImageBackground1} />
                                         </TouchableOpacity>
                                         <View style={styles.workTxt}>
-                                            <Text style={styles.TileTxt}>WORKOUT</Text>
-                                            <Text style={styles.TileTxt}>COMPLETE</Text>
+                                            <Text style={styles.TileTxt}>WORKOUT </Text>
+                                            <Text style={styles.TileTxt}>COMPLETE </Text>
                                         </View>
-                                        <View style={styles.headerContent}>
-                                            <View style={{ width: '50%', marginLeft:10 }}>
-                                                <Text style={styles.achiveTxt}>Workout</Text>
-                                                <Text style={styles.minTxt1}>Fast & Furious</Text>
-                                            </View>
-                                        </View>
+                                          
                                     </ImageBackground>
                                     <View style={styles.mainContainer}>
-                                        <View style={{ ...styles.content, flexDirection: 'row' }}>
+                                        <View style={{ ...styles.headerContent}}>
+                                            <View style={{ width: '50%', marginLeft:10}}>
+                                               <Text style={{...styles.achiveTxt, }}>Workout</Text>
+                                                <Text style={{...styles.minTxt1,color: ThemeConstants[this.state.theme].textColorTitle}}>Fast & Furious</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ ...styles.content, flexDirection: 'row', borderColor: ThemeConstants[this.state.theme].borderBottomWorkouts}}>
                                             <View style={{ width: '50%' }}>
                                                 <Text style={styles.achiveTxt}>Total Time</Text>
-                                                <Text style={styles.minTxt1}>00:28 min</Text>
+                                                <Text style={{...styles.minTxt1,color: ThemeConstants[this.state.theme].textColorTitle}}>00:28 min</Text>
                                             </View>
                                             <View style={{ width: '50%' }}>
                                                 <Text style={styles.achiveTxt}>Date</Text>
-                                                <Text style={styles.minTxt1}>Oct 10.2020</Text>
+                                                <Text style={{...styles.minTxt1,color: ThemeConstants[this.state.theme].textColorTitle}}>Oct 10.2020</Text>
                                             </View>
                                         </View>
                                         <View style={styles.content}>
                                             <Text style={styles.achiveTxt}>Achievement</Text>
-                                            <View style={styles.NextArea}>
-                                                <Image source={require('../../Assets/Images/medalImage.png')} resizeMode='stretch' style={styles.medalImage} />
+                                            <View style={{...styles.NextArea, backgroundColor: ThemeConstants[this.state.theme].inputColor}}>
+                                            {this.state.theme === 'light' 
+                                            ?  <Image source={require('../../Assets/Images/medalImageBlack.png')} resizeMode='stretch' style={styles.medalImage} />
+                                               : <Image source={require('../../Assets/Images/medalImage.png')} resizeMode='stretch' style={styles.medalImage} />
+                                            }
                                             </View>
                                         </View>
                                     </View>
-                                    <TouchableOpacity style={styles.OverviewBtn} onPress={() => this.props.navigation.navigate("r")}>
-                                        <Text style={styles.FastTxt}>Back to overview</Text>
+                                    <TouchableOpacity style={{...styles.OverviewBtn, borderColor: ThemeConstants[this.state.theme].textColorTitle}} onPress={() => this.props.navigation.navigate('ProgramWorkoutDetailScreen')}>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[this.state.theme].textColorTitle}}>Back to overview</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <Modal isVisible={this.state.isModalVisible}>
-                                    <View style={styles.modalView}>
-                                        <Text style={styles.TitleTxt}>SHARE WORKOUT</Text>
+                                    <View style={{...styles.modalView, backgroundColor: ThemeConstants[this.state.theme].textColorTitle}}>
+                                        <Text style={{...styles.TitleTxt, color: ThemeConstants[this.state.theme].backgroundColor}}>SHARE WORKOUT</Text>
                                         <Text style={styles.Description}>Show your workout achievements</Text>
                                         <Text style={styles.Description}>with your friends on instagram!</Text>
-                                        <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: '#18171A', marginBottom: 10, borderColor: '#18171A' }}>
-                                            <Image source={require('../../Assets/Images/InstagramIcon.png')} resizeMode='stretch' style={styles.InstagramIcon} />
-                                            <Text style={{ ...styles.Dismiss, color: 'white' }}>Instagram Stroy</Text>
+                                        <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor:ThemeConstants[this.state.theme].backgroundExerciseColor, marginBottom: 10, borderColor: '#18171A' }}>
+                                        {this.state.theme === 'light'
+                                         ?<Image source={require('../../Assets/Images/instagram.png')} resizeMode='stretch' style={styles.InstagramIcon} />
+                                         :  <Image source={require('../../Assets/Images/InstagramIcon.png')} resizeMode='stretch' style={styles.InstagramIcon} />
+                                        }
+                                            <Text style={{ ...styles.Dismiss,  color:ThemeConstants[this.state.theme].textColorTitle}}>Instagram Stroy</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.QuitWorkout}>
-                                            <Image source={require('../../Assets/Images/ShareIcon.png')} resizeMode='stretch' style={styles.ShareIcon} />
-                                            <Text style={styles.Dismiss}>Other options</Text>
+                                        <TouchableOpacity style={{...styles.QuitWorkout, backgroundColor:ThemeConstants[this.state.theme].textColorTitle, borderColor: ThemeConstants[this.state.theme].backgroundColor}}>
+                                        {this.state.theme === 'light'
+                                        ?<Image source={require('../../Assets/Images/shareimageWhite.png')} resizeMode='stretch' style={styles.ShareIcon} />
+                                        :    <Image source={require('../../Assets/Images/ShareIcon.png')} resizeMode='stretch' style={styles.ShareIcon} />
+                                    }
+                                            <Text style={{...styles.Dismiss,color: ThemeConstants[this.state.theme].backgroundColor}}>Other options</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => this.setState({ isModalVisible: false })}>
-                                            <Text style={styles.Dismiss}>Dismiss</Text>
+                                            <Text style={{...styles.Dismiss, color: ThemeConstants[this.state.theme].backgroundColor}}>Dismiss</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </Modal>
@@ -153,7 +166,7 @@ const styles = StyleSheet.create({
         width: "90%",
         alignSelf: 'center',
         borderTopColor: '#82828f',
-        borderWidth: 0.25,
+        borderTopWidth: 0.25,
         paddingTop: 30
     },
     OverviewBtn: {
@@ -162,7 +175,6 @@ const styles = StyleSheet.create({
         width: '90%',
         height: 55,
         borderWidth: 1,
-        borderColor: 'white',
         alignSelf: 'center',
         justifyContent: 'center'
     },
@@ -198,11 +210,9 @@ const styles = StyleSheet.create({
     QuitWorkout: {
         width: '90%',
         height: 55,
-        borderWidth: 2,
-        borderColor: 'black',
+        borderWidth: 0.5,
         justifyContent: "center",
         alignItems: 'center',
-        backgroundColor: 'white',
         borderRadius: 5,
         marginBottom: 40
     },
@@ -238,12 +248,8 @@ const styles = StyleSheet.create({
         letterSpacing: 1.5
     },
     headerContent: {
-        flexDirection: 'row',
-        width: '95%',
+        width: "90%",
         alignSelf: 'center',
-        position: 'absolute',
-        bottom: -20,
-        alignItems: 'center'
     },
 
     ContentList2: {
@@ -397,9 +403,9 @@ const styles = StyleSheet.create({
     NextArea: {
         height: 90,
         width: 90,
-        backgroundColor: "#111012",
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+
     },
     NextArea1: {
         height: 55,

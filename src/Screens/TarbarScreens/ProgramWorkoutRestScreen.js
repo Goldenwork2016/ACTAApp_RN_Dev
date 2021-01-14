@@ -20,7 +20,7 @@ export default class ActiveExersiceScreen extends Component {
                                 <Text style={styles.headerRightTxt}>EXERCISE 2<Text style={{ color: '#82828f' }}>-8</Text></Text>
                             </View>
                             <View style={styles.dropDown}>
-                                <Text style={styles.headerTxt}>00:14</Text>
+                                <Text style={styles.headerTxt}>00:20</Text>
                             </View>
                             <TouchableOpacity style={styles.CloseBtn} onPress={() => this.props.navigation.goBack()}>
                                 <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.closeImage} />

@@ -35,7 +35,10 @@ export default class CompareAndShare extends Component {
                 </View>
                 <View style={styles.ContentList3}>
                   <View style={styles.ImageArea1}>
-                    <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  {theme === 'light' 
+                  ? <Image source={require('../../Assets/Images/plusImageWhite.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  :  <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  }
                   </View>
                 </View>
               </View>

@@ -41,11 +41,11 @@ export default class HomeScreen extends Component {
   _rendermakelist({ item, index }) {
     return (
       <View style={{ marginTop: 5, position: 'relative'}}>
-      <Image source={{
+        <Image source={{
         uri: 'https://acta.webart.work'+item.thumb
       }} resizeMode="stretch" style={styles.ContentImage} />
-      <Text style={styles.imgTxt1}>{item.name}</Text>
-      <Text style={styles.imgTxt2}>{item.details}</Text>
+        <Text style={styles.imgTxt1}>{item.name}</Text>
+        <Text style={styles.imgTxt2}>{item.details}</Text>
       </View>
       )
     }
@@ -146,22 +146,6 @@ export default class HomeScreen extends Component {
     keyExtractor={item => `${item.id}`}
     />
 </View>
-
-{/*<FlatList
-  vertical
-  showsVerticalScrollIndicator={true}
-  numColumns={1}
-  data={this.state.programs}
-  renderItem={({ item }) => (
-  <TouchableOpacity style={styles.ListContent1} onPress={() => this.props.gotoProgramDetail()}>
-  <Image source={{
-   uri: 'https://acta.webart.work'+item.thumb
- }} resizeMode="stretch" style={styles.ContentImage1} />
- <Text style={styles.ListTitle}>{item.name}</Text>
- </TouchableOpacity>
- )}
- keyExtractor={item => `${item.id}`}
-/>*/}
 </View>
 
 

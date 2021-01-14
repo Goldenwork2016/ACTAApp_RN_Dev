@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 
+import {ThemeConstants} from '../../theme/themeConstants'
+
 export default class ActiveExersiceScreen extends Component {
+
     constructor(props) {
         super(props);
+      
         this.state = {
-            isModalVisible: false
+            isModalVisible: false,
+            theme: this.props.navigation.getParam('theme')
         };
     }
 
+
     complete = () => {
         this.setState({ isModalVisible: false })
-        this.props.navigation.navigate("WorkoutOverViewScreen")
+        this.props.navigation.navigate("WorkoutOverViewScreen", {theme: this.state.theme})
     }
     
     QuitWorkout = () => {
@@ -21,17 +27,21 @@ export default class ActiveExersiceScreen extends Component {
     }
 
     render() {
+        let theme = this.state.theme
         return (
-            <View style={styles.container}>
+            <View style={{...styles.container,backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <View style={styles.header}>
                     <View style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Text style={styles.headerRightTxt}>EXERCISE 5<Text style={{ color: '#82828f' }}>-8</Text></Text>
+                        <Text style={{...styles.headerRightTxt, color:ThemeConstants[theme].textColorTitle}}>EXERCISE 5<Text style={{ color: '#82828f' }}>-8</Text></Text>
                     </View>
                     <View style={styles.dropDown}>
-                        <Text style={styles.headerTxt}>00:14</Text>
+                        <Text style={{...styles.headerTxt, color:ThemeConstants[theme].textColorTitle}}>00:14</Text>
                     </View>
                     <TouchableOpacity style={styles.CloseBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.closeImage} />
+                    {theme === 'light' 
+                    ? <Image source={require('../../Assets/Images/CloseImageBlack.png')} resizeMode='stretch' style={styles.closeImage} />
+                    : <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.closeImage} />
+                    }
                     </TouchableOpacity>
                 </View>
                 <ScrollView style={{ width: '100%' }}>
@@ -58,37 +68,37 @@ export default class ActiveExersiceScreen extends Component {
                         </ImageBackground>
                         <View style={styles.mainContainer}>
                             <View style={{ width: "90%", alignSelf: 'center' }}>
-                                <View style={styles.NextArea}>
+                                <View style={{...styles.NextArea, backgroundColor: ThemeConstants[theme].backgroundColorActivity,borderColor: ThemeConstants[theme].borderBottomWorkouts}}>
                                     <Text style={styles.NextTxt}>Next Exercise</Text>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea, backgroundColor: ThemeConstants[theme].backgroundExerciseColor, borderColor: ThemeConstants[theme].borderBottomWorkouts}}>
                                     <View >
-                                        <Text style={styles.FastTxt}>Left Banded Glude Kickback</Text>
+                                        <Text style={{...styles.FastTxt,color: ThemeConstants[theme].textColorTitle}}>Left Banded Glude Kickback</Text>
                                     </View>
-                                    <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12 <Text style={styles.minTxt}>reps</Text></Text>
+                                    <View style={{...styles.leftMin, borderColor: ThemeConstants[theme].borderLeftColor}}>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle}}>12 <Text style={styles.minTxt}>reps</Text></Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                         <TouchableOpacity style={{ alignItems: 'center', marginTop: 30}} onPress={() => this.setState({ isModalVisible: true })}>
-                            <Text style={styles.EndTxt}>End workout</Text>
+                            <Text style={{...styles.EndTxt, color:ThemeConstants[theme].textColorTitle}}>End workout</Text>
                             {/*<View style = {styles.EndLine}/>*/}
                         </TouchableOpacity>
                     </View>
                     <Modal isVisible={this.state.isModalVisible}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.TitleTxt}>END WORKOUT</Text>
+                        <View style={{...styles.modalView, backgroundColor: ThemeConstants[theme].textColorTitle}}>
+                            <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].backgroundColor}}>END WORKOUT</Text>
                             <Text style={styles.Description}>Are you sure you want to end</Text>
                             <Text style={styles.Description}>your workout?</Text>
-                            <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor: '#18171A', marginBottom: 10, borderColor: '#18171A' }} onPress={() => this.complete()}>
-                                <Text style={{ ...styles.Dismiss, color: 'white' }}>Complete Workout</Text>
+                            <TouchableOpacity style={{ ...styles.QuitWorkout, backgroundColor:ThemeConstants[theme].backgroundExerciseColor, marginBottom: 10, borderColor: '#18171A' }} onPress={() => this.complete()}>
+                                <Text style={{ ...styles.Dismiss, color: ThemeConstants[theme].textColorTitle }}>Complete Workout</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.QuitWorkout} onPress={()=>this.QuitWorkout()}>
-                                <Text style={styles.Dismiss}>QuitWorkout</Text>
+                            <TouchableOpacity style={{...styles.QuitWorkout, backgroundColor: ThemeConstants[theme].textColorTitle, borderColor: ThemeConstants[theme].backgroundColor}} onPress={()=>this.QuitWorkout()}>
+                                <Text style={{...styles.Dismiss,color: ThemeConstants[theme].backgroundColor}}>QuitWorkout</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.setState({ isModalVisible: false })}>
-                                <Text style={styles.Dismiss}>Dismiss</Text>
+                                <Text style={{...styles.Dismiss, color: ThemeConstants[theme].backgroundColor}}>Dismiss</Text>
                             </TouchableOpacity>
                         </View>
                     </Modal>
@@ -102,7 +112,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: 'black'
     },
     modalView: {
         width: '100%',
@@ -138,11 +147,9 @@ const styles = StyleSheet.create({
     QuitWorkout: {
         width: '90%',
         height: 55,
-        borderWidth: 2,
-        borderColor: 'black',
+        borderWidth: 0.5,
         justifyContent: "center",
         alignItems: 'center',
-        backgroundColor: 'white',
         borderRadius: 5,
         marginBottom: 40
     },
@@ -337,8 +344,8 @@ const styles = StyleSheet.create({
     NextArea: {
         height: 55,
         width: '100%',
-        backgroundColor: "#111012",
         justifyContent: 'center',
+        borderWidth: 0.25,
     },
     NextArea1: {
         height: 55,
@@ -354,10 +361,10 @@ const styles = StyleSheet.create({
         height: 70,
         width: '100%',
         padding: 15,
-        backgroundColor: '#18171A',
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 1,
+        borderWidth: 0.25,
     },
     ItemArea2: {
         height: 110,
@@ -388,11 +395,10 @@ const styles = StyleSheet.create({
     leftMin: {
         position: 'absolute',
         right: 15,
-        borderLeftWidth: 0.3,
-        borderColor: 'white',
+        borderLeftWidth: 0.25,
         height: 25,
         justifyContent: "center",
-        paddingLeft: 15
+        paddingLeft: 15,
     },
     leftMin1: {
         borderLeftWidth: 0.2,
@@ -409,9 +415,9 @@ const styles = StyleSheet.create({
         fontFamily: 'FuturaPT-Book',
     },
     EndTxt:{
-        color: 'white',
         fontFamily: 'FuturaPT-Medium',
         marginVertical: 3,
+        fontWeight: 'bold',
         fontSize: 20,
         fontFamily: 'FuturaPT-Book',
         paddingBottom: 25

@@ -9,7 +9,8 @@ export const ThemeConstants = {
     bottomBorderColor: '#e7e7e7',
     borderBottomWorkouts: '#E0E0E0',
     inputColor: '#f1f1f1',
-    backgroundExerciseColor: '#fff'
+    backgroundExerciseColor: '#fff',
+    borderLeftColor: '#e0e0e0'
   },
   dark: {
     backgroundColor: '#000',
@@ -21,6 +22,7 @@ export const ThemeConstants = {
     bottomBorderColor: '#0f0e10',
     borderBottomWorkouts:'#18171A',
     inputColor: '#18171a',
-    backgroundExerciseColor: '#18171a'
+    backgroundExerciseColor: '#18171a',
+    borderLeftColor: '#242326'
   },
 };

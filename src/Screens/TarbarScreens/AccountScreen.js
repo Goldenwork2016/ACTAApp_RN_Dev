@@ -17,6 +17,34 @@ class AccountScreen extends Component {
       UserName: '',
       avatarSource: NonImage,
       appState: AppState.currentState,
+       contentList1: [
+        {
+          imageUrlWhite: require('../../Assets/Images/MuscleGainImage.png'),
+          imageUrlBlack: require('../../Assets/Images/MuscleGainImage.png'),
+          description: 'Muscle Gain'
+        },
+        {
+          imageUrlWhite: require('../../Assets/Images/workoutImage.png'),
+          imageUrlBlack: require('../../Assets/Images/workoutImage.png'),
+          description: '1 Workout'
+        },
+        {
+          imageUrlWhite: require('../../Assets/Images/greatStartImage.png'),
+          imageUrlBlack: require('../../Assets/Images/greatStartImage.png'),
+          description: 'Great start'
+        }
+        ],
+         contentList: [
+        {
+          imageUrl: require('../../Assets/Images/ProPersonImage.png'),
+        },
+        {
+          imageUrl: require('../../Assets/Images/plusImage.png'),
+        },
+        {
+          imageUrl: require('../../Assets/Images/plusImage.png'),
+        }
+        ]
     };
 
     this.getName()
@@ -69,26 +97,26 @@ class AccountScreen extends Component {
         console.log('JSON.stringify(err)=>', err);
       })
   }
-  changeMode = ()=>{
-    this.setState({isOn: !this.state.isOn})
-  }
+  // _rendermakelist({ item, index }) {
+  //   return (
+  //     <View style={styles.ContentList3}>
+  //        <View style={styles.ImageArea}>
+  //         <Image source={item.imageUrlWhite} resizeMode='stretch' style={styles.ArchieveImage} />
+  //       </View>
+  //          <Text style={styles.itemTxt1}>{item.description}</Text>
+  //     </View>  
+  //   )
+  // }
 
-  _rendermakelist({ item, index }) {
-    return (
-      <View style={{ marginTop: 5 }}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
-      </View>
-    )
-  }
-
-  _rendermakelist1({ item, index }) {
-    return (
-      <View style={styles.ListContent1}>
-        <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-        <Text style={styles.ListTitle}>{item.Title}</Text>
-      </View>
-    )
-  }
+  // _rendermakelist1({ item, index }) {
+  //   return (
+  //    <View style={styles.ContentList3}>
+  //       <View style={styles.ImageArea1}>
+  //         <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+  //       </View>
+  //    </View>
+  //   )
+  // }
 
   render() {
     let imageSwitch = <Image source={require('../../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.RightIcon} />
@@ -150,26 +178,36 @@ class AccountScreen extends Component {
                   <Text style={{...styles.ConHeaderTxt1,  color: ThemeConstants[theme].textColorTitle}}>VIEW ALL</Text>
                 </View>
               </View>
-              <View style={styles.headerContent1}>
-                <View style={styles.ContentList3}>
-                  <View style={styles.ImageArea}>
-                    <Image source={require('../../Assets/Images/MuscleGainImage.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+              <View style = {styles.headerContent1}>
+               <View style={styles.ContentList3}>
+                  <View style={{...styles.ImageArea, backgroundColor: ThemeConstants[theme].backgroundColorBottom}}>
+                    {theme === 'light'
+                   ? <Image source={require('../../Assets/Images/MuscleGainImageBlack.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+                   : <Image source={require('../../Assets/Images/MuscleGainImage.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+                  }
                   </View>
                   <Text style={styles.itemTxt1}>Muscle Gain</Text>
                 </View>
                 <View style={styles.ContentList3}>
-                  <View style={styles.ImageArea}>
-                    <Image source={require('../../Assets/Images/workoutImage.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+                  <View style={{...styles.ImageArea, backgroundColor: ThemeConstants[theme].backgroundColorBottom}}>
+                  {theme === 'light'
+                   ? <Image source={require('../../Assets/Images/workoutMedalImage.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+                   : <Image source={require('../../Assets/Images/workoutImage.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+                  }
                   </View>
                   <Text style={styles.itemTxt1}>1 Workout</Text>
                 </View>
                 <View style={styles.ContentList3}>
-                  <View style={styles.ImageArea}>
+                  <View style={{...styles.ImageArea, backgroundColor: ThemeConstants[theme].backgroundColorBottom}}>
+                    {theme === 'light'
+                   ? <Image source={require('../../Assets/Images/medalImageBlack.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+                   :
                     <Image source={require('../../Assets/Images/greatStartImage.png')} resizeMode='stretch' style={styles.ArchieveImage} />
+                  }
                   </View>
                   <Text style={styles.itemTxt1}>Great start</Text>
+                </View>  
                 </View>
-              </View>
                   <View style={{...styles.LineStyle, borderBottomColor: ThemeConstants[theme].bottomBorderColor}}/>
               <View style={styles.AllArea1}>
                 <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Progress Pics</Text>
@@ -184,7 +222,7 @@ class AccountScreen extends Component {
                     <Image source={require('../../Assets/Images/ProPersonImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
                   </View>
                 </View>
-                <View style={styles.ContentList3}>
+              <View style={styles.ContentList3}>
                   <View style={styles.ImageArea1}>
                     <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
                   </View>
@@ -195,11 +233,6 @@ class AccountScreen extends Component {
                   </View>
                 </View>
               </View>
-             {/*<View style={styles.AllArea1}>
-                <Text style={styles.ConHeaderTxt}>Weight</Text>
-                <View style={styles.AllArea}>
-                  <Text style={styles.ConHeaderTxt1}><Text style={{ fontSize: 25, marginTop: 5 }}>+</Text>  WEIGTH IN</Text>
-                </View>*/}
                   <View style={styles.mainContent}>
                     <TouchableOpacity style={styles.allProgramsButton} onPress={() => this.props.navigation.navigate("CompareAndShare", {theme: theme})}>
                       <Text style={{...styles.ConHeaderTxt, color: ThemeConstants[theme].textColorTitle}}>Compare and Share</Text>
@@ -226,13 +259,6 @@ class AccountScreen extends Component {
                       </ThemeContext.Consumer>
                 </View>  
               </View>   
-              
-             {/*} <Image source={require('../../Assets/Images/chartImage1.png')} resizeMode='stretch' style={styles.chartImage1} />
-              <View style={styles.AllArea1}>
-                <Text style={styles.ConHeaderTxt}>Average Heart Rage</Text>
-              </View>
-              <Image source={require('../../Assets/Images/chartImage2.png')} resizeMode='stretch' style={styles.chartImage1} />
-            </View>*/}
           </View>
         </ScrollView>
       </View>

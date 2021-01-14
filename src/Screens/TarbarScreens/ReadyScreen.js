@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import ProgressCircle from 'react-native-progress-circle'
-import ActiveExersiceScreen from './ActiveExersiceScreen'
+import ProgressCircle from 'react-native-progress-circle';
+import ActiveExersiceScreen from './ActiveExersiceScreen';
+
+import {ThemeConstants} from '../../theme/themeConstants';
 
 export default class ReadyScreen extends Component {
     constructor(props) {
@@ -26,32 +28,33 @@ export default class ReadyScreen extends Component {
         }, 1000);
     }
 
-    gotoNextScreen = () =>{
-        this.props.navigation.navigate("ProgramWorkoutInfoScreen")
-    }
+    // gotoNextScreen = () =>{
+    //     this.props.navigation.navigate("ProgramWorkoutInfoScreen", {theme: theme})
+    // }
 
     back = () => {
         this.props.navigation.navigate("ProgramWorkoutDetailScreen")
     }
 
     render() {
+        let theme = this.props.navigation.getParam('theme')
         return (
-            <View style={styles.container}>
+            <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 {
                     this.state.flag == true ?
-                        <ActiveExersiceScreen gotoNextScreen = {this.gotoNextScreen} back={this.back} /> :
+                        <ActiveExersiceScreen gotoNextScreen = {()=>{  this.props.navigation.navigate("ProgramWorkoutInfoScreen", {theme: theme})}} back={this.back} /> :
                         <View style={styles.headerContent}>
                             <ProgressCircle
                                 percent={this.state.processNumber * 25}
                                 radius={100}
                                 borderWidth={3}
-                                color="white"
-                                shadowColor="#111012"
-                                bgColor="#000"
+                                color={ThemeConstants[theme].textColorTitle}
+                                shadowColor={ThemeConstants[theme].borderBottomWorkouts}
+                                bgColor={ThemeConstants[theme].backgroundColor}
                                 outerCircleStyle={{}}
                             >
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={styles.processTxt}>{this.state.processNumber}</Text>
+                                    <Text style={{...styles.processTxt, color: ThemeConstants[theme].textColorTitle}}>{this.state.processNumber}</Text>
                                 </View>
                             </ProgressCircle>
                             <Text style={styles.GetTxt}>Get redy in ...</Text>
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
         fontSize: 50,
         width: 50,
         textAlign: 'center',
-        color: 'white',
         fontFamily: 'TrumpSoftPro-BoldItalic'
     },
     GetTxt: {
