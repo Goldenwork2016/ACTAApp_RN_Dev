@@ -42,7 +42,7 @@ export default class ActivityFollowingScreen extends Component {
                     <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center' }}>
                         <View style={{ width: '50%' }}>
                             <TouchableOpacity style={this.state.toggleFlag? {...styles.createBtn, backgroundColor: ThemeConstants[theme].textColorTitle} : {...styles.createBtn1, backgroundColor: ThemeConstants[theme].backgroundColorBottom}} onPress={() => { this.setState({ toggleFlag: true }) }}>
-                                <Text style={this.state.toggleFlag?{...styles.CreateTxt, color: ThemeConstants[theme].backgroundColorBottom}:{...styles.CreateTxt1,color: ThemeConstants[theme].textColorDescription}}>Following</Text>
+                                <Text style={this.state.toggleFlag?{...styles.CreateTxt, color: ThemeConstants[theme].backgroundColorBottom}:{...styles.CreateTxt1, color: ThemeConstants[theme].textColorDescription}}>Following</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '50%' }}>
@@ -81,8 +81,8 @@ export default class ActivityFollowingScreen extends Component {
                                 <Text style={{...styles.numberTxt,color: ThemeConstants[theme].textColorTitle}}>{window.core.each(window.us.followers).length}</Text>
                                 {
                                     window.core.each(window.us.follow).map(userId=>{
-                                        let user = window.us._users[userId]||{data:{}};
-                                        if(!user._id) return;
+                                    let user = window.us._users[userId]||{data:{}};
+                                    if(!user._id) return;
                                         return (
                                              <View style={styles.ListContent2}>
                                                 <Image source={{
@@ -93,7 +93,7 @@ export default class ActivityFollowingScreen extends Component {
                                                     <Text style={styles.desTxt1}><Text style={{ color:  ThemeConstants[theme].textColorTitle }}>{user.name}</Text></Text>
                                                     <Text style={styles.desTxt1}>{user.data.address}</Text>
                                                 </View>
-                                                <TouchableOpacity onPress={()=>{ window.us.data.follow[user._id]=!window.us.data.follow[user._id]; window.us.update(); this.setState({reload: this.state.reload}) }}   style={styles.followBtn}>
+                                                <TouchableOpacity onPress={()=>{window.us.data.follow[user._id]=!window.us.data.follow[user._id]; window.us.update(); this.setState({reload: this.state.reload}) }}   style={styles.followBtn}>
                                                     <Text style={{...styles.btnTxt,color: ThemeConstants[theme].textColorTitle}}>{ window.us.data.follow[user._id] && "Unfollow" || "Follow" }</Text>
                                                 </TouchableOpacity>
                                             </View>

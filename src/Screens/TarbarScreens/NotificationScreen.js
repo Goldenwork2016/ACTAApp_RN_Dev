@@ -1,116 +1,92 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import { styles } from '../../styles'
+import { styles } from '../../styles';
+
+import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
 
 export default class ActivityScreen extends Component {
-    constructor(props) {
+      constructor(props) {
         super(props);
-        this.state = {
-            contentList: [
-                {
-                    ImageUrl: require("../../Assets/Images/workout.png")
-                },
-                {
-                    ImageUrl: require("../../Assets/Images/workout.png")
-                }
-            ],
-            contentList1: [
-                {
-                    Title: 'SUMMER READY',
-                    ImageUrl: require("../../Assets/Images/program1.png")
-                },
-                {
-                    Title: 'KELLY WINTERS',
-                    ImageUrl: require("../../Assets/Images/program2.png")
-                },
-                {
-                    Title: 'COUPLE WORKOUT',
-                    ImageUrl: require("../../Assets/Images/program3.png")
-                }
-            ],
-
-        };
+        window.render.add('users', ()=>{
+            this.setState({reload: !this.state.reload});
+        });
     }
-
-    _rendermakelist({ item, index }) {
-        return (
-            <View style={{ marginTop: 5 }}>
-                <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage} />
-            </View>
-        )
+    state ={
+        reload: true,
+        users: window.us.users
     }
-
-    _rendermakelist1({ item, index }) {
-        return (
-            <View style={styles.ListContent1}>
-                <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-                <Text style={styles.ListTitle}>{item.Title}</Text>
-            </View>
-        )
-    }
+  // componentdidUpdate(prevProps, prevState){
+  //     if (this.state.users.length !== prevState.users.length) {
+  //           console.log('work')
+  //       }
+  // }
+    // _rendermakelist({ item, index }) {
+    //     return (
+    //         <View style={styles.ListContent1}>
+    //             <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
+    //             <Text style={styles.ListTitle}>{item.Title}</Text>
+    //         </View>
+    //     )
+    // }
 
     render() {
-        return (
-            <View style={{ ...styles.container, backgroundColor: 'black' }}>
+        let {users} = this.state;
+        return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+            <View style={{ ...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <ScrollView style={{ flex: 1, width: '100%' }}>
                     <View style={{ width: '100%' }}>
                         <View style={styles.ImageBackground}>
                             <View style={styles.header}>
                                 <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                                    <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                                {theme === 'light' ?  <Image source={require('../../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                                : <Image source={require('../../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                                }
                                 </TouchableOpacity>
-                                <Text style={styles.headerTxt}>NOTIFICATIONS</Text>
+                                <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>NOTIFICATIONS</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.pendingArea}>
                         <Text style={styles.timeTxt}>Pending following requests</Text>
-                        <Text style={styles.timeTxt}>2</Text>
+                        <Text style={styles.timeTxt}>3</Text>
                     </View>
                     <View style={styles.mainContent}>
-                        <View style={styles.ListArea}>
-                            <View style={styles.listHeader}>
-                                <Image source={require('../../Assets/Images/person1.png')} resizeMode='stretch' style={styles.HeaderImage1} />
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.proTxt}>Kelly Winters</Text>
-                                    <Text style={styles.timeTxt}>Sacramento</Text>
-                                </View>
-                            </View>
-                            <View style={styles.BtbArea}>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Text style={styles.AcceptTxt}>ACCEPT</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Text style={styles.AcceptTxt}>DECLINE</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.ListArea}>
-                            <View style={styles.listHeader}>
-                                <Image source={require('../../Assets/Images/PersonProfileImage.png')} resizeMode='stretch' style={styles.HeaderImage1} />
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.proTxt}>Kelly Winters</Text>
-                                    <Text style={styles.timeTxt}>New York</Text>
-                                </View>
-                            </View>
-                            <View style={styles.BtbArea}>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Text style={styles.AcceptTxt}>ACCEPT</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ width: '49.7%' }}>
-                                    <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: '#18171a' }}>
-                                        <Text style={styles.AcceptTxt}>DECLINE</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={{ ...styles.pendingArea, marginTop: 20 }}>
+                        {users.filter((user)=>{
+                            if(window.us._id == user._id) return false;
+                            if(!user.data.follow[window.us._id]) return false;
+                            if(window.us.data.follow[user._id]) return false;
+                            if(window.us.data.ignore[user._id]) return false;
+                            return true;
+                        }).map(user=>{
+                            return (
+                                <View style={styles.ListArea}>
+                                    <View style={{...styles.listHeader, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
+                                        <Image source={{
+                                            uri: 'https://acta.webart.work'+user.avatarUrl
+                                            }} resizeMode='stretch' style={styles.HeaderImage1} />
+                                        <View style={{ marginLeft: 15 }}>
+                                            <Text style={{...styles.proTxt, color: ThemeConstants[theme].textColorTitle}}>{user.name}</Text>
+                                            <Text style={{...styles.timeTxt, color: ThemeConstants[theme].textColorDescription}}>{user.data.address||''}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={styles.BtbArea}>
+                                        <View style={{ width: '49.7%' }}>
+                                            <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor: ThemeConstants[theme].inputColor}} onPress={()=>{window.us.data.follow[user._id]=true; window.us.update(); this.setState({reload: this.state.reload}) }}>
+                                                <Text style={{...styles.AcceptTxt, color: ThemeConstants[theme].textColorTitle}}>ACCEPT</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{width: '49.7%'}}>
+                                            <TouchableOpacity style={{ ...styles.createBtn1, backgroundColor:  ThemeConstants[theme].inputColor }}  onPress={()=>{window.us.data.ignore[user._id]=true; window.us.update(); this.setState({reload: this.state.reload})}}>
+                                                <Text style={{...styles.AcceptTxt,color: ThemeConstants[theme].textColorTitle}}>DECLINE</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </View> )   
+                            })
+                        }
+                      {/*  <View style={{ ...styles.pendingArea, marginTop: 20 }}>
                             <Text style={styles.timeTxt}>Activity</Text>
                         </View>
                         <View style={{flexDirection:'row', alignSelf:'flex-start', marginTop:10, borderBottomWidth:0.3, width:'95%', alignSelf:"center", paddingBottom:10, borderColor:'#82828f'}}>
@@ -139,18 +115,18 @@ export default class ActivityScreen extends Component {
                                 <Text style={{...styles.desTxt, color:'white'}}>with Zayn Perevalova </Text>
                                 <Text style={styles.desTxt}>30 minutes ago </Text>
                             </View>
-                        </View>
-                        {/* <FlatList
-              vertical
-              showsVerticalScrollIndicator={true}
-              numColumns={1}
-              data={this.state.contentList1}
-              renderItem={this._rendermakelist1}
-              keyExtractor={item => `${item.id}`}
-            /> */}
+                        </View>*/}
+               {/*    <FlatList
+                      vertical
+                      showsVerticalScrollIndicator={true}
+                      numColumns={1}
+                      data={this.state.contentList}
+                      renderItem={this._rendermakelist}
+                      keyExtractor={item => `${item.id}`}
+                    /> */}
                     </View>
                 </ScrollView>
-            </View >
-        );
+            </View>)}
+ </ThemeContext.Consumer>);
     }
 }

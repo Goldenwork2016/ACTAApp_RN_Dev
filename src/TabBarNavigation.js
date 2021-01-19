@@ -1,10 +1,13 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createAppContainer} from 'react-navigation';
+import { createBottomTabNavigator, BottomTabBar} from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { create, PREDEF_RES } from 'react-native-pixel-perfect';
+//import {ThemeContext} from './App';
 
+
+//import {ThemeConstants} from './theme/themeConstants.js'
 import HomeScreen from './Screens/TarbarScreens/HomeScreen'
 import ExecicesScreen from './Screens/TarbarScreens/ExecicesScreen'
 import ActivityScreen from './Screens/TarbarScreens/ActivityScreen'
@@ -37,6 +40,7 @@ import ProfileEdit from './pages/user/ProfileEdit'
 import CompareAndShare from './Screens/TarbarScreens/CompareAndShare'
 
 const perfectSize = create(PREDEF_RES.iphoneX.dp);
+
 
 const Home = createStackNavigator(
     {
@@ -319,6 +323,24 @@ Account.navigationOptions = ({ navigation }) => {
     };
 };
 
+// class ThemedBottomTabBar extends React.Component {
+//   render() {
+//     return (
+//       <ThemeContext.Consumer>
+//         {({ theme }) => (
+//           <BottomTabBar
+//             {...this.props}
+//              activeTintColor={ThemeConstants[theme].activeTintColor}
+//             inactiveTintColor={ThemeConstants[theme].inactiveTintColor}
+//           style ={{backgroundColor: ThemeConstants[theme].backgroundColor}}
+
+//           />
+//         )}
+//       </ThemeContext.Consumer>
+//     );
+//   }
+// }
+
 const TabNavigation = createBottomTabNavigator(
     {
         Home,
@@ -326,6 +348,7 @@ const TabNavigation = createBottomTabNavigator(
         Activity,
         Account,
     },
+   // {tabBarComponent: ThemedBottomTabBar },
     {
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -333,6 +356,7 @@ const TabNavigation = createBottomTabNavigator(
                 //   let IconComponent = Icon;
                 //   let iconName;
                 var ImageUrl;
+
                 if (routeName === 'Home') {
                     if (focused === true) {
                         tintColor = 'gray';
