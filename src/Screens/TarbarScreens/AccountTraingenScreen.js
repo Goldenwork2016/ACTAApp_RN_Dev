@@ -44,11 +44,6 @@ export default class ActivityTraingenScreen extends Component {
             // ],
         };
     }
-  //     componentDidMount(){
-  //   let workout = global.mongo.get('workout')
-  //   this.setState({contentList1: workout.all})
-  // }
-
     render() {
         let workouts = this.props.navigation.getParam('workoutList')
         let theme = this.props.navigation.getParam('theme')
@@ -75,7 +70,7 @@ export default class ActivityTraingenScreen extends Component {
                         <View style={styles.mainContent}>
                             <Text style={{...styles.numberTxtWorkouts,color: ThemeConstants[theme].textColorTitle}}>{workouts.length}</Text>
                             <View style={styles.AllArea2}>
-                                <Text style={{...styles.ConHeaderTxt5,color: ThemeConstants[theme].textColorTitle}}>September 27</Text>
+                                <Text style={{...styles.ConHeaderTxt5,color: ThemeConstants[theme].textColorTitle}}>September</Text>
                                 <Text style={{...styles.ConHeaderTxt5, color:'#82828f'}}>2020</Text>
                             </View>
                             <View width="95%">

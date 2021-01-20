@@ -17,35 +17,35 @@ class AccountScreen extends Component {
       UserName: '',
       avatarSource: NonImage,
       appState: AppState.currentState,
-       contentList1: [
-        {
-          imageUrlWhite: require('../../Assets/Images/MuscleGainImage.png'),
-          imageUrlBlack: require('../../Assets/Images/MuscleGainImage.png'),
-          description: 'Muscle Gain'
-        },
-        {
-          imageUrlWhite: require('../../Assets/Images/workoutImage.png'),
-          imageUrlBlack: require('../../Assets/Images/workoutImage.png'),
-          description: '1 Workout'
-        },
-        {
-          imageUrlWhite: require('../../Assets/Images/greatStartImage.png'),
-          imageUrlBlack: require('../../Assets/Images/greatStartImage.png'),
-          description: 'Great start'
-        }
-        ],
-         contentList: [
-        {
-          imageUrl: require('../../Assets/Images/ProPersonImage.png'),
-        },
-        {
-          imageUrl: require('../../Assets/Images/plusImage.png'),
-        },
-        {
-          imageUrl: require('../../Assets/Images/plusImage.png'),
-        }
-        ],
-        workoutList: []
+       // contentList1: [
+       //  {
+       //    imageUrlWhite: require('../../Assets/Images/MuscleGainImage.png'),
+       //    imageUrlBlack: require('../../Assets/Images/MuscleGainImage.png'),
+       //    description: 'Muscle Gain'
+       //  },
+       //  {
+       //    imageUrlWhite: require('../../Assets/Images/workoutImage.png'),
+       //    imageUrlBlack: require('../../Assets/Images/workoutImage.png'),
+       //    description: '1 Workout'
+       //  },
+       //  {
+       //    imageUrlWhite: require('../../Assets/Images/greatStartImage.png'),
+       //    imageUrlBlack: require('../../Assets/Images/greatStartImage.png'),
+       //    description: 'Great start'
+       //  }
+       //  ],
+       //   contentList: [
+       //  {
+       //    imageUrl: require('../../Assets/Images/ProPersonImage.png'),
+       //  },
+       //  {
+       //    imageUrl: require('../../Assets/Images/plusImage.png'),
+       //  },
+       //  {
+       //    imageUrl: require('../../Assets/Images/plusImage.png'),
+       //  }
+       //  ],
+         workoutList: []
     };
 
     this.getName()
@@ -54,6 +54,7 @@ class AccountScreen extends Component {
   componentWillUnmount() {
     // AppState.removeEventListener('change', this._handleAppStateChange);
     this.focusListener.remove();
+    this.setState({workoutList: null})
   }
 
   componentDidMount() {
@@ -122,6 +123,7 @@ class AccountScreen extends Component {
   // }
 
   render() {
+      console.log(this.state.workoutList)
     let imageSwitch = <Image source={require('../../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.RightIcon}/>
     return ( <ThemeContext.Consumer>
           {({ theme }) => (

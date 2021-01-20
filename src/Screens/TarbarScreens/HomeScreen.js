@@ -50,11 +50,6 @@ export default class HomeScreen extends Component {
       )
     }
     render() {
-      // let exercise = global.mongo.get('exercise');
-      // setTimeout (()=>{
-      //     console.log(exercise.all);
-      //   }, 5000)
-    
       return ( <ThemeContext.Consumer>
           {({ theme }) => (
         <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>

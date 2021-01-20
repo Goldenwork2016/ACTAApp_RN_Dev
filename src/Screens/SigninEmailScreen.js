@@ -5,6 +5,9 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-community/async-storage';
 import Modal from 'react-native-modal';
 
+import {ThemeConstants} from '../theme/themeConstants'
+import {ThemeContext} from '../App'
+
 let regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
 let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -107,8 +110,9 @@ export default class SigninEmailScreen extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
+    return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <Spinner
           visible={this.state.isLoading}
           textContent={'Logging in...'}
@@ -116,16 +120,19 @@ export default class SigninEmailScreen extends Component {
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-            <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          {theme === 'light'
+          ?  <Image source={require('../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+          : <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          }
           </TouchableOpacity>
-          <Text style={styles.headerTxt}>LOGIN</Text>
+          <Text style={{...styles.headerTxt,color: ThemeConstants[theme].textColorTitle}}>LOGIN</Text>
         </View>
-        <Text style={styles.TitleTxt}>LOG IN.</Text>
+        <Text style={{...styles.TitleTxt,color: ThemeConstants[theme].textColorTitle}}>LOG IN.</Text>
         <Text style={styles.desTxt}>Log in with your email and password</Text>
-        <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} />
-        <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ password: e })} />
-        <TouchableOpacity style={styles.emailBtn} onPress={() => { this.loginHandle() }}>
-          <Text style={styles.EmailTxt}>Log in</Text>
+        <TextInput placeholder="Email" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt, color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ email: e })} />
+        <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt,color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ password: e })} />
+        <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.loginHandle() }}>
+          <Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Log in</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{this.props.navigation.navigate("ForgotPasswordScreen",{isEmail:true})}}>
           <Text style={styles.forgotPwdTxt}>Forgot Password?</Text>
@@ -181,15 +188,14 @@ export default class SigninEmailScreen extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-      </View>
-    );
+      </View>)}
+ </ThemeContext.Consumer>);
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center'
   },
   header: {
@@ -210,11 +216,9 @@ const styles = StyleSheet.create({
   EmailInputTxt: {
     width: 330,
     height: 50,
-    backgroundColor: '#18171a',
     marginBottom: 8,
     borderRadius: 3,
     paddingLeft: 20,
-    color: "white",
     fontSize: 20,
     fontFamily: 'FuturaPT-Book'
   },
@@ -227,7 +231,6 @@ const styles = StyleSheet.create({
     width: 330,
     height: 55,
     marginTop: 15,
-    backgroundColor: 'white',
     justifyContent: "center",
     alignItems: "center",
     alignSelf: 'center',
@@ -250,7 +253,6 @@ const styles = StyleSheet.create({
     fontFamily: 'FuturaPT-Demi',
   },
   headerTxt: {
-    color: 'white',
     fontSize: 15,
     fontFamily: 'FuturaPT-Demi'
   },

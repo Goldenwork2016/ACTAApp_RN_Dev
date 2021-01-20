@@ -4,7 +4,9 @@ import Modal from 'react-native-modal';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import config from "../Api/config"
+import config from "../Api/config";
+import {ThemeConstants} from '../theme/themeConstants';
+import {ThemeContext} from '../App';
 
 const { height, width } = Dimensions.get('window')
 let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -115,8 +117,9 @@ export default class CreateEmailScreen extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
+        return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+            <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <Spinner
                     visible={this.state.isLoading}
                     textContent={'Checking email...'}
@@ -124,15 +127,18 @@ export default class CreateEmailScreen extends Component {
                 />
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                    {theme === 'light'
+                    ? <Image source={require('../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                    : <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                    }
                     </TouchableOpacity>
-                    <Text style={styles.headerTxt}>CREATE</Text>
+                    <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>CREATE</Text>
                 </View>
-                <Text style={styles.TitleTxt}>CREATE.</Text>
+                <Text style={{...styles.TitleTxt,  color: ThemeConstants[theme].textColorTitle}}>CREATE.</Text>
                 <Text style={styles.desTxt}>What is your email address?</Text>
-                <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} />
-                <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
-                    <Text style={styles.EmailTxt}>Next</Text>
+                <TextInput placeholder="Email" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt, color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ email: e })} />
+                <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.handler() }}>
+                    <Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Next</Text>
                 </TouchableOpacity>
                 <Modal isVisible={this.state.isModalVisible1}>
                     <View style={styles.modalView}>
@@ -167,8 +173,8 @@ export default class CreateEmailScreen extends Component {
                         <Text style={styles.Description2}>Your email is registered.</Text>
                     </View>
                 </Modal>
-            </View>
-        );
+            </View>)}
+ </ThemeContext.Consumer>);
     }
 }
 

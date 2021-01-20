@@ -4,6 +4,9 @@ import config, { BASE_PATH } from "../Api/config"
 import Spinner from 'react-native-loading-spinner-overlay';
 import Modal from 'react-native-modal';
 
+import {ThemeConstants} from '../theme/themeConstants';
+import {ThemeContext} from '../App';
+
 let regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
 let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -105,8 +108,9 @@ export default class SigninEmailScreen extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
+    return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <Spinner
           visible={this.state.isLoading}
           textContent={'Logging in...'}
@@ -114,23 +118,26 @@ export default class SigninEmailScreen extends Component {
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-            <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          {theme === 'light'
+          ?  <Image source={require('../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+          : <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+          }
           </TouchableOpacity>
-          <Text style={styles.createTxt}>LOGIN</Text>
+          <Text style={{...styles.createTxt, color: ThemeConstants[theme].textColorTitle}}>LOGIN</Text>
         </View>
 
-        <Text style={styles.headerTxt}>LOG IN.</Text>
+        <Text style={{...styles.headerTxt,  color: ThemeConstants[theme].textColorTitle}}>LOG IN.</Text>
         <Text style={styles.desTxt}>Log in with your phone number</Text>
         <View style={{ flexDirection: 'row', width: 330 }}>
-          <Text style={styles.countryNumber}>+1</Text>
-          <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ phone: e })} />
+          <Text style={{...styles.countryNumber, backgroundColor: ThemeConstants[theme].inputColor}}>+1</Text>
+          <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt,color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ phone: e })} />
         </View>
-        <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={styles.PasswordInputTxt} onChangeText={(e) => this.setState({ password: e })} />
+        <TextInput secureTextEntry={true} placeholder="Password" placeholderTextColor="#53535f" style={{...styles.PasswordInputTxt, color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ password: e })} />
         <View style={{ width: 330 }}>
           <Text style={styles.standardTxt}>Standard rates apply</Text>
         </View>
-        <TouchableOpacity style={styles.emailBtn} onPress={() => { this.loginHandle() }}>
-          <Text style={styles.EmailTxt}>Log in</Text>
+        <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.loginHandle() }}>
+          <Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Log in</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{this.props.navigation.navigate("ForgotPasswordScreen",{isEmail:false})}}>
           <Text style={styles.forgotPwdTxt}>Forgot Password?</Text>
@@ -186,8 +193,8 @@ export default class SigninEmailScreen extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-      </View>
-    );
+      </View>)}
+ </ThemeContext.Consumer>);
   }
 }
 

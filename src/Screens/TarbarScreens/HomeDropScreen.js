@@ -81,7 +81,6 @@ export default class HomeDropScreen extends Component {
   _rendermakelist1({ item }) {
     return (
       <View style={styles.ListContent1}>
-      {console.log(item)}
         <Image source={{uri: 'https://acta.webart.work'+item.thumb}} resizeMode="stretch" style={styles.ContentImage1} />
         <Text style={styles.ListTitle1}>{item.name}</Text>
           <Text style={styles.Description}>{item.details} {item.duration} min.</Text>
