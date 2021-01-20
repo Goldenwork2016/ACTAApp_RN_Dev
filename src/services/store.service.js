@@ -310,6 +310,7 @@ export async function Store_Service(config){
 				if(_data[type].all[i][id] == doc_id){
 					_data[type].all.splice(i, 1);
 				}
+				console.log(_data[type].all)
 			}
 			// check all query, remove from each
 			for (let i = _data[type].query.length - 1; i >= 0; i--){

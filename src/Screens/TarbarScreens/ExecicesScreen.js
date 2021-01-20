@@ -97,9 +97,12 @@ export default class ExercicesScreen extends Component {
                       <Text style={{...styles.headerTxt,  color:  ThemeConstants[theme].textColorTitle}}>EXERCISES</Text>
                     </View>
                     <TouchableOpacity style={styles.AlarmkBtn} onPress = {()=>{this.props.navigation.navigate('NotificationScreen')}}>
-                      <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
-                      <View style={{...styles.notiNumArea, backgroundColor: ThemeConstants[theme].backgroundColor}}>
-                        <Text style={{...styles.notiNum, color: ThemeConstants[theme].textColorDescription}}>3</Text>
+                    {theme === 'light' 
+                    ? <Image source={require('../../Assets/Images/notification_Black.png')} resizeMode='stretch' style={styles.notiImage}/>
+                    : <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
+                     }
+                      <View style={{...styles.notiNumArea, backgroundColor: ThemeConstants[theme].textColorTitle}}>
+                        <Text style={{...styles.notiNum, color: ThemeConstants[theme].backgroundColor}}>{window.us.users.filter(window.us.new_followers).length}</Text>
                       </View>
                     </TouchableOpacity>
                   </View>

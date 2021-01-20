@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Animated, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
-import HomeScreen from './HomeScreen'
+import HomeScreen from './HomeScreen';
+
+import {ThemeConstants} from '../../theme/themeConstants'
+import {ThemeContext} from '../../App'
 
 export default class HomeDropScreen extends Component {
   constructor(props) {
@@ -88,26 +91,33 @@ export default class HomeDropScreen extends Component {
 
   render() {
     let { SlideInLeft } = this.state;
-    return (
-      <View style={styles.container}>
+    return (<ThemeContext.Consumer>
+          {({ theme }) => (
+      <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
         <ScrollView style={{ flex: 1, width: '100%' }}>
           <View style={{ width: '100%', height: 350, alignItems: 'center' }}>
             <View style={styles.header}>
               <View style={styles.BackBtn}>
-                <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+              {theme === 'light'
+               ? <Image source={require('../../Assets/Images/iconBlack.png')} resizeMode='stretch' style={styles.HeaderImage} />
+              :  <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
+              }
               </View>
               <TouchableOpacity style={styles.dropDown} onPress={() => this.AnimationsEnd()}>
-                <Text style={styles.headerTxt}>CATEGORIES</Text>
+                <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>CATEGORIES</Text>
                 <Image source={require('../../Assets/Images/upImage.png')} resizeMode='stretch' style={styles.UnderIcon} />
               </TouchableOpacity>
               <TouchableOpacity style={styles.AlarmkBtn} onPress={() => this.AnimationsEnd()}>
-                <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.notiImage} />
+              {theme === 'light' 
+              ? <Image source={require('../../Assets/Images/CloseImageBlack.png')} resizeMode='stretch' style={styles.notiImage} />
+              :  <Image source={require('../../Assets/Images/closeImage.png')} resizeMode='stretch' style={styles.notiImage} />
+              }
               </TouchableOpacity>
             </View>
             <View style={styles.mainContainer}>
-              <Text style={styles.TileTxt}>YOUR</Text>
-              <Text style={styles.TileTxt}>FITNESS</Text>
-              <Text style={styles.TileTxt}>GOAL.</Text>
+              <Text style={{...styles.TileTxt,color: ThemeConstants[theme].textColorTitle}}>YOUR</Text>
+              <Text style={{...styles.TileTxt,color: ThemeConstants[theme].textColorTitle}}>FITNESS</Text>
+              <Text style={{...styles.TileTxt,color: ThemeConstants[theme].textColorTitle}}>GOAL.</Text>
             </View>
           </View>
           <View style={styles.mainContent}>
@@ -143,8 +153,8 @@ export default class HomeDropScreen extends Component {
           <HomeScreen AnimationsStart={this.AnimationsStart} CreateScreen={this.CreateScreen} gotoProgramDetail={this.gotoProgramDetail} gotoExcercise={this.gotoExcercise} gotoReadyScreen ={this.gotoReadyScreen} goToNotification={this.goToNotification}
           gotoDetailScreen ={this.gotoDetailScreen}/>
         </Animated.View>
-      </View>
-    );
+      </View>)}
+ </ThemeContext.Consumer>);
   }
 }
 

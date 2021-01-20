@@ -44,7 +44,8 @@ class AccountScreen extends Component {
         {
           imageUrl: require('../../Assets/Images/plusImage.png'),
         }
-        ]
+        ],
+        workoutList: []
     };
 
     this.getName()
@@ -57,6 +58,8 @@ class AccountScreen extends Component {
 
   componentDidMount() {
     const { navigation } = this.props;
+    let workouts = global.mongo.get('workout')
+    this.setState({workoutList: workouts.all})
     this.focusListener = navigation.addListener("didFocus", () => {
       // The screen is focused      
       // Call any action      
@@ -119,7 +122,7 @@ class AccountScreen extends Component {
   // }
 
   render() {
-    let imageSwitch = <Image source={require('../../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.RightIcon} />
+    let imageSwitch = <Image source={require('../../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.RightIcon}/>
     return ( <ThemeContext.Consumer>
           {({ theme }) => (
       <View style={{...styles.container1, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
@@ -154,11 +157,11 @@ class AccountScreen extends Component {
                   <Text style={styles.itemTxt}>Following</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ContentList6} onPress={() => this.props.navigation.navigate("AccountFollowingScreen", { ddd: false, theme: theme })}>
-                  <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>{window.core.each(window.us.followers).length}</Text>
+                  <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>{window.us.users.filter(window.us.followers).length}</Text>
                   <Text style={styles.itemTxt}>Followers</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ ...styles.ContentList2,  borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen", {theme: theme})}>
-                  <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>48</Text>
+                <TouchableOpacity style={{ ...styles.ContentList2,  borderRightWidth: 0 }} onPress={() => this.props.navigation.navigate("AccountTraingenScreen", {theme: theme, workoutList: this.state.workoutList})}>
+                  <Text style={{...styles.numTxt, color: ThemeConstants[theme].textColorDescription}}>{this.state.workoutList.length}</Text>
                   <Text style={styles.itemTxt}>Workouts</Text>
                 </TouchableOpacity>
               </View>
@@ -224,12 +227,18 @@ class AccountScreen extends Component {
                 </View>
               <View style={styles.ContentList3}>
                   <View style={styles.ImageArea1}>
-                    <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                    {theme === 'light' 
+                  ? <Image source={require('../../Assets/Images/plusImageWhite.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  : <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                }
                   </View>
                 </View>
                 <View style={styles.ContentList3}>
                   <View style={styles.ImageArea1}>
-                    <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  {theme === 'light' 
+                  ? <Image source={require('../../Assets/Images/plusImageWhite.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  : <Image source={require('../../Assets/Images/plusImage.png')} resizeMode='stretch' style={styles.ArchieveImage1} />
+                  }
                   </View>
                 </View>
               </View>

@@ -81,7 +81,7 @@ export default class HomeScreen extends Component {
         <TouchableOpacity  style={styles.AlarmkBtn} onPress = {()=>{this.props.goToNotification()}}>
         <Image source={require('../../Assets/Images/noti.png')} resizeMode='stretch' style={styles.notiImage} />
         <View style={styles.notiNumArea}>
-        <Text style={styles.notiNum}>3</Text>
+        <Text style={styles.notiNum}>{window.us.users.filter(window.us.new_followers).length}</Text>
         </View>
         </TouchableOpacity>
       <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center',  marginTop: 30}}>

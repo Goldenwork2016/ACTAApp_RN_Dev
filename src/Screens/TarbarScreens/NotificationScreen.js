@@ -50,16 +50,10 @@ export default class ActivityScreen extends Component {
                     </View>
                     <View style={styles.pendingArea}>
                         <Text style={styles.timeTxt}>Pending following requests</Text>
-                        <Text style={styles.timeTxt}>3</Text>
+                        <Text style={styles.timeTxt}>{window.us.users.filter(window.us.new_followers).length}</Text>
                     </View>
                     <View style={styles.mainContent}>
-                        {users.filter((user)=>{
-                            if(window.us._id == user._id) return false;
-                            if(!user.data.follow[window.us._id]) return false;
-                            if(window.us.data.follow[user._id]) return false;
-                            if(window.us.data.ignore[user._id]) return false;
-                            return true;
-                        }).map(user=>{
+                        {window.us.users.filter(window.us.new_followers).map(user=>{
                             return (
                                 <View style={styles.ListArea}>
                                     <View style={{...styles.listHeader, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>

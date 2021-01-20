@@ -78,13 +78,11 @@ export default class ActivityFollowingScreen extends Component {
 								}
                             </View> :
                             <View style={styles.mainContent}>
-                                <Text style={{...styles.numberTxt,color: ThemeConstants[theme].textColorTitle}}>{window.core.each(window.us.followers).length}</Text>
-                                {
-                                    window.core.each(window.us.follow).map(userId=>{
-                                    let user = window.us._users[userId]||{data:{}};
-                                    if(!user._id) return;
+                                <Text style={{...styles.numberTxt,color: ThemeConstants[theme].textColorTitle}}>{window.us.users.filter(window.us.followers).length}</Text>
+                                { window.us.users.filter(window.us.followers).map(user=>{
                                         return (
                                              <View style={styles.ListContent2}>
+                                              
                                                 <Image source={{
                                                     uri: 'https://acta.webart.work'+user.avatarUrl
                                                     }} resizeMode='stretch' style={styles.activityImage} 

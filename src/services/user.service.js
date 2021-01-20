@@ -6,6 +6,7 @@ export default function user(){
 		users: [],
 		followers: {},
 		form: {},
+
 		update: (cb=(resp)=>{})=>{
 			window.http.post('/api/user/update', {
 				name: us.name,
@@ -35,18 +36,31 @@ export default function user(){
 			if(!us.data.ignore) us.data.ignore={};
 			followers();
 		},
+		new_followers: (user)=>{
+            if(window.us._id == user._id) return false;
+            if(!user.data.follow[window.us._id]) return false;
+            if(window.us.data.follow[user._id]) return false;
+            if(window.us.data.ignore[user._id]) return false;
+         
+            return true;
+        },
+        followers: (user)=>{
+            if(window.us._id == user._id) return false;
+            if(!user.data.follow[window.us._id]) return false;
+            return true;
+        },
 	};
-	const followers = ()=>{
-		if(!us.users.length || us._id) return;
-		//us.followers = {};
-		for (var i = users.length - 1; i >= 0; i--) {
-			if(users[i]._id === us._id) continue;
-			if(!users[i].data.follow) continue;
-			if(users[i].data.follow[us._id]){
-				us.followers[users[i]._id] = true;
-			}
-		}
-	};
+	// const new_followers = ()=>{
+	// 	if(!us.users.length || us._id) return;
+	// 	//us.followers = {};
+	// 	for (var i = users.length - 1; i >= 0; i--) {
+	// 		if(users[i]._id == us._id) continue;
+	// 		if(!users[i].data.follow) continue;
+	// 		if(users[i].data.follow[us._id]){
+	// 			us.followers[users[i]._id] = true;
+	// 		}
+	// 	}
+	// };
 	window.us = us;
 	//if(AsyncStorage.getItem("acta_user")){
 		//us.set(JSON.parse(AsyncStorage.getItem("acta_user")));
