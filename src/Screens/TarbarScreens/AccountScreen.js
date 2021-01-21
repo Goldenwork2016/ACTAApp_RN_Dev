@@ -54,7 +54,7 @@ class AccountScreen extends Component {
   componentWillUnmount() {
     // AppState.removeEventListener('change', this._handleAppStateChange);
     this.focusListener.remove();
-    this.setState({workoutList: null})
+    //this.setState({workoutList: null})
   }
 
   componentDidMount() {
@@ -123,7 +123,7 @@ class AccountScreen extends Component {
   // }
 
   render() {
-      console.log(this.state.workoutList)
+      //console.log(this.state.workoutList)
     let imageSwitch = <Image source={require('../../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.RightIcon}/>
     return ( <ThemeContext.Consumer>
           {({ theme }) => (
@@ -272,8 +272,7 @@ class AccountScreen extends Component {
               </View>   
           </View>
         </ScrollView>
-      </View>
-   )}
+      </View> )}
  </ThemeContext.Consumer>);
   }
 }

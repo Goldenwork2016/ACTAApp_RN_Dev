@@ -5,6 +5,9 @@ import { Switch } from 'react-native-switch';
 import AsyncStorage from '@react-native-community/async-storage';
 import Modal from 'react-native-modal';
 
+import {ThemeConstants} from '../theme/themeConstants';
+import {ThemeContext} from '../App';
+
 import config from "../Api/config"
 
 export default class CreateFristnameScreen extends Component {
@@ -16,6 +19,8 @@ export default class CreateFristnameScreen extends Component {
             radioStatus2: 1,
             radioUncheckImage: require('../Assets/Images/radioUncheckImage.png'),
             radioCheckImage: require('../Assets/Images/radioCheckImage.png'),
+            radioUncheckImageBlack: require('../Assets/Images/radioUncheckImageBlack.png'),
+            radioCheckImageBlack: require('../Assets/Images/radioCheckImageBlack.png'),
             email: '',
             password: '',
             name: '',
@@ -149,8 +154,9 @@ export default class CreateFristnameScreen extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
+        return (<ThemeContext.Consumer>
+          {({ theme }) => (
+            <View style={{...styles.container,  backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <Spinner
                     visible={this.state.isLoading}
                     textContent={'Creating your account...'}
@@ -160,58 +166,79 @@ export default class CreateFristnameScreen extends Component {
                     <View style={{ alignItems: "center" }}>
                         <View style={styles.header}>
                             <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                                <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                                {theme === 'light'
+                    ? <Image source={require('../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                    : <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                    }
                             </TouchableOpacity>
-                            <Text style={styles.headerTxt}>CREATE</Text>
+                            <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>CREATE</Text>
                         </View>
                         <View style={styles.headerArea}>
-                            <Text style={styles.TitleTxt}>CREATE.</Text>
+                            <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>CREATE.</Text>
                             <Text style={styles.desTxt}>Tell us your preferences</Text>
                         </View>
                         <View style={styles.radioArea}>
-                            <Text style={styles.desTxt1}>What's your fitness goal?</Text>
+                            <Text style={{...styles.desTxt1, color: ThemeConstants[theme].textColorTitle}}>What's your fitness goal?</Text>
                             <View style={styles.radioItem}>
                                 <TouchableOpacity onPress={() => { this.setState({ radioStatus1: 1 }) }}>
-                                    <Image source={this.state.radioStatus1 == 1 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                {theme === 'light'
+                                ? <Image source={this.state.radioStatus1 == 1 ? this.state.radioCheckImageBlack : this.state.radioUncheckImageBlack} resizeMode='stretch' style={styles.radioImage} />
+                                : <Image source={this.state.radioStatus1 == 1 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                }
                                 </TouchableOpacity>
                                 <Text style={styles.desTxt}>Loose Weight</Text>
                             </View>
                             <View style={styles.radioItem}>
                                 <TouchableOpacity onPress={() => { this.setState({ radioStatus1: 2 }) }}>
-                                    <Image source={this.state.radioStatus1 == 2 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                    {theme === 'light'
+                                ? <Image source={this.state.radioStatus1 == 2 ? this.state.radioCheckImageBlack : this.state.radioUncheckImageBlack} resizeMode='stretch' style={styles.radioImage} />
+                                : <Image source={this.state.radioStatus1 == 2 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                }
                                 </TouchableOpacity>
                                 <Text style={styles.desTxt}>Gain Muscle</Text>
                             </View>
                             <View style={styles.radioItem}>
                                 <TouchableOpacity onPress={() => { this.setState({ radioStatus1: 3 }) }}>
-                                    <Image source={this.state.radioStatus1 == 3 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                    {theme === 'light'
+                                ? <Image source={this.state.radioStatus1 == 3 ? this.state.radioCheckImageBlack : this.state.radioUncheckImageBlack} resizeMode='stretch' style={styles.radioImage} />
+                                : <Image source={this.state.radioStatus1 == 3 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                }
                                 </TouchableOpacity>
                                 <Text style={styles.desTxt}>Both</Text>
                             </View>
                         </View>
                         <View style={styles.radioArea}>
-                            <Text style={styles.desTxt1}>Where do you prefer to workout?</Text>
+                            <Text style={{...styles.desTxt1, color: ThemeConstants[theme].textColorTitle}}>Where do you prefer to workout?</Text>
                             <View style={styles.radioItem}>
                                 <TouchableOpacity onPress={() => { this.setState({ radioStatus2: 1 }) }}>
-                                    <Image source={this.state.radioStatus2 == 1 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                 {theme === 'light'
+                                ? <Image source={this.state.radioStatus2 == 1 ? this.state.radioCheckImageBlack : this.state.radioUncheckImageBlack} resizeMode='stretch' style={styles.radioImage} />
+                                : <Image source={this.state.radioStatus2 == 1 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                }
                                 </TouchableOpacity>
                                 <Text style={styles.desTxt}>Home</Text>
                             </View>
                             <View style={styles.radioItem}>
                                 <TouchableOpacity onPress={() => { this.setState({ radioStatus2: 2 }) }}>
-                                    <Image source={this.state.radioStatus2 == 2 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                     {theme === 'light'
+                                ? <Image source={this.state.radioStatus2 == 2 ? this.state.radioCheckImageBlack : this.state.radioUncheckImageBlack} resizeMode='stretch' style={styles.radioImage} />
+                                : <Image source={this.state.radioStatus2 == 2 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                }
                                 </TouchableOpacity>
                                 <Text style={styles.desTxt}>Gym</Text>
                             </View>
                             <View style={styles.radioItem}>
                                 <TouchableOpacity onPress={() => { this.setState({ radioStatus2: 3 }) }}>
-                                    <Image source={this.state.radioStatus2 == 3 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                {theme === 'light'
+                                ? <Image source={this.state.radioStatus2 == 3 ? this.state.radioCheckImageBlack : this.state.radioUncheckImageBlack} resizeMode='stretch' style={styles.radioImage} />
+                                : <Image source={this.state.radioStatus2 == 3 ? this.state.radioCheckImage : this.state.radioUncheckImage} resizeMode='stretch' style={styles.radioImage} />
+                                }
                                 </TouchableOpacity>
                                 <Text style={styles.desTxt}>Outside</Text>
                             </View>
                         </View>
                         <View style={styles.switchArea}>
-                            <Text style={styles.desTxt1}>Enable notifications?</Text>
+                            <Text style={{...styles.desTxt1, color: ThemeConstants[theme].textColorTitle}}>Enable notifications?</Text>
                             <Switch
                                 value={this.state.Checked}
                                 onValueChange={() => this._onChangeSwitch()}
@@ -228,13 +255,15 @@ export default class CreateFristnameScreen extends Component {
                                 backgroundActive={'#575763'}
                                 backgroundInactive={'#575763'}
                                 changeValueImmediately={false}
-                                renderInsideCircle={() => <Image source={require('../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.checkImage} />}
-                                circleActiveColor={'#FFF'}
+                                renderInsideCircle={() => theme === 'light'
+                                ?<Image source={require('../Assets/Images/checkImageBlack.png')} resizeMode='stretch' style={styles.checkImage} />
+                                :<Image source={require('../Assets/Images/checkImage.png')} resizeMode='stretch' style={styles.checkImage} />}
+                                circleActiveColor={'#000'}
                                 circleInActiveColor={'#FFF'} />
                         </View>
                         {/* <TouchableOpacity style={styles.emailBtn} onPress={() => this.props.navigation.navigate("App")}> */}
-                        <TouchableOpacity style={styles.emailBtn} onPress={() => { this.registerHandle() }}>
-                            <Text style={styles.EmailTxt}>Create my account</Text>
+                        <TouchableOpacity style={{...styles.emailBtn,  backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.registerHandle() }}>
+                            <Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Create my account</Text>
                         </TouchableOpacity>
                     </View>
                     <Modal isVisible={this.state.isModalVisible1}>
@@ -253,8 +282,8 @@ export default class CreateFristnameScreen extends Component {
                         </View>
                     </Modal>
                 </ScrollView>
-            </View>
-        );
+            </View>)}
+ </ThemeContext.Consumer>);
     }
 }
 

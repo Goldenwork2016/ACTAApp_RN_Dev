@@ -50,6 +50,7 @@ export default class HomeScreen extends Component {
       )
     }
     render() {
+     //console.log(window.achievement.data)
       return ( <ThemeContext.Consumer>
           {({ theme }) => (
         <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
@@ -63,8 +64,6 @@ export default class HomeScreen extends Component {
             <View style={styles.BackBtn}>
               <Image source={require('../../Assets/Images/HeaderImage.png')} resizeMode='stretch' style={styles.HeaderImage} />
             </View>
-
-
           {/*<TouchableOpacity style={styles.dropDown} onPress={() => this.props.AnimationsStart()}>
           <Text style={styles.headerTxt}>BUILS MUSCLE</Text>
           <Image source={require('../../Assets/Images/UnderIcon.png')} resizeMode='stretch' style={styles.UnderIcon} />

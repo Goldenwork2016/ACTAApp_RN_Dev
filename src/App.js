@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import http from './services/http.service';
 import user from './services/user.service';
+import achievements from './services/achievements.service'
 import render from './services/render.service';
 import programs from './services/program.service';
 import exercise from './services/exercise.service';
@@ -85,6 +86,7 @@ export default class App extends Component {
 		render();
 		http();
 		user();
+        achievements();
         programs();
         exercise();
         workout();
@@ -99,9 +101,9 @@ export default class App extends Component {
     toggleTheme = () => {
             this.setState(({ theme }) => ({
             theme: theme === 'light' ? 'dark' : 'light',
-         })
-        // AsyncStorage.setItem('@storage_theme', JSON.stringify(theme))     
+                })
             );
+             //AsyncStorage.setItem('storage_theme', theme)    
              this.setState(({ isOn }) => ({
             isOn: isOn === false ? true : false,
          }));     
@@ -110,11 +112,11 @@ export default class App extends Component {
     //      AsyncStorage.getItem('@storage_theme').then((theme) =>{
     //     if(theme){
     //         this.setState({theme: theme})
-    //         console.log(theme);
     //     }
     //    });
     // }
     render() { 
+
         return (
             <>
                 {/* <StatusBar hidden={true} /> */}

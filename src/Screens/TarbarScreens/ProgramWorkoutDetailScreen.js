@@ -3,12 +3,15 @@ import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageB
 
 
 import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App'
 
 
 export default class ProgramDetailStartScreen extends Component {
     render() {
         let theme = this.props.navigation.getParam('theme')
         return (
+            <ThemeContext.Consumer>
+          {({ theme }) => (
             <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <ScrollView style={{ width: '100%' }}>
                     <View style={{ width: '100%' }}>
@@ -65,7 +68,7 @@ export default class ProgramDetailStartScreen extends Component {
                             </View>
                             <View style={{width:"90%", alignSelf:'center'}}>
                                 <View style={styles.ItemArea1}>
-                                    <Text style={styles.FastTxt1}>Rest</Text>
+                                    <Text style={{...styles.FastTxt1, color: ThemeConstants[theme].textColorTitle}}>Rest</Text>
                                     <View style={{borderColor:'#18171A', borderBottomWidth:2, width:"50%"}}>
                                     </View>
                                     <View style={styles.leftMin1}>
@@ -75,56 +78,56 @@ export default class ProgramDetailStartScreen extends Component {
                                 </View>
                             </View>
                             <View style={{width:"90%", alignSelf:'center', marginTop:-20}}>
-                                <View style={styles.NextArea}>
+                                <View style={{...styles.NextArea, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
                                     <Text style={styles.NextTxt}>Glute Activation</Text>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Left Banded Glude</Text>
-                                        <Text style={styles.FastTxt}>KickBack</Text>
+                                        <Text style={{...styles.FastTxt,  color: ThemeConstants[theme].textColorTitle}}>Left Banded Glude</Text>
+                                        <Text style={{...styles.FastTxt,  color: ThemeConstants[theme].textColorTitle}}>KickBack</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25}}>12</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25,  color: ThemeConstants[theme].textColorTitle}}>12</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Banded Glude</Text>
-                                        <Text style={styles.FastTxt}>Bridge</Text>
+                                        <Text style={{...styles.FastTxt,  color: ThemeConstants[theme].textColorTitle}}>Banded Glude</Text>
+                                        <Text style={{...styles.FastTxt,  color: ThemeConstants[theme].textColorTitle}}>Bridge</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{...styles.numTxt, fontSize: 25 }}>12</Text>
+                                        <Text style={{...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle }}>12</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Left Banded Glude</Text>
-                                        <Text style={styles.FastTxt}>Kickback</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Left Banded Glude</Text>
+                                        <Text style={{...styles.FastTxt,  color: ThemeConstants[theme].textColorTitle}}>Kickback</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>20</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle}}>20</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Rnussaion</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Rnussaion</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>5</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle}}>5</Text>
                                         <Text style={styles.minTxt}>min.</Text>
                                     </View>
                                 </View>
                             </View>
                             <View style={{width:"90%", alignSelf:'center'}}>
                                 <View style={styles.ItemArea1}>
-                                    <Text style={styles.FastTxt1}>Rest</Text>
+                                    <Text style={{...styles.FastTxt1,  color: ThemeConstants[theme].textColorTitle}}>Rest</Text>
                                     <View style={{borderColor:'#18171A', borderBottomWidth:2, width:"50%"}}>
                                     </View>
                                     <View style={styles.leftMin1}>
@@ -134,49 +137,49 @@ export default class ProgramDetailStartScreen extends Component {
                                 </View>
                             </View>
                             <View style={{width:"90%", alignSelf:'center', marginTop:-20}}>
-                                <View style={styles.NextArea}>
+                                <View style={{...styles.NextArea, backgroundColor: ThemeConstants[theme].backgroundColorActivity}}>
                                     <Text style={styles.NextTxt}>Glute Activation</Text>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Left Banded Glude</Text>
-                                        <Text style={styles.FastTxt}>KickBack</Text>
+                                        <Text style={{...styles.FastTxt,  color: ThemeConstants[theme].textColorTitle}}>Left Banded Glude</Text>
+                                        <Text style={{...styles.FastTxt,  color: ThemeConstants[theme].textColorTitle}}>KickBack</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle }}>12</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Banded Glude</Text>
-                                        <Text style={styles.FastTxt}>Bridge</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Banded Glude</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Bridge</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>12</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle }}>12</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Left Banded Glude</Text>
-                                        <Text style={styles.FastTxt}>Kickback</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Left Banded Glude</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Kickback</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>20</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25, color: ThemeConstants[theme].textColorTitle }}>20</Text>
                                         <Text style={styles.minTxt}>reps</Text>
                                     </View>
                                 </View>
-                                <View style={styles.ItemArea}>
+                                <View style={{...styles.ItemArea,  backgroundColor: ThemeConstants[theme].backgroundExerciseColor}}>
                                     <Image source={require('../../Assets/Images/inclineWork.png')} resizeMode='stretch' style={styles.fastImage} />
                                     <View >
-                                        <Text style={styles.FastTxt}>Rnussaion</Text>
+                                        <Text style={{...styles.FastTxt, color: ThemeConstants[theme].textColorTitle}}>Rnussaion</Text>
                                     </View>
                                     <View style={styles.leftMin}>
-                                        <Text style={{ ...styles.numTxt, fontSize: 25 }}>5</Text>
+                                        <Text style={{ ...styles.numTxt, fontSize: 25,color: ThemeConstants[theme].textColorTitle }}>5</Text>
                                         <Text style={styles.minTxt}>min.</Text>
                                     </View>
                                 </View>
@@ -184,8 +187,8 @@ export default class ProgramDetailStartScreen extends Component {
                         </View>
                     </View>
                 </ScrollView>
-            </View >
-        );
+            </View>)}
+ </ThemeContext.Consumer>);
     }
 }
 
@@ -280,7 +283,8 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         alignSelf: 'center',
-        width: '100%'
+        width: '100%',
+        marginBottom: 50
     },
     CreateTxt: {
         fontFamily: 'FuturaPT-Medium',

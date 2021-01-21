@@ -7,7 +7,7 @@ export const ThemeConstants = {
     borderColor: '#efefef',
     textColorTitle: '#000',
     bottomBorderColor: '#e7e7e7',
-    borderBottomWorkouts: '#E0E0E0',
+    borderBottomWorkouts: '#e0e0e0',
     inputColor: '#f1f1f1',
     backgroundExerciseColor: '#fff',
     borderLeftColor: '#e0e0e0'

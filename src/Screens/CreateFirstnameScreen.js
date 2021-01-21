@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, SafeAreaView, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 
+import {ThemeConstants} from '../theme/themeConstants';
+import {ThemeContext} from '../App';
+
 export default class CreateFristnameScreen extends Component {
     constructor(props) {
         super(props);
@@ -40,18 +43,23 @@ export default class CreateFristnameScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+             <ThemeContext.Consumer>
+          {({ theme }) => (
+            <View style={{...styles.container,  backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                        {theme === 'light'
+                    ? <Image source={require('../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                    : <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                    }
                     </TouchableOpacity>
-                    <Text style={styles.headerTxt}>CREATE</Text>
+                    <Text style={{...styles.headerTxt, color: ThemeConstants[theme].textColorTitle}}>CREATE</Text>
                 </View>
-                <Text style={styles.TitleTxt}>CREATE.</Text>
+                <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>CREATE.</Text>
                 <Text style={styles.desTxt}>Tell us your name please</Text>
-                <TextInput placeholder="Your name" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ name: e })} />
-                <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
-                    <Text style={styles.EmailTxt}>Next</Text>
+                <TextInput placeholder="Your name" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt, color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ name: e })} />
+                <TouchableOpacity style={{...styles.emailBtn, backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.handler() }}>
+                    <Text style={{...styles.EmailTxt, color: ThemeConstants[theme].backgroundColor}}>Next</Text>
                 </TouchableOpacity>
                 <Modal isVisible={this.state.isModalVisible1}>
                     <View style={styles.modalView}>
@@ -62,8 +70,8 @@ export default class CreateFristnameScreen extends Component {
                         </TouchableOpacity>
                     </View>
                 </Modal>
-            </View>
-        );
+            </View>)}
+ </ThemeContext.Consumer>);
     }
 }
 

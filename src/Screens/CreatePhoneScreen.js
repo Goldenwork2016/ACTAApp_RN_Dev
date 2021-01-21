@@ -103,7 +103,7 @@ export default class CreateEmailScreen extends Component {
                 <Text style={styles.desTxt}>What is your phone number</Text>
                 <View style={{ flexDirection: 'row', width: 330 }}>
                     <Text style={{...styles.countryNumber, backgroundColor: ThemeConstants[theme].inputColor}}>+1</Text>
-                    <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ phone: e })} />
+                    <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt, color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ phone: e })} />
                 </View>
                 {/* <TextInput placeholder="Password" placeholderTextColor="#53535f" style={styles.PasswordInputTxt} /> */}
                 <View style={{ width: 330 }}>

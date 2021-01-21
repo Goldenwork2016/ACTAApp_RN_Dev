@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, Platform, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import WorkoutsScreen from './workoutsScreen';
 import {ThemeConstants} from '../../theme/themeConstants';
+import Video from 'react-native-video';
 //import {ThemeContext} from '../../App';
 
 
@@ -85,6 +86,9 @@ export default class ABSScreen extends Component {
                   </View>
               </View>
               <View style={styles.mainContent}>
+              <Video source = {{uri: "https://youtu.be/UBMk30rjy0o"}}  ref={(ref) => {
+         this.player = ref
+       }}   resizeMode = 'cover' style={styles.ListContent1}/>
                 <FlatList
                   vertical
                   showsVerticalScrollIndicator={true}

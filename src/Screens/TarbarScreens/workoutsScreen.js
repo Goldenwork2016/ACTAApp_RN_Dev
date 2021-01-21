@@ -8,6 +8,7 @@ export default class ExercicesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      workoutList: null,
       contentList1: [
         {
           Title: 'Fast & Furious',
@@ -43,8 +44,10 @@ export default class ExercicesScreen extends Component {
 
     };
   }
-
-
+  componentDidMount (){
+    let workouts = global.mongo.get('workout')
+    this.setState({workoutList: workouts.all})
+  }
   _rendermakelist1({ item }) {
     return (
       <TouchableOpacity style={styles.ListContent1} onPress={()=>this.props.toggle()}>
@@ -113,13 +116,13 @@ export default class ExercicesScreen extends Component {
               vertical
               showsVerticalScrollIndicator={true}
               numColumns={1}
-              data={this.state.contentList1}
+              data={this.state.workoutList}
               renderItem={({item}) => (
                 
                   <TouchableOpacity style={styles.ListContent1} onPress={()=>this.props.gotoDetailScreen()}>
-                    <Image source={item.ImageUrl} resizeMode="stretch" style={styles.ContentImage1} />
-                    <Text style={styles.ListTitle}>{item.Title}</Text>
-                    <Text style={styles.Description}>{item.Description}</Text>
+                    <Image source={{uri: 'https://acta.webart.work'+item.thumb}} resizeMode="stretch" style={styles.ContentImage1} />
+                    <Text style={styles.ListTitle}>{item.name}</Text>
+                    <Text style={styles.Description}>{item.details} {item.duration} min.</Text>
                   </TouchableOpacity>
                 
               )}

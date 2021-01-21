@@ -4,6 +4,7 @@ import ProgressCircle from 'react-native-progress-circle';
 import ActiveExersiceScreen from './ActiveExersiceScreen';
 
 import {ThemeConstants} from '../../theme/themeConstants';
+import {ThemeContext} from '../../App';
 
 export default class ReadyScreen extends Component {
     constructor(props) {
@@ -37,8 +38,8 @@ export default class ReadyScreen extends Component {
     }
 
     render() {
-        let theme = this.props.navigation.getParam('theme')
-        return (
+        return (<ThemeContext.Consumer>
+          {({ theme }) => (
             <View style={{...styles.container, backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 {
                     this.state.flag == true ?
@@ -60,8 +61,8 @@ export default class ReadyScreen extends Component {
                             <Text style={styles.GetTxt}>Get redy in ...</Text>
                         </View>
                 }
-            </View>
-        );
+            </View>)}
+ </ThemeContext.Consumer>);
     }
 }
 

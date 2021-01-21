@@ -5,6 +5,10 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import config from "../Api/config"
 
+import {ThemeConstants} from '../theme/themeConstants';
+import {ThemeContext} from '../App';
+
+
 export default class ForgotPasswordScreen extends Component {
     constructor(props) {
         super(props);
@@ -141,8 +145,9 @@ export default class ForgotPasswordScreen extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
+        return ( <ThemeContext.Consumer>
+          {({ theme }) => (
+            <View style={{...styles.container,backgroundColor: ThemeConstants[theme].backgroundColor}}>
                 <Spinner
                     visible={this.state.isLoading}
                     textContent={'Sending pin code...'}
@@ -150,11 +155,14 @@ export default class ForgotPasswordScreen extends Component {
                 />
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.BackBtn} onPress={() => this.props.navigation.goBack()}>
-                        <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                        {theme === 'light'
+                    ? <Image source={require('../Assets/Images/BackBtnBlack.png')} resizeMode='stretch' />
+                    : <Image source={require('../Assets/Images/BackBtn.png')} resizeMode='stretch' />
+                    }
                     </TouchableOpacity>
                     {/* <Text style={styles.headerTxt}>CREATE</Text> */}
                 </View>
-                <Text style={styles.TitleTxt}>Forgot password</Text>
+                <Text style={{...styles.TitleTxt, color: ThemeConstants[theme].textColorTitle}}>Forgot password</Text>
                 {
                     this.state.isEmail ?
                         <Text style={styles.desTxt}>
@@ -165,14 +173,14 @@ export default class ForgotPasswordScreen extends Component {
                         </Text>
                 }
                 {this.state.isEmail ?
-                    <TextInput placeholder="Email" placeholderTextColor="#53535f" style={styles.EmailInputTxt} onChangeText={(e) => this.setState({ email: e })} /> :
+                    <TextInput placeholder="Email" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt,  color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ email: e })} /> :
                     <View style={{ flexDirection: 'row', width: 330 }}>
                         <Text style={styles.countryNumber}>+1</Text>
-                        <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={styles.EmailInputTxt1} onChangeText={(e) => this.setState({ phone: e })} />
+                        <TextInput keyboardType="numeric" placeholder="Phone Number" placeholderTextColor="#53535f" style={{...styles.EmailInputTxt1, color: ThemeConstants[theme].textColorTitle, backgroundColor: ThemeConstants[theme].inputColor}} onChangeText={(e) => this.setState({ phone: e })} />
                     </View>
                 }
-                <TouchableOpacity style={styles.emailBtn} onPress={() => { this.handler() }}>
-                    <Text style={styles.EmailTxt}>SEND</Text>
+                <TouchableOpacity style={{...styles.emailBtn,  backgroundColor: ThemeConstants[theme].textColorTitle}} onPress={() => { this.handler() }}>
+                    <Text style={{...styles.EmailTxt,color: ThemeConstants[theme].backgroundColor }}>SEND</Text>
                 </TouchableOpacity>
                 <Modal isVisible={this.state.isModalVisible1}>
                     <View style={styles.modalView}>
@@ -207,8 +215,8 @@ export default class ForgotPasswordScreen extends Component {
                         </TouchableOpacity>
                     </View>
                 </Modal>
-            </View>
-        );
+            </View>)}
+ </ThemeContext.Consumer>);
     }
 }
 
